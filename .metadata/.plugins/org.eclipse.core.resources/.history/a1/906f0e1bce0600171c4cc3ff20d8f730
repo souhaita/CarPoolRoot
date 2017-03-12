@@ -1,0 +1,10 @@
+package shashi.uomtrust.ac.mu.service;
+
+import shashi.uomtrust.ac.mu.entity.Account;
+
+public interface AccountService {
+
+	public Account findById(Long id);
+	public Account findByEmail(String email);
+	public Account saveAccount(Account a);
+}

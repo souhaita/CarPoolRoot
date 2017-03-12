@@ -1,0 +1,18 @@
+var app = angular.module("ngApp", []);
+app.controller("ngCtrl", function($scope) {
+    $scope.submit = function () {
+        console.log("You clicked submit!");
+        
+        $http.post(urlValidateProvider, {"providerId" : providerId, "status" : status}).success(function (response) {
+			if (response != "") {
+				if(response.status=="OK" && type == "form"){
+					$(location).attr('href',"bo_liste_prestataire_1.html");
+	 			}else{
+	 				location.reload(true);
+	 			}
+	 		}
+		});
+        
+        
+    }
+});

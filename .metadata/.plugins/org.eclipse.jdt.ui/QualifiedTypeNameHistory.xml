@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="shashi.uomtrust.ac.mu.enums.Gender"/>
+<fullyQualifiedTypeName name="com.fasterxml.jackson.annotation.JsonProperty"/>
+<fullyQualifiedTypeName name="org.springframework.scheduling.annotation.EnableAsync"/>
+<fullyQualifiedTypeName name="ch.qos.logback.core.net.server.Client"/>
+<fullyQualifiedTypeName name="org.springframework.data.jpa.repository.JpaRepository"/>
+<fullyQualifiedTypeName name="shashi.uomtrust.ac.mu.dao.AccountDAO"/>
+<fullyQualifiedTypeName name="org.springframework.http.client.ClientHttpResponse"/>
+<fullyQualifiedTypeName name="javax.persistence.Temporal"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="shashi.uomtrust.ac.mu.repository.ClientRepository"/>
+<fullyQualifiedTypeName name="shashi.uomtrust.ac.mu.enums.UserRole"/>
+<fullyQualifiedTypeName name="shashi.uomtrust.ac.mu.backoffice.PocketGuideBackOfficeApplication"/>
+<fullyQualifiedTypeName name="shashi.uomtrust.ac.mu.entity.Client"/>
+<fullyQualifiedTypeName name="shashi.uomtrust.ac.mu.entity.Result"/>
+<fullyQualifiedTypeName name="shashi.uomtrust.ac.mu.repository.AccountRepository"/>
+<fullyQualifiedTypeName name="shashi.uomtrust.ac.mu.backoffice.BackOfficeUser"/>
+<fullyQualifiedTypeName name="org.springframework.boot.autoconfigure.EnableAutoConfiguration"/>
+<fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
+<fullyQualifiedTypeName name="org.springframework.security.crypto.password.PasswordEncoder"/>
+<fullyQualifiedTypeName name="shashi.uomtrust.ac.mu.entity.Account"/>
+<fullyQualifiedTypeName name="shashi.uomtrust.ac.mu.service.AccountService"/>
+<fullyQualifiedTypeName name="org.springframework.stereotype.Service"/>
+<fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestBody"/>
+<fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestMethod"/>
+</qualifiedTypeNameHistroy>
