@@ -37,5 +37,15 @@ public class AccountController {
 		}
 		return null;
 	}
+	
+	
+	@CrossOrigin(origins = "http://localhost:8081")
+	@RequestMapping(value = "/checkAccountViaEmail", method = RequestMethod.POST)
+	public Account checkAccountViaEmail(@RequestBody Account account) {
+		if(account != null && account.getEmail() !=null ){
+			return accountService.findByEmail(account.getEmail());
+		}
+		return null;
+	}
 
 }

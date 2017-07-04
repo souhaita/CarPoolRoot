@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">Rod1Lift</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="activity_login_copyright">\u00A9 Gobin Vijesh (Ashwin) </string>
+    <string name="activity_login_select_user_type"> Please select a type of user </string>
+    <string name="activity_login_select_user_type_error"> Please select a type of user </string>
+
+    <string name="activity_complete_registration_make">Make:</string>
+    <string name="activity_complete_registration_plate_num">Plate Num:</string>
+    <string name="activity_complete_registration_comment">Comment:</string>
+    <string name="activity_complete_registration_year">Year:</string>
+    <string name="activity_complete_registration_number_of_passenger">Passengers:</string>
+    <string name="activity_complete_registration_address">Address:</string>
+    <string name="activity_complete_registration_take_picture">Add Image</string>
+    <string name="activity_complete_registration_next">Next</string>
+
+
+    <string name="fb_app_id">708685515985549</string>
+    <string name="google_map_api_key">AIzaSyDX9G9kVR8wnf80jbOsHREvlaWozfxZZBM</string>
+
+    <string name="error_server">An error has occured please try again later</string>
+
+
+    <string name="ok"> OK </string>
+    <string name="cancel"> CANCEL </string>
+
+
+</resources>
