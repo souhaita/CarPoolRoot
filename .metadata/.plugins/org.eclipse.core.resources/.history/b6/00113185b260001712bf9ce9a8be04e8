@@ -1,0 +1,22 @@
+package ashwin.uomtrust.ac.mu.entity;
+
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
+public class Device implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1657398929436188426L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer deviceId;
+
+}

@@ -10,7 +10,7 @@ import ashwin.uomtrust.ac.mu.entity.Account;
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Long> {
 		
-		public Account findById(Long id);
+		public Account findByAccountId(Long accountId);
 		public Account findByEmail(String email);
 		
 }

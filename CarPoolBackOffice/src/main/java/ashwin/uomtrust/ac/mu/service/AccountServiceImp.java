@@ -13,9 +13,9 @@ public class AccountServiceImp implements AccountService{
 	private AccountRepository accountRepository;
 
 	@Override
-	public Account findById(Long id) {
+	public Account findByAccountId(Long accountId) {
 		// TODO Auto-generated method stub
-		return accountRepository.findById(id);
+		return accountRepository.findByAccountId(accountId);
 	}
 
 	@Override

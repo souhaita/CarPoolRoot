@@ -6,7 +6,7 @@ import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
-import ashwin.uomtrust.ac.mu.enums.UserRole;
+import ashwin.uomtrust.ac.mu.enums.AccountRole;
 
 
 public class BackOfficeUser extends User {
@@ -23,8 +23,8 @@ public class BackOfficeUser extends User {
 		this.id = id;
 	}
 	
-	 public BackOfficeUser(Long id, String email, String password, boolean enabled, Collection<? extends GrantedAuthority> authorities ) {
-	    	super(email, password, enabled, true, true, true, authorities);
+	 public BackOfficeUser(Long id, String email, boolean enabled, Collection<? extends GrantedAuthority> authorities ) {
+	    	super(email,null , enabled, true, true, true, authorities);
 			this.id = id;
 	 }
 }

@@ -1,0 +1,17 @@
+package ashwin.uomtrust.ac.mu.entity;
+
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+
+@Entity
+public class Device implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1657398929436188426L;
+	
+	
+
+}

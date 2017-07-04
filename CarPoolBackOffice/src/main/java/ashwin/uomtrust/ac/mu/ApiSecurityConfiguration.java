@@ -62,7 +62,7 @@ public class ApiSecurityConfiguration extends WebSecurityConfigurerAdapter {
 						.authenticated()
 						.and()
 						.rememberMe()
-							.key("backOfficeKeyCarPool")
+							.key("backOfficeKeyRode1Lift")
 							.rememberMeServices(rememberMeServices());;
 			
 			http
@@ -77,9 +77,9 @@ public class ApiSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		@Bean
 		public RememberMeServices rememberMeServices() {
 			// Key must be equal to rememberMe().key()
-			TokenBasedRememberMeServices rememberMeServices = new TokenBasedRememberMeServices("backOfficeKeyCarPool", userDetailsService);
+			TokenBasedRememberMeServices rememberMeServices = new TokenBasedRememberMeServices("backOfficeKeyRode1Lift", userDetailsService);
 			rememberMeServices.setTokenValiditySeconds(31536000); // 1 year
-			rememberMeServices.setCookieName("remember_me_back_office_car_pool");
+			rememberMeServices.setCookieName("remember_me_back_office_rode_1_lift");
 			rememberMeServices.setAlwaysRemember(true);
 			return rememberMeServices;
 		}
@@ -96,7 +96,7 @@ public class ApiSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		    		
 		    		List<GrantedAuthority> auth = AuthorityUtils.createAuthorityList(account.getEmail().toString());
 		    		
-		    		return new BackOfficeUser(account.getId(), email, account.getPassword(), true, auth);
+		    		return new BackOfficeUser(account.getAccountId(), email, true, auth);
 		    	}
 		    };
 		}

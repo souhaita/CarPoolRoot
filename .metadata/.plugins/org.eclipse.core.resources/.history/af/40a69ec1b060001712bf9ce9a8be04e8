@@ -1,0 +1,36 @@
+package ashwin.uomtrust.ac.mu.entity;
+
+import java.io.Serializable;
+import java.util.Date;
+
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import ashwin.uomtrust.ac.mu.enums.RequestStatus;
+
+@Entity
+public class Request implements Serializable{ {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer requestId;
+	
+    private RequestStatus requestStatus;
+	
+    private String place_from;
+    private String place_to;
+    
+    private Date dateCreated;
+    private Date dateUpdated;
+    private Date eventDate;
+    	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "accountId", nullable = true)
+	private Account account;
+
+}

@@ -1,0 +1,18 @@
+package ashwin.uomtrust.ac.mu.entity;
+
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+
+@Entity
+public class Car implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5430841335975955046L;
+	
+
+	
+	
+}

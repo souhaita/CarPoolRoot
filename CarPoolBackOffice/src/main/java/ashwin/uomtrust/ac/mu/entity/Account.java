@@ -13,11 +13,9 @@ import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import ashwin.uomtrust.ac.mu.enums.AccountRole;
+import ashwin.uomtrust.ac.mu.enums.AccountStatus;
 
-import ashwin.uomtrust.ac.mu.enums.Gender;
-import ashwin.uomtrust.ac.mu.enums.UserRole;
 
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
@@ -25,29 +23,23 @@ public class Account {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	private Long accountId;
 	
-	@Column(length = 100, nullable = false)
 	private String firstName;
-	
-	@Column(length = 100, nullable = false)
-	private String lastName;
+	private String lastName;	
+	private String facebookId;
+	private String googleId;
 	
 	@Column(length = 100, nullable = false, unique = true)
 	private String email;
 	
-	@Column(length = 100, nullable = false)
-	private String password;
+	private AccountRole accountRole;
+	private AccountStatus accountStatus;
 	
-	@Column(nullable = false)
-	private UserRole role;
-	
-	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateCreated;
+	private Date dateUpdated;
 	
-	@Column(nullable = false)
-	private Gender gender;
-
+	
 	public Account() {
 	}
 
@@ -55,13 +47,21 @@ public class Account {
 	public void prePersist() {
 		setDateCreated(new Date());
 	}
-
-	public Long getId() {
-		return id;
+	
+	public Date getDateCreated() {
+		return dateCreated;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setDateCreated(Date dateCreated) {
+		this.dateCreated = dateCreated;
+	}
+	
+	public Long getAccountId() {
+		return accountId;
+	}
+
+	public void setAccountId(Long accountId) {
+		this.accountId = accountId;
 	}
 
 	public String getFirstName() {
@@ -86,45 +86,50 @@ public class Account {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	@JsonIgnore
-	public String getPassword() {
-		return password;
-	}
-
-	@JsonProperty
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public UserRole getRole() {
-		return role;
-	}
-
-	public void setRole(UserRole role) {
-		this.role = role;
-	}
+	}		
 	
-	public Date getDateCreated() {
-		return dateCreated;
+	public String getFacebookId() {
+		return facebookId;
 	}
 
-	public void setDateCreated(Date dateCreated) {
-		this.dateCreated = dateCreated;
-	}
-	
-	public Gender getGender() {
-		return gender;
+	public void setFacebookId(String facebookId) {
+		this.facebookId = facebookId;
 	}
 
-	public void setGender(Gender gender) {
-		this.gender = gender;
+	public String getGoogleId() {
+		return googleId;
 	}
-	
-	
+
+	public void setGoogleId(String googleId) {
+		this.googleId = googleId;
+	}
+
+	public AccountRole getAccountRole() {
+		return accountRole;
+	}
+
+	public void setAccountRole(AccountRole accountRole) {
+		this.accountRole = accountRole;
+	}
+
+	public AccountStatus getAccountStatus() {
+		return accountStatus;
+	}
+
+	public void setAccountStatus(AccountStatus accountStatus) {
+		this.accountStatus = accountStatus;
+	}
+
+	public Date getDateUpdated() {
+		return dateUpdated;
+	}
+
+	public void setDateUpdated(Date dateUpdated) {
+		this.dateUpdated = dateUpdated;
+	}
+
 	@Override
 	public String toString() {
-		return "Account [id=" + id + ", email=" + email + ", role=" + role +"]";
+		return "Account [accountId=" + accountId + ", email=" + email + ", accountRole=" + accountRole +"]";
 	}
 }
