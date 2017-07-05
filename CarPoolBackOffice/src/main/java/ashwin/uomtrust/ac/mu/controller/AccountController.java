@@ -21,6 +21,7 @@ public class AccountController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
+	@CrossOrigin(origins = "http://localhost:8081")
 	@RequestMapping(value = "/createAdmin", method = RequestMethod.POST)
 	public Account createAdmin(@RequestBody Account account) {
 		if(account != null && account.getEmail() !=null )

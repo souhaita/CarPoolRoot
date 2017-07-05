@@ -1,4 +1,4 @@
-var url = "http://localhost/api/account/createAdmin"
+var url = "http://localhost:8081/api/account/createAdmin"
 
 var app = angular.module("ngApp", []);
 app.controller("ngCtrl", function($scope,$http) {
