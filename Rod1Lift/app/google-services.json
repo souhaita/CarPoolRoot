@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "752574715602",
+    "project_id": "rod1lift-1499181017719"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:752574715602:android:23a6541884a095fd",
+        "android_client_info": {
+          "package_name": "rode1lift.ashwin.uomtrust.mu.rod1lift"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "752574715602-d12h9v9aj0a8kgauv3ptoks5kp1for84.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "752574715602-fl1vqh7rt592q2a76p94dmi5kglo7rg5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "rode1lift.ashwin.uomtrust.mu.rod1lift",
+            "certificate_hash": "ca0556913e6af82c36d2b313aa5fb31f7cc47986"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_bhK9cqyV81psHAmPO81vSdBvxe8HCbA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

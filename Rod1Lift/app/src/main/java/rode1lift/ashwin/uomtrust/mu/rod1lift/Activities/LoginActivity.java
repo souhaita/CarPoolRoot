@@ -56,58 +56,9 @@ public class LoginActivity extends Activity {
 
         FacebookSdk.sdkInitialize(getApplicationContext());
 
-        SharedPreferences prefs = getSharedPreferences(Const.appName, MODE_PRIVATE);
-        Boolean login = prefs.getBoolean(Const.login, false);
-        if(login){
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
-        else {
+        setContentView(R.layout.activity_login);
 
-            setContentView(R.layout.activity_login);
 
-            callbackManager = CallbackManager.Factory.create();
-
-            LoginButton loginButton = (LoginButton) findViewById(R.id.btnFbLogin);
-            loginButton.setReadPermissions(Arrays.asList("public_profile", "email"));
-            loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-                @Override
-                public void onSuccess(LoginResult loginResult) {
-                    GraphRequest request = GraphRequest.newMeRequest(
-                            loginResult.getAccessToken(),
-                            new GraphRequest.GraphJSONObjectCallback() {
-                                @Override
-                                public void onCompleted(JSONObject object, GraphResponse response) {
-
-                                    if (object != null) {
-                                        getFbData(object);
-                                        if(accountDTO == null || accountDTO.getAccountId() == null || accountDTO.getAccountId() <1)
-                                            selectUserType();
-                                    } else {
-                                        Utils.disconnectFromFacebook();
-                                    }
-                                }
-                            });
-                    Bundle parameters = new Bundle();
-                    parameters.putString("fields", "id, picture.type(large), first_name, last_name, email");
-                    request.setParameters(parameters);
-                    request.executeAsync();
-                }
-
-                @Override
-                public void onCancel() {
-                    Utils.disconnectFromFacebook();
-                }
-
-                @Override
-                public void onError(FacebookException error) {
-                    Utils.disconnectFromFacebook();
-                }
-                //...
-            });
-
-        }
     }
 
     @Override
