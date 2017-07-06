@@ -12,5 +12,8 @@
 
 
     <color name="transparent_black_50">#80000000</color>
+    <color name="transparent_white_50">#80ffffff</color>
+
+    <color name="color_separator">#80ffffff</color>
 
 </resources>

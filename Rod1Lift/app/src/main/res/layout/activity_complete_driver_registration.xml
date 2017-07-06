@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/llMain"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/gradient_list" >
+
+    <TextView
+        android:paddingRight="20dp"
+        android:background="@color/transparent_white_50"
+        android:textStyle="bold"
+        android:id="@+id/txtNext"
+        android:layout_width="match_parent"
+        android:layout_weight="0.1"
+        android:layout_height="0dp"
+        android:gravity="center|right"
+        android:text="@string/activity_complete_driver_registration_next"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="22dp" />
+
+
+    <TableLayout
+        android:layout_weight="0.4"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+        <TableRow
+            android:id="@+id/tCarMake"
+            android:gravity="center_vertical"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:gravity=""
+                android:layout_weight="0.4"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_complete_driver_registration_car_details"/>
+
+                <TextView
+                    android:visibility="gone"
+                    android:layout_weight="0.6"
+                    android:id="@+id/txtCarDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:gravity="left|center_vertical"
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
+
+                <ImageView
+                    android:paddingLeft="100dp"
+                    android:id="@+id/imgCarDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:tint="@color/colorPrimaryDark"
+                    android:src="@drawable/icon_right" />
+
+
+        </TableRow>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_separator" />
+
+        <TableRow
+            android:id="@+id/tYear"
+            android:gravity="center_vertical"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_weight="0.4"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_complete_driver_registration_year"/>
+
+
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/txtYear"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:layout_weight="0.6"
+                    android:gravity="left|center_vertical"
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
+
+                <ImageView
+                    android:paddingLeft="100dp"
+                    android:id="@+id/imgYear"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:tint="@color/colorPrimaryDark"
+                    android:src="@drawable/icon_right" />
+
+        </TableRow>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_separator" />
+
+        <TableRow
+            android:id="@+id/tPlateNum"
+            android:gravity="center_vertical"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_weight="0.5"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_complete_driver_registration_plate_num"/>
+
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/txtPlateNum"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:layout_weight="1"
+                    android:gravity="left|center_vertical"
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
+
+                <ImageView
+                    android:paddingLeft="100dp"
+                    android:id="@+id/imgPlateNum"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:tint="@color/colorPrimaryDark"
+                    android:src="@drawable/icon_right" />
+
+        </TableRow>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_separator" />
+
+    <TableRow
+        android:id="@+id/tPassenger"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:layout_margin="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_weight="0.6"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/activity_complete_driver_registration_number_of_passenger"/>
+
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/txtNumOfPassenger"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="right"
+                android:layout_weight="1"
+                android:gravity="left|center_vertical"
+                android:textColor="@color/black"
+                android:textSize="20dp" />
+
+            <ImageView
+                android:paddingLeft="100dp"
+                android:id="@+id/imgNumOfPassenger"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:tint="@color/colorPrimaryDark"
+                android:src="@drawable/icon_right" />
+
+    </TableRow>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_separator" />
+
+    </TableLayout>
+
+    <LinearLayout
+        android:background="@color/transparent_white_50"
+        android:layout_weight="0.25"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+        <ImageView
+            android:scaleType="centerCrop"
+            android:background="@color/com_facebook_likeboxcountview_border_color"
+            android:layout_margin="1dp"
+            android:id="@+id/img1"
+            android:layout_weight="0.5"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+
+        <ImageView
+            android:scaleType="centerCrop"
+            android:background="@color/com_facebook_likeboxcountview_border_color"
+            android:layout_margin="1dp"
+            android:id="@+id/img2"
+            android:layout_weight="0.5"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:background="@color/transparent_white_50"
+        android:layout_weight="0.25"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+        <ImageView
+            android:scaleType="centerCrop"
+            android:background="@color/com_facebook_likeboxcountview_border_color"
+            android:layout_margin="1dp"
+            android:id="@+id/img3"
+            android:layout_weight="0.5"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+
+        <ImageView
+            android:scaleType="centerCrop"
+            android:background="@color/com_facebook_likeboxcountview_border_color"
+            android:layout_margin="1dp"
+            android:id="@+id/img4"
+            android:layout_weight="0.5"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

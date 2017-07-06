@@ -7,18 +7,18 @@
     <string name="action_settings">Settings</string>
 
     <string name="activity_login_copyright">\u00A9 Gobin Vijesh (Ashwin) </string>
-    <string name="activity_login_slogan">Rode zot lift </string>
+    <string name="activity_login_view_app">View App</string>
+    <string name="activity_login_slogan">Bizin 1 lift?</string>
     <string name="activity_login_select_user_type"> Please select a type of user </string>
     <string name="activity_login_select_user_type_error"> Please select a type of user </string>
 
-    <string name="activity_complete_registration_make">Make:</string>
-    <string name="activity_complete_registration_plate_num">Plate Num:</string>
-    <string name="activity_complete_registration_comment">Comment:</string>
-    <string name="activity_complete_registration_year">Year:</string>
-    <string name="activity_complete_registration_number_of_passenger">Passengers:</string>
-    <string name="activity_complete_registration_address">Address:</string>
-    <string name="activity_complete_registration_take_picture">Add Image</string>
-    <string name="activity_complete_registration_next">Next</string>
+    <string name="activity_complete_driver_registration_car_details">Car Make</string>
+    <string name="activity_complete_driver_registration_year">Year</string>
+    <string name="activity_complete_driver_registration_plate_num">Plate Num</string>
+    <string name="activity_complete_driver_registration_number_of_passenger">Passengers</string>
+    <string name="activity_complete_driver_registration_take_picture">Add Image</string>
+    <string name="activity_complete_driver_registration_next">Next</string>
+    <string name="activity_complete_driver_registration_title">Registration</string>
 
 
     <string name="fb_app_id">708685515985549</string>
@@ -30,5 +30,42 @@
     <string name="ok"> OK </string>
     <string name="cancel"> CANCEL </string>
 
+    <string-array name="carMake">
+        <item>TOYOTA</item>
+        <item>NISSAN</item>
+        <item>KIA</item>
+        <item>HONDA</item>
+    </string-array>
+
+    <string-array name="carModelToyota">
+        <item>YARIS</item>
+        <item>COROLLA</item>
+        <item>BELTA</item>
+        <item>PRIUS</item>
+        <item>VITZ</item>
+    </string-array>
+
+    <string-array name="carModelNissan">
+        <item>ALTIMA</item>
+        <item>PULSAR</item>
+        <item>PLATINA</item>
+        <item>ATLAS</item>
+        <item>SENTRA</item>
+    </string-array>
+
+    <string-array name="carModelKia">
+        <item>OPIRUS</item>
+        <item>OPTIMA</item>
+        <item>RIO</item>
+        <item>PICANTO</item>
+    </string-array>
+
+    <string-array name="carModelHonda">
+        <item>CIVIC</item>
+        <item>BALLADE</item>
+        <item>CITY</item>
+        <item>ACCORD</item>
+        <item>FIT</item>
+    </string-array>
 
 </resources>

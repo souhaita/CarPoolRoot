@@ -8,6 +8,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.text.TextUtils;
+import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -52,19 +53,66 @@ public class LoginActivity extends Activity {
     CallbackManager callbackManager;
     AccountDTO accountDTO = new AccountDTO();
 
-    LinearLayout llMain = null;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         FacebookSdk.sdkInitialize(getApplicationContext());
 
-        setContentView(R.layout.activity_login);
+        SharedPreferences prefs = getSharedPreferences(Const.appName, MODE_PRIVATE);
+        Boolean login = prefs.getBoolean(Const.login, false);
+        if(login){
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        else {
+            setContentView(R.layout.activity_login);
 
-        llMain = (LinearLayout)findViewById(R.id.llMain);
+            LinearLayout llMain = (LinearLayout)findViewById(R.id.llMain);
+            animateLayout(llMain);
 
-        animateLayout();
+            callbackManager = CallbackManager.Factory.create();
+
+            LoginButton loginButton = (LoginButton) findViewById(R.id.btnFbLogin);
+            loginButton.setReadPermissions(Arrays.asList("public_profile", "email"));
+            loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+                @Override
+                public void onSuccess(LoginResult loginResult) {
+                    GraphRequest request = GraphRequest.newMeRequest(
+                            loginResult.getAccessToken(),
+                            new GraphRequest.GraphJSONObjectCallback() {
+                                @Override
+                                public void onCompleted(JSONObject object, GraphResponse response) {
+
+                                    if (object != null) {
+                                        getFbData(object);
+                                        if(accountDTO == null || accountDTO.getAccountId() == null || accountDTO.getAccountId() <1)
+                                            selectUserType();
+                                    } else {
+                                        Utils.disconnectFromFacebook();
+                                    }
+                                }
+                            });
+                    Bundle parameters = new Bundle();
+                    parameters.putString("fields", "id, picture.type(large), first_name, last_name, email,gender, birthday");
+                    request.setParameters(parameters);
+                    request.executeAsync();
+                }
+
+                @Override
+                public void onCancel() {
+                    Utils.disconnectFromFacebook();
+                }
+
+                @Override
+                public void onError(FacebookException error) {
+                    Utils.disconnectFromFacebook();
+                }
+                //...
+            });
+
+        }
     }
 
     @Override
@@ -196,35 +244,11 @@ public class LoginActivity extends Activity {
         dialog.show();
     }
 
-    private void animateLayout(){
-        AnimationDrawable animationDrawable = (AnimationDrawable) llMain.getBackground();
-        animationDrawable.setEnterFadeDuration(1000);
-        animationDrawable.setExitFadeDuration(2000);
+    private void animateLayout(LinearLayout linearLayout){
+        AnimationDrawable animationDrawable = (AnimationDrawable) linearLayout.getBackground();
+        animationDrawable.setEnterFadeDuration(4000);
+        animationDrawable.setExitFadeDuration(4000);
         animationDrawable.start();
     }
-
-    /*private void layout1(){
-        Thread thread = new Thread(new Runnable(){
-            @Override
-            public void run(){
-                try{
-                    synchronized(this){
-                        wait(50);
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                llMain.setBackground(getResources().getDrawable(R.drawable.background_main));
-                                layout2();
-                            }
-                        });
-                    }
-                }catch(Exception e){
-                    e.printStackTrace();
-                }
-            }
-        });
-        thread.start();
-    }*/
-
 
 }
