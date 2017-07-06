@@ -104,6 +104,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void changeFragment(Fragment fragment){
         Fragment newFragment = fragment;
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+        transaction.setCustomAnimations(R.animator.newenter, R.animator.exit, R.animator.pop_enter, R.animator.pop_exit);
+
+
         transaction.addToBackStack(null);
         transaction.replace(R.id.content_main, newFragment);
         transaction.commit();
