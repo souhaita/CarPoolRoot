@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.text.TextUtils;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -50,6 +52,8 @@ public class LoginActivity extends Activity {
     CallbackManager callbackManager;
     AccountDTO accountDTO = new AccountDTO();
 
+    LinearLayout llMain = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +62,9 @@ public class LoginActivity extends Activity {
 
         setContentView(R.layout.activity_login);
 
+        llMain = (LinearLayout)findViewById(R.id.llMain);
 
+        animateLayout();
     }
 
     @Override
@@ -189,4 +195,36 @@ public class LoginActivity extends Activity {
 
         dialog.show();
     }
+
+    private void animateLayout(){
+        AnimationDrawable animationDrawable = (AnimationDrawable) llMain.getBackground();
+        animationDrawable.setEnterFadeDuration(1000);
+        animationDrawable.setExitFadeDuration(2000);
+        animationDrawable.start();
+    }
+
+    /*private void layout1(){
+        Thread thread = new Thread(new Runnable(){
+            @Override
+            public void run(){
+                try{
+                    synchronized(this){
+                        wait(50);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                llMain.setBackground(getResources().getDrawable(R.drawable.background_main));
+                                layout2();
+                            }
+                        });
+                    }
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
+    }*/
+
+
 }
