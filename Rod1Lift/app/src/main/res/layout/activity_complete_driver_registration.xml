@@ -6,198 +6,234 @@
     android:orientation="vertical"
     android:background="@drawable/gradient_list" >
 
-    <TextView
-        android:paddingRight="20dp"
+    <LinearLayout
         android:background="@color/transparent_white_50"
-        android:textStyle="bold"
-        android:id="@+id/txtNext"
-        android:layout_width="match_parent"
+        android:orientation="horizontal"
         android:layout_weight="0.1"
-        android:layout_height="0dp"
-        android:gravity="center|right"
-        android:text="@string/activity_complete_driver_registration_next"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="22dp" />
-
-
-    <TableLayout
-        android:layout_weight="0.4"
         android:layout_width="match_parent"
         android:layout_height="0dp">
 
-        <TableRow
-            android:id="@+id/tCarMake"
-            android:gravity="center_vertical"
-            android:layout_weight="1"
-            android:layout_margin="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:gravity=""
-                android:layout_weight="0.4"
-                android:textColor="@color/black"
-                android:textSize="20dp"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/activity_complete_driver_registration_car_details"/>
-
-                <TextView
-                    android:visibility="gone"
-                    android:layout_weight="0.6"
-                    android:id="@+id/txtCarDetails"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="right"
-                    android:gravity="left|center_vertical"
-                    android:textColor="@color/black"
-                    android:textSize="20dp" />
-
-                <ImageView
-                    android:paddingLeft="100dp"
-                    android:id="@+id/imgCarDetails"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:tint="@color/colorPrimaryDark"
-                    android:src="@drawable/icon_right" />
-
-
-        </TableRow>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/color_separator" />
-
-        <TableRow
-            android:id="@+id/tYear"
-            android:gravity="center_vertical"
-            android:layout_weight="1"
-            android:layout_margin="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_weight="0.4"
-                android:textColor="@color/black"
-                android:textSize="20dp"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/activity_complete_driver_registration_year"/>
-
-
-                <TextView
-                    android:visibility="gone"
-                    android:id="@+id/txtYear"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="right"
-                    android:layout_weight="0.6"
-                    android:gravity="left|center_vertical"
-                    android:textColor="@color/black"
-                    android:textSize="20dp" />
-
-                <ImageView
-                    android:paddingLeft="100dp"
-                    android:id="@+id/imgYear"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:tint="@color/colorPrimaryDark"
-                    android:src="@drawable/icon_right" />
-
-        </TableRow>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/color_separator" />
-
-        <TableRow
-            android:id="@+id/tPlateNum"
-            android:gravity="center_vertical"
-            android:layout_weight="1"
-            android:layout_margin="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_weight="0.5"
-                android:textColor="@color/black"
-                android:textSize="20dp"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/activity_complete_driver_registration_plate_num"/>
-
-                <TextView
-                    android:visibility="gone"
-                    android:id="@+id/txtPlateNum"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="right"
-                    android:layout_weight="1"
-                    android:gravity="left|center_vertical"
-                    android:textColor="@color/black"
-                    android:textSize="20dp" />
-
-                <ImageView
-                    android:paddingLeft="100dp"
-                    android:id="@+id/imgPlateNum"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:tint="@color/colorPrimaryDark"
-                    android:src="@drawable/icon_right" />
-
-        </TableRow>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/color_separator" />
-
-    <TableRow
-        android:id="@+id/tPassenger"
-        android:layout_weight="1"
-        android:gravity="center_vertical"
-        android:layout_margin="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        <TextView
+            android:paddingLeft="5dp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center|left"
+            android:text="@string/activity_complete_driver_registration_title"
+            android:textColor="@color/colorPrimary"
+            android:textSize="22dp" />
 
         <TextView
-            android:layout_weight="0.6"
-            android:textColor="@color/black"
-            android:textSize="20dp"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/activity_complete_driver_registration_number_of_passenger"/>
+            android:paddingRight="20dp"
+            android:textStyle="bold"
+            android:id="@+id/txtNext"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center|right"
+            android:text="@string/activity_complete_driver_registration_next"
+            android:textColor="@color/colorPrimary"
+            android:textSize="22dp" />
+    </LinearLayout>
 
+
+    <LinearLayout
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:weightSum="4"
+        android:layout_weight="0.4"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:id="@+id/llCarMake"
+            android:gravity="center_vertical"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
 
             <TextView
-                android:visibility="gone"
-                android:id="@+id/txtNumOfPassenger"
-                android:layout_width="match_parent"
+                android:gravity="center_vertical"
+                android:layout_weight="0.4"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="right"
-                android:layout_weight="1"
-                android:gravity="left|center_vertical"
-                android:textColor="@color/black"
-                android:textSize="20dp" />
+                android:text="@string/activity_complete_driver_registration_car_details"/>
 
-            <ImageView
-                android:paddingLeft="100dp"
-                android:id="@+id/imgNumOfPassenger"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:tint="@color/colorPrimaryDark"
-                android:src="@drawable/icon_right" />
+            <LinearLayout
+                android:layout_weight="0.6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
 
-    </TableRow>
+                <TextView
+                    android:paddingRight="16dp"
+                    android:layout_weight="0.7"
+                    android:id="@+id/txtCarDetails"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:gravity="right|center_vertical"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20dp" />
 
+                <ImageView
+                    android:layout_weight="0.3"
+                    android:id="@+id/imgCarDetails"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:tint="@color/colorPrimary"
+                    android:src="@drawable/icon_right" />
+
+            </LinearLayout>
+        </LinearLayout>
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/color_separator" />
 
-    </TableLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:id="@+id/llYear"
+            android:gravity="center_vertical"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+            <TextView
+                android:gravity="center_vertical"
+                android:layout_weight="0.4"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="@string/activity_complete_driver_registration_year"/>
+
+            <LinearLayout
+                android:layout_weight="0.6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_weight="0.7"
+                    android:paddingRight="16dp"
+                    android:id="@+id/txtYear"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:gravity="right|center_vertical"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20dp" />
+
+                <ImageView
+                    android:layout_weight="0.3"
+                    android:id="@+id/imgYear"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:tint="@color/colorPrimary"
+                    android:src="@drawable/icon_right" />
+                </LinearLayout>
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_separator" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:id="@+id/llPlateNum"
+            android:gravity="center_vertical"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+            <TextView
+                android:gravity="center_vertical"
+                android:layout_weight="0.4"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="@string/activity_complete_driver_registration_plate_num"/>
+
+            <LinearLayout
+                android:layout_weight="0.6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_weight="0.7"
+                    android:id="@+id/txtPlateNum"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:gravity="right|center_vertical"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20dp" />
+
+                <ImageView
+                    android:layout_weight="0.3"
+                    android:id="@+id/imgPlateNum"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:tint="@color/colorPrimary"
+                    android:src="@drawable/icon_right" />
+                </LinearLayout>
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_separator" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:id="@+id/llNumOfPassenger"
+            android:gravity="center_vertical"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+            <TextView
+                android:gravity="center_vertical"
+                android:layout_weight="0.4"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="@string/activity_complete_driver_registration_number_of_passenger"/>
+
+            <LinearLayout
+                android:layout_weight="0.6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_weight="0.7"
+                    android:paddingRight="16dp"
+                    android:id="@+id/txtNumOfPassenger"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:gravity="right|center_vertical"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20dp" />
+
+                <ImageView
+                    android:layout_weight="0.3"
+                    android:id="@+id/imgNumOfPassenger"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:tint="@color/colorPrimary"
+                    android:src="@drawable/icon_right" />
+            </LinearLayout>
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_separator" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:background="@color/transparent_white_50"

@@ -16,7 +16,7 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.CarDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
 
 
-public class CarMakePickerActivity extends Activity {
+public class PickerActivityCarMake extends Activity {
 
     private String[] arrayModel;
     private CarDTO carDTO;
@@ -34,7 +34,7 @@ public class CarMakePickerActivity extends Activity {
 
         SharedPreferences prefs = getSharedPreferences(Const.appName, MODE_PRIVATE);
         userId = prefs.getInt(Const.currentAccountId, -1);
-        carDTO = new CarDAO(CarMakePickerActivity.this).getCarByAccountID(userId);
+        carDTO = new CarDAO(PickerActivityCarMake.this).getCarByAccountID(userId);
 
         pickerMake.setMinValue(0);
         pickerMake.setMaxValue(arrayCarMake.length-1);
@@ -111,7 +111,7 @@ public class CarMakePickerActivity extends Activity {
                     carDTO.setMake(arrayCarMake[pickerMake.getValue()]);
                 }
 
-                new CarDAO(CarMakePickerActivity.this).saveOrUpdateCar(carDTO);
+                new CarDAO(PickerActivityCarMake.this).saveOrUpdateCar(carDTO);
 
                 Intent intent = getIntent();
                 setResult(RESULT_OK, intent);

@@ -16,4 +16,8 @@
 
     <color name="color_separator">#80ffffff</color>
 
+    <color name="grey_border">#ededed</color>
+    <color name="transparent">#00450808</color>
+
+
 </resources>

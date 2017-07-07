@@ -31,6 +31,7 @@
            android:text="@string/activity_login_select_user_type"/>
 
         <NumberPicker
+            android:layout_gravity="center"
             android:descendantFocusability="blocksDescendants"
             android:orientation="vertical"
             android:layout_marginRight="5dp"
@@ -40,7 +41,7 @@
             android:textAlignment="center"
             android:gravity="center"
             android:id="@+id/numberPickerUserType"
-            android:layout_width="match_parent"
+            android:layout_width="100dp"
             android:layout_height="0dp">
 
         </NumberPicker>

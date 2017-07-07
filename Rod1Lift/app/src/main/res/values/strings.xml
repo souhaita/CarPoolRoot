@@ -14,11 +14,11 @@
 
     <string name="activity_complete_driver_registration_car_details">Car Make</string>
     <string name="activity_complete_driver_registration_year">Year</string>
-    <string name="activity_complete_driver_registration_plate_num">Plate Num</string>
-    <string name="activity_complete_driver_registration_number_of_passenger">Passengers</string>
+    <string name="activity_complete_driver_registration_plate_num">Plate No.</string>
+    <string name="activity_complete_driver_registration_number_of_passenger">No. Passenger</string>
     <string name="activity_complete_driver_registration_take_picture">Add Image</string>
     <string name="activity_complete_driver_registration_next">Next</string>
-    <string name="activity_complete_driver_registration_title">Registration</string>
+    <string name="activity_complete_driver_registration_title">Car Registration</string>
 
 
     <string name="fb_app_id">708685515985549</string>

@@ -1,40 +1,24 @@
 package rode1lift.ashwin.uomtrust.mu.rod1lift.Activities;
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.support.v4.app.ActivityCompat;
-import android.text.TextUtils;
 import android.view.View;
-import android.view.Window;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TableRow;
-
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.Const;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.CarDAO;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.CarDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
-
-import static android.provider.MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE;
-import static android.provider.MediaStore.Files.FileColumns.MEDIA_TYPE_VIDEO;
 
 /**
  * Created by Ashwin on 05-Jun-17.
@@ -42,9 +26,7 @@ import static android.provider.MediaStore.Files.FileColumns.MEDIA_TYPE_VIDEO;
 
 public class CompleteDriverRegistrationActivity extends Activity {
 
-    private static final int PICK_IMAGE_REQUEST = 1;
-    private static final int PERMISSION_CAMERA = 2;
-    private static final int CAMERA = 3;
+
     private static final String IMAGE_DIRECTORY_NAME = "Chombo";
     private int nextImage = -1;
 
@@ -61,24 +43,110 @@ public class CompleteDriverRegistrationActivity extends Activity {
 
     private String[] places;
 
+    private CarDTO carDTO;
+    private Integer userId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_complete_driver_registration);
 
-        TableRow tCarMake = (TableRow)findViewById(R.id.tCarMake);
-        tCarMake.setOnClickListener(new View.OnClickListener() {
+        LinearLayout llCarMake = (LinearLayout)findViewById(R.id.llCarMake);
+        llCarMake.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(CompleteDriverRegistrationActivity.this, CarMakePickerActivity.class);
-                startActivityForResult(intent,0);
+                Intent intent = new Intent(CompleteDriverRegistrationActivity.this, PickerActivityCarMake.class);
+                startActivityForResult(intent, Const.carMakeActivity);
             }
         });
+
+        LinearLayout llYear = (LinearLayout)findViewById(R.id.llYear);
+        llYear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CompleteDriverRegistrationActivity.this, PickerActivityCarMake.class);
+                startActivityForResult(intent, Const.carMakeActivity);
+            }
+        });
+
+        LinearLayout llNumOfPassenger = (LinearLayout)findViewById(R.id.llNumOfPassenger);
+        llNumOfPassenger.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CompleteDriverRegistrationActivity.this, PickerActivityCarSeats.class);
+                startActivityForResult(intent, Const.carMakeActivity);
+            }
+        });
+
+
+
+        SharedPreferences prefs = getSharedPreferences(Const.appName, MODE_PRIVATE);
+        userId = prefs.getInt(Const.currentAccountId, -1);
+        carDTO = new CarDAO(CompleteDriverRegistrationActivity.this).getCarByAccountID(userId);
+
+        if(carDTO != null && carDTO.getCarId() != null){
+            ImageView imgCarDetails, imgYear, imgNumOfPassenger;
+
+            if(carDTO.getModel() != null && carDTO.getMake() != null) {
+                imgCarDetails = (ImageView)findViewById(R.id.imgCarDetails);
+                imgCarDetails.setVisibility(View.GONE);
+
+                TextView txtCarDetails = (TextView) findViewById(R.id.txtCarDetails);
+                txtCarDetails.setText(carDTO.getMake() + " " + carDTO.getModel());
+            }
+
+            if(carDTO.getYear() != null) {
+                imgYear = (ImageView)findViewById(R.id.imgYear);
+                imgYear.setVisibility(View.GONE);
+
+                TextView txtYear = (TextView) findViewById(R.id.txtYear);
+                txtYear.setText(String.valueOf(carDTO.getYear()));
+            }
+
+            if(carDTO.getNumOfPassenger() != null) {
+                imgNumOfPassenger = (ImageView)findViewById(R.id.imgNumOfPassenger);
+                imgNumOfPassenger.setVisibility(View.GONE);
+
+                TextView txtNumOfPassenger = (TextView) findViewById(R.id.txtNumOfPassenger);
+                txtNumOfPassenger.setText(String.valueOf(carDTO.getNumOfPassenger()));
+            }
+        }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+            switch (requestCode) {
+                case Const.carMakeActivity:
+                    SharedPreferences prefs = getSharedPreferences(Const.appName, MODE_PRIVATE);
+                    Integer userId = prefs.getInt(Const.currentAccountId, -1);
+                    CarDTO carDTO = new CarDAO(CompleteDriverRegistrationActivity.this).getCarByAccountID(userId);
+
+                    if(carDTO != null && carDTO.getCarId() != null) {
+                        ImageView imgCarDetails, imgYear, imgNumOfPassenger;
+
+                        imgCarDetails = (ImageView)findViewById(R.id.imgCarDetails);
+                        imgCarDetails.setVisibility(View.GONE);
+
+                        imgYear = (ImageView)findViewById(R.id.imgYear);
+                        imgYear.setVisibility(View.GONE);
+
+                        imgNumOfPassenger = (ImageView)findViewById(R.id.imgNumOfPassenger);
+                        imgNumOfPassenger.setVisibility(View.GONE);
+
+                        TextView txtCarDetails = (TextView) findViewById(R.id.txtCarDetails);
+                        txtCarDetails.setText(carDTO.getMake()+ " "+ carDTO.getModel());
+
+                        TextView txtYear = (TextView) findViewById(R.id.txtYear);
+                        txtYear.setText(String.valueOf(carDTO.getYear()));
+
+                        TextView txtNumOfPassenger = (TextView)findViewById(R.id.txtNumOfPassenger);
+                        txtNumOfPassenger.setText(String.valueOf(carDTO.getNumOfPassenger()));
+                    }
+                    break;
+            }
+
 
        /* if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
             // getData for single -- getClipData returns null
