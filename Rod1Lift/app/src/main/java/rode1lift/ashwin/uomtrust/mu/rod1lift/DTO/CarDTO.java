@@ -23,6 +23,11 @@ public class CarDTO implements Serializable {
     private byte[] picture3;
     private byte[] picture4;
 
+    private boolean hasPic1;
+    private boolean hasPic2;
+    private boolean hasPic3;
+    private boolean hasPic4;
+
     public Integer getCarId() {
         return carId;
     }
@@ -109,5 +114,37 @@ public class CarDTO implements Serializable {
 
     public void setPicture4(byte[] picture4) {
         this.picture4 = picture4;
+    }
+
+    public boolean isHasPic1() {
+        return hasPic1;
+    }
+
+    public void setHasPic1(boolean hasPic1) {
+        this.hasPic1 = hasPic1;
+    }
+
+    public boolean isHasPic2() {
+        return hasPic2;
+    }
+
+    public void setHasPic2(boolean hasPic2) {
+        this.hasPic2 = hasPic2;
+    }
+
+    public boolean isHasPic3() {
+        return hasPic3;
+    }
+
+    public void setHasPic3(boolean hasPic3) {
+        this.hasPic3 = hasPic3;
+    }
+
+    public boolean isHasPic4() {
+        return hasPic4;
+    }
+
+    public void setHasPic4(boolean hasPic4) {
+        this.hasPic4 = hasPic4;
     }
 }

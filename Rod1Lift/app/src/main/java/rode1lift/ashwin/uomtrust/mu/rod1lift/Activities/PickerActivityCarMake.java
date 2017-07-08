@@ -44,10 +44,10 @@ public class PickerActivityCarMake extends Activity {
 
 
         final NumberPicker pickerModel = (NumberPicker) findViewById(R.id.pickerModel);
-        final String[] arrayModelToyota = getResources().getStringArray(R.array.carModelToyota);
+        arrayModel = getResources().getStringArray(R.array.carModelToyota);
         pickerModel.setMinValue(0);
-        pickerModel.setMaxValue(arrayModelToyota.length-1);
-        pickerModel.setDisplayedValues(arrayModelToyota);
+        pickerModel.setMaxValue(arrayModel.length-1);
+        pickerModel.setDisplayedValues(arrayModel);
         pickerModel.setWrapSelectorWheel(true);
         pickerModel.setValue(1);
 
@@ -109,6 +109,10 @@ public class PickerActivityCarMake extends Activity {
                     carDTO.setYear(pickerYear.getValue());
                     carDTO.setNumOfPassenger(4);
                     carDTO.setMake(arrayCarMake[pickerMake.getValue()]);
+                    carDTO.setHasPic1(false);
+                    carDTO.setHasPic2(false);
+                    carDTO.setHasPic3(false);
+                    carDTO.setHasPic4(false);
                 }
 
                 new CarDAO(PickerActivityCarMake.this).saveOrUpdateCar(carDTO);

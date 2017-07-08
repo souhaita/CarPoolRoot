@@ -8,14 +8,10 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.text.TextUtils;
-import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.facebook.CallbackManager;
@@ -31,7 +27,6 @@ import org.json.JSONObject;
 
 import java.net.URL;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.ExecutionException;
 
@@ -193,7 +188,7 @@ public class LoginActivity extends Activity {
     private void selectUserType() {
         final Dialog dialog = new Dialog(LoginActivity.this, R.style.WalkthroughTheme);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.show_dilaogue_user_type);
+        dialog.setContentView(R.layout.dilaogue_user_type);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setCancelable(false);
 

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent_black_50">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.3" />
+
+    <LinearLayout
+        android:gravity="center"
+        android:background="@drawable/gradient_list"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.35"
+        android:orientation="vertical">
+
+       <TextView
+           android:background="@android:color/transparent"
+           android:id="@+id/txtGallery"
+           android:layout_margin="5dp"
+           android:textColor="@color/black"
+           android:gravity="center"
+           android:textSize="25dp"
+           android:textStyle="bold"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:text="@string/activity_complete_driver_registration_photo_gallery"/>
+
+        <TextView
+            android:background="@android:color/transparent"
+            android:id="@+id/txtCamera"
+            android:layout_margin="5dp"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/activity_complete_driver_registration_photo_camera"/>
+
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/imgViewSeparator"
+            android:layout_marginRight="40dp"
+            android:layout_marginLeft="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_separator" />
+
+        <TextView
+            android:visibility="gone"
+            android:background="@android:color/transparent"
+            android:id="@+id/txtDeleteOne"
+            android:layout_margin="5dp"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/activity_complete_driver_registration_photo_delete_one"/>
+
+        <TextView
+            android:visibility="gone"
+            android:background="@android:color/transparent"
+            android:id="@+id/txtDeleteAll"
+            android:layout_margin="5dp"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/activity_complete_driver_registration_photo_delete_all"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.35" />
+
+
+</LinearLayout>

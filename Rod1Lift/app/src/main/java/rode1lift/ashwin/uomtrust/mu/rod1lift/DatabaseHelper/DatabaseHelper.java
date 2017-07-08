@@ -95,6 +95,10 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                 " picture2 BLOB, " +
                 " picture3 BLOB, " +
                 " picture4 BLOB, " +
+                " hasPic1 INTEGER DEFAULT 0, " +
+                " hasPic2 INTEGER DEFAULT 0, " +
+                " hasPic3 INTEGER DEFAULT 0, " +
+                " hasPic4 INTEGER DEFAULT 0, " +
                 " plate_num TEXT); ";
         db.execSQL(qb);
     }

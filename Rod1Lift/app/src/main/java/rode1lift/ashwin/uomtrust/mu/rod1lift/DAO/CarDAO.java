@@ -94,6 +94,11 @@ public class CarDAO {
         if(carDTO.getPicture4() != null)
             values.put("picture4", carDTO.getPicture4());
 
+        values.put("hasPic1", carDTO.isHasPic1());
+        values.put("hasPic2", carDTO.isHasPic2());
+        values.put("hasPic3", carDTO.isHasPic3());
+        values.put("hasPic4", carDTO.isHasPic4());
+
         values.put("plate_num", carDTO.getPlateNum());
 
         return values;
@@ -116,6 +121,11 @@ public class CarDAO {
         carDTO.setPicture3(res.getBlob(res.getColumnIndex("picture3")));
         carDTO.setPicture4(res.getBlob(res.getColumnIndex("picture4")));
 
+        carDTO.setHasPic1(res.getInt(res.getColumnIndex("hasPic1")) == 0? false:true);
+        carDTO.setHasPic2(res.getInt(res.getColumnIndex("hasPic2")) == 0? false:true);
+        carDTO.setHasPic3(res.getInt(res.getColumnIndex("hasPic3")) == 0? false:true);
+        carDTO.setHasPic4(res.getInt(res.getColumnIndex("hasPic4")) == 0? false:true);
+
         return carDTO;
     }
 
@@ -123,9 +133,9 @@ public class CarDAO {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues contentValues = setContentValues(carDTO);
 
-        boolean carExist = getCarByCarID(carDTO.getCarId()).getCarId() == null;
+        boolean newCar = getCarByCarID(carDTO.getCarId()).getCarId() == null;
 
-        if(carExist)
+        if(newCar)
             return db.insert(TABLE_NAME, null, contentValues);
         else
             return db.update(TABLE_NAME, contentValues, "car_id = "+carDTO.getCarId(), null);

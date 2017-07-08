@@ -19,6 +19,17 @@
     <string name="activity_complete_driver_registration_take_picture">Add Image</string>
     <string name="activity_complete_driver_registration_next">Next</string>
     <string name="activity_complete_driver_registration_title">Car Registration</string>
+    <string name="activity_complete_driver_registration_photo_camera">CAMERA</string>
+    <string name="activity_complete_driver_registration_photo_gallery">GALLERY</string>
+    <string name="activity_complete_driver_registration_photo_delete_one">DELETE SELECTED</string>
+    <string name="activity_complete_driver_registration_photo_delete_all">DELETE ALL</string>
+    <string name="activity_complete_driver_registration_photo_delete_one_pop_up">Are you sure you want to delete this picture?</string>
+    <string name="activity_complete_driver_registration_photo_delete_all_pop_up">Are you sure you want to delete all pictures?</string>
+    <string name="activity_complete_driver_registration_car_details_error">Car Make can not be empty</string>
+    <string name="activity_complete_driver_registration_year_error">Year can not be empty</string>
+    <string name="activity_complete_driver_registration_plate_num_error">Plate No. can not be empty</string>
+    <string name="activity_complete_driver_registration_number_of_passenger_error">No. Passenger can not be empty</string>
+    <string name="activity_complete_driver_registration_image_error">At least one image must be added</string>
 
 
     <string name="fb_app_id">708685515985549</string>
