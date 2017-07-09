@@ -1,4 +1,4 @@
-package mu.ac.uomtrust.shashi.taximauritius.Async;
+package rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -15,23 +15,23 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import mu.ac.uomtrust.shashi.taximauritius.DAO.CarDetailsDAO;
-import mu.ac.uomtrust.shashi.taximauritius.DTO.CarDetailsDTO;
-import mu.ac.uomtrust.shashi.taximauritius.MainActivity;
-import mu.ac.uomtrust.shashi.taximauritius.R;
-import mu.ac.uomtrust.shashi.taximauritius.Utils;
-import mu.ac.uomtrust.shashi.taximauritius.WebService;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.MainActivity;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.CarDAO;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.CarDTO;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.WebService.WebService;
 
 /**
  * Created by Ashwin on 03-Jun-17.
  */
 
-public class AsyncCreateCarDetails extends AsyncTask<CarDetailsDTO, Void ,Integer > {
+public class AsyncCreateCar extends AsyncTask<CarDTO, Void ,Integer > {
 
     private Context context;
     private ProgressDialog progressDialog;
 
-    public AsyncCreateCarDetails(final Context context) {
+    public AsyncCreateCar(final Context context) {
         this.context = context;
     }
 
@@ -42,12 +42,14 @@ public class AsyncCreateCarDetails extends AsyncTask<CarDetailsDTO, Void ,Intege
 
 
     @Override
-    protected Integer doInBackground(CarDetailsDTO... params) {
+    protected Integer doInBackground(CarDTO... params) {
         JSONObject postData = new JSONObject();
-        CarDetailsDTO carDetailsDTO = params[0];
+        CarDTO carDetailsDTO = params[0];
         HttpURLConnection httpURLConnection = null;
 
         try{
+            postData.put("carId", carDetailsDTO.getCarId());
+            postData.put("model", carDetailsDTO.getModel());
             postData.put("make", carDetailsDTO.getMake());
             postData.put("numOfPassenger", carDetailsDTO.getNumOfPassenger());
             postData.put("year", carDetailsDTO.getYear());
@@ -57,7 +59,7 @@ public class AsyncCreateCarDetails extends AsyncTask<CarDetailsDTO, Void ,Intege
                 postData.put("sPicture1", Base64.encodeToString(carDetailsDTO.getPicture1(), Base64.DEFAULT));
 
             if(carDetailsDTO.getPicture2() != null)
-                postData.put("sPicture2",Base64.encodeToString(carDetailsDTO.getPicture2(), Base64.DEFAULT));
+                postData.put("sPicture2", Base64.encodeToString(carDetailsDTO.getPicture2(), Base64.DEFAULT));
 
             if(carDetailsDTO.getPicture3() != null)
                 postData.put("sPicture3", Base64.encodeToString(carDetailsDTO.getPicture3(), Base64.DEFAULT));
@@ -65,10 +67,9 @@ public class AsyncCreateCarDetails extends AsyncTask<CarDetailsDTO, Void ,Intege
             if(carDetailsDTO.getPicture4() != null)
                 postData.put("sPicture4", Base64.encodeToString(carDetailsDTO.getPicture4(), Base64.DEFAULT));
 
-
             postData.put("accountId", carDetailsDTO.getAccountId());
 
-            httpURLConnection = (HttpURLConnection) new URL(WebService.TAXI_API_CREATE_CAR_DETAILS).openConnection();
+            httpURLConnection = (HttpURLConnection) new URL(WebService.DRIVER_API_CREATE_CAR_DETAILS).openConnection();
             httpURLConnection.setRequestMethod("POST");
             httpURLConnection.setRequestProperty("Content-Type", "application/json; charset=utf-8");
             httpURLConnection.setRequestProperty("Accept", "application/json; charset=utf-8");
@@ -98,6 +99,7 @@ public class AsyncCreateCarDetails extends AsyncTask<CarDetailsDTO, Void ,Intege
             carDetailsDTO.setMake(jsonObject.getString("make"));
             carDetailsDTO.setPlateNum(jsonObject.getString("plateNum"));
             carDetailsDTO.setNumOfPassenger(jsonObject.getInt("numOfPassenger"));
+            carDetailsDTO.setModel(jsonObject.getString("model"));
 
             return carDetailsDTO.getCarId();
 
@@ -121,7 +123,7 @@ public class AsyncCreateCarDetails extends AsyncTask<CarDetailsDTO, Void ,Intege
         super.onPostExecute(carId);
 
         if(carId > 0) {
-            new CarDetailsDAO(context).updateCarDetailsIdFromWS(carId);
+            new CarDAO(context).updateCarIdFromWS(carId);
 
             Intent intent = new Intent(context, MainActivity.class);
             context.startActivity(intent);

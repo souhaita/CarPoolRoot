@@ -19,5 +19,7 @@
     <color name="grey_border">#ededed</color>
     <color name="transparent">#00450808</color>
 
+    <color name="grey_profile">#9E9E9E</color>
+
 
 </resources>

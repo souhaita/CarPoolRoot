@@ -65,7 +65,7 @@ public class LoginActivity extends Activity {
             setContentView(R.layout.activity_login);
 
             LinearLayout llMain = (LinearLayout)findViewById(R.id.llMain);
-            animateLayout(llMain);
+            Utils.animateLayout(llMain);
 
             callbackManager = CallbackManager.Factory.create();
 
@@ -163,7 +163,10 @@ public class LoginActivity extends Activity {
 
                 accountDTO.setAccountId(-1);
                 accountDTO.setAccountStatus(AccountStatus.ACTIVE);
-                accountDTO.setDateCreated(new Date());
+
+                Date date = new Date();
+                accountDTO.setDateUpdated(date);
+                accountDTO.setDateCreated(date);
             }
 
         } catch (Exception ex) {
@@ -216,20 +219,22 @@ public class LoginActivity extends Activity {
                 }
 
                 else if(value == 1){
-                    /*accountDTO.setAccountRole(AccountRole.DRIVER);
+
+                    if(dialog != null && dialog.isShowing())
+                        dialog.dismiss();
+
+                    accountDTO.setAccountRole(AccountRole.DRIVER);
                     new AccountDAO(LoginActivity.this).saveOrUpdateAccount(accountDTO);
 
-                    Intent intent = new Intent(LoginActivity.this, CompleteDriverRegistration.class);
+                    Intent intent = new Intent(LoginActivity.this, CompleteDriverRegistrationActivity.class);
                     startActivity(intent);
-                    finish();*/
+                    finish();
                 }
                 else{
-                    dialog.dismiss();
+                    if(dialog != null && dialog.isShowing())
+                        dialog.dismiss();
 
                     accountDTO.setAccountRole(AccountRole.OTHER);
-                    Date date = new Date();
-                    accountDTO.setDateUpdated(date);
-                    accountDTO.setDateCreated(date);
                     new AccountDAO(LoginActivity.this).saveOrUpdateAccount(accountDTO);
                     new AsyncCreateAccount(LoginActivity.this).execute(accountDTO);
                 }
@@ -238,12 +243,4 @@ public class LoginActivity extends Activity {
 
         dialog.show();
     }
-
-    private void animateLayout(LinearLayout linearLayout){
-        AnimationDrawable animationDrawable = (AnimationDrawable) linearLayout.getBackground();
-        animationDrawable.setEnterFadeDuration(4000);
-        animationDrawable.setExitFadeDuration(4000);
-        animationDrawable.start();
-    }
-
 }

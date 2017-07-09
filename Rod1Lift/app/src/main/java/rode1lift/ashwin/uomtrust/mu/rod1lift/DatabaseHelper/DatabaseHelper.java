@@ -61,7 +61,6 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                 " first_name TEXT NOT NULL, " +
                 " last_name TEXT NOT NULL, " +
                 " facebook_id TEXT, " +
-                " google_id TEXT, " +
                 " account_role INTEGER NOT NULL, " +
                 " account_status INTEGER NOT NULL, " +
                 " date_created NUMERIC DEFAULT NULL, " +
@@ -75,6 +74,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                 " account_id INTEGER NOT NULL, " +
                 " request_status INTEGER, " +
                 " seat_available INTEGER, " +
+                " price INTEGER, " +
                 " place_from TEXT DEFAULT NULL, "+
                 " place_to TEXT DEFAULT NULL, "+
                 " event_date NUMERIC DEFAULT NULL, "+
@@ -118,7 +118,6 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                 " account_id INTEGER  NOT NULL, " +
                 " car_id INTEGER NOT NULL, " +
                 " request_status INTEGER, " +
-                " price INTEGER, "+
                 " date_updated NUMERIC DEFAULT NULL, "+
                 " date_created NUMERIC DEFAULT NULL ); ";
         db.execSQL(qb);

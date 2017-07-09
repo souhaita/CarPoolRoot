@@ -3,15 +3,16 @@ package rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum AccountRole {
-	DRIVER(1),
-	OTHER(2);
-	
+public enum ViewType {
+	PROFILE_PICTURE(1),
+	CARS_PICTURES(2),
+	DATA(3);
+
 	private int value ;
-	private static final Map<Integer, AccountRole> map = new HashMap<>();
+	private static final Map<Integer, ViewType> map = new HashMap<>();
 
 
-	AccountRole(int value) {
+	ViewType(int value) {
 		this.value = value;
 	}
 
@@ -24,12 +25,12 @@ public enum AccountRole {
 	}
 
 	static {
-		for (AccountRole item : values()) {
+		for (ViewType item : values()) {
 			map.put(item.getValue(), item);
 		}
 	}
 
-	public static AccountRole valueFor(int ref) {
+	public static ViewType valueFor(int ref) {
 		return map.get(ref);
 	}
 }

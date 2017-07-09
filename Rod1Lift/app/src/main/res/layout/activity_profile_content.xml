@@ -1,46 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
+    android:background="@drawable/gradient_list"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-
     <LinearLayout
+        android:layout_marginTop="4dp"
+        android:layout_marginLeft="4dp"
+        android:background="@android:color/transparent"
         android:orientation="horizontal"
         android:id="@+id/llProfile"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="160dp">
 
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imgViewProfile"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:src="@drawable/logo_background"
+            app:civ_border_width="1dp"
+            app:civ_border_color="@color/transparent_white_50" />
+
+        <LinearLayout
+            android:layout_margin="10dp"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerInside" />
+            android:layout_height="match_parent">
 
-        <TextView
-            android:textSize="20dp"
-            android:textColor="@color/black"
-            android:id="@+id/txtNameLabel"
-            android:layout_weight="0.5"
-            android:layout_width="0dp"
-            android:layout_height="match_parent" />
+            <TextView
+                android:gravity="bottom|left"
+                android:textSize="20dp"
+                android:textColor="@color/black"
+                android:id="@+id/txtNameLabel"
+                android:layout_weight="0.5"
+                android:layout_width="match_parent"
+                android:layout_height="0dp" />
 
-        <TextView
-            android:textSize="20dp"
-            android:textColor="@color/black"
-            android:id="@+id/txtNameData"
-            android:layout_weight="0.5"
-            android:layout_width="0dp"
-            android:layout_height="match_parent" />
+            <TextView
+                android:gravity="top|left"
+                android:textSize="20dp"
+                android:textColor="@color/black"
+                android:id="@+id/txtNameData"
+                android:layout_weight="0.5"
+                android:layout_width="match_parent"
+                android:layout_height="0dp" />
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
+        android:paddingRight="1dp"
+        android:paddingLeft="1dp"
+        android:background="@color/transparent_black_50"
         android:id="@+id/llData"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="50dp">
 
         <TextView
+            android:gravity="center_vertical"
             android:textSize="20dp"
             android:textColor="@color/black"
             android:id="@+id/txtLabel"
@@ -49,6 +68,7 @@
             android:layout_height="match_parent" />
 
         <TextView
+            android:gravity="left|center_vertical"
             android:textSize="20dp"
             android:textColor="@color/black"
             android:id="@+id/txtData"
@@ -61,13 +81,13 @@
     <LinearLayout
         android:id="@+id/llCar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="200dp">
 
         <ImageView
             android:id="@+id/imgViewCar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerInside" />
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop" />
 
     </LinearLayout>
 

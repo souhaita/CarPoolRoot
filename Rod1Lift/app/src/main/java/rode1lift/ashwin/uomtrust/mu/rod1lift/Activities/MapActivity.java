@@ -44,7 +44,6 @@ public class MapActivity extends Fragment implements
     private LocationClient locationClient;
 
     private static final int PERMISSION_GPS = 1;
-    private LocationListener locationListener = this;
 
     private Double mLat = null;
     private Double mLng = null;

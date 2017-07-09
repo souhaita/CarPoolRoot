@@ -60,7 +60,6 @@ public class AccountDAO {
         accountDTO.setFirstName(res.getString(res.getColumnIndex("first_name")));
         accountDTO.setLastName(res.getString(res.getColumnIndex("last_name")));
         accountDTO.setFacebookId(res.getString(res.getColumnIndex("facebook_id")));
-        accountDTO.setGoogleId(res.getString(res.getColumnIndex("google_id")));
         accountDTO.setAccountRole(res.getInt(res.getColumnIndex("account_role")) != 0? AccountRole.OTHER : AccountRole.DRIVER);
         accountDTO.setAccountStatus(res.getInt(res.getColumnIndex("account_status")) == 0? AccountStatus.ACTIVE : AccountStatus.DESACTIVE);
         accountDTO.setDateCreated(new Date(res.getLong(res.getColumnIndex("date_created"))));
@@ -83,9 +82,6 @@ public class AccountDAO {
 
         if(accountDTO.getFacebookId() != null  && !TextUtils.isEmpty(accountDTO.getFacebookId()))
             values.put("facebook_id", accountDTO.getFacebookId());
-
-        if(accountDTO.getGoogleId() != null  && !TextUtils.isEmpty(accountDTO.getGoogleId()))
-            values.put("google_id", accountDTO.getGoogleId());
 
         values.put("account_role", accountDTO.getAccountRole().ordinal());
         values.put("account_status", accountDTO.getAccountStatus().ordinal());

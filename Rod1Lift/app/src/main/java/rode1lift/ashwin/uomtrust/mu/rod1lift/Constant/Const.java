@@ -13,4 +13,5 @@ public class Const {
     public static final int PERMISSION_CAMERA = 2;
     public static final int CAMERA = 3;
     public static final int carMakeActivity = 4;
+    public static final int MAIN_ACTIVITY = 5;
 }

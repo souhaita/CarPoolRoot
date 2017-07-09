@@ -124,4 +124,6 @@ public class RequestDTO implements Serializable {
     public void setSeatAvailable(Integer seatAvailable) {
         this.seatAvailable = seatAvailable;
     }
+
+
 }

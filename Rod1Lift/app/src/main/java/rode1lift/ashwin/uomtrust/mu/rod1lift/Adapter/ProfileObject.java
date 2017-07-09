@@ -1,20 +1,7 @@
-package rode1lift.ashwin.uomtrust.mu.rod1lift.DTO;
+package rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-
-import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
-
-import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.Const;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.AccountDAO;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.CarDAO;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.AccountRole;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.AccountStatus;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.AccountDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.ViewType;
-
-import static android.content.Context.MODE_PRIVATE;
 
 
 /**
@@ -25,25 +12,29 @@ public class ProfileObject{
 
     private ViewType viewType;
 
-    private List<byte []> carsPictures;
+    private byte [] carsPicture;
 
     private byte [] profilePicture;
 
     private String data;
+    private String label;
 
-    public ProfileObject(ViewType viewType, byte [] profilePicture){
+    public ProfileObject(ViewType viewType, AccountDTO accountDTO){
         this.viewType = viewType;
-        this.profilePicture = profilePicture;
+        this.profilePicture = accountDTO.getProfilePicture();
+        this.label = accountDTO.getFirstName();
+        this.data = accountDTO.getLastName();
     }
 
-    public ProfileObject(ViewType viewType, List<byte []> carsPictures){
+    public ProfileObject(ViewType viewType, byte [] carsPictures){
         this.viewType = viewType;
-        this.carsPictures = carsPictures;
+        this.carsPicture = carsPictures;
     }
 
-    public ProfileObject(ViewType viewType, String data){
+    public ProfileObject(ViewType viewType, String label, String data){
         this.viewType = viewType;
         this.data = data;
+        this.label = label;
     }
 
     public ViewType getViewType() {
@@ -54,12 +45,12 @@ public class ProfileObject{
         this.viewType = viewType;
     }
 
-    public List<byte[]> getCarsPictures() {
-        return carsPictures;
+    public byte[] getCarsPicture() {
+        return carsPicture;
     }
 
-    public void setCarsPictures(List<byte[]> carsPictures) {
-        this.carsPictures = carsPictures;
+    public void setCarsPicture(byte[] carsPicture) {
+        this.carsPicture = carsPicture;
     }
 
     public byte[] getProfilePicture() {
@@ -76,5 +67,13 @@ public class ProfileObject{
 
     public void setData(String data) {
         this.data = data;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
     }
 }

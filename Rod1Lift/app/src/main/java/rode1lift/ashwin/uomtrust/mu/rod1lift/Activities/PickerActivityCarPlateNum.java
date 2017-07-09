@@ -4,19 +4,24 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
+
+import org.w3c.dom.Text;
 
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.Const;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.CarDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.CarDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 
 
-public class PickerActivityCarSeats extends Activity {
+public class PickerActivityCarPlateNum extends Activity {
 
     private CarDTO carDTO;
     private Integer userId;
@@ -24,27 +29,14 @@ public class PickerActivityCarSeats extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.picker_car_seats);
+        setContentView(R.layout.picker_car_plate_num);
         getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-
-        final NumberPicker pickerNumPassenger = (NumberPicker) findViewById(R.id.pickerNumPassenger);
 
         SharedPreferences prefs = getSharedPreferences(Const.appName, MODE_PRIVATE);
         userId = prefs.getInt(Const.currentAccountId, -1);
-        carDTO = new CarDAO(PickerActivityCarSeats.this).getCarByAccountID(userId);
+        carDTO = new CarDAO(PickerActivityCarPlateNum.this).getCarByAccountID(userId);
 
-        pickerNumPassenger.setMinValue(1);
-        pickerNumPassenger.setMaxValue(4);
-        pickerNumPassenger.setValue(1);
-        pickerNumPassenger.setWrapSelectorWheel(true);
-
-        pickerNumPassenger.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker numberPicker, int i, int i1) {
-
-            }
-        });
-
+        final EditText eTxtPlateNum =(EditText)findViewById(R.id.eTxtPlateNum);
 
         ImageView close = (ImageButton) findViewById(R.id.imgClose);
         close.setOnClickListener(new View.OnClickListener() {
@@ -59,27 +51,30 @@ public class PickerActivityCarSeats extends Activity {
             @Override
             public void onClick(View v) {
 
-                if(carDTO != null && carDTO.getCarId() != null){
-                    carDTO.setNumOfPassenger(pickerNumPassenger.getValue());
-                }
-                else{
-                    carDTO = new CarDTO();
-                    carDTO.setCarId(-1);
-                    carDTO.setAccountId(userId);
-                    carDTO.setNumOfPassenger(pickerNumPassenger.getValue());
-                }
+                if(TextUtils.isEmpty(eTxtPlateNum.getText().toString())){
+                    String message = getString(R.string.activity_complete_driver_registration_plate_num_error);
+                    Utils.showToast(PickerActivityCarPlateNum.this, message);
 
-                new CarDAO(PickerActivityCarSeats.this).saveOrUpdateCar(carDTO);
+                    Utils.vibrate(PickerActivityCarPlateNum.this);
+                }
+                else {
+                    if (carDTO != null && carDTO.getCarId() != null) {
+                        carDTO.setPlateNum(eTxtPlateNum.getText().toString());
+                    } else {
+                        carDTO = new CarDTO();
+                        carDTO.setCarId(-1);
+                        carDTO.setAccountId(userId);
+                        carDTO.setPlateNum(eTxtPlateNum.getText().toString());
+                    }
 
-                Intent intent = getIntent();
-                setResult(RESULT_OK, intent);
-                finish();
+                    new CarDAO(PickerActivityCarPlateNum.this).saveOrUpdateCar(carDTO);
+
+                    Intent intent = getIntent();
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }
             }
         });
-
-        if(carDTO != null && carDTO.getCarId() != null){
-            pickerNumPassenger.setValue(carDTO.getNumOfPassenger());
-        }
     }
 
     @Override

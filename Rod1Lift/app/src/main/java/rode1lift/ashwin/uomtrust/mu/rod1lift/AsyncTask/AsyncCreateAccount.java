@@ -65,9 +65,6 @@ public class AsyncCreateAccount extends AsyncTask<AccountDTO, Void ,AccountDTO> 
             if(accountDTO.getFacebookId() != null)
                 postData.put("facebookId", accountDTO.getFacebookId());
 
-            if(accountDTO.getGoogleId() != null)
-                postData.put("googleId", accountDTO.getGoogleId());
-
             if(accountDTO.getDateCreated() != null)
                 postData.put("dateCreated", accountDTO.getDateCreated().getTime());
 
@@ -132,10 +129,10 @@ public class AsyncCreateAccount extends AsyncTask<AccountDTO, Void ,AccountDTO> 
 
 
             if (accountDTO.getAccountRole() == AccountRole.DRIVER) {
-                CarDTO carDetailsDTO = new CarDAO(context).getCarByAccountID(-1);
-                carDetailsDTO.setAccountId(accountDTO.getAccountId());
-                new CarDAO(context).saveOrUpdateCar(carDetailsDTO);
-               // new AsyncCreateCar(context).execute(carDetailsDTO);
+                CarDTO carDTO = new CarDAO(context).getCarByAccountID(-1);
+                carDTO.setAccountId(accountDTO.getAccountId());
+                new CarDAO(context).saveOrUpdateCar(carDTO);
+                new AsyncCreateCar(context).execute(carDTO);
             } else {
                 Intent intent = new Intent(context, MainActivity.class);
                 context.startActivity(intent);

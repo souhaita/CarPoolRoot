@@ -17,9 +17,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.Const;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.AccountDAO;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.AccountDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -42,6 +47,38 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         MapActivity mapActivity = new MapActivity();
         changeFragment(mapActivity);
+
+
+        SharedPreferences prefs = getSharedPreferences(Const.appName, MODE_PRIVATE);
+        Integer accountId = prefs.getInt(Const.currentAccountId, -1);
+
+        AccountDTO accountDTO = new AccountDAO(this).getAccountById(accountId);
+
+        setProfileDetails(navigationView, accountDTO);
+
+
+
+    }
+
+    private void setProfileDetails(NavigationView navigationView, AccountDTO accountDTO){
+        View view =  navigationView.getHeaderView(0);
+
+        ImageView imgProfilePic = (ImageView) view.findViewById(R.id.imgProfilePic);
+        imgProfilePic.setImageBitmap(Utils.convertBlobToBitmap(accountDTO.getProfilePicture()));
+
+        TextView txtFullName = (TextView) view.findViewById(R.id.txtFullName);
+        txtFullName.setText(accountDTO.getFirstName() +" "+accountDTO.getLastName());
+
+        LinearLayout llMainProfilePic = (LinearLayout)view.findViewById(R.id.llMainProfilePic);
+        llMainProfilePic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                startActivityForResult(intent, Const.MAIN_ACTIVITY);
+            }
+        });
+
+        Utils.animateLayout(llMainProfilePic);
     }
 
     @Override
@@ -105,11 +142,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Fragment newFragment = fragment;
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
-        transaction.setCustomAnimations(R.animator.newenter, R.animator.exit, R.animator.pop_enter, R.animator.pop_exit);
+        //transaction.setCustomAnimations(R.animator.newenter, R.animator.exit, R.animator.pop_enter, R.animator.pop_exit);
 
-
-        transaction.addToBackStack(null);
         transaction.replace(R.id.content_main, newFragment);
+        transaction.addToBackStack(null);
         transaction.commit();
     }
 

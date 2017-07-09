@@ -21,7 +21,7 @@ public class Car implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer carId;
+	private Long carId;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "accountId", nullable = true)
@@ -35,10 +35,10 @@ public class Car implements Serializable{
 	private Integer numOfPassenger;
 	
 	
-	public Integer getCarId() {
+	public Long getCarId() {
 		return carId;
 	}
-	public void setCarId(Integer carId) {
+	public void setCarId(Long carId) {
 		this.carId = carId;
 	}
 	public Account getUserAccount() {

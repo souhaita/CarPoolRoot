@@ -27,9 +27,12 @@
     <string name="activity_complete_driver_registration_photo_delete_all_pop_up">Are you sure you want to delete all pictures?</string>
     <string name="activity_complete_driver_registration_car_details_error">Car Make can not be empty</string>
     <string name="activity_complete_driver_registration_year_error">Year can not be empty</string>
-    <string name="activity_complete_driver_registration_plate_num_error">Plate No. can not be empty</string>
-    <string name="activity_complete_driver_registration_number_of_passenger_error">No. Passenger can not be empty</string>
+    <string name="activity_complete_driver_registration_plate_num_error">Plate Number can not be empty</string>
+    <string name="activity_complete_driver_registration_number_of_passenger_error">Number Passenger can not be empty</string>
     <string name="activity_complete_driver_registration_image_error">At least one image must be added</string>
+    <string name="activity_complete_driver_registration_plate_num_hint">Plate No.</string>
+
+    <string name="menu_edit_profile">Edit Profile</string>
 
 
     <string name="fb_app_id">708685515985549</string>
@@ -78,5 +81,6 @@
         <item>ACCORD</item>
         <item>FIT</item>
     </string-array>
+    <string name="title_activity_profile">ProfileActivity</string>
 
 </resources>

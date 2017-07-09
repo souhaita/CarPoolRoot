@@ -33,8 +33,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncCreateAccount;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.Const;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.AccountDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.CarDAO;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.AccountDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.CarDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
@@ -102,6 +105,15 @@ public class CompleteDriverRegistrationActivity extends Activity {
             }
         });
 
+        LinearLayout llPlateNum = (LinearLayout)findViewById(R.id.llPlateNum);
+        llPlateNum.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CompleteDriverRegistrationActivity.this, PickerActivityCarPlateNum.class);
+                startActivityForResult(intent, Const.carMakeActivity);
+            }
+        });
+
         txtCarDetails = (TextView) findViewById(R.id.txtCarDetails);
         txtYear = (TextView) findViewById(R.id.txtYear);
         txtNumOfPassenger = (TextView) findViewById(R.id.txtNumOfPassenger);
@@ -112,7 +124,10 @@ public class CompleteDriverRegistrationActivity extends Activity {
         txtNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                validateForm();
+                if(validateForm()){
+                    AccountDTO accountDTO = new AccountDAO(CompleteDriverRegistrationActivity.this).getAccountById(-1);
+                    new AsyncCreateAccount(CompleteDriverRegistrationActivity.this).execute(accountDTO);
+                }
             }
         });
 
@@ -172,7 +187,7 @@ public class CompleteDriverRegistrationActivity extends Activity {
         });
 
 
-        SharedPreferences prefs = getSharedPreferences(Const.appName, MODE_PRIVATE);
+       /* SharedPreferences prefs = getSharedPreferences(Const.appName, MODE_PRIVATE);
         userId = prefs.getInt(Const.currentAccountId, -1);
         carDTO = new CarDAO(CompleteDriverRegistrationActivity.this).getCarByAccountID(userId);
 
@@ -199,7 +214,7 @@ public class CompleteDriverRegistrationActivity extends Activity {
 
                 txtNumOfPassenger.setText(String.valueOf(carDTO.getNumOfPassenger()));
             }
-        }
+        }*/
     }
 
     @Override
@@ -213,25 +228,35 @@ public class CompleteDriverRegistrationActivity extends Activity {
                     carDTO = new CarDAO(CompleteDriverRegistrationActivity.this).getCarByAccountID(userId);
 
                     if(carDTO != null && carDTO.getCarId() != null) {
-                        ImageView imgCarDetails, imgYear, imgNumOfPassenger;
+                        ImageView imgCarDetails, imgYear, imgNumOfPassenger, imgPlateNum;
 
-                        imgCarDetails = (ImageView)findViewById(R.id.imgCarDetails);
-                        imgCarDetails.setVisibility(View.GONE);
+                        if(carDTO.getMake() != null) {
+                            imgCarDetails = (ImageView)findViewById(R.id.imgCarDetails);
+                            imgCarDetails.setVisibility(View.GONE);
 
-                        imgYear = (ImageView)findViewById(R.id.imgYear);
-                        imgYear.setVisibility(View.GONE);
+                            txtCarDetails.setText(carDTO.getMake() + " " + carDTO.getModel());
+                        }
 
-                        imgNumOfPassenger = (ImageView)findViewById(R.id.imgNumOfPassenger);
-                        imgNumOfPassenger.setVisibility(View.GONE);
+                        if(carDTO.getYear() != null) {
+                            imgYear = (ImageView)findViewById(R.id.imgYear);
+                            imgYear.setVisibility(View.GONE);
 
-                        TextView txtCarDetails = (TextView) findViewById(R.id.txtCarDetails);
-                        txtCarDetails.setText(carDTO.getMake()+ " "+ carDTO.getModel());
+                            txtYear.setText(String.valueOf(carDTO.getYear()));
+                        }
 
-                        TextView txtYear = (TextView) findViewById(R.id.txtYear);
-                        txtYear.setText(String.valueOf(carDTO.getYear()));
+                        if(carDTO.getNumOfPassenger() != null) {
+                            imgNumOfPassenger = (ImageView)findViewById(R.id.imgNumOfPassenger);
+                            imgNumOfPassenger.setVisibility(View.GONE);
 
-                        TextView txtNumOfPassenger = (TextView)findViewById(R.id.txtNumOfPassenger);
-                        txtNumOfPassenger.setText(String.valueOf(carDTO.getNumOfPassenger()));
+                            txtNumOfPassenger.setText(String.valueOf(carDTO.getNumOfPassenger()));
+                        }
+
+                        if(carDTO.getPlateNum() != null) {
+                            imgPlateNum = (ImageView)findViewById(R.id.imgPlateNum);
+                            imgPlateNum.setVisibility(View.GONE);
+
+                            txtPlateNum.setText(carDTO.getPlateNum());
+                        }
                     }
                     break;
 
@@ -426,8 +451,7 @@ public class CompleteDriverRegistrationActivity extends Activity {
         }
 
         if(!validForm){
-            Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-            v.vibrate(1000);
+            Utils.vibrate(CompleteDriverRegistrationActivity.this);
         }
         return validForm;
     }
@@ -670,35 +694,4 @@ public class CompleteDriverRegistrationActivity extends Activity {
                 break;
         }
     }
-
-    /*private void setData(){
-        AccountDTO accountDTO = new AccountDAO(CompleteDriverRegistration.this).getAccountById(-1);
-        //AccountDTO accountDTO = (AccountDTO) getIntent().getSerializableExtra("accountDTO");
-
-        CarDetailsDTO carDetailsDTO = new CarDetailsDTO();
-        carDetailsDTO.setCarId(-1);
-        carDetailsDTO.setMake(editTextMake.getText().toString());
-        carDetailsDTO.setNumOfPassenger(Integer.parseInt(editTextPassenger.getText().toString()));
-        carDetailsDTO.setYear(Integer.parseInt(editTextYear.getText().toString()));
-        carDetailsDTO.setPlateNum(editTextPlateNum.getText().toString());
-        carDetailsDTO.setAccountId(accountDTO.getAccountId());
-
-        if(img1.getDrawable() != null)
-        carDetailsDTO.setPicture1(Utils.convertBitmapToBlob(((BitmapDrawable)img1.getDrawable()).getBitmap()));
-
-        if(img2.getDrawable() != null)
-            carDetailsDTO.setPicture2(Utils.convertBitmapToBlob(((BitmapDrawable)img2.getDrawable()).getBitmap()));
-
-        if(img3.getDrawable() != null)
-            carDetailsDTO.setPicture3(Utils.convertBitmapToBlob(((BitmapDrawable)img3.getDrawable()).getBitmap()));
-
-        if(img4.getDrawable() != null)
-            carDetailsDTO.setPicture4(Utils.convertBitmapToBlob(((BitmapDrawable)img4.getDrawable()).getBitmap()));
-
-        new CarDetailsDAO(CompleteDriverRegistration.this).saveOrUpdateCarDetails(carDetailsDTO);
-
-        accountDTO.setAddress(autoCompleteAddress.getText().toString());
-        new AccountDAO(CompleteDriverRegistration.this).saveOrUpdateAccount(accountDTO);
-        new AsyncCreateAccount(CompleteDriverRegistration.this).execute(accountDTO);
-    }*/
 }

@@ -28,7 +28,6 @@ public class Account {
 	private String firstName;
 	private String lastName;	
 	private String facebookId;
-	private String googleId;
 	
 	@Column(length = 100, nullable = false, unique = true)
 	private String email;
@@ -94,14 +93,6 @@ public class Account {
 
 	public void setFacebookId(String facebookId) {
 		this.facebookId = facebookId;
-	}
-
-	public String getGoogleId() {
-		return googleId;
-	}
-
-	public void setGoogleId(String googleId) {
-		this.googleId = googleId;
 	}
 
 	public AccountRole getAccountRole() {

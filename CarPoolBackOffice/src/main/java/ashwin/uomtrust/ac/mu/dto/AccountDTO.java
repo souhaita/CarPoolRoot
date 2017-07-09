@@ -15,12 +15,11 @@ public class AccountDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Integer accountId;
+    private Long accountId;
 
     private String email;
     private String firstName;
     private String lastName;
-    private String googleId;
     private String facebookId;
 
     private AccountRole accountRole;
@@ -31,11 +30,11 @@ public class AccountDTO implements Serializable {
 
     private byte [] profilePicture;
 
-    public Integer getAccountId() {
+    public Long getAccountId() {
         return accountId;
     }
 
-    public void setAccountId(Integer accountId) {
+    public void setAccountId(Long accountId) {
         this.accountId = accountId;
     }
 
@@ -61,14 +60,6 @@ public class AccountDTO implements Serializable {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public String getGoogleId() {
-        return googleId;
-    }
-
-    public void setGoogleId(String googleId) {
-        this.googleId = googleId;
     }
 
     public String getFacebookId() {

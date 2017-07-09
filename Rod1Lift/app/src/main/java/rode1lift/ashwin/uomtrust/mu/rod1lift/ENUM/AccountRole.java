@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum AccountRole {
-	ADMIN(0),
 	DRIVER(1),
 	OTHER(2);
 	

@@ -164,6 +164,7 @@
 
                 <TextView
                     android:layout_weight="0.7"
+                    android:paddingRight="16dp"
                     android:id="@+id/txtPlateNum"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -178,7 +179,7 @@
                     android:layout_height="match_parent"
                     android:tint="@color/colorPrimary"
                     android:src="@drawable/icon_right" />
-                </LinearLayout>
+            </LinearLayout>
 
         </LinearLayout>
         <View

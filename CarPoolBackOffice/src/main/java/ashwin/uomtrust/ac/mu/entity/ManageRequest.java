@@ -40,9 +40,7 @@ public class ManageRequest implements Serializable{
 	
 	private Date dateCreated;
 	private Date dateUpdated;
-	
-	private Integer price;
-	
+		
 	private RequestStatus requestStatus;
 
 	public Integer getManageRequestId() {
@@ -91,14 +89,6 @@ public class ManageRequest implements Serializable{
 
 	public void setDateUpdated(Date dateUpdated) {
 		this.dateUpdated = dateUpdated;
-	}
-
-	public Integer getPrice() {
-		return price;
-	}
-
-	public void setPrice(Integer price) {
-		this.price = price;
 	}
 
 	public RequestStatus getRequestStatus() {

@@ -14,7 +14,6 @@ public class ManageRequestDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Integer manageRequestId;
-    private Integer price;
     private Integer accountId;
     private Integer carId;
     private Integer requestId;
@@ -30,14 +29,6 @@ public class ManageRequestDTO implements Serializable {
 
     public void setManageRequestId(Integer manageRequestId) {
         this.manageRequestId = manageRequestId;
-    }
-
-    public Integer getPrice() {
-        return price;
-    }
-
-    public void setPrice(Integer price) {
-        this.price = price;
     }
 
     public Integer getAccountId() {

@@ -35,6 +35,7 @@ public class Request implements Serializable{
     private Date eventDate;
     
     private Integer seatAvailable;
+    private Integer price;
     	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "accountId", nullable = true)
@@ -110,5 +111,13 @@ public class Request implements Serializable{
 
 	public void setSeatAvailable(Integer seatAvailable) {
 		this.seatAvailable = seatAvailable;
+	}
+
+	public Integer getPrice() {
+		return price;
+	}
+
+	public void setPrice(Integer price) {
+		this.price = price;
 	}
 }
