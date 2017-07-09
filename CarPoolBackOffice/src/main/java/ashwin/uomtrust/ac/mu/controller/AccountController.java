@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import ashwin.uomtrust.ac.mu.dto.AccountDTO;
 import ashwin.uomtrust.ac.mu.dto.CarDTO;
 import ashwin.uomtrust.ac.mu.entity.Account;
 import ashwin.uomtrust.ac.mu.service.AccountService;
 import ashwin.uomtrust.ac.mu.service.CarService;
-import ashwin.uomtrust.ac.mu.utils.Utils;
 
 @RestController
 @RequestMapping("/api/account")
@@ -38,9 +38,9 @@ public class AccountController {
 	
 	@CrossOrigin(origins = "http://localhost:8081")
 	@RequestMapping(value = "/createAccount", method = RequestMethod.POST)
-	public Account createAccount(@RequestBody Account account) {
-		if(account != null && account.getEmail() !=null ){
-			return accountService.saveAccount(account);
+	public AccountDTO createAccount(@RequestBody AccountDTO accountDTO) {
+		if(accountDTO != null && accountDTO.getEmail() !=null ){
+			return accountService.saveAccount(accountDTO);
 		}
 		return null;
 	}

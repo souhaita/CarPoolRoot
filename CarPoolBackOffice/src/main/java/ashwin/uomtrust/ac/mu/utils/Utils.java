@@ -10,18 +10,42 @@ import javax.imageio.ImageIO;
 
 import org.apache.tomcat.util.codec.binary.Base64;
 
+import ashwin.uomtrust.ac.mu.dto.AccountDTO;
 import ashwin.uomtrust.ac.mu.dto.CarDTO;
 
 
 
 public class Utils {	
 	
-	private static final String photoDirectoty = "D:/UOM/Dissertation/rod1LiftCarsPhotos/";
+	private static final String carDirectory = "D:/UOM/Dissertation/rod1LiftImages/CarGalley/";
+	private static final String profilePicDirectory = "D:/UOM/Dissertation/rod1LiftImages/ProfilePicGalley/";
+
+	
+	public static void saveProfilePictureToServer(AccountDTO accountDTO){
+		try {
+			
+			File filePath = getOutputFile(profilePicDirectory);
+			
+			if(accountDTO.getsProfilePicture() != null){
+				byte [] profilePic = Base64.decodeBase64(accountDTO.getsProfilePicture());
+				InputStream in = new ByteArrayInputStream(profilePic);					
+				BufferedImage bImageFromConvert = ImageIO.read(in);
+				
+				String imageName = "/"+accountDTO.getAccountId()+".jpg";
+				ImageIO.write(bImageFromConvert, "jpg", new File(filePath +imageName));
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 	
 	public static void saveImageToServer(CarDTO carDTO){
 		try {
 			
-			File filePath = getOutputFile();
+			getOutputFile(carDirectory);
+			
 			String imageDirectory = generateImageDirectory(carDTO.getAccountId());
 			
 			if(carDTO.getsPicture1() != null){
@@ -123,10 +147,9 @@ public class Utils {
 		return carDTO;
 	}
 	
-	private static File getOutputFile(){
+	private static File getOutputFile(String path){
 		
 		try{
-			String path = photoDirectoty;
 	
 			File imageDirectory = new File(path);
 	
@@ -138,17 +161,17 @@ public class Utils {
 			return imageDirectory;
 		}
 		catch(Exception e){
-			
+			e.printStackTrace();
 		}
 		
 		return null;
 	}
 	
-	
 	private static String generateImageDirectory(Long userId){
 		
 		try{
-			String path = photoDirectoty+String.valueOf(userId)+"/";
+			
+			String path = carDirectory+String.valueOf(userId)+"/";
 	
 			File imageDirectory = new File(path);
 	

@@ -31,8 +31,15 @@ public class CarServiceImp implements CarService{
 		Account account = accountRepository.findByAccountId(carDTO.getAccountId());
 		account.setAccountRole(AccountRole.DRIVER);
 		accountRepository.save(account);
+	
 		
-		Car car = new Car();
+		Car car = carRepository.getCarById(carDTO.getCarId());
+		
+		if(car != null )
+			car.setCarId(carDTO.getCarId());
+		else
+			car = new Car();
+		
 		car.setUserAccount(account);
 		car.setMake(carDTO.getMake());
 		car.setNumOfPassenger(carDTO.getNumOfPassenger());

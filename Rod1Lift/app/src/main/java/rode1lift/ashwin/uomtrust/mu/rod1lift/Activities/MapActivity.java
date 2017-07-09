@@ -25,6 +25,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 
 /**
  * Created by Ashwin on 04-Jul-17.
@@ -145,6 +146,8 @@ public class MapActivity extends Fragment implements
         }
         else {
 
+            //Utils.turnGPSOn(getActivity());
+
             if(locationClient != null && locationClient.getLastLocation() != null){
                 mLat = locationClient.getLastLocation().getLatitude();
                 mLng = locationClient.getLastLocation().getLongitude();
@@ -163,6 +166,7 @@ public class MapActivity extends Fragment implements
         switch (requestCode) {
             case PERMISSION_GPS: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    //Utils.turnGPSOn(getActivity());
                     Toast.makeText(this.getActivity(), "Permission granted", Toast.LENGTH_SHORT).show();
 
                 } else {

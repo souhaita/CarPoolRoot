@@ -54,9 +54,6 @@ import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.Const.PICK_IMAGE_RE
 
 public class CompleteDriverRegistrationActivity extends Activity {
 
-
-    private static final String IMAGE_DIRECTORY_NAME = "Rod1Lift";
-
     private Dialog menuDialog;
 
     private Uri fileUri;
@@ -186,35 +183,6 @@ public class CompleteDriverRegistrationActivity extends Activity {
             }
         });
 
-
-       /* SharedPreferences prefs = getSharedPreferences(Const.appName, MODE_PRIVATE);
-        userId = prefs.getInt(Const.currentAccountId, -1);
-        carDTO = new CarDAO(CompleteDriverRegistrationActivity.this).getCarByAccountID(userId);
-
-        if(carDTO != null && carDTO.getCarId() != null){
-            ImageView imgCarDetails, imgYear, imgNumOfPassenger;
-
-            if(carDTO.getModel() != null && carDTO.getMake() != null) {
-                imgCarDetails = (ImageView)findViewById(R.id.imgCarDetails);
-                imgCarDetails.setVisibility(View.GONE);
-
-                txtCarDetails.setText(carDTO.getMake() + " " + carDTO.getModel());
-            }
-
-            if(carDTO.getYear() != null) {
-                imgYear = (ImageView)findViewById(R.id.imgYear);
-                imgYear.setVisibility(View.GONE);
-
-                txtYear.setText(String.valueOf(carDTO.getYear()));
-            }
-
-            if(carDTO.getNumOfPassenger() != null) {
-                imgNumOfPassenger = (ImageView)findViewById(R.id.imgNumOfPassenger);
-                imgNumOfPassenger.setVisibility(View.GONE);
-
-                txtNumOfPassenger.setText(String.valueOf(carDTO.getNumOfPassenger()));
-            }
-        }*/
     }
 
     @Override
@@ -437,10 +405,10 @@ public class CompleteDriverRegistrationActivity extends Activity {
             Utils.showToast(CompleteDriverRegistrationActivity.this,getResources().getString(R.string.activity_complete_driver_registration_year_error) );
             validForm = false;
         }
-       /* else if(TextUtils.isEmpty(txtPlateNum.getText().toString())){
+        else if(TextUtils.isEmpty(txtPlateNum.getText().toString())){
             Utils.showToast(CompleteDriverRegistrationActivity.this,getResources().getString(R.string.activity_complete_driver_registration_plate_num_error) );
             validForm = false;
-        }*/
+        }
         else if(TextUtils.isEmpty(txtNumOfPassenger.getText().toString())){
             Utils.showToast(CompleteDriverRegistrationActivity.this,getResources().getString(R.string.activity_complete_driver_registration_number_of_passenger_error) );
             validForm = false;
@@ -658,7 +626,7 @@ public class CompleteDriverRegistrationActivity extends Activity {
         File mediaStorageDir = new File(
                 Environment
                         .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
-                IMAGE_DIRECTORY_NAME);
+                Const.IMAGE_DIRECTORY_NAME);
 
         // Create the storage directory if it does not exist
         if (!mediaStorageDir.exists()) {

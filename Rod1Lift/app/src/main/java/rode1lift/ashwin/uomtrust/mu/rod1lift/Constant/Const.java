@@ -5,6 +5,9 @@ package rode1lift.ashwin.uomtrust.mu.rod1lift.Constant;
  */
 
 public class Const {
+
+    public static final String IMAGE_DIRECTORY_NAME = "Rod1Lift";
+
     public static final String appName = "rod1Lift";
     public static final String login = "login";
     public static final String currentAccountId = "currentAccountId";
@@ -14,4 +17,14 @@ public class Const {
     public static final int CAMERA = 3;
     public static final int carMakeActivity = 4;
     public static final int MAIN_ACTIVITY = 5;
+    public static final int PROFILE_ACTIVITY_NAME = 6;
+    public static final int PROFILE_ACTIVITY_PROFILE_PIC = 7;
+    public static final int PROFILE_ACTIVITY_PROFILE_CAR_1 = 8;
+    public static final int PROFILE_ACTIVITY_PROFILE_CAR_2 = 9;
+    public static final int PROFILE_ACTIVITY_PROFILE_CAR_3 = 10;
+    public static final int PROFILE_ACTIVITY_PROFILE_CAR_4 = 11;
+    public static final int PROFILE_ACTIVITY_PROFILE_CAR_MAKE = 12;
+    public static final int PROFILE_ACTIVITY_PROFILE_CAR_YEAR = 13;
+    public static final int PROFILE_ACTIVITY_PROFILE_CAR_PLATE_NUM = 14;
+    public static final int PROFILE_ACTIVITY_PROFILE_CAR_PASSENGER = 15;
 }

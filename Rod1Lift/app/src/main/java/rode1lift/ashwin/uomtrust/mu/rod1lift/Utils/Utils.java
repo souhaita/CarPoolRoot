@@ -3,10 +3,13 @@ package rode1lift.ashwin.uomtrust.mu.rod1lift.Utils;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.AnimationDrawable;
+import android.net.Uri;
 import android.os.Vibrator;
+import android.provider.Settings;
 import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -126,22 +129,9 @@ public class Utils {
         animationDrawable.start();
     }
 
-   /* public static RequestStatus setRequestStatus(String requestStatus){
-        if(requestStatus.equalsIgnoreCase("REQUEST_PENDING"))
-            return RequestStatus.REQUEST_PENDING;
-        else if(requestStatus.equalsIgnoreCase("REQUEST_CANCEL"))
-            return RequestStatus.REQUEST_CANCEL;
-        else if(requestStatus.equalsIgnoreCase("CLIENT_ACCEPTED"))
-            return RequestStatus.CLIENT_ACCEPTED;
-        else if(requestStatus.equalsIgnoreCase("CLIENT_REJECTED"))
-            return RequestStatus.CLIENT_REJECTED;
-        else if(requestStatus.equalsIgnoreCase("TAXI_DRIVER_ACCEPTED"))
-            return RequestStatus.TAXI_DRIVER_ACCEPTED;
-        else if(requestStatus.equalsIgnoreCase("TAXI_DRIVER_REJECTED"))
-            return RequestStatus.TAXI_DRIVER_REJECTED;
-        else if(requestStatus.equalsIgnoreCase("PAID"))
-            return RequestStatus.PAID;
-        else
-            return null;
-    }*/
+    public static void turnGPSOn(Context context){
+        Intent intent=new Intent("android.location.GPS_ENABLED_CHANGE");
+        intent.putExtra("enabled", true);
+        context.sendBroadcast(intent);
+    }
 }

@@ -28,6 +28,8 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    NavigationView navigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         MapActivity mapActivity = new MapActivity();
@@ -147,6 +149,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         transaction.replace(R.id.content_main, newFragment);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+
+        SharedPreferences prefs = getSharedPreferences(Const.appName, MODE_PRIVATE);
+        Integer accountId = prefs.getInt(Const.currentAccountId, -1);
+
+        AccountDTO accountDTO = new AccountDAO(this).getAccountById(accountId);
+
+        setProfileDetails(navigationView, accountDTO);
     }
 
 }

@@ -1,0 +1,82 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/popup_element"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@null"
+    android:scrollIndicators="top">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/white"
+        android:gravity="bottom">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/gradient_list"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <ImageButton
+                android:id="@+id/imgClose"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="0.1"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                android:src="@drawable/icon_cross" />
+
+            <TextView
+                android:textStyle="bold"
+                android:id="@+id/textView11"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.8"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="Set Name"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@android:color/white"
+                android:textSize="20dp" />
+
+            <ImageButton
+                android:id="@+id/imgConfirm"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="0.1"
+                android:background="@null"
+                android:contentDescription=""
+                android:scaleType="fitCenter"
+                android:src="@drawable/icon_tick" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginBottom="50dp"
+            android:layout_marginTop="100dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:orientation="horizontal"
+            android:weightSum="5">
+
+           <EditText
+               android:hint="@string/activity_profile_name_hint"
+               android:id="@+id/eTxtFullName"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</RelativeLayout>

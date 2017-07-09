@@ -75,6 +75,9 @@ public class PickerActivityCarPlateNum extends Activity {
                 }
             }
         });
+
+        if(carDTO != null && carDTO.getPlateNum() != null)
+            eTxtPlateNum.setText(carDTO.getPlateNum());
     }
 
     @Override

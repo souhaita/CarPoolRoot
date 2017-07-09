@@ -32,6 +32,10 @@
     <string name="activity_complete_driver_registration_image_error">At least one image must be added</string>
     <string name="activity_complete_driver_registration_plate_num_hint">Plate No.</string>
 
+    <string name="activity_profile_name_hint">Full Name</string>
+    <string name="activity_profile_name_error">Name can not be null</string>
+
+
     <string name="menu_edit_profile">Edit Profile</string>
 
 

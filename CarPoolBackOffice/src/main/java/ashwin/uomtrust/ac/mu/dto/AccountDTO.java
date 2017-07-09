@@ -21,6 +21,7 @@ public class AccountDTO implements Serializable {
     private String firstName;
     private String lastName;
     private String facebookId;
+    private String sProfilePicture;
 
     private AccountRole accountRole;
     private AccountStatus accountStatus;
@@ -109,4 +110,16 @@ public class AccountDTO implements Serializable {
     public void setProfilePicture(byte[] profilePicture) {
         this.profilePicture = profilePicture;
     }
+
+	public String getsProfilePicture() {
+		return sProfilePicture;
+	}
+
+	public void setsProfilePicture(String sProfilePicture) {
+		this.sProfilePicture = sProfilePicture;
+	}
+
+	public void setFacebookId(String facebookId) {
+		this.facebookId = facebookId;
+	}
 }

@@ -1,23 +1,21 @@
 package rode1lift.ashwin.uomtrust.mu.rod1lift.Activities;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
+import android.provider.MediaStore;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.widget.TextView;
-
-import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.ProfileAdapter;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.ProfileObject;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncUpdateAccount;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncUpdateCar;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.Const;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.AccountDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.CarDAO;
@@ -26,10 +24,23 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.CarDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.AccountRole;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.ViewType;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 
-public class ProfileActivity extends AppCompatActivity {
+import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.Const.PROFILE_ACTIVITY_PROFILE_CAR_1;
+import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.Const.PROFILE_ACTIVITY_PROFILE_CAR_2;
+import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.Const.PROFILE_ACTIVITY_PROFILE_CAR_3;
+import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.Const.PROFILE_ACTIVITY_PROFILE_CAR_4;
+import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.Const.PROFILE_ACTIVITY_PROFILE_CAR_MAKE;
+import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.Const.PROFILE_ACTIVITY_PROFILE_CAR_PASSENGER;
+import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.Const.PROFILE_ACTIVITY_PROFILE_CAR_PLATE_NUM;
+import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.Const.PROFILE_ACTIVITY_PROFILE_CAR_YEAR;
+import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.Const.PROFILE_ACTIVITY_PROFILE_PIC;
+
+public class ProfileActivity extends Activity {
 
     private List<ProfileObject> profileObjectList = new ArrayList<>();
+    private RecyclerView recyclerView;
+    private ProfileAdapter profileAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,14 +48,132 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile_main);
 
         prepareDataList();
-        ProfileAdapter profileAdapter = new ProfileAdapter(ProfileActivity.this, profileObjectList);
+        profileAdapter = new ProfileAdapter(ProfileActivity.this, profileObjectList);
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycleViewProfile);
+        recyclerView = (RecyclerView) findViewById(R.id.recycleViewProfile);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(ProfileActivity.this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(mLayoutManager);
 
         recyclerView.setAdapter(profileAdapter);
+
     }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == Const.PROFILE_ACTIVITY_NAME && resultCode == RESULT_OK) {
+            profileObjectList = new ArrayList<>();
+            prepareDataList();
+
+            profileAdapter.setProfileObjectList(profileObjectList);
+            profileAdapter.notifyDataSetChanged();
+        }
+
+        else if(requestCode == PROFILE_ACTIVITY_PROFILE_PIC && resultCode == RESULT_OK && data != null){
+            try {
+                if (data.getData() != null) {
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
+
+                    SharedPreferences prefs = getSharedPreferences(Const.appName, MODE_PRIVATE);
+                    Integer userId = prefs.getInt(Const.currentAccountId, -1);
+                    AccountDTO accountDTO = new AccountDAO(ProfileActivity.this).getAccountById(userId);
+                    accountDTO.setProfilePicture(Utils.convertBitmapToBlob(bitmap));
+                    new AccountDAO(ProfileActivity.this).saveOrUpdateAccount(accountDTO);
+
+                    profileObjectList = new ArrayList<>();
+                    prepareDataList();
+
+                    profileAdapter.setProfileObjectList(profileObjectList);
+                    profileAdapter.notifyDataSetChanged();
+
+                    new AsyncUpdateAccount(ProfileActivity.this).execute(accountDTO);
+                }
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+
+        else if((requestCode == PROFILE_ACTIVITY_PROFILE_CAR_1
+                || requestCode == PROFILE_ACTIVITY_PROFILE_CAR_2
+                || requestCode == PROFILE_ACTIVITY_PROFILE_CAR_3
+                || requestCode == PROFILE_ACTIVITY_PROFILE_CAR_4 )
+                && resultCode == RESULT_OK && data != null){
+            try {
+                if (data.getData() != null) {
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
+
+                    SharedPreferences prefs = getSharedPreferences(Const.appName, MODE_PRIVATE);
+                    Integer userId = prefs.getInt(Const.currentAccountId, -1);
+
+                    CarDTO carDTO = new CarDAO(ProfileActivity.this).getCarByAccountID(userId);
+
+                    switch (requestCode){
+                        case PROFILE_ACTIVITY_PROFILE_CAR_1:
+                            carDTO.setPicture1(Utils.convertBitmapToBlob(bitmap));
+                            carDTO.setHasPic1(true);
+                            break;
+
+                        case PROFILE_ACTIVITY_PROFILE_CAR_2:
+                            carDTO.setPicture2(Utils.convertBitmapToBlob(bitmap));
+                            carDTO.setHasPic2(true);
+                            break;
+
+                        case PROFILE_ACTIVITY_PROFILE_CAR_3:
+                            carDTO.setPicture3(Utils.convertBitmapToBlob(bitmap));
+                            carDTO.setHasPic3(true);
+                            break;
+
+                        case PROFILE_ACTIVITY_PROFILE_CAR_4:
+                            carDTO.setPicture4(Utils.convertBitmapToBlob(bitmap));
+                            carDTO.setHasPic4(true);
+                            break;
+                    }
+
+                    new CarDAO(ProfileActivity.this).saveOrUpdateCar(carDTO);
+
+                    profileObjectList = new ArrayList<>();
+                    prepareDataList();
+
+                    profileAdapter.setProfileObjectList(profileObjectList);
+                    profileAdapter.notifyDataSetChanged();
+
+                    new AsyncUpdateCar(ProfileActivity.this).execute(carDTO);
+                }
+
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+
+        else if((requestCode == PROFILE_ACTIVITY_PROFILE_CAR_MAKE
+                || requestCode == PROFILE_ACTIVITY_PROFILE_CAR_PASSENGER
+                || requestCode == PROFILE_ACTIVITY_PROFILE_CAR_PLATE_NUM
+                || requestCode == PROFILE_ACTIVITY_PROFILE_CAR_YEAR )
+                && resultCode == RESULT_OK ){
+
+            profileObjectList = new ArrayList<>();
+            prepareDataList();
+
+            profileAdapter.setProfileObjectList(profileObjectList);
+            profileAdapter.notifyDataSetChanged();
+
+            SharedPreferences prefs = getSharedPreferences(Const.appName, MODE_PRIVATE);
+            Integer userId = prefs.getInt(Const.currentAccountId, -1);
+
+            CarDTO carDTO = new CarDAO(ProfileActivity.this).getCarByAccountID(userId);
+            new AsyncUpdateCar(ProfileActivity.this).execute(carDTO);
+
+        }
+
+        if(requestCode == RESULT_OK){
+
+        }
+    }
+
 
     private void prepareDataList(){
         SharedPreferences prefs = getSharedPreferences(Const.appName, MODE_PRIVATE);
@@ -81,7 +210,6 @@ public class ProfileActivity extends AppCompatActivity {
             profileObjectList.add(new ProfileObject(ViewType.DATA, plateNum, carDTO.getPlateNum()));
             profileObjectList.add(new ProfileObject(ViewType.DATA, numOfPassenger, String.valueOf(carDTO.getNumOfPassenger())));
         }
-
     }
 
 }

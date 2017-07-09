@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.util.Base64;
 
 import org.json.JSONObject;
 
@@ -71,7 +72,8 @@ public class AsyncCreateAccount extends AsyncTask<AccountDTO, Void ,AccountDTO> 
             if(accountDTO.getDateUpdated() != null)
                 postData.put("dateUpdated", accountDTO.getDateUpdated().getTime());
 
-
+            if(accountDTO.getProfilePicture() != null)
+                postData.put("sProfilePicture", Base64.encodeToString(accountDTO.getProfilePicture(), Base64.DEFAULT));
 
             httpURLConnection = (HttpURLConnection) new URL(WebService.API_CREATE_ACCOUNT).openConnection();
             httpURLConnection.setRequestMethod("POST");

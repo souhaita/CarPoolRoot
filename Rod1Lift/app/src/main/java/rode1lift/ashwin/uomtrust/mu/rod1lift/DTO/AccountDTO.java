@@ -20,6 +20,7 @@ public class AccountDTO implements Serializable {
     private String firstName;
     private String lastName;
     private String facebookId;
+    private String sProfilePicture;
 
     private AccountRole accountRole;
     private AccountStatus accountStatus;
