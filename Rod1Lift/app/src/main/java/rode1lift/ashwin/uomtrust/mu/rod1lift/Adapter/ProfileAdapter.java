@@ -42,10 +42,9 @@ import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.Const.PROFILE_ACTIV
 public class ProfileAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context context = null;
-    private  List<ProfileObject> profileObjectList;
-    private  ViewType viewType;
+    private List<ProfileObject> profileObjectList;
+    private ViewType viewType;
     private Dialog menuDialog;
-
 
     public ProfileAdapter(Context context, List<ProfileObject> profileObjectList){
         this.context = context;
@@ -95,7 +94,6 @@ public class ProfileAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 }
             });
 
-            Utils.animateLayout(view.llProfile);
         }
         else if (viewType == ViewType.CARS_PICTURES){
             view.llProfile.setVisibility(View.GONE);

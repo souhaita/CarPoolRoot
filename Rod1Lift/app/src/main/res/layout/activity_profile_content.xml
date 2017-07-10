@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
-    android:background="@drawable/gradient_list"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <LinearLayout
-        android:background="@drawable/gradient_list"
         android:orientation="vertical"
         android:id="@+id/llProfile"
         android:layout_width="match_parent"
@@ -34,7 +32,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:background="@color/transparent_black_50"
+        android:background="@android:color/transparent"
         android:id="@+id/llData"
         android:layout_width="match_parent"
         android:layout_height="50dp">

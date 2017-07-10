@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +57,8 @@ public class ProfileActivity extends Activity {
 
         recyclerView.setAdapter(profileAdapter);
 
+        LinearLayout llMainProfile = (LinearLayout)findViewById(R.id.llMainProfile);
+        Utils.animateLayout(llMainProfile);
     }
 
 
