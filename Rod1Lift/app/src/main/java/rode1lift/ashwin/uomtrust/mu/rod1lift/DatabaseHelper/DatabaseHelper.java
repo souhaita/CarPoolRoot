@@ -56,6 +56,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     private void createTableAccount(SQLiteDatabase db){
         String qb = "CREATE TABLE IF NOT EXISTS account (" +
                 " account_id INTEGER PRIMARY KEY NOT NULL, " +
+                " phone_num INTEGER, " +
                 " email TEXT UNIQUE NOT NULL, " +
                 " profile_picture BLOB, " +
                 " first_name TEXT NOT NULL, " +

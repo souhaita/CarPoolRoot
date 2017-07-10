@@ -20,6 +20,6 @@
     <color name="transparent">#00450808</color>
 
     <color name="grey_profile">#9E9E9E</color>
-
+    <color name="semi_transparent">#7de9e8e8</color>
 
 </resources>

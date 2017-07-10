@@ -87,4 +87,158 @@
     </string-array>
     <string name="title_activity_profile">ProfileActivity</string>
 
+    <string-array name="address_arrays">
+        <item>Select user type</item>
+        <item>	Albion	</item>
+        <item>	Amaury	</item>
+        <item>	Amitie Gokhoola	</item>
+        <item>	Anse La Raie	</item>
+        <item>	Arsenal	</item>
+        <item>	Baie du Cap	</item>
+        <item>	Baie du Tombeau	</item>
+        <item>	Bambous	</item>
+        <item>	Bambous Virieux	</item>
+        <item>	Bananes	</item>
+        <item>	Beau Bassin	</item>
+        <item>	Beau Vallon	</item>
+        <item>	Bel Air Riviere Seche	</item>
+        <item>	Bel Ombre	</item>
+        <item>	Belle Vue Maurel	</item>
+        <item>	Benares	</item>
+        <item>	Bois Cheri	</item>
+        <item>	Bois des Amourettes	</item>
+        <item>	Bon Accueil	</item>
+        <item>	Bramsthan	</item>
+        <item>	Brisee Verdiere	</item>
+        <item>	Britannia	</item>
+        <item>	Calebasses	</item>
+        <item>	Camp Carol	</item>
+        <item>	Camp de Masque	</item>
+        <item>	Camp de Masque Pave	</item>
+        <item>	Camp Diable	</item>
+        <item>	Camp Ithier	</item>
+        <item>	Camp Thorel	</item>
+        <item>	Cap Malheureux	</item>
+        <item>	Cascavelle	</item>
+        <item>	Case Noyale	</item>
+        <item>	Centre de Flacq	</item>
+        <item>	Chamarel	</item>
+        <item>	Chamouny	</item>
+        <item>	Chemin Grenier	</item>
+        <item>	Clemencia	</item>
+        <item>	Cluny	</item>
+        <item>	Congomah	</item>
+        <item>	Cottage	</item>
+        <item>	Creve Coeur	</item>
+        <item>	Curepipe	</item>
+        <item>	Depinay	</item>
+        <item>	Dagotiere	</item>
+        <item>	Dubreuil	</item>
+        <item>	Ecroignard	</item>
+        <item>	Esperance	</item>
+        <item>	Esperance Trebuchet	</item>
+        <item>	Flic en Flac	</item>
+        <item>	Fond du Sac	</item>
+        <item>	Goodlands	</item>
+        <item>	Grand Baie	</item>
+        <item>	Grand Bel Air	</item>
+        <item>	Grand Bois	</item>
+        <item>	Grand Gaube	</item>
+        <item>	Grand Sable	</item>
+        <item>	Grande Retraite	</item>
+        <item>	Grande Riviere Noire	</item>
+        <item>	Grande Riviere Sud Est	</item>
+        <item>	Gros Cailloux	</item>
+        <item>	LAvenir	</item>
+        <item>	LEscalier	</item>
+        <item>	La Flora	</item>
+        <item>	La Gaulette	</item>
+        <item>	La Laura-Malenga	</item>
+        <item>	Lalmatie	</item>
+        <item>	Laventure	</item>
+        <item>	Le Hochet	</item>
+        <item>	Le Morne	</item>
+        <item>	The Vale	</item>
+        <item>	Mahebourg	</item>
+        <item>	Mapou	</item>
+        <item>	Mare Chicose	</item>
+        <item>	Mare dAlbert	</item>
+        <item>	Mare La Chaux	</item>
+        <item>	Mare Tabac	</item>
+        <item>	Medine Camp de Masque	</item>
+        <item>	Melrose	</item>
+        <item>	Midlands	</item>
+        <item>	Moka	</item>
+        <item>	Montagne Blanche	</item>
+        <item>	Montagne Longue	</item>
+        <item>	Morcellement Saint Andre	</item>
+        <item>	New Grove	</item>
+        <item>	Notre Dame	</item>
+        <item>	Nouvelle Decouverte	</item>
+        <item>	Nouvelle France	</item>
+        <item>	Olivia	</item>
+        <item>	Pailles	</item>
+        <item>	Pamplemousses	</item>
+        <item>	Petit Bel Air	</item>
+        <item>	Petit Raffray	</item>
+        <item>	Petite Riviere	</item>
+        <item>	Phoenix	</item>
+        <item>	Piton	</item>
+        <item>	Plaine des Papayes	</item>
+        <item>	Plaine des Roches	</item>
+        <item>	Plaine Magnien	</item>
+        <item>	Pointe aux Piments	</item>
+        <item>	Port Louis	</item>
+        <item>	Poste de Flacq	</item>
+        <item>	Poudre dOr	</item>
+        <item>	Poudre dOr Hamlet	</item>
+        <item>	Providence	</item>
+        <item>	Quatre Bornes	</item>
+        <item>	Quartier Militaire	</item>
+        <item>	Quatre Cocos	</item>
+        <item>	Quatre Soeurs	</item>
+        <item>	Queen Victoria	</item>
+        <item>	Richelieu	</item>
+        <item>	Ripailles	</item>
+        <item>	Riviere des Anguilles	</item>
+        <item>	Riviere des Creoles	</item>
+        <item>	Riviere du Poste	</item>
+        <item>	Riviere du Rempart	</item>
+        <item>	Riviere Noire	</item>
+        <item>	Roche Terre	</item>
+        <item>	Roches Noires	</item>
+        <item>	Rose Belle	</item>
+        <item>	Rose Hill	</item>
+        <item>	Saint Aubin	</item>
+        <item>	Saint Hubert	</item>
+        <item>	Saint Julien Village	</item>
+        <item>	Saint Julien dHotman	</item>
+        <item>	Saint Pierre	</item>
+        <item>	Sebastopol	</item>
+        <item>	Seizieme Mille	</item>
+        <item>	Souillac	</item>
+        <item>	Surinam	</item>
+        <item>	Tamarin	</item>
+        <item>	Terre Rouge	</item>
+        <item>	Triolet	</item>
+        <item>	Trois Boutiques	</item>
+        <item>	Trou aux Biches	</item>
+        <item>	Trou dEau Douce	</item>
+        <item>	Tyack	</item>
+        <item>	Union Park	</item>
+        <item>	Vacoas	</item>
+        <item>	Vale	</item>
+        <item>	Verdun	</item>
+        <item>	Vieux Grand Port	</item>
+        <item>	Ville Bague	</item>
+    </string-array>
+
+    <string name="create_trip_activity_validation_autocomplete_address">Address can not be null</string>
+    <string name="create_trip_activity_validation_autocomplete_date">Date can not be null</string>
+    <string name="create_trip_activity_validation_autocomplete_time">Time can not be null</string>
+    <string name="create_trip_activity_validation_autocomplete_contact_detail">Contact details can not be null</string>
+    <string name="create_trip_activity_validation_autocomplete_contact_detail_length">Phone Num should be of lenght 7 - 8</string>
+    <string name="create_trip_activity_validation_autocomplete_address_no_match">Please select address from autocomplete list</string>
+
+
 </resources>

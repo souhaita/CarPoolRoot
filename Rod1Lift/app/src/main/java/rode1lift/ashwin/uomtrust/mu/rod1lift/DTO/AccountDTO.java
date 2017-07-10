@@ -15,6 +15,7 @@ public class AccountDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Integer accountId;
+    private Integer phoneNum;
 
     private String email;
     private String firstName;
@@ -108,5 +109,21 @@ public class AccountDTO implements Serializable {
 
     public void setProfilePicture(byte[] profilePicture) {
         this.profilePicture = profilePicture;
+    }
+
+    public Integer getPhoneNum() {
+        return phoneNum;
+    }
+
+    public void setPhoneNum(Integer phoneNum) {
+        this.phoneNum = phoneNum;
+    }
+
+    public String getsProfilePicture() {
+        return sProfilePicture;
+    }
+
+    public void setsProfilePicture(String sProfilePicture) {
+        this.sProfilePicture = sProfilePicture;
     }
 }

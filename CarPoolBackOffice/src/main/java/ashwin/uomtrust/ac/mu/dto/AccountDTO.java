@@ -28,6 +28,8 @@ public class AccountDTO implements Serializable {
 
     private Date dateCreated;
     private Date dateUpdated;
+    
+    private Integer phoneNum;
 
     private byte [] profilePicture;
 
@@ -122,4 +124,13 @@ public class AccountDTO implements Serializable {
 	public void setFacebookId(String facebookId) {
 		this.facebookId = facebookId;
 	}
+
+	public Integer getPhoneNum() {
+		return phoneNum;
+	}
+
+	public void setPhoneNum(Integer phoneNum) {
+		this.phoneNum = phoneNum;
+	}
+	
 }

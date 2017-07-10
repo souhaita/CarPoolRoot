@@ -64,6 +64,7 @@ public class AccountDAO {
         accountDTO.setAccountStatus(res.getInt(res.getColumnIndex("account_status")) == 0? AccountStatus.ACTIVE : AccountStatus.DESACTIVE);
         accountDTO.setDateCreated(new Date(res.getLong(res.getColumnIndex("date_created"))));
         accountDTO.setDateUpdated(new Date(res.getLong(res.getColumnIndex("date_updated"))));
+        accountDTO.setPhoneNum(res.getInt(res.getColumnIndex("phone_num")));
 
         return accountDTO;
     }
@@ -91,6 +92,9 @@ public class AccountDAO {
 
         if(accountDTO.getDateUpdated() != null)
             values.put("date_updated", accountDTO.getDateUpdated().getTime());
+
+        if(accountDTO.getPhoneNum() != null)
+            values.put("phone_num", accountDTO.getPhoneNum());
 
         return values;
     }

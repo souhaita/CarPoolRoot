@@ -25,6 +25,8 @@ public class Account {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long accountId;
 	
+	private Integer phoneNum;
+	
 	private String firstName;
 	private String lastName;	
 	private String facebookId;
@@ -122,5 +124,13 @@ public class Account {
 	@Override
 	public String toString() {
 		return "Account [accountId=" + accountId + ", email=" + email + ", accountRole=" + accountRole +"]";
+	}
+
+	public Integer getPhoneNum() {
+		return phoneNum;
+	}
+
+	public void setPhoneNum(Integer phoneNum) {
+		this.phoneNum = phoneNum;
 	}
 }

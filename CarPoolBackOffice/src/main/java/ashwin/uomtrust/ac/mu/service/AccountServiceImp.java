@@ -64,6 +64,9 @@ public class AccountServiceImp implements AccountService{
 		account.setFirstName(accountDTO.getFirstName());
 		account.setLastName(accountDTO.getLastName());
 		
+		if(accountDTO.getPhoneNum() != null)
+			account.setPhoneNum(accountDTO.getPhoneNum());
+		
 		Account newAccount = accountRepository.save(account);
 		
 		accountDTO.setAccountId(newAccount.getAccountId());

@@ -23,7 +23,6 @@
 <fullyQualifiedTypeName name="org.springframework.stereotype.Service"/>
 <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestBody"/>
 <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestMethod"/>
-<fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.enums.AccountRole"/>
 <fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.enums.AccountStatus"/>
 <fullyQualifiedTypeName name="javax.persistence.GeneratedValue"/>
 <fullyQualifiedTypeName name="javax.persistence.GenerationType"/>
@@ -35,4 +34,9 @@
 <fullyQualifiedTypeName name="javax.persistence.Id"/>
 <fullyQualifiedTypeName name="javax.persistence.Entity"/>
 <fullyQualifiedTypeName name="java.io.Serializable"/>
+<fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.utils.Utils"/>
+<fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.entity.Car"/>
+<fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.repository.CarRepository"/>
+<fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.enums.AccountRole"/>
+<fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.service.CarService"/>
 </qualifiedTypeNameHistroy>

@@ -27,4 +27,6 @@ public class Const {
     public static final int PROFILE_ACTIVITY_PROFILE_CAR_YEAR = 13;
     public static final int PROFILE_ACTIVITY_PROFILE_CAR_PLATE_NUM = 14;
     public static final int PROFILE_ACTIVITY_PROFILE_CAR_PASSENGER = 15;
+
+    public static final int CREATE_TRIP_ACTIVITY = 16;
 }
