@@ -19,7 +19,7 @@ import java.util.List;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.ProfileAdapter;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.ProfileObject;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncUpdateAccount;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncUpdateCar;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncDriverUpdateCar;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.AccountDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.CarDAO;
@@ -162,7 +162,7 @@ public class ProfileActivity extends Activity {
                     profileAdapter.setProfileObjectList(profileObjectList);
                     profileAdapter.notifyDataSetChanged();
 
-                    new AsyncUpdateCar(ProfileActivity.this).execute(carDTO);
+                    new AsyncDriverUpdateCar(ProfileActivity.this).execute(carDTO);
                 }
 
             }
@@ -187,7 +187,7 @@ public class ProfileActivity extends Activity {
             Integer userId = prefs.getInt(CONSTANT.CURRENT_ACCOUNT_ID, -1);
 
             CarDTO carDTO = new CarDAO(ProfileActivity.this).getCarByAccountID(userId);
-            new AsyncUpdateCar(ProfileActivity.this).execute(carDTO);
+            new AsyncDriverUpdateCar(ProfileActivity.this).execute(carDTO);
 
         }
 

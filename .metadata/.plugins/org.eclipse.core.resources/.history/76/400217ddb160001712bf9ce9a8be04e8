@@ -1,8 +1,0 @@
-package ashwin.uomtrust.ac.mu.entity;
-
-import java.io.Serializable;
-
-public class Car implements Serializable{
-	
-
-}

@@ -30,7 +30,6 @@
 <fullyQualifiedTypeName name="javax.persistence.ManyToOne"/>
 <fullyQualifiedTypeName name="javax.persistence.JoinColumn"/>
 <fullyQualifiedTypeName name="java.util.Date"/>
-<fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.enums.RequestStatus"/>
 <fullyQualifiedTypeName name="javax.persistence.Id"/>
 <fullyQualifiedTypeName name="javax.persistence.Entity"/>
 <fullyQualifiedTypeName name="java.io.Serializable"/>
@@ -39,4 +38,6 @@
 <fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.repository.CarRepository"/>
 <fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.enums.AccountRole"/>
 <fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.service.CarService"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.enums.RequestStatus"/>
 </qualifiedTypeNameHistroy>

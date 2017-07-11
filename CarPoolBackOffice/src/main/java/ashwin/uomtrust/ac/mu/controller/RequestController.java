@@ -1,5 +1,7 @@
 package ashwin.uomtrust.ac.mu.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,5 +33,11 @@ public class RequestController {
 	public RequestDTO driverCreateUpdateRequest(@RequestBody RequestDTO requestDTO) {    	
 		return requestService.save(requestDTO);
 	}
+	
+	@CrossOrigin(origins = "http://localhost:8081")
+   	@RequestMapping(value = "/driverGetPendingRequestList", method = RequestMethod.POST)
+   	public List<RequestDTO> driverGetPendingRequestList(@RequestBody RequestDTO requestDTO) {    	    	
+    	return requestService.driverGetPendingRequestList(requestDTO);
+   	}
 
 }

@@ -20,3 +20,4 @@
 1499621646979	Rename field 'photoDirectoty'
 1499621703993	Rename field 'profilePicDirectoty'
 1499621710006	Rename field 'carDirectoty'
+1499796074878	Rename method 'getPendingRequestListTaxi'

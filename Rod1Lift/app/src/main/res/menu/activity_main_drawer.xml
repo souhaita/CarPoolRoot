@@ -11,11 +11,11 @@
             android:icon="@drawable/icon_add"
             android:title="CREATE TRIP" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_manage"
             android:icon="@drawable/icon_manage"
             android:title="MANAGE REQUEST" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/nav_history"
             android:icon="@drawable/icon_history"
             android:title="HISTORY" />
 

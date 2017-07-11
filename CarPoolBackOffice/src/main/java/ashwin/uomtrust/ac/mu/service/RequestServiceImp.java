@@ -2,7 +2,6 @@ package ashwin.uomtrust.ac.mu.service;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +55,10 @@ public class RequestServiceImp implements RequestService{
 		request.setPlaceTo(requestDTO.getPlaceTo());
 		request.setRequestStatus(requestDTO.getRequestStatus());
 		
+		request.setPrice(requestDTO.getPrice());
+		request.setSeatAvailable(requestDTO.getSeatAvailable());
+
+		
 		Request newRequest = requestRepository.save(request);
 		
 		RequestDTO newRequestDTO = requestDTO;
@@ -108,66 +111,45 @@ public class RequestServiceImp implements RequestService{
 	}
 	*/
 	
-	/*@Override
-	public List<RequestDTO> getPendingRequestListTaxi(RequestDTO requestDTO) {
-		// TODO Auto-generated method stub
-		String taxiAddress = accountRepository.findByAccountId(requestDTO.getAccountId()).getAddress();
+	@Override
+	public List<RequestDTO> driverGetPendingRequestList(RequestDTO requestDTO) {
+		List<Request> requestList = requestRepository.getRequestByUserIdAndRequestStatus(requestDTO.getAccountId(), requestDTO.getRequestStatus());
 		
-		List<Request> requestList = requestRepository.getRequestByStatusForTaxi(requestDTO.getRequestStatus().getValue());
-		Account account = accountRepository.findByAccountId(requestDTO.getAccountId());
-		CarDetails carDetails = carDetailsRepository.getCarByAccountId(account.getAccountId());
+		List<RequestDTO> requestDTOs = new ArrayList<>();
 		
-		List<ManageRequest> manageRequestList = manageRequestRepository.getManageRequestForTaxi(carDetails.getCarId());
-		
-		
-		List<Request> sameAddressRequestList = new ArrayList<>();
-		if(requestList != null && requestList.size() >0){
-			for(Request r : requestList){
-				if(r.getPlace_from().equalsIgnoreCase(taxiAddress))
-					sameAddressRequestList.add(r);
-			}
-		}
-		
-		
-		List<Request> filteredRequestList = new ArrayList<>();
-		if(manageRequestList != null && manageRequestList.size() >0 && sameAddressRequestList != null && sameAddressRequestList.size()>0){
-			for(ManageRequest m : manageRequestList ){
-				boolean found = false;
-				Request newRequest = new Request();
-				
-				for(Request request : sameAddressRequestList){
-					if(m.getRequest().getRequest_id().equals(request.getRequest_id())){
-						newRequest = request;
-						found = true;
-					}
-				}
-				
-				if(!found){
-					filteredRequestList.add(newRequest);
-				}
-			}
-		}
-		
-		if(manageRequestList == null || manageRequestList.size() <1)
-			filteredRequestList = sameAddressRequestList;
-		
-		List<RequestDTO> finalRequestList = new ArrayList<>();
-		for(Request request : filteredRequestList){
+		for(Request request : requestList){
 			RequestDTO newRequestDTO = new RequestDTO();
 			newRequestDTO.setAccountId(request.getAccount().getAccountId());
-			newRequestDTO.setEventDateTime(request.getEvent_date_time().getTime());
-			newRequestDTO.setPlaceFrom(request.getPlace_from());
-			newRequestDTO.setPlaceTo(request.getPlace_to());
-			newRequestDTO.setRequestId(request.getRequest_id());
-			newRequestDTO.setDetails(request.getDetails());
-			newRequestDTO.setRequestStatus(RequestStatus.valueFor(request.getRequest_status()));
 			
-			finalRequestList.add(newRequestDTO);
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTimeInMillis(request.getEventDate().getTime());
+			newRequestDTO.setEventDate(calendar.getTime());
+			newRequestDTO.setPlaceFrom(request.getPlaceFrom());
+			newRequestDTO.setPlaceTo(request.getPlaceTo());
+			newRequestDTO.setRequestId(request.getRequestId());
+			newRequestDTO.setRequestStatus(request.getRequestStatus());
+			newRequestDTO.setPrice(request.getPrice());
+			newRequestDTO.setSeatAvailable(request.getSeatAvailable());
+			
+			Calendar cal = Calendar.getInstance();
+			cal.setTimeInMillis(request.getDateCreated().getTime());
+			newRequestDTO.setDateCreated(cal.getTime());
+			
+			cal.setTimeInMillis(request.getDateUpdated().getTime());
+			newRequestDTO.setDateUpdated(cal.getTime());
+			
+			cal.setTimeInMillis(request.getEventDate().getTime());
+			newRequestDTO.setEventDate(cal.getTime());
+			
+			newRequestDTO.setAccountId(request.getAccount().getAccountId());
+
+			
+			requestDTOs.add(newRequestDTO);
 		}
 		
-		return finalRequestList;
+		return requestDTOs;
 	}
-*/
+
 	
 	
 	/*@Override

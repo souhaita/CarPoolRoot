@@ -34,7 +34,7 @@ public class PickerActivityCarSeats extends Activity {
         carDTO = new CarDAO(PickerActivityCarSeats.this).getCarByAccountID(userId);
 
         pickerNumPassenger.setMinValue(1);
-        pickerNumPassenger.setMaxValue(4);
+        pickerNumPassenger.setMaxValue(5);
         pickerNumPassenger.setValue(1);
         pickerNumPassenger.setWrapSelectorWheel(true);
 

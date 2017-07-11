@@ -16,8 +16,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.LoginActivity;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.MainActivity;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.ActivityLogin;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.ActivityMain;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.AccountDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.CarDAO;
@@ -134,15 +134,15 @@ public class AsyncCreateAccount extends AsyncTask<AccountDTO, Void ,AccountDTO> 
                 CarDTO carDTO = new CarDAO(context).getCarByAccountID(-1);
                 carDTO.setAccountId(accountDTO.getAccountId());
                 new CarDAO(context).saveOrUpdateCar(carDTO);
-                new AsyncCreateCar(context).execute(carDTO);
+                new AsyncDriverCreateCar(context).execute(carDTO);
             } else {
-                Intent intent = new Intent(context, MainActivity.class);
+                Intent intent = new Intent(context, ActivityMain.class);
                 context.startActivity(intent);
             }
         }
         else{
             Utils.showToast(context, context.getString(R.string.error_server));
-            Intent intent = new Intent(context, LoginActivity.class);
+            Intent intent = new Intent(context, ActivityLogin.class);
             context.startActivity(intent);
         }
     }

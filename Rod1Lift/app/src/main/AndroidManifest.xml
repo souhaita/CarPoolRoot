@@ -36,7 +36,7 @@
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
-            android:name=".Activities.LoginActivity"
+            android:name=".Activities.ActivityLogin"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
             <intent-filter>
@@ -47,12 +47,12 @@
         </activity>
 
         <activity
-            android:name=".Activities.MainActivity"
+            android:name=".Activities.ActivityMain"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name=".Activities.CompleteDriverRegistrationActivity"
+            android:name=".Activities.ActivityCompleteDriverRegistration"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
 
@@ -83,7 +83,7 @@
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
 
         <activity
-            android:name=".Activities.CreateTripActivity"
+            android:name=".Activities.ActivityCreateTrip"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
 
@@ -91,6 +91,12 @@
             android:name=".Activities.PickerActivityTripPrice"
             android:label="@string/app_name"
             android:theme="@style/Theme.UserDialog"/>
+
+        <activity
+            android:name=".Activities.ActivityDriverManageRequest"
+            android:label="@string/title_activity_profile"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
+
 
     </application>
 

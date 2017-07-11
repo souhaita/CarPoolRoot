@@ -1,9 +1,0 @@
-package ashwin.uomtrust.ac.mu.entity;
-
-import javax.persistence.Entity;
-
-@Entity
-public class Rating {
-
-	
-}

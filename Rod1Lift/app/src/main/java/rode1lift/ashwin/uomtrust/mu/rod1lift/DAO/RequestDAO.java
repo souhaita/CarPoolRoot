@@ -2,6 +2,7 @@ package rode1lift.ashwin.uomtrust.mu.rod1lift.DAO;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -9,9 +10,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DatabaseHelper.DatabaseHelper;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.RequestStatus;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by Ashwin on 05-Jun-17.
@@ -21,8 +25,11 @@ public class RequestDAO {
     private final String TABLE_NAME = "request";
     private final DatabaseHelper dbHelper;
 
+    private Context context;
+
     public RequestDAO(final Context context) {
         dbHelper = DatabaseHelper.getInstance(context);
+        this.context = context;
     }
 
     public RequestDTO getRequestByID(int requestId) {
@@ -53,9 +60,14 @@ public class RequestDAO {
 
     public List<RequestDTO> getRequestByStatus(RequestStatus requestStatus) {
         final StringBuilder sql = new StringBuilder();
+
+        SharedPreferences prefs = context.getSharedPreferences(CONSTANT.APP_NAME, MODE_PRIVATE);
+        int userId = prefs.getInt(CONSTANT.CURRENT_ACCOUNT_ID, 1);
+
         sql.append(" SELECT * ");
         sql.append(" FROM "+ TABLE_NAME);
         sql.append(" WHERE request_status = " + requestStatus.getValue());
+        sql.append(" AND account_id = " + userId);
         sql.append(" ORDER BY request_id DESC");
 
         dbHelper.open();
@@ -107,9 +119,11 @@ public class RequestDAO {
         if(requestDTO.getDateCreated() != null)
             values.put("date_created", requestDTO.getDateCreated().getTime());
 
-        values.put("event_date_time", requestDTO.getEvenDate().getTime());
+        values.put("event_date", requestDTO.getEvenDate().getTime());
         values.put("place_from", requestDTO.getPlaceFrom());
         values.put("place_to", requestDTO.getPlaceTo());
+
+        values.put("seat_available", requestDTO.getSeatAvailable());
 
         if(requestDTO.getPrice() != null)
             values.put("price", requestDTO.getPrice());

@@ -10,7 +10,7 @@ public interface RequestService {
 	//public Boolean delete(Integer requestId);
 	//public List<RequestDTO> getRequestByUserIdAndRequestStatus(RequestDTO requestDTO);
 	//public List<RequestDTO> getOtherRequestByUserIdAndRequestStatus(RequestDTO requestDTO);
-	//public List<RequestDTO> getPendingRequestListTaxi(RequestDTO requestDTO);
+	public List<RequestDTO> driverGetPendingRequestList(RequestDTO requestDTO);
 	//public RequestDTO acceptOrRejectRequestTaxi(RequestDTO requestDTO);
 	//public RequestDTO acceptOrRejectRequestUser(RequestDTO requestDTO);
 
