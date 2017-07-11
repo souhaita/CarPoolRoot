@@ -10,7 +10,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 
-import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.Const;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.CarDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.CarDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
@@ -29,8 +29,8 @@ public class PickerActivityCarSeats extends Activity {
 
         final NumberPicker pickerNumPassenger = (NumberPicker) findViewById(R.id.pickerNumPassenger);
 
-        SharedPreferences prefs = getSharedPreferences(Const.appName, MODE_PRIVATE);
-        userId = prefs.getInt(Const.currentAccountId, -1);
+        SharedPreferences prefs = getSharedPreferences(CONSTANT.APP_NAME, MODE_PRIVATE);
+        userId = prefs.getInt(CONSTANT.CURRENT_ACCOUNT_ID, -1);
         carDTO = new CarDAO(PickerActivityCarSeats.this).getCarByAccountID(userId);
 
         pickerNumPassenger.setMinValue(1);

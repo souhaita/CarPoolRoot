@@ -18,7 +18,7 @@ import java.net.URL;
 
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.LoginActivity;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.MainActivity;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.Const;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.AccountDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.CarDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.AccountDTO;
@@ -124,9 +124,9 @@ public class AsyncCreateAccount extends AsyncTask<AccountDTO, Void ,AccountDTO> 
         if(accountDTO != null && accountDTO.getAccountId() > 0) {
             new AccountDAO(context).updateAccountIdFromWS(accountDTO.getAccountId());
 
-            SharedPreferences.Editor editor = context.getSharedPreferences(Const.appName, MODE_PRIVATE).edit();
-            editor.putBoolean(Const.login, true);
-            editor.putInt(Const.currentAccountId, accountDTO.getAccountId());
+            SharedPreferences.Editor editor = context.getSharedPreferences(CONSTANT.APP_NAME, MODE_PRIVATE).edit();
+            editor.putBoolean(CONSTANT.LOGIN, true);
+            editor.putInt(CONSTANT.CURRENT_ACCOUNT_ID, accountDTO.getAccountId());
             editor.commit();
 
 

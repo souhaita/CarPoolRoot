@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.text.TextUtils;
@@ -34,7 +33,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncCheckAccount;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncCreateAccount;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.Const;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.AccountDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.AccountDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.AccountRole;
@@ -54,8 +53,8 @@ public class LoginActivity extends Activity {
 
         FacebookSdk.sdkInitialize(getApplicationContext());
 
-        SharedPreferences prefs = getSharedPreferences(Const.appName, MODE_PRIVATE);
-        Boolean login = prefs.getBoolean(Const.login, false);
+        SharedPreferences prefs = getSharedPreferences(CONSTANT.APP_NAME, MODE_PRIVATE);
+        Boolean login = prefs.getBoolean(CONSTANT.LOGIN, false);
         if(login){
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
@@ -122,9 +121,9 @@ public class LoginActivity extends Activity {
             StrictMode.setThreadPolicy(policy);
 
             if(checkIfAccountExist(object.getString("email"))) {
-                SharedPreferences.Editor editor = getSharedPreferences(Const.appName, MODE_PRIVATE).edit();
-                editor.putBoolean(Const.login, true);
-                editor.putInt(Const.currentAccountId, accountDTO.getAccountId());
+                SharedPreferences.Editor editor = getSharedPreferences(CONSTANT.APP_NAME, MODE_PRIVATE).edit();
+                editor.putBoolean(CONSTANT.LOGIN, true);
+                editor.putInt(CONSTANT.CURRENT_ACCOUNT_ID, accountDTO.getAccountId());
                 editor.commit();
 
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);

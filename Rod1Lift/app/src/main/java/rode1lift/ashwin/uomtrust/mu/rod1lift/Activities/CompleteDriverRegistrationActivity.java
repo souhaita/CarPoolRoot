@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,7 +15,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Vibrator;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
@@ -34,7 +32,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncCreateAccount;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.Const;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.AccountDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.CarDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.AccountDTO;
@@ -44,9 +42,9 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 
 import static android.provider.MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE;
 import static android.provider.MediaStore.Files.FileColumns.MEDIA_TYPE_VIDEO;
-import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.Const.CAMERA;
-import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.Const.PERMISSION_CAMERA;
-import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.Const.PICK_IMAGE_REQUEST;
+import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT.CAMERA;
+import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT.PERMISSION_CAMERA;
+import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT.PICK_IMAGE_REQUEST;
 
 /**
  * Created by Ashwin on 05-Jun-17.
@@ -80,7 +78,7 @@ public class CompleteDriverRegistrationActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(CompleteDriverRegistrationActivity.this, PickerActivityCarMake.class);
-                startActivityForResult(intent, Const.carMakeActivity);
+                startActivityForResult(intent, CONSTANT.CAR_MAKE_ACTIVITY);
             }
         });
 
@@ -89,7 +87,7 @@ public class CompleteDriverRegistrationActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(CompleteDriverRegistrationActivity.this, PickerActivityCarMake.class);
-                startActivityForResult(intent, Const.carMakeActivity);
+                startActivityForResult(intent, CONSTANT.CAR_MAKE_ACTIVITY);
             }
         });
 
@@ -98,7 +96,7 @@ public class CompleteDriverRegistrationActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(CompleteDriverRegistrationActivity.this, PickerActivityCarSeats.class);
-                startActivityForResult(intent, Const.carMakeActivity);
+                startActivityForResult(intent, CONSTANT.CAR_MAKE_ACTIVITY);
             }
         });
 
@@ -107,7 +105,7 @@ public class CompleteDriverRegistrationActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(CompleteDriverRegistrationActivity.this, PickerActivityCarPlateNum.class);
-                startActivityForResult(intent, Const.carMakeActivity);
+                startActivityForResult(intent, CONSTANT.CAR_MAKE_ACTIVITY);
             }
         });
 
@@ -190,9 +188,9 @@ public class CompleteDriverRegistrationActivity extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
 
             switch (requestCode) {
-                case Const.carMakeActivity:
-                    SharedPreferences prefs = getSharedPreferences(Const.appName, MODE_PRIVATE);
-                    Integer userId = prefs.getInt(Const.currentAccountId, -1);
+                case CONSTANT.CAR_MAKE_ACTIVITY:
+                    SharedPreferences prefs = getSharedPreferences(CONSTANT.APP_NAME, MODE_PRIVATE);
+                    Integer userId = prefs.getInt(CONSTANT.CURRENT_ACCOUNT_ID, -1);
                     carDTO = new CarDAO(CompleteDriverRegistrationActivity.this).getCarByAccountID(userId);
 
                     if(carDTO != null && carDTO.getCarId() != null) {
@@ -626,7 +624,7 @@ public class CompleteDriverRegistrationActivity extends Activity {
         File mediaStorageDir = new File(
                 Environment
                         .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
-                Const.IMAGE_DIRECTORY_NAME);
+                CONSTANT.IMAGE_DIRECTORY_NAME);
 
         // Create the storage directory if it does not exist
         if (!mediaStorageDir.exists()) {

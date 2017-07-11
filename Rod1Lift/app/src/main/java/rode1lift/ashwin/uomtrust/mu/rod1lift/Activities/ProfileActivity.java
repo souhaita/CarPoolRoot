@@ -17,7 +17,7 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.ProfileAdapter;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.ProfileObject;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncUpdateAccount;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncUpdateCar;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.Const;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.AccountDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.CarDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.AccountDTO;
@@ -27,15 +27,15 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.ViewType;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 
-import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.Const.PROFILE_ACTIVITY_PROFILE_CAR_1;
-import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.Const.PROFILE_ACTIVITY_PROFILE_CAR_2;
-import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.Const.PROFILE_ACTIVITY_PROFILE_CAR_3;
-import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.Const.PROFILE_ACTIVITY_PROFILE_CAR_4;
-import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.Const.PROFILE_ACTIVITY_PROFILE_CAR_MAKE;
-import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.Const.PROFILE_ACTIVITY_PROFILE_CAR_PASSENGER;
-import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.Const.PROFILE_ACTIVITY_PROFILE_CAR_PLATE_NUM;
-import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.Const.PROFILE_ACTIVITY_PROFILE_CAR_YEAR;
-import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.Const.PROFILE_ACTIVITY_PROFILE_PIC;
+import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT.PROFILE_ACTIVITY_PROFILE_CAR_1;
+import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT.PROFILE_ACTIVITY_PROFILE_CAR_2;
+import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT.PROFILE_ACTIVITY_PROFILE_CAR_3;
+import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT.PROFILE_ACTIVITY_PROFILE_CAR_4;
+import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT.PROFILE_ACTIVITY_PROFILE_CAR_MAKE;
+import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT.PROFILE_ACTIVITY_PROFILE_CAR_PASSENGER;
+import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT.PROFILE_ACTIVITY_PROFILE_CAR_PLATE_NUM;
+import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT.PROFILE_ACTIVITY_PROFILE_CAR_YEAR;
+import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT.PROFILE_ACTIVITY_PROFILE_PIC;
 
 public class ProfileActivity extends Activity {
 
@@ -66,7 +66,7 @@ public class ProfileActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == Const.PROFILE_ACTIVITY_NAME && resultCode == RESULT_OK) {
+        if (requestCode == CONSTANT.PROFILE_ACTIVITY_NAME && resultCode == RESULT_OK) {
             profileObjectList = new ArrayList<>();
             prepareDataList();
 
@@ -79,8 +79,8 @@ public class ProfileActivity extends Activity {
                 if (data.getData() != null) {
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
 
-                    SharedPreferences prefs = getSharedPreferences(Const.appName, MODE_PRIVATE);
-                    Integer userId = prefs.getInt(Const.currentAccountId, -1);
+                    SharedPreferences prefs = getSharedPreferences(CONSTANT.APP_NAME, MODE_PRIVATE);
+                    Integer userId = prefs.getInt(CONSTANT.CURRENT_ACCOUNT_ID, -1);
                     AccountDTO accountDTO = new AccountDAO(ProfileActivity.this).getAccountById(userId);
                     accountDTO.setProfilePicture(Utils.convertBitmapToBlob(bitmap));
                     new AccountDAO(ProfileActivity.this).saveOrUpdateAccount(accountDTO);
@@ -108,8 +108,8 @@ public class ProfileActivity extends Activity {
                 if (data.getData() != null) {
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
 
-                    SharedPreferences prefs = getSharedPreferences(Const.appName, MODE_PRIVATE);
-                    Integer userId = prefs.getInt(Const.currentAccountId, -1);
+                    SharedPreferences prefs = getSharedPreferences(CONSTANT.APP_NAME, MODE_PRIVATE);
+                    Integer userId = prefs.getInt(CONSTANT.CURRENT_ACCOUNT_ID, -1);
 
                     CarDTO carDTO = new CarDAO(ProfileActivity.this).getCarByAccountID(userId);
 
@@ -164,8 +164,8 @@ public class ProfileActivity extends Activity {
             profileAdapter.setProfileObjectList(profileObjectList);
             profileAdapter.notifyDataSetChanged();
 
-            SharedPreferences prefs = getSharedPreferences(Const.appName, MODE_PRIVATE);
-            Integer userId = prefs.getInt(Const.currentAccountId, -1);
+            SharedPreferences prefs = getSharedPreferences(CONSTANT.APP_NAME, MODE_PRIVATE);
+            Integer userId = prefs.getInt(CONSTANT.CURRENT_ACCOUNT_ID, -1);
 
             CarDTO carDTO = new CarDAO(ProfileActivity.this).getCarByAccountID(userId);
             new AsyncUpdateCar(ProfileActivity.this).execute(carDTO);
@@ -179,8 +179,8 @@ public class ProfileActivity extends Activity {
 
 
     private void prepareDataList(){
-        SharedPreferences prefs = getSharedPreferences(Const.appName, MODE_PRIVATE);
-        Integer userId = prefs.getInt(Const.currentAccountId, -1);
+        SharedPreferences prefs = getSharedPreferences(CONSTANT.APP_NAME, MODE_PRIVATE);
+        Integer userId = prefs.getInt(CONSTANT.CURRENT_ACCOUNT_ID, -1);
 
         AccountDTO accountDTO = new AccountDAO(ProfileActivity.this).getAccountById(userId);
 

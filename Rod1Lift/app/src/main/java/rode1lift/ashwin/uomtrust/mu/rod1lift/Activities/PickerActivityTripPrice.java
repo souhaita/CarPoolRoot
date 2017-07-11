@@ -13,15 +13,14 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.Const;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.AccountDAO;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.AccountDTO;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.CarDTO;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 
 
 public class PickerActivityTripPrice extends Activity {
+
+    EditText eTxtTripPrice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,12 +28,14 @@ public class PickerActivityTripPrice extends Activity {
         setContentView(R.layout.picker_trip_price);
         getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
-        SharedPreferences prefs = getSharedPreferences(Const.appName, MODE_PRIVATE);
-        Integer userId = prefs.getInt(Const.currentAccountId, -1);
+      /*  SharedPreferences prefs = getSharedPreferences(CONSTANT.APP_NAME, MODE_PRIVATE);
+        Integer userId = prefs.getInt(CONSTANT.CURRENT_ACCOUNT_ID, -1);*/
 
-        final EditText eTxtTripPrice =(EditText)findViewById(R.id.eTxtTripPrice);
+        eTxtTripPrice =(EditText)findViewById(R.id.eTxtTripPrice);
 
-        eTxtTripPrice.setText("");
+        String tripPrice = getIntent().getStringExtra(CONSTANT.TRIP_PRICE);
+
+        eTxtTripPrice.setText(tripPrice);
 
         TextView txtDone = (TextView)findViewById(R.id.txtDone);
 
@@ -65,15 +66,31 @@ public class PickerActivityTripPrice extends Activity {
     }
 
     private void setData(EditText eTxtFullName){
+        Integer tripPrice = Integer.parseInt(eTxtFullName.getText().toString());
         if(TextUtils.isEmpty(eTxtFullName.getText().toString())){
             String message = "Trip price can not be null";
             Utils.showToast(PickerActivityTripPrice.this, message);
 
             Utils.vibrate(PickerActivityTripPrice.this);
         }
-        else{
+        else if(tripPrice >100 || tripPrice < 10){
+            String message = "Price range should be between Rs 10 to Rs 100";
+            Utils.showToast(PickerActivityTripPrice.this, message);
 
+            Utils.vibrate(PickerActivityTripPrice.this);
+        }
+        else{
             Intent intent = getIntent();
+            Double tripPriceFlooring;
+
+            if(tripPrice %5 == 0){
+                tripPriceFlooring = (double)tripPrice;
+            }
+            else {
+                tripPriceFlooring = 5 * (Math.ceil(Math.abs((tripPrice+4) / 5)));
+            }
+
+            intent.putExtra(CONSTANT.TRIP_PRICE, String.valueOf(tripPriceFlooring.intValue()));
             setResult(RESULT_OK, intent);
             finish();
         }

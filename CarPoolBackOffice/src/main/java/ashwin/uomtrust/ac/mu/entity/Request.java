@@ -23,7 +23,7 @@ public class Request implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer requestId;
+	private Long requestId;
 	
     private RequestStatus requestStatus;
 	
@@ -41,11 +41,11 @@ public class Request implements Serializable{
 	@JoinColumn(name = "accountId", nullable = true)
 	private Account account;
 
-	public Integer getRequestId() {
+	public Long getRequestId() {
 		return requestId;
 	}
 
-	public void setRequestId(Integer requestId) {
+	public void setRequestId(Long requestId) {
 		this.requestId = requestId;
 	}
 

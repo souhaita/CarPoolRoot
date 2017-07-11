@@ -20,20 +20,19 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.PickerActivityCarMake;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.PickerActivityCarPlateNum;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.PickerActivityCarSeats;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.PickerActivityProfileName;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.Const;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.ViewType;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 
-import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.Const.PROFILE_ACTIVITY_PROFILE_CAR_1;
-import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.Const.PROFILE_ACTIVITY_PROFILE_CAR_2;
-import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.Const.PROFILE_ACTIVITY_PROFILE_CAR_3;
-import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.Const.PROFILE_ACTIVITY_PROFILE_CAR_4;
-import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.Const.PROFILE_ACTIVITY_PROFILE_CAR_MAKE;
-import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.Const.PROFILE_ACTIVITY_PROFILE_CAR_PASSENGER;
-import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.Const.PROFILE_ACTIVITY_PROFILE_CAR_PLATE_NUM;
-import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.Const.PROFILE_ACTIVITY_PROFILE_CAR_YEAR;
-import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.Const.PROFILE_ACTIVITY_PROFILE_PIC;
+import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT.PROFILE_ACTIVITY_PROFILE_CAR_1;
+import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT.PROFILE_ACTIVITY_PROFILE_CAR_2;
+import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT.PROFILE_ACTIVITY_PROFILE_CAR_3;
+import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT.PROFILE_ACTIVITY_PROFILE_CAR_4;
+import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT.PROFILE_ACTIVITY_PROFILE_CAR_MAKE;
+import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT.PROFILE_ACTIVITY_PROFILE_CAR_PASSENGER;
+import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT.PROFILE_ACTIVITY_PROFILE_CAR_PLATE_NUM;
+import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT.PROFILE_ACTIVITY_PROFILE_PIC;
 
 /**
  * Created by Ashwin on 09-Jul-17.
@@ -81,7 +80,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(context, PickerActivityProfileName.class);
-                    ((Activity) context).startActivityForResult(intent, Const.PROFILE_ACTIVITY_NAME);
+                    ((Activity) context).startActivityForResult(intent, CONSTANT.PROFILE_ACTIVITY_NAME);
                 }
             });
 

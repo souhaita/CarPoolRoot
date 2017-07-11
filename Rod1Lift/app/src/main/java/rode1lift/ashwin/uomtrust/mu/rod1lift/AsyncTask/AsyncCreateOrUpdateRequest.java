@@ -63,6 +63,7 @@ public class AsyncCreateOrUpdateRequest extends AsyncTask<RequestDTO, Void ,Requ
             postData.put("placeTo", requestDTO.getPlaceTo());
             postData.put("requestStatus", requestDTO.getRequestStatus());
             postData.put("accountId", requestDTO.getAccountId());
+            postData.put("pricae", requestDTO.getPrice());
 
             if(requestDTO.getDateCreated() != null)
                 postData.put("dateCreated", requestDTO.getDateCreated().getTime());

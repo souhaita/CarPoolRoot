@@ -2,8 +2,6 @@ package rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Base64;
 
@@ -16,19 +14,10 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.LoginActivity;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.MainActivity;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.Const;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.AccountDAO;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.CarDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.AccountDTO;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.CarDTO;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.AccountRole;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.WebService.WebService;
-
-import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by Ashwin on 03-Jun-17.

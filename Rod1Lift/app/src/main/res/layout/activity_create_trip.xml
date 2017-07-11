@@ -126,8 +126,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/square_corners"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
+            android:focusableInTouchMode="false"
             android:gravity="center_vertical|start"
             android:hint="TIME"
             android:paddingLeft="10dp" />
@@ -143,7 +142,7 @@
         android:background="@color/transparent_black_50" />
 
     <EditText
-        android:inputType="phone"
+        android:inputType="number"
         android:layout_weight="0.1"
         android:textSize="20dp"
         android:layout_marginLeft="20dp"
@@ -171,15 +170,16 @@
            />
 
         <TextView
+            android:background="@drawable/round"
             android:gravity="center"
             android:textColor="@color/endColor"
-            android:textSize="30dp"
+            android:textSize="20dp"
             android:textStyle="bold"
             android:id="@+id/txtPrice"
             android:layout_centerInParent="true"
             android:layout_alignParentTop="@+id/croller"
-            android:layout_width="100dp"
-            android:layout_height="50dp" />
+            android:layout_width="60dp"
+            android:layout_height="60dp" />
 
     </RelativeLayout>
 </LinearLayout>

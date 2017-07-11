@@ -13,15 +13,16 @@ public class RequestDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Integer requestId;
-    private Integer carId;
+    private Long requestId;
+    private Long carId;
+    private Long accountId;
+
     private Integer price;
-    private Integer accountId;
     private Integer seatAvailable;
 
     private Date dateCreated;
     private Date dateUpdated;
-    private Date evenDate;
+    private Date eventDate;
 
     private String placeFrom;
     private String placeTo;
@@ -29,19 +30,19 @@ public class RequestDTO implements Serializable {
 
     private RequestStatus requestStatus;
 
-    public Integer getRequestId() {
+    public Long getRequestId() {
         return requestId;
     }
 
-    public void setRequestId(Integer requestId) {
+    public void setRequestId(Long requestId) {
         this.requestId = requestId;
     }
 
-    public Integer getCarId() {
+    public Long getCarId() {
         return carId;
     }
 
-    public void setCarId(Integer carId) {
+    public void setCarId(Long carId) {
         this.carId = carId;
     }
 
@@ -53,11 +54,11 @@ public class RequestDTO implements Serializable {
         this.price = price;
     }
 
-    public Integer getAccountId() {
+    public Long getAccountId() {
         return accountId;
     }
 
-    public void setAccountId(Integer accountId) {
+    public void setAccountId(Long accountId) {
         this.accountId = accountId;
     }
 
@@ -77,12 +78,12 @@ public class RequestDTO implements Serializable {
         this.dateUpdated = dateUpdated;
     }
 
-    public Date getEvenDate() {
-        return evenDate;
+    public Date getEventDate() {
+        return eventDate;
     }
 
-    public void setEvenDate(Date evenDate) {
-        this.evenDate = evenDate;
+    public void setEventDate(Date evenDate) {
+        this.eventDate = evenDate;
     }
 
     public String getPlaceFrom() {

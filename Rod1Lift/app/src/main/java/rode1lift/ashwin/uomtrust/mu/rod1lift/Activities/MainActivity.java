@@ -1,7 +1,6 @@
 package rode1lift.ashwin.uomtrust.mu.rod1lift.Activities;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -20,7 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.Const;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.AccountDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.AccountDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
@@ -51,8 +50,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         changeFragment(mapActivity);
 
 
-        SharedPreferences prefs = getSharedPreferences(Const.appName, MODE_PRIVATE);
-        Integer accountId = prefs.getInt(Const.currentAccountId, -1);
+        SharedPreferences prefs = getSharedPreferences(CONSTANT.APP_NAME, MODE_PRIVATE);
+        Integer accountId = prefs.getInt(CONSTANT.CURRENT_ACCOUNT_ID, -1);
 
         AccountDTO accountDTO = new AccountDAO(this).getAccountById(accountId);
 
@@ -76,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
-                startActivityForResult(intent, Const.MAIN_ACTIVITY);
+                startActivityForResult(intent, CONSTANT.MAIN_ACTIVITY);
             }
         });
 
@@ -162,8 +161,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onResume(){
         super.onResume();
 
-        SharedPreferences prefs = getSharedPreferences(Const.appName, MODE_PRIVATE);
-        Integer accountId = prefs.getInt(Const.currentAccountId, -1);
+        SharedPreferences prefs = getSharedPreferences(CONSTANT.APP_NAME, MODE_PRIVATE);
+        Integer accountId = prefs.getInt(CONSTANT.CURRENT_ACCOUNT_ID, -1);
 
         AccountDTO accountDTO = new AccountDAO(this).getAccountById(accountId);
 

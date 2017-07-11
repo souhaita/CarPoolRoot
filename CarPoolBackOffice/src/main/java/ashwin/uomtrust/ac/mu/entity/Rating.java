@@ -20,7 +20,7 @@ public class Rating implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer ratingId;
+	private Long ratingId;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "requestId", nullable = true)
@@ -34,11 +34,11 @@ public class Rating implements Serializable{
 	@JoinColumn(name = "carId", nullable = true)
 	private Car car;
 
-	public Integer getRatingId() {
+	public Long getRatingId() {
 		return ratingId;
 	}
 
-	public void setRatingId(Integer ratingId) {
+	public void setRatingId(Long ratingId) {
 		this.ratingId = ratingId;
 	}
 

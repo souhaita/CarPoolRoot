@@ -24,7 +24,7 @@ public class ManageRequest implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer manageRequestId;
+	private Long manageRequestId;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "requestId", nullable = true)
@@ -43,11 +43,11 @@ public class ManageRequest implements Serializable{
 		
 	private RequestStatus requestStatus;
 
-	public Integer getManageRequestId() {
+	public Long getManageRequestId() {
 		return manageRequestId;
 	}
 
-	public void setManageRequestId(Integer manageRequestId) {
+	public void setManageRequestId(Long manageRequestId) {
 		this.manageRequestId = manageRequestId;
 	}
 

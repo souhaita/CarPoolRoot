@@ -8,10 +8,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -21,7 +19,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import com.google.android.gms.maps.MapFragment;
 import com.sdsmdg.harjot.crollerTest.Croller;
 
 import java.text.DateFormatSymbols;
@@ -30,7 +27,7 @@ import java.util.Date;
 
 import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncCreateOrUpdateRequest;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncUpdateAccount;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.Const;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.AccountDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.AccountDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestDTO;
@@ -48,6 +45,7 @@ public class CreateTripActivity extends Activity {
     private String[] places;
     private TextView txtDate, txtTime;
     private EditText txtContact;
+    private Croller croller;
 
     private Calendar requestDateTime = Calendar.getInstance();
     private RequestDTO requestDTO = new RequestDTO();
@@ -62,7 +60,8 @@ public class CreateTripActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(CreateTripActivity.this, PickerActivityTripPrice.class);
-                startActivityForResult(intent, Const.CREATE_TRIP_ACTIVITY);
+                intent.putExtra(CONSTANT.TRIP_PRICE, txtPrice.getText().toString());
+                startActivityForResult(intent, CONSTANT.CREATE_TRIP_ACTIVITY);
             }
         });
 
@@ -191,12 +190,12 @@ public class CreateTripActivity extends Activity {
 
     private void slider(){
         //https://android-arsenal.com/details/1/5079
-        Croller croller = (Croller) findViewById(R.id.croller);
+        croller = (Croller) findViewById(R.id.croller);
         croller.setIndicatorWidth(12);
+
 
         croller.setBackCircleColor(Color.TRANSPARENT);
         croller.setMainCircleColor(Color.TRANSPARENT);
-
 
         croller.setMax(20);
         croller.setStartOffset(45);
@@ -214,7 +213,6 @@ public class CreateTripActivity extends Activity {
         croller.setOnProgressChangedListener(new Croller.onProgressChangedListener() {
             @Override
             public void onProgressChanged(int progress) {
-                // use the progress
                 txtPrice.setText(String.valueOf(progress*5));
             }
         });
@@ -231,8 +229,8 @@ public class CreateTripActivity extends Activity {
         boolean validAddressFrom = false;
         boolean validAddressTo= false;
 
-        SharedPreferences prefs = CreateTripActivity.this.getSharedPreferences(Const.appName, MODE_PRIVATE);
-        int accountId = prefs.getInt(Const.currentAccountId, 1);
+        SharedPreferences prefs = CreateTripActivity.this.getSharedPreferences(CONSTANT.APP_NAME, MODE_PRIVATE);
+        int accountId = prefs.getInt(CONSTANT.CURRENT_ACCOUNT_ID, 1);
 
         if(autoFrom.getText() == null){
             Utils.showToast(CreateTripActivity.this, getResources().getString(R.string.create_trip_activity_validation_autocomplete_address));
@@ -274,6 +272,7 @@ public class CreateTripActivity extends Activity {
             }
         }
 
+
         String addressFrom = autoFrom.getText().toString();
         for(int x = 0; x < places.length; x++){
             if(addressFrom.equalsIgnoreCase(places[x])){
@@ -302,6 +301,7 @@ public class CreateTripActivity extends Activity {
             requestDTO.setPlaceTo(autoTo.getText().toString());
             requestDTO.setEvenDate(requestDateTime.getTime());
             requestDTO.setRequestStatus(RequestStatus.REQUEST_PENDING);
+            requestDTO.setPrice(Integer.parseInt(txtPrice.getText().toString()));
 
             Date date = new Date();
             requestDTO.setDateCreated(date);
@@ -312,5 +312,16 @@ public class CreateTripActivity extends Activity {
         }
 
         return validForm&&validAddressFrom&&validAddressTo;
+    }
+
+    public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == CONSTANT.CREATE_TRIP_ACTIVITY) {
+            String tripPrice = data.getStringExtra(CONSTANT.TRIP_PRICE);
+
+            txtPrice.setText(tripPrice);
+            croller.setProgress(Integer.parseInt(tripPrice)/5);
+        }
     }
 }

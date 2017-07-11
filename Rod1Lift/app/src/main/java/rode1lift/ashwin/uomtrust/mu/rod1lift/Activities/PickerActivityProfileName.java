@@ -11,12 +11,10 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.Const;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.AccountDAO;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.CarDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.AccountDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.CarDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
@@ -34,8 +32,8 @@ public class PickerActivityProfileName extends Activity {
         setContentView(R.layout.picker_profile_name_2);
         getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
-        SharedPreferences prefs = getSharedPreferences(Const.appName, MODE_PRIVATE);
-        userId = prefs.getInt(Const.currentAccountId, -1);
+        SharedPreferences prefs = getSharedPreferences(CONSTANT.APP_NAME, MODE_PRIVATE);
+        userId = prefs.getInt(CONSTANT.CURRENT_ACCOUNT_ID, -1);
 
         final EditText eTxtFullName =(EditText)findViewById(R.id.eTxtFullName);
 

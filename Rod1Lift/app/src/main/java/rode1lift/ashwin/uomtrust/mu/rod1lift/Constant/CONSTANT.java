@@ -4,18 +4,19 @@ package rode1lift.ashwin.uomtrust.mu.rod1lift.Constant;
  * Created by Ashwin on 04-Jul-17.
  */
 
-public class Const {
+public class CONSTANT {
 
     public static final String IMAGE_DIRECTORY_NAME = "Rod1Lift";
 
-    public static final String appName = "rod1Lift";
-    public static final String login = "login";
-    public static final String currentAccountId = "currentAccountId";
+    public static final String APP_NAME = "rod1Lift";
+    public static final String LOGIN = "LOGIN";
+    public static final String CURRENT_ACCOUNT_ID = "CURRENT_ACCOUNT_ID";
+    public static final String TRIP_PRICE = "price";
 
     public static final int PICK_IMAGE_REQUEST = 1;
     public static final int PERMISSION_CAMERA = 2;
     public static final int CAMERA = 3;
-    public static final int carMakeActivity = 4;
+    public static final int CAR_MAKE_ACTIVITY = 4;
     public static final int MAIN_ACTIVITY = 5;
     public static final int PROFILE_ACTIVITY_NAME = 6;
     public static final int PROFILE_ACTIVITY_PROFILE_PIC = 7;

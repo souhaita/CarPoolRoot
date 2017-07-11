@@ -10,32 +10,32 @@ public class RatingDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Integer ratingId;
-    private Integer requestId;
-    private Integer accountId;
-    private Integer carId;
+    private Long ratingId;
+    private Long requestId;
+    private Long accountId;
+    private Long carId;
 
-    public Integer getRatingId() {
+    public Long getRatingId() {
         return ratingId;
     }
 
-    public void setRatingId(Integer ratingId) {
+    public void setRatingId(Long ratingId) {
         this.ratingId = ratingId;
     }
 
-    public Integer getRequestId() {
+    public Long getRequestId() {
         return requestId;
     }
 
-    public void setRequestId(Integer requestId) {
+    public void setRequestId(Long requestId) {
         this.requestId = requestId;
     }
 
-    public Integer getAccountId() {
+    public Long getAccountId() {
         return accountId;
     }
 
-    public void setAccountId(Integer accountId) {
+    public void setAccountId(Long accountId) {
         this.accountId = accountId;
     }
 }

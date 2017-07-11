@@ -20,7 +20,7 @@ public class Device implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer deviceId;
+	private Long deviceId;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "accountId", nullable = true)
@@ -28,11 +28,11 @@ public class Device implements Serializable{
 	
 	private String deviceToken;
 
-	public Integer getDeviceId() {
+	public Long getDeviceId() {
 		return deviceId;
 	}
 
-	public void setDeviceId(Integer deviceId) {
+	public void setDeviceId(Long deviceId) {
 		this.deviceId = deviceId;
 	}
 
