@@ -8,7 +8,10 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +59,22 @@ public class ProfileActivity extends Activity {
         recyclerView.setLayoutManager(mLayoutManager);
 
         recyclerView.setAdapter(profileAdapter);
+
+        ImageView imgBack = (ImageView)findViewById(R.id.imgBack);
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        TextView txtDone = (TextView)findViewById(R.id.txtDone);
+        txtDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         LinearLayout llMainProfile = (LinearLayout)findViewById(R.id.llMainProfile);
         Utils.animateLayout(llMainProfile);

@@ -218,12 +218,6 @@ public class CreateTripActivity extends Activity {
         });
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        overridePendingTransition(R.animator.slide_in_up, R.animator.slide_out_up);
-    }
-
     private boolean validForm(){
         boolean validForm = true;
         boolean validAddressFrom = false;
