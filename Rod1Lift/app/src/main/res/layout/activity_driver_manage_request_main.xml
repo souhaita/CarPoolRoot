@@ -5,8 +5,7 @@
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
 
     <LinearLayout
@@ -50,27 +49,13 @@
 
     </LinearLayout>
 
-    <!--<com.baoyz.swipemenulistview.SwipeMenuListView
-        android:scrollbars="vertical"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
+    <ListView
         android:layout_weight="0.9"
+        android:scrollbars="none"
         android:id="@+id/sLvManageRequest"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:dividerHeight="1dp"
-        android:divider="@color/grey_profile"/>-->
+        android:layout_height="0dp">
 
-    <com.chauthai.swipereveallayout.SwipeRevealLayout
-        app:mode="same_level"
-        app:dragEdge="left"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
-        android:id="@+id/sLvManageRequest"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:dividerHeight="1dp"
-        android:divider="@color/grey_profile"/>
-
+    </ListView>
 
 </LinearLayout>

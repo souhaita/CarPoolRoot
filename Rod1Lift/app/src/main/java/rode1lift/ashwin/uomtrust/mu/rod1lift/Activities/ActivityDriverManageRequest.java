@@ -12,6 +12,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.chauthai.swipereveallayout.SwipeRevealLayout;
@@ -56,18 +57,17 @@ public class ActivityDriverManageRequest extends Activity {
             }
         });
 
-        //sLvManageRequest = (SwipeMenuListView)findViewById(R.id.sLvManageRequest);
 
         RequestDTO requestDTO = new RequestDTO();
         requestDTO.setRequestStatus(RequestStatus.REQUEST_PENDING);
-        //new AsyncDriverFetchRequest(ActivityDriverManageRequest.this, sLvManageRequest).execute(requestDTO);
 
-        SwipeRevealLayout swipeRevealLayout = (SwipeRevealLayout)findViewById(R.id.sLvManageRequest);
+
+        ListView listView = (ListView)findViewById(R.id.sLvManageRequest);
 
         //https://github.com/daimajia/AndroidSwipeLayout
 
         //https://github.com/chthai64/SwipeRevealLayout
 
-        new AsyncDriverFetchRequest(ActivityDriverManageRequest.this, swipeRevealLayout).execute(requestDTO);
+        new AsyncDriverFetchRequest(ActivityDriverManageRequest.this, listView).execute(requestDTO);
     }
 }

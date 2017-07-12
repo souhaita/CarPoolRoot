@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -11,13 +12,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.ViewSwitcher;
 
 import java.util.List;
+import java.util.logging.Handler;
 
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.PickerActivityCarMake;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.PickerActivityCarPlateNum;
@@ -95,6 +100,32 @@ public class RequestAdapter extends BaseAdapter {
         txtSeatAvailable.setText(requestDTOList.get(i).getSeatAvailable().toString());*/
 
 
+        final int[] imageArray = { R.drawable.icon_bin_open_red, R.drawable.icon_bin_close_red, R.drawable.icon_tick_blue };
+
+        final ImageView imgCarPic = (ImageView)view.findViewById(R.id.imgCarPic);
+
+        final android.os.Handler handler = new android.os.Handler();
+        Runnable runnable = new Runnable() {
+            int i=0;
+            public void run() {
+                imgCarPic.setImageResource(imageArray[i]);
+
+               // Animation animation1 = new TranslateAnimation(0.0f, 200.0f, 0.0f, 0.0f);
+                //animation1.setDuration(2000);
+                //imgCarPic.startAnimation(animation1);
+
+
+                i++;
+                if(i>imageArray.length-1)
+                {
+                    i=0;
+                }
+                handler.postDelayed(this, 5000);  //for interval...
+            }
+        };
+        handler.postDelayed(runnable, 2000); //for initial delay..
+
+
         LinearLayout llMain = (LinearLayout)view.findViewById(R.id.llMain);
         llMain.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,6 +134,23 @@ public class RequestAdapter extends BaseAdapter {
             }
         });
 
+
+        LinearLayout llAccept = (LinearLayout)view.findViewById(R.id.llAccept);
+        llAccept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Utils.showToast(context, "Accept");
+            }
+        });
+
+
+        LinearLayout llDelete = (LinearLayout)view.findViewById(R.id.llDelete);
+        llDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Utils.showToast(context, "Delete");
+            }
+        });
 
         return view;
     }

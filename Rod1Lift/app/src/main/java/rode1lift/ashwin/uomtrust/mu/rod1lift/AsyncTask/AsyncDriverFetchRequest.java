@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
+import android.widget.ListView;
 import android.widget.Toast;
 
 
@@ -47,13 +48,11 @@ public class AsyncDriverFetchRequest extends AsyncTask<RequestDTO, Void ,List<Re
 
     private Context context;
     private ProgressDialog progressDialog;
-    //private SwipeMenuListView swipeMenuListView;
-    private SwipeRevealLayout swipeRevealLayout;
+    private ListView listView;
 
-    public AsyncDriverFetchRequest(final Context context, /*SwipeMenuListView swipeMenuListView*/SwipeRevealLayout swipeRevealLayout) {
+    public AsyncDriverFetchRequest(final Context context, ListView listView ) {
         this.context = context;
-        //this.swipeMenuListView = swipeMenuListView;
-        this.swipeRevealLayout = swipeRevealLayout;
+        this.listView = listView;
     }
 
     @Override
@@ -160,63 +159,7 @@ public class AsyncDriverFetchRequest extends AsyncTask<RequestDTO, Void ,List<Re
 
         if(requestDTOList != null && requestDTOList.size() >0) {
             final RequestAdapter requestAdapter = new RequestAdapter(context, requestDTOList);
-
-            /*swipeMenuListView.setAdapter(requestAdapter);
-
-            SwipeMenuCreator creator = new SwipeMenuCreator() {
-
-                @Override
-                public void create(SwipeMenu menu) {
-                    //create an action that will be showed on swiping an item in the list
-                    SwipeMenuItem item1 = new SwipeMenuItem(getApplicationContext());
-                    item1.setBackground(new ColorDrawable(Color.DKGRAY));
-                    item1.setWidth(200);
-                    item1.setTitle("Action 1");
-                    item1.setTitleSize(18);
-                    item1.setTitleColor(Color.WHITE);
-                    menu.addMenuItem(item1);
-
-
-                    SwipeMenuItem item2 = new SwipeMenuItem(getApplicationContext());
-                    item2.setBackground(new ColorDrawable(Color.RED));
-                    item2.setWidth(200);
-                    item2.setTitle("Action 2");
-                    item2.setTitleSize(18);
-                    item2.setTitleColor(Color.WHITE);
-                    menu.addMenuItem(item2);
-                }
-            };
-
-            swipeMenuListView.setMenuCreator(creator);
-
-            swipeMenuListView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
-
-                @Override
-                public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
-                    switch (index) {
-                        case 0:
-                            Toast.makeText(getApplicationContext(), "Action 1 for " , Toast.LENGTH_SHORT).show();
-                            break;
-                        case 1:
-                            Toast.makeText(getApplicationContext(), "Action 2 for " , Toast.LENGTH_SHORT).show();
-                            break;
-                    }
-                    return false;
-                }});
-
-            swipeMenuListView.setOnSwipeListener(new SwipeMenuListView.OnSwipeListener() {
-
-                @Override
-                public void onSwipeStart(int position) {
-                    // swipe start
-                }
-
-                @Override
-                public void onSwipeEnd(int position) {
-                    // swipe end
-                }
-            });*/
-
+            listView.setAdapter(requestAdapter);
 
             RequestDAO requestDAO = new RequestDAO(context);
             for(RequestDTO requestDTO : requestDTOList){
