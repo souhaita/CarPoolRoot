@@ -1,40 +1,19 @@
 package rode1lift.ashwin.uomtrust.mu.rod1lift.Activities;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.chauthai.swipereveallayout.SwipeRevealLayout;
-
-import java.util.List;
-
-import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.RequestAdapter;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncDriverFetchRequest;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.AccountDAO;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.RequestDAO;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.AccountDTO;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.CarDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.RequestStatus;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 
 
 public class ActivityDriverManageRequest extends Activity {
-
-    //private SwipeMenuListView sLvManageRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,16 +36,10 @@ public class ActivityDriverManageRequest extends Activity {
             }
         });
 
-
         RequestDTO requestDTO = new RequestDTO();
         requestDTO.setRequestStatus(RequestStatus.REQUEST_PENDING);
 
-
         ListView listView = (ListView)findViewById(R.id.sLvManageRequest);
-
-        //https://github.com/daimajia/AndroidSwipeLayout
-
-        //https://github.com/chthai64/SwipeRevealLayout
 
         new AsyncDriverFetchRequest(ActivityDriverManageRequest.this, listView).execute(requestDTO);
     }

@@ -1,5 +1,6 @@
 package rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter;
 
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -7,12 +8,18 @@ import android.content.Intent;
 import android.provider.ContactsContract;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.AnimationUtils;
+import android.view.animation.DecelerateInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
@@ -93,37 +100,26 @@ public class RequestAdapter extends BaseAdapter {
         TextView txtDate = (TextView)view.findViewById(R.id.txtDate);
         txtDate.setText(requestDTOList.get(i).getEvenDate().toString());
 
-       /* TextView txtPrice = (TextView)view.findViewById(R.id.txtPrice);
-        txtPrice.setText(requestDTOList.get(i).getPrice().toString());
+        final ViewPager imgCarPic = (ViewPager) view.findViewById(R.id.imgCarPic);
 
-        TextView txtSeatAvailable = (TextView)view.findViewById(R.id.txtSeatAvailable);
-        txtSeatAvailable.setText(requestDTOList.get(i).getSeatAvailable().toString());*/
+        final PhotoViewPagerAdapter photoViewPagerAdapter = new PhotoViewPagerAdapter(context);
+        imgCarPic.setAdapter(photoViewPagerAdapter);
 
-
-        final int[] imageArray = { R.drawable.icon_bin_open_red, R.drawable.icon_bin_close_red, R.drawable.icon_tick_blue };
-
-        final ImageView imgCarPic = (ImageView)view.findViewById(R.id.imgCarPic);
-
-        final android.os.Handler handler = new android.os.Handler();
+       final android.os.Handler handler = new android.os.Handler();
         Runnable runnable = new Runnable() {
-            int i=0;
+            int i = 0;
             public void run() {
-                imgCarPic.setImageResource(imageArray[i]);
 
-               // Animation animation1 = new TranslateAnimation(0.0f, 200.0f, 0.0f, 0.0f);
-                //animation1.setDuration(2000);
-                //imgCarPic.startAnimation(animation1);
+                if(i >= photoViewPagerAdapter.getCount())
+                    i = 0;
 
-
+                imgCarPic.setCurrentItem(i);
                 i++;
-                if(i>imageArray.length-1)
-                {
-                    i=0;
-                }
-                handler.postDelayed(this, 5000);  //for interval...
+
+                handler.postDelayed(this, 5000);
             }
         };
-        handler.postDelayed(runnable, 2000); //for initial delay..
+        handler.postDelayed(runnable, 0);
 
 
         LinearLayout llMain = (LinearLayout)view.findViewById(R.id.llMain);
