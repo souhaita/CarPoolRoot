@@ -1,7 +1,6 @@
 package rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask;
 
 import android.app.Activity;
-import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -73,7 +72,7 @@ public class AsyncDriverCreateOrUpdateRequest extends AsyncTask<RequestDTO, Void
             postData.put("dateUpdated", requestDTO.getDateUpdated().getTime());
             postData.put("eventDate", requestDTO.getEvenDate().getTime());
 
-            httpURLConnection = (HttpURLConnection) new URL(WebService.DRIVER_API_CREATE_UPDATE_REQUEST).openConnection();
+            httpURLConnection = (HttpURLConnection) new URL(WebService.API_DRIVER_CREATE_UPDATE_REQUEST).openConnection();
             httpURLConnection.setRequestMethod("POST");
             httpURLConnection.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
             httpURLConnection.setRequestProperty("Accept", "application/json;charset=UTF-8");

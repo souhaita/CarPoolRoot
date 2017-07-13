@@ -17,5 +17,6 @@ public interface CarRepository extends JpaRepository<Car, Long> {
 	
 	@Query("select c from Car c join c.userAccount a where a.accountId =:accountId")
 	public Car getCarByAccountId(@Param("accountId") Long accountId);
+
 		
 }

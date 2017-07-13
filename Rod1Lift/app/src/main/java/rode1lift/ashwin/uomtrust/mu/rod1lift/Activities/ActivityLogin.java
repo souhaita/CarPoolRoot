@@ -33,9 +33,12 @@ import javax.net.ssl.HttpsURLConnection;
 
 import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncCheckAccount;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncCreateAccount;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncDriverFetchCar;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.AccountDAO;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.CarDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.AccountDTO;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.CarDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.AccountRole;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.AccountStatus;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
@@ -122,9 +125,16 @@ public class ActivityLogin extends Activity {
         editor.putInt(CONSTANT.CURRENT_ACCOUNT_ID, accountDTO.getAccountId());
         editor.commit();
 
-        Intent intent = new Intent(ActivityLogin.this, ActivityMain.class);
-        startActivity(intent);
-        finish();
+        CarDTO carDTO = new CarDAO(ActivityLogin.this).getCarByAccountID(accountDTO.getAccountId());
+        if(carDTO != null && carDTO.getCarId() != null) {
+            Intent intent = new Intent(ActivityLogin.this, ActivityMain.class);
+            startActivity(intent);
+            finish();
+        }
+        else{
+            carDTO.setAccountId(accountDTO.getAccountId());
+            new AsyncDriverFetchCar(ActivityLogin.this).execute(carDTO);
+        }
     }
 
     private void getFbData(JSONObject object){

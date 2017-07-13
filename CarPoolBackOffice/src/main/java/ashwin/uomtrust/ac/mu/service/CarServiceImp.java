@@ -82,5 +82,29 @@ public class CarServiceImp implements CarService{
 		return newCarDTO;
 	}
 
+
+	@Override
+	public CarDTO findCarByAccountId(Long accountId) {
+		// TODO Auto-generated method stub
+		
+		Car car = carRepository.getCarByAccountId(accountId);
+		
+		CarDTO carDTO = new CarDTO();
+		
+		if(car != null && car.getCarId() != null){
+			carDTO.setAccountId(car.getUserAccount().getAccountId());
+			carDTO.setCarId(car.getCarId());
+			carDTO.setMake(car.getMake());
+			carDTO.setModel(car.getModel());
+			carDTO.setNumOfPassenger(car.getNumOfPassenger());
+			carDTO.setPlateNum(car.getPlateNum());
+			carDTO.setYear(car.getYear());
+			
+			Utils.getImageCar(carDTO);
+		}
+		
+		return carDTO;
+	}
+
 	
 }

@@ -66,7 +66,7 @@ public class AsyncDriverUpdateCar extends AsyncTask<CarDTO, Void ,Integer > {
 
             postData.put("accountId", carDetailsDTO.getAccountId());
 
-            httpURLConnection = (HttpURLConnection) new URL(WebService.DRIVER_API_CREATE_CAR_DETAILS).openConnection();
+            httpURLConnection = (HttpURLConnection) new URL(WebService.API_DRIVER_CREATE_CAR_DETAILS).openConnection();
             httpURLConnection.setRequestMethod("POST");
             httpURLConnection.setRequestProperty("Content-Type", "application/json; charset=utf-8");
             httpURLConnection.setRequestProperty("Accept", "application/json; charset=utf-8");

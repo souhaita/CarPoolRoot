@@ -63,5 +63,14 @@ public class AccountController {
 		}
 		return null;
 	}
+	
+	@CrossOrigin(origins = "http://localhost:8081")
+	@RequestMapping(value = "/driverFetchCarDetails", method = RequestMethod.POST)
+	public CarDTO driverFetchCarDetails(@RequestBody CarDTO carDTO) {
+		if(carDTO != null && carDTO.getAccountId() !=null ){
+			return carService.findCarByAccountId(carDTO.getAccountId());
+		}
+		return null;
+	}
 
 }

@@ -3,14 +3,9 @@ package rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.widget.ListView;
-import android.widget.Toast;
 
-
-import com.chauthai.swipereveallayout.SwipeRevealLayout;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -26,19 +21,15 @@ import java.util.Date;
 import java.util.List;
 
 
-import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.ActivityDriverManageRequest;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.RequestAdapter;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.AccountDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.RequestDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestDTO;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.AccountRole;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.RequestStatus;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.WebService.WebService;
 
 import static android.content.Context.MODE_PRIVATE;
-import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * Created by Ashwin on 03-Jun-17.
@@ -85,9 +76,9 @@ public class AsyncDriverFetchRequest extends AsyncTask<RequestDTO, Void ,List<Re
             String url;
 
             if(requestDTO.getRequestStatus().equals(RequestStatus.REQUEST_PENDING))
-                url = WebService.DRIVER_API_GET_PENDING_REQUEST_LIST;
+                url = WebService.API_DRIVER_GET_PENDING_REQUEST_LIST;
             else
-                url = WebService.DRIVER_API_OTHER_REQUEST_LIST;
+                url = WebService.API_DRIVER_OTHER_REQUEST_LIST;
 
 
             httpURLConnection = (HttpURLConnection) new URL(url).openConnection();

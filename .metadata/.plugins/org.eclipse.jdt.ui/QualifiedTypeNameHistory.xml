@@ -40,4 +40,5 @@
 <fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.service.CarService"/>
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.enums.RequestStatus"/>
+<fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.dto.CarDTO"/>
 </qualifiedTypeNameHistroy>

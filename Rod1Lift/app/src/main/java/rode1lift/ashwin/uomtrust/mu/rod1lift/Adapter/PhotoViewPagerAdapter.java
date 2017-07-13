@@ -37,13 +37,12 @@ public class PhotoViewPagerAdapter extends PagerAdapter {
         ImageView imageView = (ImageView)layout.findViewById(R.id.imgCarPager);
 
         try {
-            if (position == 1)
+            if (position == 0)
                 imageView.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_bin_close_red));
-            else if (position == 3)
+            else if (position == 1)
                 imageView.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_bin_open_red));
             else
                 imageView.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_tick_blue));
-
 
             collection.addView(layout);
         }
@@ -64,4 +63,5 @@ public class PhotoViewPagerAdapter extends PagerAdapter {
 
         return view == object;
     }
+
 }

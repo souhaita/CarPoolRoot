@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -105,16 +106,23 @@ public class RequestAdapter extends BaseAdapter {
         final PhotoViewPagerAdapter photoViewPagerAdapter = new PhotoViewPagerAdapter(context);
         imgCarPic.setAdapter(photoViewPagerAdapter);
 
+        imgCarPic.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                return true;
+            }
+        });
+
        final android.os.Handler handler = new android.os.Handler();
         Runnable runnable = new Runnable() {
-            int i = 0;
+            int i = photoViewPagerAdapter.getCount() - 1;
             public void run() {
 
-                if(i >= photoViewPagerAdapter.getCount())
-                    i = 0;
+                if(i <0)
+                    i = photoViewPagerAdapter.getCount() - 1;
 
                 imgCarPic.setCurrentItem(i);
-                i++;
+                i--;
 
                 handler.postDelayed(this, 5000);
             }
@@ -140,13 +148,13 @@ public class RequestAdapter extends BaseAdapter {
         });
 
 
-        LinearLayout llDelete = (LinearLayout)view.findViewById(R.id.llDelete);
+        /*LinearLayout llDelete = (LinearLayout)view.findViewById(R.id.llDelete);
         llDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Utils.showToast(context, "Delete");
             }
-        });
+        });*/
 
         return view;
     }

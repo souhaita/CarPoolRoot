@@ -15,6 +15,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Date;
 
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.AccountDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.AccountDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.AccountRole;
@@ -84,10 +85,12 @@ public class AsyncCheckAccount extends AsyncTask<String, Void , AccountDTO > {
                 accountDTO.setFirstName(jsonObject.getString("firstName"));
                 accountDTO.setLastName(jsonObject.getString("lastName"));
                 accountDTO.setFacebookId(jsonObject.getString("facebookId"));
-                accountDTO.setAccountRole(jsonObject.getString("accountRole") == AccountRole.DRIVER.toString()? AccountRole.DRIVER : AccountRole.PASSENGER);
-                accountDTO.setAccountStatus(jsonObject.getString("accountStatus") == AccountStatus.ACTIVE.toString()? AccountStatus.ACTIVE : AccountStatus.DESACTIVE);
+                accountDTO.setAccountRole(AccountRole.valueOf(jsonObject.getString("accountRole")));
+                accountDTO.setAccountStatus(AccountStatus.valueOf(jsonObject.getString("accountStatus")));
                 accountDTO.setDateCreated(new Date(jsonObject.getLong("dateCreated")));
                 accountDTO.setDateUpdated(new Date(jsonObject.getLong("dateUpdated")));
+
+
 
                 if(jsonObject.has("phoneNum"))
                     accountDTO.setPhoneNum(jsonObject.getInt("phoneNum"));

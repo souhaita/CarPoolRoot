@@ -12,7 +12,7 @@
         app:mode="oneLine">
 
         <LinearLayout
-            android:layout_width="150dp"
+            android:layout_width="75dp"
             android:layout_height="match_parent" >
 
             <LinearLayout
@@ -20,9 +20,8 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:layout_width="75dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent">
-
 
                     <ImageView
                         android:scaleType="centerInside"
@@ -33,7 +32,7 @@
 
                 </LinearLayout>
 
-                <LinearLayout
+                <!--<LinearLayout
                     android:id="@+id/llDelete"
                     android:layout_gravity="center"
                     android:gravity="center"
@@ -47,16 +46,22 @@
                             android:background="@drawable/icon_tick_blue"
                             android:layout_width="50dp"
                             android:layout_height="50dp" />
-            </LinearLayout>
+                </LinearLayout>-->
 
         </LinearLayout>
 
         <LinearLayout
-            android:padding="10dp"
+            android:paddingTop="10dp"
             android:background="@color/white"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/imgCarPic"
+                android:layout_weight="0.4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent" />
 
             <LinearLayout
                 android:layout_marginLeft="2dp"
@@ -131,12 +136,6 @@
 
                 </LinearLayout>
             </LinearLayout>
-
-            <android.support.v4.view.ViewPager
-                android:id="@+id/imgCarPic"
-                android:layout_weight="0.4"
-                android:layout_width="0dp"
-                android:layout_height="match_parent" />
 
         </LinearLayout>
     </com.chauthai.swipereveallayout.SwipeRevealLayout>

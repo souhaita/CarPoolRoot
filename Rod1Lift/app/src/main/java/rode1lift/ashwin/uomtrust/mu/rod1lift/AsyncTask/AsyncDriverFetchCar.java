@@ -1,7 +1,9 @@
 package rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Base64;
 
@@ -14,6 +16,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.ActivityLogin;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.ActivityMain;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.CarDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.CarDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
@@ -23,50 +28,31 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.WebService.WebService;
  * Created by Ashwin on 03-Jun-17.
  */
 
-public class AsyncDriverUpdateCar extends AsyncTask<CarDTO, Void ,Integer > {
+public class AsyncDriverFetchCar extends AsyncTask<CarDTO, Void ,CarDTO > {
 
     private Context context;
     private ProgressDialog progressDialog;
 
-    public AsyncDriverUpdateCar(final Context context) {
+    public AsyncDriverFetchCar(final Context context) {
         this.context = context;
     }
 
     @Override
     protected void onPreExecute() {
-        progressDialog = Utils.progressDialogue(context, "Updating your car details");
+        progressDialog = Utils.progressDialogue(context, "Fetching your car details");
     }
 
 
     @Override
-    protected Integer doInBackground(CarDTO... params) {
+    protected CarDTO doInBackground(CarDTO... params) {
         JSONObject postData = new JSONObject();
         CarDTO carDetailsDTO = params[0];
         HttpURLConnection httpURLConnection = null;
 
         try{
-            postData.put("carId", carDetailsDTO.getCarId());
-            postData.put("model", carDetailsDTO.getModel());
-            postData.put("make", carDetailsDTO.getMake());
-            postData.put("numOfPassenger", carDetailsDTO.getNumOfPassenger());
-            postData.put("year", carDetailsDTO.getYear());
-            postData.put("plateNum", carDetailsDTO.getPlateNum());
-
-            if(carDetailsDTO.getPicture1() != null)
-                postData.put("sPicture1", Base64.encodeToString(carDetailsDTO.getPicture1(), Base64.DEFAULT));
-
-            if(carDetailsDTO.getPicture2() != null)
-                postData.put("sPicture2", Base64.encodeToString(carDetailsDTO.getPicture2(), Base64.DEFAULT));
-
-            if(carDetailsDTO.getPicture3() != null)
-                postData.put("sPicture3", Base64.encodeToString(carDetailsDTO.getPicture3(), Base64.DEFAULT));
-
-            if(carDetailsDTO.getPicture4() != null)
-                postData.put("sPicture4", Base64.encodeToString(carDetailsDTO.getPicture4(), Base64.DEFAULT));
-
             postData.put("accountId", carDetailsDTO.getAccountId());
 
-            httpURLConnection = (HttpURLConnection) new URL(WebService.DRIVER_API_CREATE_CAR_DETAILS).openConnection();
+            httpURLConnection = (HttpURLConnection) new URL(WebService.API_DRIVER_FETCH_CAR_DETAILS).openConnection();
             httpURLConnection.setRequestMethod("POST");
             httpURLConnection.setRequestProperty("Content-Type", "application/json; charset=utf-8");
             httpURLConnection.setRequestProperty("Accept", "application/json; charset=utf-8");
@@ -98,7 +84,27 @@ public class AsyncDriverUpdateCar extends AsyncTask<CarDTO, Void ,Integer > {
             carDetailsDTO.setNumOfPassenger(jsonObject.getInt("numOfPassenger"));
             carDetailsDTO.setModel(jsonObject.getString("model"));
 
-            return carDetailsDTO.getCarId();
+            if(jsonObject.getString("sPicture1") != null) {
+                carDetailsDTO.setHasPic1(true);
+                carDetailsDTO.setPicture1(Base64.decode(jsonObject.getString("sPicture1"), Base64.DEFAULT));
+            }
+
+            if(jsonObject.getString("sPicture2") != null) {
+                carDetailsDTO.setHasPic2(true);
+                carDetailsDTO.setPicture2(Base64.decode(jsonObject.getString("sPicture2"), Base64.DEFAULT));
+            }
+
+            if(jsonObject.getString("sPicture1") != null) {
+                carDetailsDTO.setHasPic3(true);
+                carDetailsDTO.setPicture3(Base64.decode(jsonObject.getString("sPicture3"), Base64.DEFAULT));
+            }
+
+            if(jsonObject.getString("sPicture1") != null) {
+                carDetailsDTO.setHasPic4(true);
+                carDetailsDTO.setPicture4(Base64.decode(jsonObject.getString("sPicture4"), Base64.DEFAULT));
+            }
+
+            return carDetailsDTO;
 
         }catch (Exception e){
             e.printStackTrace();
@@ -116,11 +122,18 @@ public class AsyncDriverUpdateCar extends AsyncTask<CarDTO, Void ,Integer > {
     }
 
     @Override
-    protected void onPostExecute(Integer carId){
-        super.onPostExecute(carId);
+    protected void onPostExecute(CarDTO carDTO){
+        super.onPostExecute(carDTO);
 
-        if(carId == null || carId <0) {
+        if(carDTO != null || carDTO.getCarId() != null) {
+            new CarDAO(context).saveOrUpdateCar(carDTO);
+            Intent intent = new Intent(context, ActivityMain.class);
+            context.startActivity(intent);
+            ((Activity)context).finish();
+        }
+        else{
             Utils.showToast(context, context.getString(R.string.error_server));
+
         }
     }
 
