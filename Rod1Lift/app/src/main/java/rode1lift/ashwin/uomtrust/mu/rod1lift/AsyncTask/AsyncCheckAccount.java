@@ -3,6 +3,7 @@ package rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Base64;
 
 import org.json.JSONObject;
 
@@ -12,8 +13,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Date;
 
+import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.AccountDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.AccountDTO;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.AccountRole;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.AccountStatus;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.WebService.WebService;
 
@@ -21,7 +26,7 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.WebService.WebService;
  * Created by Ashwin on 03-Jun-17.
  */
 
-public class AsyncCheckAccount extends AsyncTask<String, Void ,Integer > {
+public class AsyncCheckAccount extends AsyncTask<String, Void , AccountDTO > {
 
     private Context context;
     private ProgressDialog progressDialog;
@@ -38,7 +43,7 @@ public class AsyncCheckAccount extends AsyncTask<String, Void ,Integer > {
 
 
     @Override
-    protected Integer doInBackground(String... params) {
+    protected AccountDTO doInBackground(String... params) {
         JSONObject postData = new JSONObject();
         AccountDTO accountDTO  = new AccountDTO();
         accountDTO.setEmail(params[0]);
@@ -74,6 +79,18 @@ public class AsyncCheckAccount extends AsyncTask<String, Void ,Integer > {
 
                 JSONObject jsonObject = new JSONObject(builder.toString());
                 accountDTO.setAccountId(jsonObject.getInt("accountId"));
+                accountDTO.setEmail(accountDTO.getEmail());
+                accountDTO.setProfilePicture(Base64.decode(jsonObject.getString("sProfilePicture"), Base64.DEFAULT));
+                accountDTO.setFirstName(jsonObject.getString("firstName"));
+                accountDTO.setLastName(jsonObject.getString("lastName"));
+                accountDTO.setFacebookId(jsonObject.getString("facebookId"));
+                accountDTO.setAccountRole(jsonObject.getString("accountRole") == AccountRole.DRIVER.toString()? AccountRole.DRIVER : AccountRole.PASSENGER);
+                accountDTO.setAccountStatus(jsonObject.getString("accountStatus") == AccountStatus.ACTIVE.toString()? AccountStatus.ACTIVE : AccountStatus.DESACTIVE);
+                accountDTO.setDateCreated(new Date(jsonObject.getLong("dateCreated")));
+                accountDTO.setDateUpdated(new Date(jsonObject.getLong("dateUpdated")));
+
+                if(jsonObject.has("phoneNum"))
+                    accountDTO.setPhoneNum(jsonObject.getInt("phoneNum"));
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -83,7 +100,7 @@ public class AsyncCheckAccount extends AsyncTask<String, Void ,Integer > {
                 }
             }
 
-            return accountDTO.getAccountId();
+            return accountDTO;
 
         }catch (Exception e){
             e.printStackTrace();
@@ -95,7 +112,10 @@ public class AsyncCheckAccount extends AsyncTask<String, Void ,Integer > {
     }
 
     @Override
-    protected void onPostExecute(Integer result){
-        super.onPostExecute(result);
+    protected void onPostExecute(AccountDTO accountDTO){
+        super.onPostExecute(accountDTO);
+
+        new AccountDAO(context).saveOrUpdateAccount(accountDTO);
+
     }
 }

@@ -6,8 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Vibrator;
 import android.provider.Settings;
 import android.view.Gravity;
@@ -133,6 +135,23 @@ public class Utils {
         Intent intent=new Intent("android.location.GPS_ENABLED_CHANGE");
         intent.putExtra("enabled", true);
         context.sendBroadcast(intent);
+    }
+
+    public static Bitmap setPhotoRotation(Bitmap originalBmp){
+        Bitmap newBitmap = null;
+        if (Build.MANUFACTURER.equalsIgnoreCase("samsung")
+                || Build.MANUFACTURER.equalsIgnoreCase("LGE")
+                || Build.MANUFACTURER.equalsIgnoreCase("sony")) {
+
+            // rotate image
+            Matrix matrix = new Matrix();
+            matrix.postRotate(90);
+
+            newBitmap = Bitmap.createBitmap(originalBmp, 0, 0, originalBmp.getWidth(), originalBmp.getHeight(), matrix, false);
+            originalBmp.recycle();
+        }
+
+        return newBitmap;
     }
 
 }

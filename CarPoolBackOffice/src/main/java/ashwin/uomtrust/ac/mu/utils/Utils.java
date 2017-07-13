@@ -49,7 +49,7 @@ public class Utils {
 			
 			getOutputFile(carDirectory);
 			
-			String imageDirectory = generateImageDirectory(carDTO.getAccountId());
+			String imageDirectory = getCarImageDirectory(carDTO.getAccountId());
 			
 			if(carDTO.getsPicture1() != null){
 				byte [] pic1 = Base64.decodeBase64(carDTO.getsPicture1());
@@ -91,9 +91,9 @@ public class Utils {
 		
 	}
 	
-	public static CarDTO getImage(CarDTO carDTO){
+	public static CarDTO getImageCar(CarDTO carDTO){
 		
-		String filePath = generateImageDirectory(carDTO.getAccountId());
+		String filePath = getCarImageDirectory(carDTO.getAccountId());
 		String pic1 = "1.jpg";
 		String pic2 = "2.jpg";
 		String pic3 = "3.jpg";
@@ -150,6 +150,27 @@ public class Utils {
 		return carDTO;
 	}
 	
+	public static AccountDTO getImageProfile(AccountDTO accountDTO){
+		
+		String filePath = getProfilePicImageDirectory(accountDTO.getAccountId());
+		
+		try {
+			File file = new File(filePath+".jpg");
+			if(file.exists()){
+				byte[] bytesArray = new byte[(int) file.length()];
+	
+				FileInputStream fis = new FileInputStream(file);
+				fis.read(bytesArray);
+				fis.close();
+				accountDTO.setsProfilePicture(Base64.encodeBase64String(bytesArray));
+			}
+		} catch (Exception e) {
+		    // TODO Auto-generated catch block
+		    e.printStackTrace();
+		}
+
+		return accountDTO;
+	}
 	private static File getOutputFile(String path){
 		
 		try{
@@ -170,7 +191,7 @@ public class Utils {
 		return null;
 	}
 	
-	private static String generateImageDirectory(Long userId){
+	private static String getCarImageDirectory(Long userId){
 		
 		try{
 			
@@ -192,6 +213,10 @@ public class Utils {
 		}
 		
 		return null;
+	}
+	
+	private static String getProfilePicImageDirectory(Long userId){
+		return profilePicDirectory+String.valueOf(userId)+"/";
 	}
 
 }

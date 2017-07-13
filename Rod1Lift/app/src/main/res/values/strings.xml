@@ -240,6 +240,6 @@
     <string name="create_trip_activity_validation_contact_detail_length">Phone Num should be of lenght 7 - 8</string>
     <string name="create_trip_activity_validation_autocomplete_address_no_match">Please select address from autocomplete list</string>
     <string name="create_trip_activity_validation_seat_available">Number of seat can not be null</string>
-    <string name="create_trip_activity_validation_seat_available_length">Number of seat should be of between 1 - 5</string>
+    <string name="create_trip_activity_validation_seat_available_length">Number of seat should be of between 1</string>
 
 </resources>

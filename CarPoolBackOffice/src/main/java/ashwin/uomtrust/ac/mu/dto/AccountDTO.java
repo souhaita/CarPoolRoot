@@ -33,85 +33,45 @@ public class AccountDTO implements Serializable {
 
     private byte [] profilePicture;
 
-    public Long getAccountId() {
-        return accountId;
-    }
+	public Long getAccountId() {
+		return accountId;
+	}
 
-    public void setAccountId(Long accountId) {
-        this.accountId = accountId;
-    }
+	public void setAccountId(Long accountId) {
+		this.accountId = accountId;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public String getFirstName() {
-        return firstName;
-    }
+	public String getFirstName() {
+		return firstName;
+	}
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
 
-    public String getLastName() {
-        return lastName;
-    }
+	public String getLastName() {
+		return lastName;
+	}
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 
-    public String getFacebookId() {
-        return facebookId;
-    }
+	public String getFacebookId() {
+		return facebookId;
+	}
 
-    public void setFacebookUserId(String facebookId) {
-        this.facebookId = facebookId;
-    }
-
-    public AccountRole getAccountRole() {
-        return accountRole;
-    }
-
-    public void setAccountRole(AccountRole accountRole) {
-        this.accountRole = accountRole;
-    }
-
-    public AccountStatus getAccountStatus() {
-        return accountStatus;
-    }
-
-    public void setAccountStatus(AccountStatus accountStatus) {
-        this.accountStatus = accountStatus;
-    }
-
-    public Date getDateCreated() {
-        return dateCreated;
-    }
-
-    public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
-    }
-
-    public Date getDateUpdated() {
-        return dateUpdated;
-    }
-
-    public void setDateUpdated(Date dateUpdated) {
-        this.dateUpdated = dateUpdated;
-    }
-
-    public byte[] getProfilePicture() {
-        return profilePicture;
-    }
-
-    public void setProfilePicture(byte[] profilePicture) {
-        this.profilePicture = profilePicture;
-    }
+	public void setFacebookId(String facebookId) {
+		this.facebookId = facebookId;
+	}
 
 	public String getsProfilePicture() {
 		return sProfilePicture;
@@ -121,8 +81,36 @@ public class AccountDTO implements Serializable {
 		this.sProfilePicture = sProfilePicture;
 	}
 
-	public void setFacebookId(String facebookId) {
-		this.facebookId = facebookId;
+	public AccountRole getAccountRole() {
+		return accountRole;
+	}
+
+	public void setAccountRole(AccountRole accountRole) {
+		this.accountRole = accountRole;
+	}
+
+	public AccountStatus getAccountStatus() {
+		return accountStatus;
+	}
+
+	public void setAccountStatus(AccountStatus accountStatus) {
+		this.accountStatus = accountStatus;
+	}
+
+	public Date getDateCreated() {
+		return dateCreated;
+	}
+
+	public void setDateCreated(Date dateCreated) {
+		this.dateCreated = dateCreated;
+	}
+
+	public Date getDateUpdated() {
+		return dateUpdated;
+	}
+
+	public void setDateUpdated(Date dateUpdated) {
+		this.dateUpdated = dateUpdated;
 	}
 
 	public Integer getPhoneNum() {
@@ -132,5 +120,12 @@ public class AccountDTO implements Serializable {
 	public void setPhoneNum(Integer phoneNum) {
 		this.phoneNum = phoneNum;
 	}
-	
+
+	public byte[] getProfilePicture() {
+		return profilePicture;
+	}
+
+	public void setProfilePicture(byte[] profilePicture) {
+		this.profilePicture = profilePicture;
+	}	
 }

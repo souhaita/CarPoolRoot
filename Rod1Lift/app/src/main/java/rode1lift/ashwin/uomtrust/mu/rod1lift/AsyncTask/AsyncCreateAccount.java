@@ -1,5 +1,6 @@
 package rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -138,12 +139,14 @@ public class AsyncCreateAccount extends AsyncTask<AccountDTO, Void ,AccountDTO> 
             } else {
                 Intent intent = new Intent(context, ActivityMain.class);
                 context.startActivity(intent);
+                ((Activity)context).finish();
             }
         }
         else{
             Utils.showToast(context, context.getString(R.string.error_server));
             Intent intent = new Intent(context, ActivityLogin.class);
             context.startActivity(intent);
+            ((Activity)context).finish();
         }
     }
 }

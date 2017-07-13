@@ -115,20 +115,25 @@ public class ActivityLogin extends Activity {
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
+    private void login(){
+
+        SharedPreferences.Editor editor = getSharedPreferences(CONSTANT.APP_NAME, MODE_PRIVATE).edit();
+        editor.putBoolean(CONSTANT.LOGIN, true);
+        editor.putInt(CONSTANT.CURRENT_ACCOUNT_ID, accountDTO.getAccountId());
+        editor.commit();
+
+        Intent intent = new Intent(ActivityLogin.this, ActivityMain.class);
+        startActivity(intent);
+        finish();
+    }
+
     private void getFbData(JSONObject object){
         try {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
 
             if(checkIfAccountExist(object.getString("email"))) {
-                SharedPreferences.Editor editor = getSharedPreferences(CONSTANT.APP_NAME, MODE_PRIVATE).edit();
-                editor.putBoolean(CONSTANT.LOGIN, true);
-                editor.putInt(CONSTANT.CURRENT_ACCOUNT_ID, accountDTO.getAccountId());
-                editor.commit();
-
-                Intent intent = new Intent(ActivityLogin.this, ActivityMain.class);
-                startActivity(intent);
-                finish();
+                login();
             }
             else {
 
@@ -177,7 +182,7 @@ public class ActivityLogin extends Activity {
     private boolean checkIfAccountExist(String email){
         Boolean exist = false;
         try {
-            accountDTO.setAccountId(new AsyncCheckAccount(ActivityLogin.this).execute(email).get());
+            accountDTO = new AsyncCheckAccount(ActivityLogin.this).execute(email).get();
             exist = accountDTO.getAccountId() == null? false: true;
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -233,9 +238,10 @@ public class ActivityLogin extends Activity {
                     if(dialog != null && dialog.isShowing())
                         dialog.dismiss();
 
-                    accountDTO.setAccountRole(AccountRole.OTHER);
+                    accountDTO.setAccountRole(AccountRole.PASSENGER);
                     new AccountDAO(ActivityLogin.this).saveOrUpdateAccount(accountDTO);
                     new AsyncCreateAccount(ActivityLogin.this).execute(accountDTO);
+                    finish();
                 }
             }
         });

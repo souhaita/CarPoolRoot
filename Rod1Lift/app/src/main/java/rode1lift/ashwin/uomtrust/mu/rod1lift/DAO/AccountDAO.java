@@ -60,7 +60,7 @@ public class AccountDAO {
         accountDTO.setFirstName(res.getString(res.getColumnIndex("first_name")));
         accountDTO.setLastName(res.getString(res.getColumnIndex("last_name")));
         accountDTO.setFacebookId(res.getString(res.getColumnIndex("facebook_id")));
-        accountDTO.setAccountRole(res.getInt(res.getColumnIndex("account_role")) != 0? AccountRole.OTHER : AccountRole.DRIVER);
+        accountDTO.setAccountRole(res.getInt(res.getColumnIndex("account_role")) != 0? AccountRole.PASSENGER : AccountRole.DRIVER);
         accountDTO.setAccountStatus(res.getInt(res.getColumnIndex("account_status")) == 0? AccountStatus.ACTIVE : AccountStatus.DESACTIVE);
         accountDTO.setDateCreated(new Date(res.getLong(res.getColumnIndex("date_created"))));
         accountDTO.setDateUpdated(new Date(res.getLong(res.getColumnIndex("date_updated"))));

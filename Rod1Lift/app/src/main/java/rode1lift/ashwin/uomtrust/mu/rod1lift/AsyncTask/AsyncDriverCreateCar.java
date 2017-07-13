@@ -1,5 +1,6 @@
 package rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -127,6 +128,7 @@ public class AsyncDriverCreateCar extends AsyncTask<CarDTO, Void ,Integer > {
 
             Intent intent = new Intent(context, ActivityMain.class);
             context.startActivity(intent);
+            ((Activity)context).finish();
         }
         else{
             Utils.showToast(context, context.getString(R.string.error_server));

@@ -23,6 +23,7 @@
             android:src="@drawable/icon_right" />
 
         <TextView
+            android:paddingLeft="10dp"
             android:textColor="@color/colorPrimary"
             android:textStyle="bold"
             android:textSize="20dp"
@@ -47,6 +48,7 @@
     </LinearLayout>
 
     <AutoCompleteTextView
+        android:textColor="@color/black"
         android:layout_weight="0.1"
         android:textSize="20dp"
         android:layout_marginTop="20dp"
@@ -70,6 +72,7 @@
         android:background="@color/transparent_black_50" />
 
     <AutoCompleteTextView
+        android:textColor="@color/black"
         android:layout_weight="0.1"
         android:textSize="20dp"
         android:layout_marginLeft="20dp"
@@ -101,6 +104,7 @@
         android:layout_height="0dp">
 
     <TextView
+        android:textColor="@color/black"
         android:textSize="20dp"
         android:layout_weight="0.5"
         android:id="@+id/txtDate"
@@ -119,6 +123,7 @@
             android:background="@color/transparent_black_50" />
 
         <TextView
+            android:textColor="@color/black"
             android:textSize="20dp"
             android:layout_weight="0.5"
             android:id="@+id/txtTime"
@@ -141,22 +146,47 @@
         android:layout_height="1dp"
         android:background="@color/transparent_black_50" />
 
-    <EditText
-        android:inputType="number"
+    <LinearLayout
         android:layout_weight="0.1"
-        android:textSize="20dp"
+        android:orientation="horizontal"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:id="@+id/txtSeatAvailable"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/square_corners"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:gravity="center_vertical|start"
-        android:hint="SEAT AVAILABLE"
-        android:paddingLeft="10dp" />
+        android:layout_height="0dp">
+
+        <TextView
+            android:clickable="false"
+            android:textSize="20dp"
+            android:layout_weight="0.5"
+            android:hint="SEAT AVAILABLE"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/square_corners"
+            android:gravity="center_vertical|start"
+            android:paddingLeft="10dp" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/transparent_black_50" />
+
+        <EditText
+            android:inputType="number"
+            android:layout_weight="0.5"
+            android:textSize="20dp"
+            android:id="@+id/txtSeatAvailable"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/square_corners"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center_vertical|start"
+            android:paddingLeft="10dp" />
+
+    </LinearLayout>
+
 
     <View
         android:layout_marginLeft="20dp"
@@ -166,6 +196,7 @@
         android:background="@color/transparent_black_50" />
 
     <EditText
+        android:textColor="@color/black"
         android:inputType="number"
         android:layout_weight="0.1"
         android:textSize="20dp"

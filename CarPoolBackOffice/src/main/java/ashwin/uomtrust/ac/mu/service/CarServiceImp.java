@@ -77,7 +77,7 @@ public class CarServiceImp implements CarService{
 		newCarDTO.setPlateNum(newCar.getPlateNum());	
 		newCarDTO.setModel(newCar.getModel());		
 
-		Utils.getImage(newCarDTO);
+		Utils.getImageCar(newCarDTO);
 		
 		return newCarDTO;
 	}

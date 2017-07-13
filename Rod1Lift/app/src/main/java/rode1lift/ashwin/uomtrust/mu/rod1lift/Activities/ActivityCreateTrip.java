@@ -53,11 +53,18 @@ public class ActivityCreateTrip extends Activity {
     private RequestDTO requestDTO = new RequestDTO();
 
     private int accountId;
+    private AccountDTO accountDTO;
+    private CarDTO carDTO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_trip);
+
+        SharedPreferences prefs = ActivityCreateTrip.this.getSharedPreferences(CONSTANT.APP_NAME, MODE_PRIVATE);
+        accountId = prefs.getInt(CONSTANT.CURRENT_ACCOUNT_ID, 1);
+
+        accountDTO = new AccountDAO(ActivityCreateTrip.this).getAccountById(accountId);
 
         txtPrice = (TextView)findViewById(R.id.txtPrice);
         txtPrice.setOnClickListener(new View.OnClickListener() {
@@ -82,7 +89,13 @@ public class ActivityCreateTrip extends Activity {
         autoTo.setAdapter(adapterTO);
 
         txtContact = (EditText) findViewById(R.id.txtContact);
+        if(accountDTO != null && accountDTO.getPhoneNum() != null && accountDTO.getPhoneNum().toString().length() >=6)
+            txtContact.setText(accountDTO.getPhoneNum().toString());
+
         txtSeatAvailable = (EditText) findViewById(R.id.txtSeatAvailable);
+        carDTO = new CarDAO(ActivityCreateTrip.this).getCarByAccountID(accountId);
+        if(carDTO != null && carDTO.getNumOfPassenger() != null)
+            txtSeatAvailable.setText(carDTO.getNumOfPassenger().toString());
 
         txtDate = (TextView)findViewById(R.id.txtDate);
         txtDate.setOnClickListener(new View.OnClickListener() {
@@ -173,14 +186,12 @@ public class ActivityCreateTrip extends Activity {
 
         alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog,int which) {
-
                 finish();
             }
         });
 
         alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                // Write your code here to invoke NO event
                 dialog.cancel();
             }
         });
@@ -197,7 +208,6 @@ public class ActivityCreateTrip extends Activity {
         //https://android-arsenal.com/details/1/5079
         croller = (Croller) findViewById(R.id.croller);
         croller.setIndicatorWidth(12);
-
 
         croller.setBackCircleColor(Color.TRANSPARENT);
         croller.setMainCircleColor(Color.TRANSPARENT);
@@ -230,51 +240,48 @@ public class ActivityCreateTrip extends Activity {
 
         if(autoFrom.getText() == null){
             Utils.showToast(ActivityCreateTrip.this, getResources().getString(R.string.create_trip_activity_validation_autocomplete_address));
-            validForm = false;
+            Utils.vibrate(ActivityCreateTrip.this);
+            return false;
         }
         else if(autoTo.getText() == null ){
             Utils.showToast(ActivityCreateTrip.this, getResources().getString(R.string.create_trip_activity_validation_autocomplete_address));
-            validForm = false;
+            Utils.vibrate(ActivityCreateTrip.this);
+            return false;
         }
         else if(txtDate.getText() == null ){
             Utils.showToast(ActivityCreateTrip.this, getResources().getString(R.string.create_trip_activity_validation_date));
-            validForm = false;
+            Utils.vibrate(ActivityCreateTrip.this);
+            return false;
         }
         else if(txtTime.getText() == null ){
             Utils.showToast(ActivityCreateTrip.this, getResources().getString(R.string.create_trip_activity_validation_time));
-            validForm = false;
+            Utils.vibrate(ActivityCreateTrip.this);
+            return false;
         }
         else if(TextUtils.isEmpty(txtSeatAvailable.getText().toString())){
             Utils.showToast(ActivityCreateTrip.this, getResources().getString(R.string.create_trip_activity_validation_seat_available));
-            validForm = false;
-        }
-        else if(txtSeatAvailable.getText().toString().length() >5 || txtSeatAvailable.getText().toString().length() <1){
-            Utils.showToast(ActivityCreateTrip.this, getResources().getString(R.string.create_trip_activity_validation_seat_available_length));
-            validForm = false;
+            Utils.vibrate(ActivityCreateTrip.this);
+            return false;
         }
         else if(TextUtils.isEmpty(txtContact.getText().toString())){
             Utils.showToast(ActivityCreateTrip.this, getResources().getString(R.string.create_trip_activity_validation_contact_detail));
-            validForm = false;
+            Utils.vibrate(ActivityCreateTrip.this);
+            return false;
         }
         else if(txtContact.getText().toString().length() >8 || txtContact.getText().toString().length() <7){
             Utils.showToast(ActivityCreateTrip.this, getResources().getString(R.string.create_trip_activity_validation_contact_detail_length));
-            validForm = false;
+            Utils.vibrate(ActivityCreateTrip.this);
+            return false;
         }
-        /*else{
-            if(accountDTO.getPhoneNum() == null){
-                accountDTO.setPhoneNum(Integer.parseInt(txtContact.getText().toString()));
-                new AccountDAO(ActivityCreateTrip.this).saveOrUpdateAccount(accountDTO);
-                new AsyncUpdateAccount(ActivityCreateTrip.this).execute(accountDTO);
-            }
-            else{
-                if(!accountDTO.getPhoneNum().equals(Integer.valueOf(txtContact.getText().toString()))){
-                    accountDTO.setPhoneNum(Integer.parseInt(txtContact.getText().toString()));
-                    new AccountDAO(ActivityCreateTrip.this).saveOrUpdateAccount(accountDTO);
-                    new AsyncUpdateAccount(ActivityCreateTrip.this).execute(accountDTO);
-                }
-            }
-        }*/
 
+        int numOfPassenger = carDTO.getNumOfPassenger();
+        int numOfPassengerEntered = Integer.parseInt(txtSeatAvailable.getText().toString());
+        if( numOfPassengerEntered> numOfPassenger || numOfPassengerEntered <1){
+            String message = getResources().getString(R.string.create_trip_activity_validation_seat_available_length) +" - "+numOfPassenger;
+            Utils.showToast(ActivityCreateTrip.this, message);
+            Utils.vibrate(ActivityCreateTrip.this);
+            return false;
+        }
 
         String addressFrom = autoFrom.getText().toString();
         for(int x = 0; x < places.length; x++){
@@ -298,9 +305,16 @@ public class ActivityCreateTrip extends Activity {
         }
 
         if(validForm&&validAddressFrom&&validAddressTo){
-
-            SharedPreferences prefs = ActivityCreateTrip.this.getSharedPreferences(CONSTANT.APP_NAME, MODE_PRIVATE);
-            accountId = prefs.getInt(CONSTANT.CURRENT_ACCOUNT_ID, 1);
+            if(accountDTO != null && accountDTO.getPhoneNum() == null){
+                accountDTO.setPhoneNum(Integer.parseInt(txtContact.getText().toString()));
+                new AccountDAO(ActivityCreateTrip.this).saveOrUpdateAccount(accountDTO);
+                new AsyncUpdateAccount(ActivityCreateTrip.this).execute(accountDTO);
+            }
+            else if(!accountDTO.getPhoneNum().equals(Integer.valueOf(txtContact.getText().toString()))){
+                accountDTO.setPhoneNum(Integer.parseInt(txtContact.getText().toString()));
+                new AccountDAO(ActivityCreateTrip.this).saveOrUpdateAccount(accountDTO);
+                new AsyncUpdateAccount(ActivityCreateTrip.this).execute(accountDTO);
+            }
 
             requestDTO.setAccountId(accountId);
             requestDTO.setPlaceFrom(autoFrom.getText().toString());

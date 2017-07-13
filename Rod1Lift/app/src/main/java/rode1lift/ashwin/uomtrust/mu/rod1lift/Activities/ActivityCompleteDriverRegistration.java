@@ -57,7 +57,6 @@ public class ActivityCompleteDriverRegistration extends Activity {
     private Uri fileUri;
 
     private CarDTO carDTO;
-    private Integer userId;
 
     private RelativeLayout rlImg1, rlImg2, rlImg3, rlImg4;
 
@@ -265,17 +264,17 @@ public class ActivityCompleteDriverRegistration extends Activity {
                 case CAMERA:
                     if(resultCode == RESULT_OK) {
                         try {
-                            // bimatp factory
                             BitmapFactory.Options options = new BitmapFactory.Options();
 
-                            // downsizing image as it throws OutOfMemory Exception for larger
-                            // images
+                            // downsizing image as it throws OutOfMemory Exception for larger image
                             options.inSampleSize = 8;
                             Bitmap bitmap = BitmapFactory.decodeFile(fileUri.getPath(), options);
+                            bitmap = Utils.setPhotoRotation(bitmap);
 
                             ImageView imageView = getImageView(imageViewTouched);
                             imageView.setImageBitmap(bitmap);
 
+                            bitmap.recycle();
                             savePictureToDTO();
 
                         } catch (Exception e) {
@@ -436,7 +435,6 @@ public class ActivityCompleteDriverRegistration extends Activity {
         TextView txtDeleteOne = (TextView) menuDialog.findViewById(R.id.txtDeleteOne);
         TextView txtDeleteAll = (TextView) menuDialog.findViewById(R.id.txtDeleteAll);
 
-        ImageView imgViewSeparator = (ImageView) menuDialog.findViewById(R.id.imgViewSeparator);
 
         if(carDTO != null && carDTO.getCarId() != null &&
                 ( carDTO.isHasPic1()
@@ -447,8 +445,6 @@ public class ActivityCompleteDriverRegistration extends Activity {
 
             txtDeleteOne.setVisibility(View.VISIBLE);
             txtDeleteAll.setVisibility(View.VISIBLE);
-            imgViewSeparator.setVisibility(View.VISIBLE);
-
 
             txtDeleteOne.setOnClickListener(new View.OnClickListener() {
                 @Override

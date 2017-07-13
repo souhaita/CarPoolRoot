@@ -9,74 +9,66 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.3" />
+        android:layout_weight="0.25" />
 
     <LinearLayout
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         android:gravity="center"
         android:background="@drawable/gradient_list"
-        android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.35"
+        android:layout_weight="0.5"
         android:orientation="vertical">
 
        <TextView
-           android:background="@android:color/transparent"
+           android:background="@drawable/border_white"
            android:id="@+id/txtGallery"
            android:layout_margin="5dp"
            android:textColor="@color/black"
            android:gravity="center"
            android:textSize="25dp"
            android:textStyle="bold"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
+           android:layout_width="200dp"
+           android:layout_height="40dp"
            android:text="@string/activity_complete_driver_registration_photo_gallery"/>
 
         <TextView
-            android:background="@android:color/transparent"
+            android:background="@drawable/border_white"
             android:id="@+id/txtCamera"
             android:layout_margin="5dp"
             android:textColor="@color/black"
             android:gravity="center"
             android:textSize="25dp"
             android:textStyle="bold"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
             android:text="@string/activity_complete_driver_registration_photo_camera"/>
 
-        <ImageView
-            android:visibility="gone"
-            android:id="@+id/imgViewSeparator"
-            android:layout_marginRight="40dp"
-            android:layout_marginLeft="40dp"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/color_separator" />
-
         <TextView
+            android:background="@drawable/border_white"
             android:visibility="gone"
-            android:background="@android:color/transparent"
             android:id="@+id/txtDeleteOne"
             android:layout_margin="5dp"
             android:textColor="@color/black"
             android:gravity="center"
             android:textSize="18dp"
             android:textStyle="bold"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
             android:text="@string/activity_complete_driver_registration_photo_delete_one"/>
 
         <TextView
             android:visibility="gone"
-            android:background="@android:color/transparent"
+            android:background="@drawable/border_white"
             android:id="@+id/txtDeleteAll"
             android:layout_margin="5dp"
             android:textColor="@color/black"
             android:gravity="center"
             android:textSize="18dp"
             android:textStyle="bold"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
             android:text="@string/activity_complete_driver_registration_photo_delete_all"/>
 
 
@@ -85,7 +77,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.35" />
+        android:layout_weight="0.25" />
 
 
 </LinearLayout>

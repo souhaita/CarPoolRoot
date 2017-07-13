@@ -9,6 +9,7 @@ import ashwin.uomtrust.ac.mu.dto.AccountDTO;
 import ashwin.uomtrust.ac.mu.entity.Account;
 import ashwin.uomtrust.ac.mu.repository.AccountRepository;
 import ashwin.uomtrust.ac.mu.utils.Utils;
+import scala.annotation.meta.setter;
 
 @Service
 public class AccountServiceImp implements AccountService{
@@ -23,9 +24,32 @@ public class AccountServiceImp implements AccountService{
 	}
 
 	@Override
-	public Account findByEmail(String email) {
+	public AccountDTO findByEmail(String email) {
 		// TODO Auto-generated method stub
-		return accountRepository.findByEmail(email);
+		Account account = accountRepository.findByEmail(email);
+		AccountDTO accountDTO  = new AccountDTO();
+		
+		if(account != null && account.getAccountId() != null){
+			accountDTO.setAccountId(account.getAccountId());
+			accountDTO.setAccountRole(account.getAccountRole());
+			accountDTO.setAccountStatus(account.getAccountStatus());
+			
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTimeInMillis(account.getDateCreated().getTime());
+			accountDTO.setDateCreated(calendar.getTime());
+			
+			calendar.setTimeInMillis(account.getDateUpdated().getTime());
+			accountDTO.setDateUpdated(calendar.getTime());
+			
+			accountDTO.setEmail(email);
+			accountDTO.setFacebookId(account.getFacebookId());
+			accountDTO.setFirstName(account.getFirstName());
+			accountDTO.setLastName(account.getLastName());
+			accountDTO.setPhoneNum(account.getPhoneNum());
+			Utils.getImageProfile(accountDTO);
+		}
+		
+		return accountDTO;
 	}
 
 	@Override
