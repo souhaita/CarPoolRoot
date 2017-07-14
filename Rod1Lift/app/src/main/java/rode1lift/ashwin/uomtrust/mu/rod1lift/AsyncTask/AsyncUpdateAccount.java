@@ -113,6 +113,6 @@ public class AsyncUpdateAccount extends AsyncTask<AccountDTO, Void ,AccountDTO> 
         super.onPostExecute(accountDTO);
 
         if(accountDTO == null && accountDTO.getAccountId() < 0)
-            Utils.showToast(context, context.getString(R.string.error_server));
+            Utils.alertError(context, context.getString(R.string.error_server));
     }
 }

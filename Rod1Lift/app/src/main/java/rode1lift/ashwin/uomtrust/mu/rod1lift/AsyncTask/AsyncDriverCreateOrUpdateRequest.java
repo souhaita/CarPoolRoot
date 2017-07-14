@@ -123,7 +123,7 @@ public class AsyncDriverCreateOrUpdateRequest extends AsyncTask<RequestDTO, Void
             ((Activity)context).finish();
         }
         else{
-            Utils.showToast(context, context.getString(R.string.error_server));
+            Utils.alertError(context, context.getString(R.string.error_server));
         }
     }
 }

@@ -11,9 +11,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
@@ -22,12 +20,10 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.sdsmdg.harjot.crollerTest.Croller;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.InputStreamReader;
@@ -38,7 +34,6 @@ import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.logging.Filter;
 
 import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncDriverCreateOrUpdateRequest;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncUpdateAccount;
@@ -101,11 +96,10 @@ public class ActivityCreateTrip extends Activity {
         slider();
 
         autoFrom = (AutoCompleteTextView)findViewById(R.id.autoFrom);
-        autoFrom.setAdapter(new GooglePlacesAutocompleteAdapter(this, android.R.layout.simple_list_item_1));
+        autoFrom.setAdapter(new GooglePlacesAutocompleteAdapter(this, R.layout.simple_list_places));
 
         autoTo = (AutoCompleteTextView)findViewById(R.id.autoTo);
-        autoTo.setAdapter(new GooglePlacesAutocompleteAdapter(this, android.R.layout.simple_list_item_1));
-
+        autoTo.setAdapter(new GooglePlacesAutocompleteAdapter(this, R.layout.simple_list_places));
 
         txtContact = (EditText) findViewById(R.id.txtContact);
         if(accountDTO != null && accountDTO.getPhoneNum() != null && accountDTO.getPhoneNum().toString().length() >=6)
@@ -255,39 +249,32 @@ public class ActivityCreateTrip extends Activity {
     private boolean validForm(){
         boolean validForm = true;
 
-        if(autoFrom.getText() == null){
-            Utils.showToast(ActivityCreateTrip.this, getResources().getString(R.string.create_trip_activity_validation_autocomplete_address));
-            Utils.vibrate(ActivityCreateTrip.this);
+        if(TextUtils.isEmpty(autoFrom.getText())){
+            Utils.alertError(ActivityCreateTrip.this, getResources().getString(R.string.create_trip_activity_validation_autocomplete_address));
             return false;
         }
-        else if(autoTo.getText() == null ){
-            Utils.showToast(ActivityCreateTrip.this, getResources().getString(R.string.create_trip_activity_validation_autocomplete_address));
-            Utils.vibrate(ActivityCreateTrip.this);
+        else if(TextUtils.isEmpty(autoTo.getText())){
+            Utils.alertError(ActivityCreateTrip.this, getResources().getString(R.string.create_trip_activity_validation_autocomplete_address));
             return false;
         }
-        else if(txtDate.getText() == null ){
-            Utils.showToast(ActivityCreateTrip.this, getResources().getString(R.string.create_trip_activity_validation_date));
-            Utils.vibrate(ActivityCreateTrip.this);
+        else if(TextUtils.isEmpty(txtDate.getText()) ){
+            Utils.alertError(ActivityCreateTrip.this, getResources().getString(R.string.create_trip_activity_validation_date));
             return false;
         }
-        else if(txtTime.getText() == null ){
-            Utils.showToast(ActivityCreateTrip.this, getResources().getString(R.string.create_trip_activity_validation_time));
-            Utils.vibrate(ActivityCreateTrip.this);
+        else if(TextUtils.isEmpty(txtTime.getText())){
+            Utils.alertError(ActivityCreateTrip.this, getResources().getString(R.string.create_trip_activity_validation_time));
             return false;
         }
         else if(TextUtils.isEmpty(txtSeatAvailable.getText().toString())){
-            Utils.showToast(ActivityCreateTrip.this, getResources().getString(R.string.create_trip_activity_validation_seat_available));
-            Utils.vibrate(ActivityCreateTrip.this);
+            Utils.alertError(ActivityCreateTrip.this, getResources().getString(R.string.create_trip_activity_validation_seat_available));
             return false;
         }
         else if(TextUtils.isEmpty(txtContact.getText().toString())){
-            Utils.showToast(ActivityCreateTrip.this, getResources().getString(R.string.create_trip_activity_validation_contact_detail));
-            Utils.vibrate(ActivityCreateTrip.this);
+            Utils.alertError(ActivityCreateTrip.this, getResources().getString(R.string.create_trip_activity_validation_contact_detail));
             return false;
         }
         else if(txtContact.getText().toString().length() >8 || txtContact.getText().toString().length() <7){
-            Utils.showToast(ActivityCreateTrip.this, getResources().getString(R.string.create_trip_activity_validation_contact_detail_length));
-            Utils.vibrate(ActivityCreateTrip.this);
+            Utils.alertError(ActivityCreateTrip.this, getResources().getString(R.string.create_trip_activity_validation_contact_detail_length));
             return false;
         }
 
@@ -295,11 +282,9 @@ public class ActivityCreateTrip extends Activity {
         int numOfPassengerEntered = Integer.parseInt(txtSeatAvailable.getText().toString());
         if( numOfPassengerEntered> numOfPassenger || numOfPassengerEntered <1){
             String message = getResources().getString(R.string.create_trip_activity_validation_seat_available_length) +" - "+numOfPassenger;
-            Utils.showToast(ActivityCreateTrip.this, message);
-            Utils.vibrate(ActivityCreateTrip.this);
+            Utils.alertError(ActivityCreateTrip.this, message);
             return false;
         }
-
 
 
         if(validForm){

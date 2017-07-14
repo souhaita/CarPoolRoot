@@ -5,7 +5,31 @@
   <link rel="self" href="https://spring.io/blog.atom" />
   <id>http://spring.io/blog.atom</id>
   <icon>https://spring.io/favicon.ico</icon>
-  <updated>2017-07-11T06:53:54Z</updated>
+  <updated>2017-07-14T19:00:36Z</updated>
+  <entry>
+    <title>Spring Security OAuth 2.2.0.RC1 Released</title>
+    <link rel="alternate" href="https://spring.io/blog/2017/07/14/spring-security-oauth-2-2-0-rc1-released" />
+    <category term="engineering" label="Engineering" />
+    <author>
+      <name>Joe Grandja</name>
+    </author>
+    <id>tag:spring.io,2017-07-14:2969</id>
+    <updated>2017-07-14T19:00:36Z</updated>
+    <content type="html">&lt;div class="paragraph"&gt;
+&lt;p&gt;On behalf of the community, I&amp;#8217;m pleased to announce the release of Spring Security OAuth 2.2.0.RC1.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="paragraph"&gt;
+&lt;p&gt;The &lt;a href="https://github.com/spring-projects/spring-security-oauth/milestone/27?closed=1"&gt;2.2.0.RC1 release&lt;/a&gt; includes numerous improvements to the JSON Web Key (JWK) feature contained in &lt;code&gt;JwkTokenStore&lt;/code&gt; along with the addition of &lt;code&gt;JwtClaimsSetVerifier&lt;/code&gt; that provides the capability of custom JWT Claim(s) verification. See the  &lt;a href="https://github.com/spring-projects/spring-security-oauth/issues/1111"&gt;GitHub Issue&lt;/a&gt; for more details.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="paragraph"&gt;
+&lt;p&gt;This release also includes a small number of bug fixes and minor enhancements.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="paragraph"&gt;
+&lt;p&gt;&lt;a href="http://projects.spring.io/spring-security-oauth/"&gt;Project Page&lt;/a&gt; |
+&lt;a href="https://github.com/spring-projects/spring-security-oauth/"&gt;GitHub&lt;/a&gt; |
+&lt;a href="http://projects.spring.io/spring-security-oauth/docs/Home.html"&gt;Documentation&lt;/a&gt; | &lt;a href="http://stackoverflow.com/questions/tagged/spring-security-oauth2"&gt;Help&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;</content>
+  </entry>
   <entry>
     <title>This Week in Spring - July 11th, 2017</title>
     <link rel="alternate" href="https://spring.io/blog/2017/07/11/this-week-in-spring-july-11th-2017" />
@@ -1569,20 +1593,5 @@ mockRest
 &lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;Update&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Here&amp;rsquo;s the link to &lt;a href="https://spring.io/blog/2017/06/20/a-preview-on-spring-data-kay"&gt;the preview on Spring Data Kay&lt;/a&gt;.&lt;/p&gt;</content>
-  </entry>
-  <entry>
-    <title>Spring Framework 5.0 RC2 available now</title>
-    <link rel="alternate" href="https://spring.io/blog/2017/06/14/spring-framework-5-0-rc2-available-now" />
-    <category term="releases" label="Releases" />
-    <author>
-      <name>Juergen Hoeller</name>
-    </author>
-    <id>tag:spring.io,2017-06-14:2949</id>
-    <updated>2017-06-14T10:19:00Z</updated>
-    <content type="html">&lt;p&gt;Dear Spring community,&lt;/p&gt;
-&lt;p&gt;It is my pleasure to announce that our second Spring Framework 5.0 release candidate is &lt;a href="http://projects.spring.io/spring-framework/"&gt;available&lt;/a&gt; now. This is a major revision of RC1, with refactorings in our new reactive facilities and in our new path pattern parser, as well as code style refinements all over the framework.&lt;/p&gt;
-&lt;p&gt;This release introduces a formal non-null API declaration for all of our packages, with explicitly nullable arguments and return values annotated as such now (instead of just javadoc&amp;rsquo;ed). Our nullability annotations are compliant with JSR 305 and specifically supported by IntelliJ IDEA and upcoming versions of Kotlin, with the potential to deliver particularly strong benefits for Kotlin users (which is why we&amp;rsquo;ve rolled them into 5.0 still). Note that we apply stronger null enforcement in some Spring APIs now, superseding our previously lenient null handling.&lt;/p&gt;
-&lt;p&gt;Please give RC2 a try and let us know how it goes! Next up is an RC3 in July, shortly before we go GA, so there is still an opportunity for further refinements based on your feedback. Beyond a few remaining loose ends in the codebase, we are also going to pick up the final releases of Reactor 3.1 and Jackson 2.9 and wrap up our compatibility story with Servlet 4.0 and JPA 2.2.&lt;/p&gt;
-&lt;p&gt;Cheers,&lt;br/&gt;Juergen&lt;/p&gt;</content>
   </entry>
 </feed>

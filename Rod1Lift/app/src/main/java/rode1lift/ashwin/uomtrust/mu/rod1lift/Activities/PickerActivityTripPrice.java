@@ -2,7 +2,6 @@ package rode1lift.ashwin.uomtrust.mu.rod1lift.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -69,13 +68,13 @@ public class PickerActivityTripPrice extends Activity {
         Integer tripPrice = Integer.parseInt(eTxtFullName.getText().toString());
         if(TextUtils.isEmpty(eTxtFullName.getText().toString())){
             String message = "Trip price can not be null";
-            Utils.showToast(PickerActivityTripPrice.this, message);
+            Utils.alertError(PickerActivityTripPrice.this, message);
 
             Utils.vibrate(PickerActivityTripPrice.this);
         }
         else if(tripPrice >100 || tripPrice < 10){
             String message = "Price range should be between Rs 10 to Rs 100";
-            Utils.showToast(PickerActivityTripPrice.this, message);
+            Utils.alertError(PickerActivityTripPrice.this, message);
 
             Utils.vibrate(PickerActivityTripPrice.this);
         }

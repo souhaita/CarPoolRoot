@@ -16,7 +16,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.ActivityLogin;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.ActivityMain;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.CarDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.CarDTO;
@@ -132,7 +131,7 @@ public class AsyncDriverFetchCar extends AsyncTask<CarDTO, Void ,CarDTO > {
             ((Activity)context).finish();
         }
         else{
-            Utils.showToast(context, context.getString(R.string.error_server));
+            Utils.alertError(context, context.getString(R.string.error_server));
 
         }
     }

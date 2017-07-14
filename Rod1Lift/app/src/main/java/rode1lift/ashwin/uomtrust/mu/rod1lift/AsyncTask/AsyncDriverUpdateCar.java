@@ -120,7 +120,7 @@ public class AsyncDriverUpdateCar extends AsyncTask<CarDTO, Void ,Integer > {
         super.onPostExecute(carId);
 
         if(carId == null || carId <0) {
-            Utils.showToast(context, context.getString(R.string.error_server));
+            Utils.alertError(context, context.getString(R.string.error_server));
         }
     }
 

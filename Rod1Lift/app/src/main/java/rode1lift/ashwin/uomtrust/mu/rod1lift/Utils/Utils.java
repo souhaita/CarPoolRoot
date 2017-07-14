@@ -1,8 +1,10 @@
 package rode1lift.ashwin.uomtrust.mu.rod1lift.Utils;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -101,10 +103,19 @@ public class Utils {
         return progressDialog;
     }
 
-    public static void showToast(Context context, String message){
-        Toast toast = Toast.makeText(context, message, Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.CENTER, 0, 0);
-        toast.show();
+    public static void alertError(final Context context, String message){
+        vibrate(context);
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("ERROR");
+        builder.setMessage(message);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        builder.show();
     }
 
     public static void hideKeyboard(Activity activity) {

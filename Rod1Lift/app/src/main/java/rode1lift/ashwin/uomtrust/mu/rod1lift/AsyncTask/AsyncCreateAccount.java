@@ -143,7 +143,7 @@ public class AsyncCreateAccount extends AsyncTask<AccountDTO, Void ,AccountDTO> 
             }
         }
         else{
-            Utils.showToast(context, context.getString(R.string.error_server));
+            Utils.alertError(context, context.getString(R.string.error_server));
             Intent intent = new Intent(context, ActivityLogin.class);
             context.startActivity(intent);
             ((Activity)context).finish();

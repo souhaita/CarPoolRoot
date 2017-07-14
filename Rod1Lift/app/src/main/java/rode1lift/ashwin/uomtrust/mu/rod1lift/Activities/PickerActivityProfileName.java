@@ -71,7 +71,7 @@ public class PickerActivityProfileName extends Activity {
     private void setData(EditText eTxtFullName, AccountDTO accountDTO){
         if(TextUtils.isEmpty(eTxtFullName.getText().toString())){
             String message = getString(R.string.activity_complete_driver_registration_plate_num_error);
-            Utils.showToast(PickerActivityProfileName.this, message);
+            Utils.alertError(PickerActivityProfileName.this, message);
 
             Utils.vibrate(PickerActivityProfileName.this);
         }

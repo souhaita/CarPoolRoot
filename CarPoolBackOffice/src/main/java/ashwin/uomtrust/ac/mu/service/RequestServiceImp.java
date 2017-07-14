@@ -67,19 +67,19 @@ public class RequestServiceImp implements RequestService{
 		return newRequestDTO;
 	}
 
-	/*@Override
-	public Boolean delete(Integer request_id) {
+	@Override
+	public Boolean driverDeleteRequest(Long request_id) {
 		// TODO Auto-generated method stub
-		requestRepository.deleteRequestById(request_id);
+		requestRepository.driverDeleteRequest(request_id);
 		Request request = requestRepository.getRequestById(request_id);
 		Boolean result = false;
 		
-		if(request == null || request.getRequest_id() == null)
+		if(request == null || request.getRequestId() == null)
 			result = true;
 		
 		return result;
 	}
-*/
+
 	/*@Override
 	public List<RequestDTO> getRequestByUserIdAndRequestStatus(RequestDTO requestDTO) {
 		// TODO Auto-generated method stub

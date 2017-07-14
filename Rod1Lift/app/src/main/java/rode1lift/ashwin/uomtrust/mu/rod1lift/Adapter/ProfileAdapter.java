@@ -209,7 +209,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         txtCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Utils.showToast(context, "Not Yet Implemented");
+                Utils.alertError(context, "Not Yet Implemented");
             }
         });
 

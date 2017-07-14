@@ -229,7 +229,7 @@ public class ActivityLogin extends Activity {
                 int value = numberPickeruserType.getValue();
 
                 if(value == 0){
-                   Utils.showToast(ActivityLogin.this, getResources().getString(R.string.activity_login_select_user_type_error));
+                   Utils.alertError(ActivityLogin.this, getResources().getString(R.string.activity_login_select_user_type_error));
                 }
 
                 else if(value == 1){

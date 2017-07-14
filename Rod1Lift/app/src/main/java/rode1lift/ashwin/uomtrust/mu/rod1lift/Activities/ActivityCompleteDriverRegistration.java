@@ -395,23 +395,23 @@ public class ActivityCompleteDriverRegistration extends Activity {
         boolean validForm = true;
 
         if(TextUtils.isEmpty(txtCarDetails.getText().toString())) {
-            Utils.showToast(ActivityCompleteDriverRegistration.this, getResources().getString(R.string.activity_complete_driver_registration_car_details_error));
+            Utils.alertError(ActivityCompleteDriverRegistration.this, getResources().getString(R.string.activity_complete_driver_registration_car_details_error));
             validForm = false;
         }
         else if(TextUtils.isEmpty(txtYear.getText().toString())){
-            Utils.showToast(ActivityCompleteDriverRegistration.this,getResources().getString(R.string.activity_complete_driver_registration_year_error) );
+            Utils.alertError(ActivityCompleteDriverRegistration.this,getResources().getString(R.string.activity_complete_driver_registration_year_error) );
             validForm = false;
         }
         else if(TextUtils.isEmpty(txtPlateNum.getText().toString())){
-            Utils.showToast(ActivityCompleteDriverRegistration.this,getResources().getString(R.string.activity_complete_driver_registration_plate_num_error) );
+            Utils.alertError(ActivityCompleteDriverRegistration.this,getResources().getString(R.string.activity_complete_driver_registration_plate_num_error) );
             validForm = false;
         }
         else if(TextUtils.isEmpty(txtNumOfPassenger.getText().toString())){
-            Utils.showToast(ActivityCompleteDriverRegistration.this,getResources().getString(R.string.activity_complete_driver_registration_number_of_passenger_error) );
+            Utils.alertError(ActivityCompleteDriverRegistration.this,getResources().getString(R.string.activity_complete_driver_registration_number_of_passenger_error) );
             validForm = false;
         }
         else if(!carDTO.isHasPic1()&& !carDTO.isHasPic2()&& !carDTO.isHasPic3()&& !carDTO.isHasPic4()) {
-            Utils.showToast(ActivityCompleteDriverRegistration.this, getResources().getString(R.string.activity_complete_driver_registration_image_error));
+            Utils.alertError(ActivityCompleteDriverRegistration.this, getResources().getString(R.string.activity_complete_driver_registration_image_error));
             validForm = false;
         }
 

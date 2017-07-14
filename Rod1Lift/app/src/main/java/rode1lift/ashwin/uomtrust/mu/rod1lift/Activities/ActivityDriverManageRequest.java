@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -13,6 +14,7 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncDriverFetchRequest;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.RequestStatus;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 
 
 public class ActivityDriverManageRequest extends Activity {
@@ -49,5 +51,8 @@ public class ActivityDriverManageRequest extends Activity {
         spinnerRequestStatus.setAdapter(adapter);
 
         new AsyncDriverFetchRequest(ActivityDriverManageRequest.this, listView).execute(requestDTO);
+
+        LinearLayout llMainProfile = (LinearLayout)findViewById(R.id.llMainProfile);
+        Utils.animateLayout(llMainProfile);
     }
 }

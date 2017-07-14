@@ -33,12 +33,14 @@ import android.widget.ViewSwitcher;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.logging.Handler;
 
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.PickerActivityCarMake;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.PickerActivityCarPlateNum;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.PickerActivityCarSeats;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.PickerActivityProfileName;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncDriverDeleteRequest;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.ViewType;
@@ -67,6 +69,7 @@ public class RequestAdapter extends BaseAdapter {
 
     boolean confirmDelete = false;
 
+    private RequestAdapter RequestAdapter = this;
 
     public RequestAdapter(Context context, List<RequestDTO> requestDTOList){
         this.context = context;
@@ -94,9 +97,9 @@ public class RequestAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        if(view == null)
-            view = inflater.inflate(R.layout.activity_driver_manage_request_content, null);
+    public View getView(final int i, View view, ViewGroup viewGroup) {
+
+        view = inflater.inflate(R.layout.activity_driver_manage_request_content, null);
 
         TextView txtFrom = (TextView)view.findViewById(R.id.txtFrom);
         txtFrom.setText(requestDTOList.get(i).getPlaceFrom());
@@ -167,12 +170,13 @@ public class RequestAdapter extends BaseAdapter {
         llDeleteRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(llDeleteRequest.isShown() && !confirmDelete){
+                if(!confirmDelete){
                     imgDelete.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_bin_open_red));
                     confirmDelete = true;
                 }
                 else{
-
+                    new AsyncDriverDeleteRequest(context, RequestAdapter, requestDTOList).execute(requestDTOList.get(i));
+                    confirmDelete = false;
                 }
             }
         });
@@ -181,34 +185,21 @@ public class RequestAdapter extends BaseAdapter {
         llRequestDetails.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-
                 switch (motionEvent.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         if(llDeleteRequest.isShown())
                             imgDelete.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_bin_close_red));
-                        confirmDelete = false;
+                            confirmDelete = false;
                         break;
                     case MotionEvent.ACTION_UP:
                         break;
                     case MotionEvent.ACTION_MOVE:
                         break;
                 }
-
                 return true;
             }
         });
 
-
-
-
-
-        /*LinearLayout llDelete = (LinearLayout)view.findViewById(R.id.llDelete);
-        llDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Utils.showToast(context, "Delete");
-            }
-        });*/
 
         return view;
     }

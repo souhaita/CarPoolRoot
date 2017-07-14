@@ -23,14 +23,6 @@ public interface RequestRepository extends JpaRepository<Request, Long> {
 	@Transactional
 	public void updateRequestStatustById(@Param("requestId") Integer requestId, @Param("requestStatus") RequestStatus requestStatus );
 	
-	@Modifying
-	@Query("delete from Request r where r.requestId =:requestId order by r.requestId desc")
-	@Transactional
-	public void deleteRequestById(@Param("requestId") Integer requestId);
-	
-	@Query("select r from Request r where r.requestId =:requestId order by r.requestId desc")
-	public Request getRequestById(@Param("requestId") Integer requestId);
-	
 	@Query("select r from Request r where r.requestStatus =:requestStatus order by r.requestId desc")
 	public List<Request> getListRequestsByStatus(@Param("requestStatus") RequestStatus requestStatus);
 	
@@ -40,5 +32,12 @@ public interface RequestRepository extends JpaRepository<Request, Long> {
 	
 	@Query("select r from Request r join r.account a where r.account = a and a.accountId =:accountId and r.requestStatus =:requestStatus order by r.requestId desc")
 	public List<Request> getRequestByUserIdAndRequestStatus(@Param("accountId") Long accountId,@Param("requestStatus") RequestStatus requestStatus);
-		
+	
+	@Modifying
+	@Query("delete from Request r where r.requestId =:requestId")
+	@Transactional
+	public void driverDeleteRequest(@Param("requestId") Long requestId);
+	
+	@Query("select r from Request r where r.requestId =:requestId")
+	public Request getRequestById(@Param("requestId") Long requestId);		
 }

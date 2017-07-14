@@ -70,7 +70,7 @@ public class PickerActivityCarPlateNum extends Activity {
     private void setValue(EditText eTxtPlateNum){
         if(TextUtils.isEmpty(eTxtPlateNum.getText().toString())){
             String message = getString(R.string.activity_complete_driver_registration_plate_num_error);
-            Utils.showToast(PickerActivityCarPlateNum.this, message);
+            Utils.alertError(PickerActivityCarPlateNum.this, message);
 
             Utils.vibrate(PickerActivityCarPlateNum.this);
         }

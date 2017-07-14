@@ -20,7 +20,6 @@ public class WebService {
 
 
     //USER
-    public static final String USER_API_DELETE_REQUEST = API_REQUEST +"userDeleteRequest";
     public static final String USER_API_GET_PENDING_REQUEST_LIST = API_REQUEST +"userGetPendingRequestList";
     public static final String USER_API_OTHER_REQUEST_LIST = API_REQUEST +"userGetOtherRequestList";
     public static final String USER_API_ACCEPT_OR_REJECT_REQUEST = API_REQUEST +"acceptOrRejectRequestUser";
@@ -31,6 +30,10 @@ public class WebService {
     public static final String API_DRIVER_CREATE_UPDATE_REQUEST = API_REQUEST +"driverCreateUpdateRequest";
     public static final String API_DRIVER_GET_PENDING_REQUEST_LIST = API_REQUEST +"driverGetPendingRequestList";
     public static final String API_DRIVER_FETCH_CAR_DETAILS = API_ACCOUNT +"driverFetchCarDetails";
+    public static final String API_DRIVER_DELETE_REQUEST = API_REQUEST +"driverDeleteRequest";
+
+
+
 
     public static final String API_DRIVER_OTHER_REQUEST_LIST = API_REQUEST +"driverGetOtherRequestList";
     public static final String TAXI_API_GET_CAR_DETAILS = API_CLIENT +"taxiGetCarDetails";
