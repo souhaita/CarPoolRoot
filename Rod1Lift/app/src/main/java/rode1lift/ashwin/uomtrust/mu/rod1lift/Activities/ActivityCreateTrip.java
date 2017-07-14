@@ -3,6 +3,7 @@ package rode1lift.ashwin.uomtrust.mu.rod1lift.Activities;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,20 +11,34 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.sdsmdg.harjot.crollerTest.Croller;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.text.DateFormatSymbols;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Filter;
 
 import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncDriverCreateOrUpdateRequest;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncUpdateAccount;
@@ -44,7 +59,6 @@ public class ActivityCreateTrip extends Activity {
     private TextView txtPrice;
     private AutoCompleteTextView autoFrom;
     private AutoCompleteTextView autoTo;
-    private String[] places;
     private TextView txtDate, txtTime;
     private EditText txtContact, txtSeatAvailable;
     private Croller croller;
@@ -56,10 +70,18 @@ public class ActivityCreateTrip extends Activity {
     private AccountDTO accountDTO;
     private CarDTO carDTO;
 
+    private static final String PLACES_API_BASE = "https://maps.googleapis.com/maps/api/place";
+    private static final String TYPE_AUTOCOMPLETE = "/autocomplete";
+    private static final String OUT_JSON = "/json";
+
+    public static String API_KEY;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_trip);
+
+        API_KEY = getString(R.string.google_places_api_key);
 
         SharedPreferences prefs = ActivityCreateTrip.this.getSharedPreferences(CONSTANT.APP_NAME, MODE_PRIVATE);
         accountId = prefs.getInt(CONSTANT.CURRENT_ACCOUNT_ID, 1);
@@ -78,15 +100,12 @@ public class ActivityCreateTrip extends Activity {
 
         slider();
 
-        places = getResources().getStringArray(R.array.address_arrays);
-        ArrayAdapter<String> adapterFrom = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,places);
-        ArrayAdapter<String> adapterTO = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,places);
-
         autoFrom = (AutoCompleteTextView)findViewById(R.id.autoFrom);
-        autoFrom.setAdapter(adapterFrom);
+        autoFrom.setAdapter(new GooglePlacesAutocompleteAdapter(this, android.R.layout.simple_list_item_1));
 
         autoTo = (AutoCompleteTextView)findViewById(R.id.autoTo);
-        autoTo.setAdapter(adapterTO);
+        autoTo.setAdapter(new GooglePlacesAutocompleteAdapter(this, android.R.layout.simple_list_item_1));
+
 
         txtContact = (EditText) findViewById(R.id.txtContact);
         if(accountDTO != null && accountDTO.getPhoneNum() != null && accountDTO.getPhoneNum().toString().length() >=6)
@@ -235,8 +254,6 @@ public class ActivityCreateTrip extends Activity {
 
     private boolean validForm(){
         boolean validForm = true;
-        boolean validAddressFrom = false;
-        boolean validAddressTo= false;
 
         if(autoFrom.getText() == null){
             Utils.showToast(ActivityCreateTrip.this, getResources().getString(R.string.create_trip_activity_validation_autocomplete_address));
@@ -283,28 +300,9 @@ public class ActivityCreateTrip extends Activity {
             return false;
         }
 
-        String addressFrom = autoFrom.getText().toString();
-        for(int x = 0; x < places.length; x++){
-            if(addressFrom.equalsIgnoreCase(places[x])){
-                validAddressFrom = true;
-            }
-        }
 
-        String addressTo = autoTo.getText().toString();
-        for(int x = 0; x < places.length; x++){
-            if(addressTo.equalsIgnoreCase(places[x])){
-                validAddressTo = true;
-            }
-        }
 
-        if(validForm && !validAddressFrom){
-            Utils.showToast(ActivityCreateTrip.this, getResources().getString(R.string.create_trip_activity_validation_autocomplete_address_no_match));
-        }
-        else if(validForm && !validAddressTo){
-            Utils.showToast(ActivityCreateTrip.this, getResources().getString(R.string.create_trip_activity_validation_autocomplete_address_no_match));
-        }
-
-        if(validForm&&validAddressFrom&&validAddressTo){
+        if(validForm){
             if(accountDTO != null && accountDTO.getPhoneNum() == null){
                 accountDTO.setPhoneNum(Integer.parseInt(txtContact.getText().toString()));
                 new AccountDAO(ActivityCreateTrip.this).saveOrUpdateAccount(accountDTO);
@@ -332,7 +330,7 @@ public class ActivityCreateTrip extends Activity {
             Utils.vibrate(ActivityCreateTrip.this);
         }
 
-        return validForm&&validAddressFrom&&validAddressTo;
+        return validForm;
     }
 
     public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
@@ -343,6 +341,102 @@ public class ActivityCreateTrip extends Activity {
 
             txtPrice.setText(tripPrice);
             croller.setProgress(Integer.parseInt(tripPrice)/5);
+        }
+    }
+
+    // ref: https://examples.javacodegeeks.com/android/android-google-places-autocomplete-api-example/
+    public static ArrayList autocomplete(String input) {
+        ArrayList resultList = null;
+
+        HttpURLConnection conn = null;
+        StringBuilder jsonResults = new StringBuilder();
+        try {
+            StringBuilder sb = new StringBuilder(PLACES_API_BASE + TYPE_AUTOCOMPLETE + OUT_JSON);
+            sb.append("?key=" + API_KEY );
+            sb.append("&components=country:mu");
+            sb.append("&input=" + URLEncoder.encode(input, "utf8"));
+
+            URL url = new URL(sb.toString());
+            conn = (HttpURLConnection) url.openConnection();
+            InputStreamReader in = new InputStreamReader(conn.getInputStream());
+
+            // Load the results into a StringBuilder
+            int read;
+            char[] buff = new char[1024];
+            while ((read = in.read(buff)) != -1) {
+                jsonResults.append(buff, 0, read);
+            }
+        } catch (Exception e) {
+            return resultList;
+        }  finally {
+            if (conn != null) {
+                conn.disconnect();
+            }
+        }
+
+        try {
+            // Create a JSON object hierarchy from the results
+            JSONObject jsonObj = new JSONObject(jsonResults.toString());
+            JSONArray predsJsonArray = jsonObj.getJSONArray("predictions");
+
+            // Extract the Place descriptions from the results
+            resultList = new ArrayList(predsJsonArray.length());
+            for (int i = 0; i < predsJsonArray.length(); i++) {
+                String place = predsJsonArray.getJSONObject(i).getString("description");
+                String[] parts = place.split(",");
+                resultList.add(parts[0]);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return resultList;
+    }
+
+    class GooglePlacesAutocompleteAdapter extends ArrayAdapter implements Filterable {
+        private ArrayList resultList;
+
+        public GooglePlacesAutocompleteAdapter(Context context, int textViewResourceId) {
+            super(context, textViewResourceId);
+        }
+
+        @Override
+        public int getCount() {
+            return resultList.size();
+        }
+
+        @Override
+        public String getItem(int index) {
+            return (String)resultList.get(index);
+        }
+
+        @Override
+        public android.widget.Filter getFilter() {
+            android.widget.Filter filter = new android.widget.Filter() {
+                @Override
+                protected FilterResults performFiltering(CharSequence constraint) {
+                    FilterResults filterResults = new FilterResults();
+                    if (constraint != null) {
+                        // Retrieve the autocomplete results.
+                        resultList = autocomplete(constraint.toString());
+
+                        // Assign the data to the FilterResults
+                        filterResults.values = resultList;
+                        filterResults.count = resultList.size();
+                    }
+                    return filterResults;
+                }
+
+                @Override
+                protected void publishResults(CharSequence constraint, FilterResults results) {
+                    if (results != null && results.count > 0) {
+                        notifyDataSetChanged();
+                    } else {
+                        notifyDataSetInvalidated();
+                    }
+                }
+            };
+            return filter;
         }
     }
 }

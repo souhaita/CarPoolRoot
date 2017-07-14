@@ -3,8 +3,10 @@ package rode1lift.ashwin.uomtrust.mu.rod1lift.Activities;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncDriverFetchRequest;
@@ -40,6 +42,11 @@ public class ActivityDriverManageRequest extends Activity {
         requestDTO.setRequestStatus(RequestStatus.REQUEST_PENDING);
 
         ListView listView = (ListView)findViewById(R.id.sLvManageRequest);
+
+        Spinner spinnerRequestStatus = (Spinner)findViewById(R.id.spinnerRequestStatus);
+        final ArrayAdapter adapter = ArrayAdapter.createFromResource(this,R.array.driver_manage_request_arrays,android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerRequestStatus.setAdapter(adapter);
 
         new AsyncDriverFetchRequest(ActivityDriverManageRequest.this, listView).execute(requestDTO);
     }

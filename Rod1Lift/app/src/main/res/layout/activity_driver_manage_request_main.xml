@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout android:id="@+id/llMainProfile"
-    android:background="@drawable/gradient_list"
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/gradient_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -49,8 +49,19 @@
 
     </LinearLayout>
 
+    <Spinner
+        android:background="@color/transparent_black_50"
+        android:textAlignment="center"
+        android:spinnerMode="dialog"
+        android:id="@+id/spinnerRequestStatus"
+        android:layout_weight="0.1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+
     <ListView
-        android:layout_weight="0.9"
+        android:divider="@android:color/transparent"
+        android:background="@color/transparent_black_50"
+        android:layout_weight="0.8"
         android:scrollbars="none"
         android:id="@+id/sLvManageRequest"
         android:layout_width="match_parent"

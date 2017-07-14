@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.provider.ContactsContract;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
@@ -29,6 +30,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Handler;
 
@@ -61,6 +64,9 @@ public class RequestAdapter extends BaseAdapter {
 
     private Context context;
     private List<RequestDTO> requestDTOList;
+
+    boolean confirmDelete = false;
+
 
     public RequestAdapter(Context context, List<RequestDTO> requestDTOList){
         this.context = context;
@@ -99,7 +105,21 @@ public class RequestAdapter extends BaseAdapter {
         txtTo.setText(requestDTOList.get(i).getPlaceTo());
 
         TextView txtDate = (TextView)view.findViewById(R.id.txtDate);
-        txtDate.setText(requestDTOList.get(i).getEvenDate().toString());
+        SimpleDateFormat format = new SimpleDateFormat("dd MMM HH:mm");
+        String date = null;
+        try {
+            date = format.format(requestDTOList.get(i).getEvenDate());
+        }
+        catch (Exception e){
+
+        }
+        txtDate.setText(date);
+
+        TextView txtSeatAvailable = (TextView)view.findViewById(R.id.txtSeatAvailable);
+        txtSeatAvailable.setText(requestDTOList.get(i).getSeatAvailable().toString() +" Seats");
+
+        TextView txtPrice = (TextView)view.findViewById(R.id.txtPrice);
+        txtPrice.setText("Rs "+requestDTOList.get(i).getPrice().toString());
 
         final ViewPager imgCarPic = (ViewPager) view.findViewById(R.id.imgCarPic);
 
@@ -113,39 +133,73 @@ public class RequestAdapter extends BaseAdapter {
             }
         });
 
-       final android.os.Handler handler = new android.os.Handler();
-        Runnable runnable = new Runnable() {
-            int i = photoViewPagerAdapter.getCount() - 1;
-            public void run() {
+        if(photoViewPagerAdapter.getCount() > 1) {
+            final android.os.Handler handler = new android.os.Handler();
+            Runnable runnable = new Runnable() {
+                int i = photoViewPagerAdapter.getCount() - 1;
 
-                if(i <0)
-                    i = photoViewPagerAdapter.getCount() - 1;
+                public void run() {
 
-                imgCarPic.setCurrentItem(i);
-                i--;
+                    if (i < 0)
+                        i = photoViewPagerAdapter.getCount() - 1;
 
-                handler.postDelayed(this, 5000);
-            }
-        };
-        handler.postDelayed(runnable, 0);
+                    imgCarPic.setCurrentItem(i);
+                    i--;
+
+                    handler.postDelayed(this, 5000);
+                }
+            };
+            handler.postDelayed(runnable, 0);
+        }
 
 
-        LinearLayout llMain = (LinearLayout)view.findViewById(R.id.llMain);
-        llMain.setOnClickListener(new View.OnClickListener() {
+        LinearLayout llRequestDetails = (LinearLayout)view.findViewById(R.id.llRequestDetails);
+        llRequestDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
             }
         });
 
+        final ImageView imgDelete = (ImageView)view.findViewById(R.id.imgDelete);
 
-        LinearLayout llAccept = (LinearLayout)view.findViewById(R.id.llAccept);
-        llAccept.setOnClickListener(new View.OnClickListener() {
+        final LinearLayout llDeleteRequest = (LinearLayout)view.findViewById(R.id.llDeleteRequest);
+        llDeleteRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Utils.showToast(context, "Accept");
+                if(llDeleteRequest.isShown() && !confirmDelete){
+                    imgDelete.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_bin_open_red));
+                    confirmDelete = true;
+                }
+                else{
+
+                }
             }
         });
+
+
+        llRequestDetails.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        if(llDeleteRequest.isShown())
+                            imgDelete.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_bin_close_red));
+                        confirmDelete = false;
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        break;
+                }
+
+                return true;
+            }
+        });
+
+
+
 
 
         /*LinearLayout llDelete = (LinearLayout)view.findViewById(R.id.llDelete);

@@ -26,7 +26,7 @@ public class PhotoViewPagerAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return 3;
+        return 1;
     }
 
     @Override
@@ -37,12 +37,14 @@ public class PhotoViewPagerAdapter extends PagerAdapter {
         ImageView imageView = (ImageView)layout.findViewById(R.id.imgCarPager);
 
         try {
-            if (position == 0)
+            /*if (position == 0)
                 imageView.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_bin_close_red));
             else if (position == 1)
                 imageView.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_bin_open_red));
             else
-                imageView.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_tick_blue));
+                imageView.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_tick_blue));*/
+
+            imageView.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_pending));
 
             collection.addView(layout);
         }
