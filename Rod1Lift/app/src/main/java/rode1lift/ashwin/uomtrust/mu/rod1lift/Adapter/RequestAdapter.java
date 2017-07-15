@@ -98,7 +98,6 @@ public class RequestAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int i, View view, ViewGroup viewGroup) {
-
         view = inflater.inflate(R.layout.activity_driver_manage_request_content, null);
 
         TextView txtFrom = (TextView)view.findViewById(R.id.txtFrom);

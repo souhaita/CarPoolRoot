@@ -11,6 +11,9 @@
     <string name="activity_login_slogan">Bizin 1 lift?</string>
     <string name="activity_login_select_user_type"> Please select a type of user </string>
     <string name="activity_login_select_user_type_error"> Please select a type of user </string>
+    <string name="activity_login_select_type_driver">Car Pooler</string>
+    <string name="activity_login_select_type_other"> Car Seeker </string>
+    <string name="activity_login_select_type_select"> SELECT </string>
 
     <string name="activity_complete_driver_registration_header">Car Registration</string>
     <string name="activity_complete_driver_registration_car_details">Car Make</string>
@@ -138,7 +141,7 @@
 
     <string-array name="driver_manage_request_arrays">
         <item>PENDING</item>
-        <item>I ACCEPTED</item>
+        <item>TRIP FULL</item>
         <item>CLIENT ACCEPTED</item>
         <item>I REJECTED</item>
     </string-array>

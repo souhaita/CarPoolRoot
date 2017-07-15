@@ -216,7 +216,11 @@ public class ActivityLogin extends Activity {
         numberPickeruserType.setMinValue(0);
         numberPickeruserType.setMaxValue(2);
 
-        final String[] arrayUnits = new String[]{"Select", "Driver", "Other" };
+        String select = getString(R.string.activity_login_select_type_select);
+        String carPooler = getString(R.string.activity_login_select_type_driver);
+        String carSeeker = getString(R.string.activity_login_select_type_other);
+
+        final String[] arrayUnits = new String[]{select, carPooler, carSeeker };
         numberPickeruserType.setDisplayedValues(arrayUnits);
 
         numberPickeruserType.setValue(0);

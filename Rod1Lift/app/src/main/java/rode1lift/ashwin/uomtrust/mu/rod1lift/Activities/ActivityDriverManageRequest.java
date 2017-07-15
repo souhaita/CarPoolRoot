@@ -3,6 +3,7 @@ package rode1lift.ashwin.uomtrust.mu.rod1lift.Activities;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -43,17 +44,29 @@ public class ActivityDriverManageRequest extends Activity {
             }
         });
 
-        RequestDTO requestDTO = new RequestDTO();
+        final RequestDTO requestDTO = new RequestDTO();
         requestDTO.setRequestStatus(RequestStatus.REQUEST_PENDING);
 
-        ListView listView = (ListView)findViewById(R.id.sLvManageRequest);
+        final ListView listView = (ListView)findViewById(R.id.sLvManageRequest);
 
         Spinner spinnerRequestStatus = (Spinner)findViewById(R.id.spinnerRequestStatus);
         final ArrayAdapter adapter = ArrayAdapter.createFromResource(this,R.array.driver_manage_request_arrays,android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerRequestStatus.setAdapter(adapter);
 
-        new AsyncDriverFetchRequest(ActivityDriverManageRequest.this, listView).execute(requestDTO);
+        spinnerRequestStatus.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+
+                new AsyncDriverFetchRequest(ActivityDriverManageRequest.this, listView).execute(requestDTO);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+
+            }
+
+        });
 
         LinearLayout llMainProfile = (LinearLayout)findViewById(R.id.llMainProfile);
         Utils.animateLayout(llMainProfile);
