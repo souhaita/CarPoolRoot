@@ -32,6 +32,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
+import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
+
 
 /**
  * Created by Ashwin on 28-May-17.
@@ -43,19 +45,25 @@ public class Utils {
 
     public static void disconnectFromFacebook() {
 
-        if (AccessToken.getCurrentAccessToken() == null) {
-            return; // already logged out
-        }
+        try {
 
-        new GraphRequest(AccessToken.getCurrentAccessToken(), "/me/permissions/", null, HttpMethod.DELETE, new GraphRequest
-                .Callback() {
-            @Override
-            public void onCompleted(GraphResponse graphResponse) {
-
-                LoginManager.getInstance().logOut();
-
+            if (AccessToken.getCurrentAccessToken() == null) {
+                return; // already logged out
             }
-        }).executeAsync();
+
+            new GraphRequest(AccessToken.getCurrentAccessToken(), "/me/permissions/", null, HttpMethod.DELETE, new GraphRequest
+                    .Callback() {
+                @Override
+                public void onCompleted(GraphResponse graphResponse) {
+
+                    LoginManager.getInstance().logOut();
+
+                }
+            }).executeAsync();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public static void deletePhoto(File file) {
@@ -107,9 +115,9 @@ public class Utils {
         vibrate(context);
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("ERROR");
+        builder.setTitle(context.getString(R.string.error));
         builder.setMessage(message);
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(context.getString(R.string.ok), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();

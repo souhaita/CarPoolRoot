@@ -24,6 +24,9 @@ public class ActivityDriverManageRequest extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_driver_manage_request_main);
 
+        TextView txtMenuHeader = (TextView)findViewById(R.id.txtMenuHeader);
+        txtMenuHeader.setText(getString(R.string.activity_complete_driver_manage_request_header));
+
         ImageView imgBack = (ImageView)findViewById(R.id.imgBack);
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override

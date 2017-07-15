@@ -60,6 +60,9 @@ public class ProfileActivity extends Activity {
 
         recyclerView.setAdapter(profileAdapter);
 
+        TextView txtMenuHeader = (TextView)findViewById(R.id.txtMenuHeader);
+        txtMenuHeader.setText(getString(R.string.title_activity_profile));
+
         ImageView imgBack = (ImageView)findViewById(R.id.imgBack);
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override

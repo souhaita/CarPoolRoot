@@ -12,13 +12,13 @@
     <string name="activity_login_select_user_type"> Please select a type of user </string>
     <string name="activity_login_select_user_type_error"> Please select a type of user </string>
 
+    <string name="activity_complete_driver_registration_header">Car Registration</string>
     <string name="activity_complete_driver_registration_car_details">Car Make</string>
     <string name="activity_complete_driver_registration_year">Year</string>
     <string name="activity_complete_driver_registration_plate_num">Plate No.</string>
     <string name="activity_complete_driver_registration_number_of_passenger">No. Passenger</string>
     <string name="activity_complete_driver_registration_take_picture">Add Image</string>
     <string name="activity_complete_driver_registration_next">Next</string>
-    <string name="activity_complete_driver_registration_title">Car Registration</string>
     <string name="activity_complete_driver_registration_photo_camera">CAMERA</string>
     <string name="activity_complete_driver_registration_photo_gallery">GALLERY</string>
     <string name="activity_complete_driver_registration_photo_delete_one">DELETE SELECTED</string>
@@ -31,12 +31,36 @@
     <string name="activity_complete_driver_registration_number_of_passenger_error">Number Passenger can not be empty</string>
     <string name="activity_complete_driver_registration_image_error">At least one image must be added</string>
     <string name="activity_complete_driver_registration_plate_num_hint">Plate No.</string>
+    <string name="activity_complete_driver_registration_delete_picture">Delete Picture</string>
+
+
+    <string name="activity_create_trip_header">Create Trip</string>
+    <string name="activity_create_trip_validation_autocomplete_address">Address can not be null</string>
+    <string name="activity_create_trip_validation_date">Date can not be null</string>
+    <string name="activity_create_trip_validation_time">Time can not be null</string>
+    <string name="activity_create_trip_validation_contact_detail">Contact details can not be null</string>
+    <string name="activity_create_trip_validation_contact_detail_length">Phone Num should be of lenght 7 - 8</string>
+    <string name="activity_create_trip_validation_autocomplete_address_no_match">Please select address from autocomplete list</string>
+    <string name="activity_create_trip_validation_seat_available">Number of seat can not be null</string>
+    <string name="activity_create_trip_validation_seat_available_length">Number of seat should be of between 1</string>
+    <string name="activity_create_trip_select_date">Select Date</string>
+    <string name="activity_create_trip_select_time">Select Time</string>
+    <string name="activity_create_trip_confirm_delete">Confirm Delete...</string>
+    <string name="activity_create_trip_confirm_delete_message">Are you sure you want delete this trip?</string>
+    <string name="activity_create_trip_price">Price</string>
+
+    <string name="activity_map_marker_title_main_here">You are here</string>
+    <string name="activity_map_marker_title_from">Trip starts</string>
+    <string name="activity_map_marker_title_to">Trip ends</string>
+
+
+    <string name="activity_complete_driver_manage_request_header">Manage Trip</string>
 
     <string name="activity_profile_name_hint">Full Name</string>
     <string name="activity_profile_name_error">Name can not be null</string>
 
 
-    <string name="menu_edit_profile">Edit Profile</string>
+    <string name="menu_edit_profile_header">Edit Profile</string>
 
 
     <string name="fb_app_id">708685515985549</string>
@@ -46,6 +70,9 @@
     <string name="error_server">An error has occured please try again later</string>
 
 
+    <string name="yes">YES</string>
+    <string name="no">NO</string>
+    <string name="error">ERROR</string>
     <string name="ok"> OK </string>
     <string name="cancel"> CANCEL </string>
 
@@ -87,15 +114,6 @@
         <item>FIT</item>
     </string-array>
     <string name="title_activity_profile">ProfileActivity</string>
-
-    <string name="create_trip_activity_validation_autocomplete_address">Address can not be null</string>
-    <string name="create_trip_activity_validation_date">Date can not be null</string>
-    <string name="create_trip_activity_validation_time">Time can not be null</string>
-    <string name="create_trip_activity_validation_contact_detail">Contact details can not be null</string>
-    <string name="create_trip_activity_validation_contact_detail_length">Phone Num should be of lenght 7 - 8</string>
-    <string name="create_trip_activity_validation_autocomplete_address_no_match">Please select address from autocomplete list</string>
-    <string name="create_trip_activity_validation_seat_available">Number of seat can not be null</string>
-    <string name="create_trip_activity_validation_seat_available_length">Number of seat should be of between 1</string>
 
     <string-array name="driver_manage_request_arrays">
         <item>PENDING</item>

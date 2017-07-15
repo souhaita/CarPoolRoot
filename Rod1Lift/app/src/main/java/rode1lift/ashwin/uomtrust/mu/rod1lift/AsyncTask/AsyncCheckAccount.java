@@ -117,8 +117,7 @@ public class AsyncCheckAccount extends AsyncTask<String, Void , AccountDTO > {
     @Override
     protected void onPostExecute(AccountDTO accountDTO){
         super.onPostExecute(accountDTO);
-
-        new AccountDAO(context).saveOrUpdateAccount(accountDTO);
-
+        if(accountDTO != null && accountDTO.getAccountId() != null && accountDTO.getAccountId() > 0)
+            new AccountDAO(context).saveOrUpdateAccount(accountDTO);
     }
 }

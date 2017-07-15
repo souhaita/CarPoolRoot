@@ -113,9 +113,11 @@ public class ActivityCompleteDriverRegistration extends Activity {
         txtNumOfPassenger = (TextView) findViewById(R.id.txtNumOfPassenger);
         txtPlateNum = (TextView) findViewById(R.id.txtPlateNum);
 
+        TextView txtMenuHeader = (TextView)findViewById(R.id.txtMenuHeader);
+        txtMenuHeader.setText(getString(R.string.activity_complete_driver_registration_header));
 
-        TextView txtNext = (TextView)findViewById(R.id.txtNext);
-        txtNext.setOnClickListener(new View.OnClickListener() {
+        TextView txtDone = (TextView)findViewById(R.id.txtDone);
+        txtDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(validateForm()){
@@ -125,6 +127,15 @@ public class ActivityCompleteDriverRegistration extends Activity {
             }
         });
 
+        ImageView imgBack = (ImageView)findViewById(R.id.imgBack);
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ActivityCompleteDriverRegistration.this, ActivityLogin.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         img1 = (ImageView)findViewById(R.id.img1);
         img2 = (ImageView)findViewById(R.id.img2);
@@ -546,7 +557,7 @@ public class ActivityCompleteDriverRegistration extends Activity {
         else
             message = getResources().getString(R.string.activity_complete_driver_registration_photo_delete_one_pop_up);
 
-        builder.setTitle("Delete Picture");
+        builder.setTitle(getString(R.string.activity_complete_driver_registration_delete_picture));
         builder.setMessage(message);
 
         builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {

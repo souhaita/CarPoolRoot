@@ -2,11 +2,16 @@ package rode1lift.ashwin.uomtrust.mu.rod1lift.Activities;
 
 import android.Manifest;
 import android.app.Fragment;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -41,6 +46,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
@@ -69,7 +75,6 @@ public class ActivityMap extends Fragment implements
 
     private ArrayList markerPoints= new ArrayList();
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -97,7 +102,12 @@ public class ActivityMap extends Fragment implements
                 googleMap.setMyLocationEnabled(true);
 
                 LatLng latLng = new LatLng(mLat, mLng);
-                googleMap.addMarker(new MarkerOptions().position(latLng).title("Marker Title").snippet("Marker Description"));
+                String currentLocation = getAddressFromLocation(latLng);
+
+                final MarkerOptions currentPositionMarker = new MarkerOptions();
+                currentPositionMarker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+                currentPositionMarker.position(latLng).title(getString(R.string.activity_map_marker_title_main_here)).snippet(currentLocation);
+                googleMap.addMarker(currentPositionMarker);
 
                 CameraPosition cameraPosition = new CameraPosition.Builder().target(latLng).zoom(12).build();
                 googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
@@ -109,6 +119,7 @@ public class ActivityMap extends Fragment implements
                         if (markerPoints.size() > 1) {
                             markerPoints.clear();
                             googleMap.clear();
+                            googleMap.addMarker(currentPositionMarker);
                         }
 
                         // Adding new item to the ArrayList
@@ -122,13 +133,14 @@ public class ActivityMap extends Fragment implements
 
                         if (markerPoints.size() == 1) {
                             options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                            options.title(getString(R.string.activity_map_marker_title_from)).snippet(getAddressFromLocation(latLng));
+                            googleMap.addMarker(options);
+
                         } else if (markerPoints.size() == 2) {
                             options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                            options.title(getString(R.string.activity_map_marker_title_to)).snippet(getAddressFromLocation(latLng));
+                            googleMap.addMarker(options);
                         }
-
-                        // Add new marker to the Google Map Android API V2
-                        googleMap.addMarker(options);
-
                         // Checks, whether start and end locations are captured
                         if (markerPoints.size() >= 2) {
                             LatLng origin = (LatLng) markerPoints.get(0);
@@ -136,7 +148,6 @@ public class ActivityMap extends Fragment implements
 
                             // Getting URL to the Google Directions API
                             String url = getUrl(origin, dest);
-                            Log.d("onMapClick", url.toString());
                             FetchUrl FetchUrl = new FetchUrl();
 
                             // Start downloading json data from Google Directions API
@@ -154,6 +165,21 @@ public class ActivityMap extends Fragment implements
         });
 
         return v;
+    }
+
+    //ref: https://stackoverflow.com/questions/472313/android-reverse-geocoding-getfromlocation
+    public String getAddressFromLocation(final LatLng latLng) {
+        Geocoder geocoder = new Geocoder(getActivity(), Locale.getDefault());
+        try {
+            List<Address> list = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1);
+            if (list != null && list.size() > 0) {
+                return list.get(0).getLocality();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     private String getUrl(LatLng origin, LatLng dest) {
@@ -238,11 +264,10 @@ public class ActivityMap extends Fragment implements
             }
 
             data = sb.toString();
-            Log.d("downloadUrl", data.toString());
             br.close();
 
         } catch (Exception e) {
-            Log.d("Exception", e.toString());
+            e.printStackTrace();
         } finally {
             iStream.close();
             urlConnection.disconnect();
@@ -261,17 +286,11 @@ public class ActivityMap extends Fragment implements
 
             try {
                 jObject = new JSONObject(jsonData[0]);
-                Log.d("ParserTask",jsonData[0].toString());
                 DataParser parser = new DataParser();
-                Log.d("ParserTask", parser.toString());
-
                 // Starts parsing data
                 routes = parser.parse(jObject);
-                Log.d("ParserTask","Executing routes");
-                Log.d("ParserTask",routes.toString());
 
             } catch (Exception e) {
-                Log.d("ParserTask",e.toString());
                 e.printStackTrace();
             }
             return routes;
@@ -306,9 +325,6 @@ public class ActivityMap extends Fragment implements
                 lineOptions.addAll(points);
                 lineOptions.width(10);
                 lineOptions.color(Color.RED);
-
-                Log.d("onPostExecute","onPostExecute lineoptions decoded");
-
             }
 
             // Drawing polyline in the Google Map for the i-th route
@@ -414,8 +430,6 @@ public class ActivityMap extends Fragment implements
     public void onResume() {
         super.onResume();
         mMapView.onResume();
-
-
     }
 
     @Override
@@ -489,11 +503,9 @@ public class ActivityMap extends Fragment implements
             case PERMISSION_GPS: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     //Utils.turnGPSOn(getActivity());
-                    Toast.makeText(this.getActivity(), "Permission granted", Toast.LENGTH_SHORT).show();
 
                 } else {
 
-                    Toast.makeText(this.getActivity(), "Permission denied", Toast.LENGTH_SHORT).show();
                 }
                 return;
             }

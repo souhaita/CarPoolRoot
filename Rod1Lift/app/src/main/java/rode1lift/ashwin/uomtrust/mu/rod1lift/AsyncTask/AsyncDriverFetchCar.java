@@ -38,7 +38,7 @@ public class AsyncDriverFetchCar extends AsyncTask<CarDTO, Void ,CarDTO > {
 
     @Override
     protected void onPreExecute() {
-        progressDialog = Utils.progressDialogue(context, "Fetching your car details");
+        progressDialog = Utils.progressDialogue(context, "Fetching your data");
     }
 
 
@@ -124,7 +124,7 @@ public class AsyncDriverFetchCar extends AsyncTask<CarDTO, Void ,CarDTO > {
     protected void onPostExecute(CarDTO carDTO){
         super.onPostExecute(carDTO);
 
-        if(carDTO != null || carDTO.getCarId() != null) {
+        if(carDTO != null && carDTO.getCarId() != null && carDTO.getCarId() >0 ) {
             new CarDAO(context).saveOrUpdateCar(carDTO);
             Intent intent = new Intent(context, ActivityMain.class);
             context.startActivity(intent);

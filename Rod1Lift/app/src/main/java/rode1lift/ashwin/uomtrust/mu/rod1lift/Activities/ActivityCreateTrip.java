@@ -78,6 +78,9 @@ public class ActivityCreateTrip extends Activity {
 
         API_KEY = getString(R.string.google_places_api_key);
 
+        TextView txtMenuHeader = (TextView)findViewById(R.id.txtMenuHeader);
+        txtMenuHeader.setText(getString(R.string.activity_create_trip_header));
+
         SharedPreferences prefs = ActivityCreateTrip.this.getSharedPreferences(CONSTANT.APP_NAME, MODE_PRIVATE);
         accountId = prefs.getInt(CONSTANT.CURRENT_ACCOUNT_ID, 1);
 
@@ -137,7 +140,7 @@ public class ActivityCreateTrip extends Activity {
                 }, mYear, mMonth, mDay);
 
                 datePickerDialogue.getDatePicker().setMinDate(currentTime.getTimeInMillis());
-                datePickerDialogue.setTitle("Select Date");
+                datePickerDialogue.setTitle(getString(R.string.activity_create_trip_select_date));
                 datePickerDialogue.show();
             }
         });
@@ -167,7 +170,7 @@ public class ActivityCreateTrip extends Activity {
                     }
                 }, mHour, mMinute, false);
 
-                timePickerDialog.setTitle("Select Time");
+                timePickerDialog.setTitle(getString(R.string.activity_create_trip_select_time));
                 timePickerDialog.show();
             }
         });
@@ -194,16 +197,16 @@ public class ActivityCreateTrip extends Activity {
     private void alertCancel() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(ActivityCreateTrip.this);
 
-        alertDialog.setTitle("Confirm Delete...");
-        alertDialog.setMessage("Are you sure you want delete this trip?");
+        alertDialog.setTitle(getString(R.string.activity_create_trip_confirm_delete));
+        alertDialog.setMessage(getString(R.string.activity_create_trip_confirm_delete_message));
 
-        alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+        alertDialog.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog,int which) {
                 finish();
             }
         });
 
-        alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+        alertDialog.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
             }
@@ -233,7 +236,7 @@ public class ActivityCreateTrip extends Activity {
         croller.setProgressPrimaryColor(getResources().getColor(R.color.white));
         croller.setIndicatorColor(getResources().getColor(R.color.white));
         croller.setProgressSecondaryColor(getResources().getColor(R.color.black));
-        croller.setLabel("PRICE");
+        croller.setLabel(getString(R.string.activity_create_trip_price));
         croller.setProgressPrimaryCircleSize(7f);
         croller.setProgressSecondaryCircleSize(5f);
 
@@ -250,38 +253,38 @@ public class ActivityCreateTrip extends Activity {
         boolean validForm = true;
 
         if(TextUtils.isEmpty(autoFrom.getText())){
-            Utils.alertError(ActivityCreateTrip.this, getResources().getString(R.string.create_trip_activity_validation_autocomplete_address));
+            Utils.alertError(ActivityCreateTrip.this, getResources().getString(R.string.activity_create_trip_validation_autocomplete_address));
             return false;
         }
         else if(TextUtils.isEmpty(autoTo.getText())){
-            Utils.alertError(ActivityCreateTrip.this, getResources().getString(R.string.create_trip_activity_validation_autocomplete_address));
+            Utils.alertError(ActivityCreateTrip.this, getResources().getString(R.string.activity_create_trip_validation_autocomplete_address));
             return false;
         }
         else if(TextUtils.isEmpty(txtDate.getText()) ){
-            Utils.alertError(ActivityCreateTrip.this, getResources().getString(R.string.create_trip_activity_validation_date));
+            Utils.alertError(ActivityCreateTrip.this, getResources().getString(R.string.activity_create_trip_validation_date));
             return false;
         }
         else if(TextUtils.isEmpty(txtTime.getText())){
-            Utils.alertError(ActivityCreateTrip.this, getResources().getString(R.string.create_trip_activity_validation_time));
+            Utils.alertError(ActivityCreateTrip.this, getResources().getString(R.string.activity_create_trip_validation_time));
             return false;
         }
         else if(TextUtils.isEmpty(txtSeatAvailable.getText().toString())){
-            Utils.alertError(ActivityCreateTrip.this, getResources().getString(R.string.create_trip_activity_validation_seat_available));
+            Utils.alertError(ActivityCreateTrip.this, getResources().getString(R.string.activity_create_trip_validation_seat_available));
             return false;
         }
         else if(TextUtils.isEmpty(txtContact.getText().toString())){
-            Utils.alertError(ActivityCreateTrip.this, getResources().getString(R.string.create_trip_activity_validation_contact_detail));
+            Utils.alertError(ActivityCreateTrip.this, getResources().getString(R.string.activity_create_trip_validation_contact_detail));
             return false;
         }
         else if(txtContact.getText().toString().length() >8 || txtContact.getText().toString().length() <7){
-            Utils.alertError(ActivityCreateTrip.this, getResources().getString(R.string.create_trip_activity_validation_contact_detail_length));
+            Utils.alertError(ActivityCreateTrip.this, getResources().getString(R.string.activity_create_trip_validation_contact_detail_length));
             return false;
         }
 
         int numOfPassenger = carDTO.getNumOfPassenger();
         int numOfPassengerEntered = Integer.parseInt(txtSeatAvailable.getText().toString());
         if( numOfPassengerEntered> numOfPassenger || numOfPassengerEntered <1){
-            String message = getResources().getString(R.string.create_trip_activity_validation_seat_available_length) +" - "+numOfPassenger;
+            String message = getResources().getString(R.string.activity_create_trip_validation_seat_available_length) +" - "+numOfPassenger;
             Utils.alertError(ActivityCreateTrip.this, message);
             return false;
         }

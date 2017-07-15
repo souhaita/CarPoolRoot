@@ -66,6 +66,8 @@ public class ActivityLogin extends Activity {
         else {
             setContentView(R.layout.activity_login);
 
+            Utils.disconnectFromFacebook();
+
             LinearLayout llMain = (LinearLayout)findViewById(R.id.llMain);
             Utils.animateLayout(llMain);
 

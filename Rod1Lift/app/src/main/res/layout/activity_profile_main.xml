@@ -9,44 +9,7 @@
     android:layout_height="match_parent">
 
 
-    <LinearLayout
-        android:background="@color/transparent_white_50"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize">
-
-        <ImageView
-            android:id="@+id/imgBack"
-            android:layout_weight="0.15"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:tint="@color/colorPrimary"
-            android:rotation="180"
-            android:src="@drawable/icon_right" />
-
-        <TextView
-            android:textColor="@color/colorPrimary"
-            android:textStyle="bold"
-            android:textSize="20dp"
-            android:gravity="center"
-            android:layout_weight="0.7"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:text="EDIT PROFILE"/>
-
-        <TextView
-            android:id="@+id/txtDone"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.15"
-            android:gravity="center"
-            android:text="DONE"
-            android:textColor="@color/colorPrimary"
-            android:textSize="18dp"
-            android:textStyle="bold" />
-
-
-    </LinearLayout>
+    <include layout="@layout/top_menu" />
 
     <android.support.v7.widget.RecyclerView
         android:layout_weight="0.9"
