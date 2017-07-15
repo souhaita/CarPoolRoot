@@ -14,6 +14,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Vibrator;
 import android.provider.Settings;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -172,5 +174,17 @@ public class Utils {
 
         return newBitmap;
     }
+
+    /*public static DisplayMetrics getDisplayMetric(Context context){
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+       ((Activity)context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+
+        return displayMetrics;
+    }
+
+    public static int dipToPixels(Context context, float dipValue) {
+        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+        return (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dipValue, metrics);
+    }*/
 
 }

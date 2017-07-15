@@ -52,12 +52,20 @@
     <string name="activity_map_marker_title_main_here">You are here</string>
     <string name="activity_map_marker_title_from">Trip starts</string>
     <string name="activity_map_marker_title_to">Trip ends</string>
+    <string name="activity_map_marker_create_trip_validation_title">No trip detected!</string>
+    <string name="activity_map_marker_create_trip_validation_message">No trip detected. Would you like to create one on the map?</string>
 
 
     <string name="activity_complete_driver_manage_request_header">Manage Trip</string>
 
     <string name="activity_profile_name_hint">Full Name</string>
     <string name="activity_profile_name_error">Name can not be null</string>
+
+    <string name="floating_menu_clear_marker">Clear Marker</string>
+    <string name="floating_menu_path_from_current_position">Get direction from current position</string>
+    <string name="floating_menu_path_from_two_points">Get direction from 2 different points</string>
+    <string name="floating_menu_path_create_trip">Create trip</string>
+
 
 
     <string name="menu_edit_profile_header">Edit Profile</string>

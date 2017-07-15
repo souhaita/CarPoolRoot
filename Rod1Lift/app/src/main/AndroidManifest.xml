@@ -38,7 +38,6 @@
 
         <activity
             android:name=".Activities.ActivityLogin"
-            android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -49,55 +48,44 @@
 
         <activity
             android:name=".Activities.ActivityMain"
-            android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
             android:name=".Activities.ActivityCompleteDriverRegistration"
-            android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity
             android:name=".Activities.PickerActivityCarMake"
-            android:label="@string/app_name"
             android:theme="@style/Theme.UserDialog"/>
 
         <activity
             android:name=".Activities.PickerActivityCarPlateNum"
-            android:label="@string/app_name"
             android:theme="@style/Theme.UserDialog"/>
 
 
         <activity
             android:name=".Activities.PickerActivityProfileName"
-            android:label="@string/app_name"
             android:theme="@style/Theme.UserDialog"/>
 
         <activity
             android:name=".Activities.PickerActivityCarSeats"
-            android:label="@string/app_name"
             android:theme="@style/Theme.UserDialog"/>
 
         <activity
             android:name=".Activities.ProfileActivity"
-            android:label="@string/title_activity_profile"
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity
             android:name=".Activities.ActivityCreateTrip"
-            android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
             android:name=".Activities.PickerActivityTripPrice"
-            android:label="@string/app_name"
             android:theme="@style/Theme.UserDialog"/>
 
         <activity
             android:name=".Activities.ActivityDriverManageRequest"
-            android:label="@string/title_activity_profile"
             android:theme="@style/AppTheme.NoActionBar"/>
-
 
     </application>
 

@@ -49,16 +49,12 @@ public class ActivityMain extends AppCompatActivity implements NavigationView.On
         ActivityMap mapActivity = new ActivityMap();
         changeFragment(mapActivity);
 
-
         SharedPreferences prefs = getSharedPreferences(CONSTANT.APP_NAME, MODE_PRIVATE);
         Integer accountId = prefs.getInt(CONSTANT.CURRENT_ACCOUNT_ID, -1);
 
         AccountDTO accountDTO = new AccountDAO(this).getAccountById(accountId);
 
         setProfileDetails(navigationView, accountDTO);
-
-
-
     }
 
     private void setProfileDetails(NavigationView navigationView, AccountDTO accountDTO){
@@ -95,7 +91,7 @@ public class ActivityMain extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        //getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 

@@ -98,11 +98,17 @@ public class ActivityCreateTrip extends Activity {
 
         slider();
 
+        String from = getIntent().getStringExtra("from"), to = getIntent().getStringExtra("to");
+
         autoFrom = (AutoCompleteTextView)findViewById(R.id.autoFrom);
         autoFrom.setAdapter(new GooglePlacesAutocompleteAdapter(this, R.layout.simple_list_places));
+        if(from != null && !TextUtils.isEmpty(from))
+            autoFrom.setText(from);
 
         autoTo = (AutoCompleteTextView)findViewById(R.id.autoTo);
         autoTo.setAdapter(new GooglePlacesAutocompleteAdapter(this, R.layout.simple_list_places));
+        if(to != null && !TextUtils.isEmpty(to))
+            autoTo.setText(to);
 
         txtContact = (EditText) findViewById(R.id.txtContact);
         if(accountDTO != null && accountDTO.getPhoneNum() != null && accountDTO.getPhoneNum().toString().length() >=6)

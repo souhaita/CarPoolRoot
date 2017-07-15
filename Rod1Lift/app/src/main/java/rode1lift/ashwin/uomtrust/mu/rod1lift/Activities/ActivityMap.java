@@ -1,10 +1,14 @@
 package rode1lift.ashwin.uomtrust.mu.rod1lift.Activities;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -13,12 +17,15 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.ActivityCompat;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.location.LocationClient;
@@ -31,6 +38,7 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
@@ -48,6 +56,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
+import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.AccountDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 
@@ -75,6 +84,19 @@ public class ActivityMap extends Fragment implements
 
     private ArrayList markerPoints= new ArrayList();
 
+    private FloatingActionButton fabClearMarker;
+    private FloatingActionButton fabCreateTrip;
+    private FloatingActionButton fabPathFromTwoPoints;
+    private FloatingActionButton fabPathFromCurrentPosition;
+
+    private FloatingActionMenu fabMenu;
+
+    private boolean fromCurrentPosition = true;
+
+    private String from = null, to = null;
+
+    private MarkerOptions currentPositionMarker;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -93,6 +115,14 @@ public class ActivityMap extends Fragment implements
 
         locationManager();
 
+        fabMenu = (FloatingActionMenu)v.findViewById(R.id.fabMenu);
+        fabMenu.setClosedOnTouchOutside(true);
+
+        fabClearMarker = (FloatingActionButton) v.findViewById(R.id.fabClearMarker);
+        fabPathFromCurrentPosition = (FloatingActionButton) v.findViewById(R.id.fabPathFromCurrentPosition);
+        fabPathFromTwoPoints = (FloatingActionButton) v.findViewById(R.id.fabPathFromTwoPoints);
+        fabCreateTrip = (FloatingActionButton) v.findViewById(R.id.fabCreateTrip);
+
         mMapView.getMap().setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
             @Override
             public void onMapLoaded() {
@@ -100,11 +130,12 @@ public class ActivityMap extends Fragment implements
 
                 getLocation();
                 googleMap.setMyLocationEnabled(true);
+                googleMap.getUiSettings().setZoomControlsEnabled(false);
 
                 LatLng latLng = new LatLng(mLat, mLng);
-                String currentLocation = getAddressFromLocation(latLng);
+                final String currentLocation = getAddressFromLocation(latLng);
 
-                final MarkerOptions currentPositionMarker = new MarkerOptions();
+                currentPositionMarker = new MarkerOptions();
                 currentPositionMarker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
                 currentPositionMarker.position(latLng).title(getString(R.string.activity_map_marker_title_main_here)).snippet(currentLocation);
                 googleMap.addMarker(currentPositionMarker);
@@ -131,20 +162,39 @@ public class ActivityMap extends Fragment implements
                         // Setting the position of the marker
                         options.position(latLng);
 
+                        String touchedLocation = getAddressFromLocation(latLng);
                         if (markerPoints.size() == 1) {
                             options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
-                            options.title(getString(R.string.activity_map_marker_title_from)).snippet(getAddressFromLocation(latLng));
-                            googleMap.addMarker(options);
 
-                        } else if (markerPoints.size() == 2) {
+                            if(fromCurrentPosition) {
+                                to = touchedLocation;
+                                from = currentLocation;
+                                options.title(getString(R.string.activity_map_marker_title_to)).snippet(touchedLocation);
+                            }
+                            else {
+                                from = touchedLocation;
+                                options.title(getString(R.string.activity_map_marker_title_from)).snippet(touchedLocation);
+                            }
+                            googleMap.addMarker(options);
+                        }
+                        else if (markerPoints.size() == 2) {
+                            to = touchedLocation;
                             options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-                            options.title(getString(R.string.activity_map_marker_title_to)).snippet(getAddressFromLocation(latLng));
+                            options.title(getString(R.string.activity_map_marker_title_to)).snippet(touchedLocation);
                             googleMap.addMarker(options);
                         }
                         // Checks, whether start and end locations are captured
-                        if (markerPoints.size() >= 2) {
-                            LatLng origin = (LatLng) markerPoints.get(0);
-                            LatLng dest = (LatLng)  markerPoints.get(1);
+                        if (fromCurrentPosition || markerPoints.size() >= 2) {
+                            LatLng origin, dest;
+
+                            if(fromCurrentPosition){
+                                origin = currentPositionMarker.getPosition();
+                                dest = (LatLng) markerPoints.get(0);
+                            }
+                            else{
+                                origin = (LatLng) markerPoints.get(0);
+                                dest = (LatLng) markerPoints.get(1);
+                            }
 
                             // Getting URL to the Google Directions API
                             String url = getUrl(origin, dest);
@@ -153,18 +203,114 @@ public class ActivityMap extends Fragment implements
                             // Start downloading json data from Google Directions API
                             FetchUrl.execute(url);
                             //move map camera
-                            googleMap.moveCamera(CameraUpdateFactory.newLatLng(origin));
-                            googleMap.animateCamera(CameraUpdateFactory.zoomTo(11));
+
+                            LatLngBounds.Builder builder = new LatLngBounds.Builder();
+                            builder.include(origin);
+                            builder.include(dest);
+                            LatLngBounds bounds = builder.build();
+
+                            //googleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 25));
+                            CameraPosition cameraPosition = new CameraPosition.Builder().target(origin).zoom(10).build();
+                            googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
                         }
 
 
                     }
                 });
 
+
+                //fab menu
+                fabClearMarker.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        fabMenu.close(true);
+                        markerPoints.clear();
+                        googleMap.clear();
+                        googleMap.addMarker(currentPositionMarker);
+                    }
+                });
+
+                fabPathFromCurrentPosition.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        fabMenu.close(true);
+                        markerPoints.clear();
+                        googleMap.clear();
+                        googleMap.addMarker(currentPositionMarker);
+                        fromCurrentPosition = true;
+                    }
+                });
+
+                fabPathFromTwoPoints.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        fabMenu.close(true);
+                        markerPoints.clear();
+                        googleMap.clear();
+                        googleMap.addMarker(currentPositionMarker);
+                        fromCurrentPosition = false;
+                    }
+                });
+
+                fabCreateTrip.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        if(markerPoints.size() >0) {
+                            fabMenu.close(true);
+                            markerPoints.clear();
+                            googleMap.clear();
+                            googleMap.addMarker(currentPositionMarker);
+                            startActivity();
+                        }
+                        else{
+                            alertError();
+                        }
+                    }
+                });
             }
         });
 
         return v;
+    }
+
+    private void startActivity(){
+        Intent intent = new Intent(getActivity(), ActivityCreateTrip.class);
+        intent.putExtra("from", from);
+        intent.putExtra("to", to);
+        startActivity(intent);
+    }
+
+    private void alertError(){
+        fabMenu.close(true);
+        markerPoints.clear();
+        googleMap.clear();
+        googleMap.addMarker(currentPositionMarker);
+
+        Utils.vibrate(getActivity());
+
+        String title = getString(R.string.activity_map_marker_create_trip_validation_title);
+        String message = getString(R.string.activity_map_marker_create_trip_validation_message);
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.setPositiveButton(getActivity().getString(R.string.yes), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+
+        builder.setNegativeButton(getActivity().getString(R.string.no), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                startActivity();
+                dialogInterface.dismiss();
+            }
+        });
+
+        builder.show();
     }
 
     //ref: https://stackoverflow.com/questions/472313/android-reverse-geocoding-getfromlocation
