@@ -39,9 +39,9 @@ public class AsyncDriverCreateOrUpdateRequest extends AsyncTask<RequestDTO, Void
     protected void onPreExecute() {
         String message;
         if(newRequest)
-            message =  "Creating your request";
+            message =  context.getString(R.string.async_driver_create_or_update_trip_create_trip);
         else
-            message =  "Updating your request";
+            message =  context.getString(R.string.async_driver_create_or_update_trip_update_update);
 
         progressDialog = Utils.progressDialogue(context,message);
         progressDialog.show();

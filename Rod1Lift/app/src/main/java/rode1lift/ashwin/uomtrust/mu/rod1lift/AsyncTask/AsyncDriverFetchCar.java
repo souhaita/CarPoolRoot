@@ -38,7 +38,8 @@ public class AsyncDriverFetchCar extends AsyncTask<CarDTO, Void ,CarDTO > {
 
     @Override
     protected void onPreExecute() {
-        progressDialog = Utils.progressDialogue(context, "Fetching your data");
+        String message = context.getString(R.string.async_driver_fetch_car_details);
+        progressDialog = Utils.progressDialogue(context, message);
     }
 
 

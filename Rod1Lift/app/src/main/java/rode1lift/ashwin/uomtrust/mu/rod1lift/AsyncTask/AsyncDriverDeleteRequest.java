@@ -41,8 +41,7 @@ public class AsyncDriverDeleteRequest extends AsyncTask<RequestDTO, Void ,Boolea
 
     @Override
     protected void onPreExecute() {
-        String message = "Deleting your request";
-
+        String message = context.getString(R.string.async_driver_delete_trip_delete);
         progressDialog = Utils.progressDialogue(context,message);
         progressDialog.show();
     }

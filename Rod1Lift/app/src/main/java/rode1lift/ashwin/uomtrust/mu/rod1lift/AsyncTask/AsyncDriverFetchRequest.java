@@ -26,6 +26,7 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.RequestDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.RequestStatus;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.WebService.WebService;
 
@@ -48,9 +49,7 @@ public class AsyncDriverFetchRequest extends AsyncTask<RequestDTO, Void ,List<Re
 
     @Override
     protected void onPreExecute() {
-        String message;
-        message =  "Fetching requests";
-
+        String message = context.getString(R.string.async_driver_fetch_trip_details);
         progressDialog = Utils.progressDialogue(context,message);
         progressDialog.show();
     }

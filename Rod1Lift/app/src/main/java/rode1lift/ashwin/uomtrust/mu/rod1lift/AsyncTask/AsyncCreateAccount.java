@@ -46,7 +46,8 @@ public class AsyncCreateAccount extends AsyncTask<AccountDTO, Void ,AccountDTO> 
 
     @Override
     protected void onPreExecute() {
-        progressDialog = Utils.progressDialogue(context, "Creating your account");
+        String message = context.getString(R.string.async_create_account_validating_account);
+        progressDialog = Utils.progressDialogue(context, message);
         progressDialog.show();
     }
 

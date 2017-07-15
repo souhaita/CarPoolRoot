@@ -34,7 +34,8 @@ public class AsyncUpdateAccount extends AsyncTask<AccountDTO, Void ,AccountDTO> 
 
     @Override
     protected void onPreExecute() {
-        progressDialog = Utils.progressDialogue(context, "Updating your account");
+        String message = context.getString(R.string.async_driver_update_account_details);
+        progressDialog = Utils.progressDialogue(context, message);
         progressDialog.show();
     }
 

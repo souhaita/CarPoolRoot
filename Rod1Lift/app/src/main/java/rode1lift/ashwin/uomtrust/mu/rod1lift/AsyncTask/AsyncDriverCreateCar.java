@@ -38,7 +38,8 @@ public class AsyncDriverCreateCar extends AsyncTask<CarDTO, Void ,Integer > {
 
     @Override
     protected void onPreExecute() {
-        progressDialog = Utils.progressDialogue(context, "Creating your car details");
+        String message = context.getString(R.string.async_driver_create_car_creating_car_details);
+        progressDialog = Utils.progressDialogue(context,message);
     }
 
 

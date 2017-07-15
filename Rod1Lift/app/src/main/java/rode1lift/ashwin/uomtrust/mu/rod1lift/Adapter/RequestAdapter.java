@@ -118,8 +118,9 @@ public class RequestAdapter extends BaseAdapter {
         }
         txtDate.setText(date);
 
+        String seats = context.getString(R.string.driver_request_adapter_seats_left);
         TextView txtSeatAvailable = (TextView)view.findViewById(R.id.txtSeatAvailable);
-        txtSeatAvailable.setText(requestDTOList.get(i).getSeatAvailable().toString() +" Seats");
+        txtSeatAvailable.setText(requestDTOList.get(i).getSeatAvailable().toString() +" "+seats);
 
         TextView txtPrice = (TextView)view.findViewById(R.id.txtPrice);
         txtPrice.setText("Rs "+requestDTOList.get(i).getPrice().toString());

@@ -20,6 +20,7 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.AccountDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.AccountDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.AccountRole;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.AccountStatus;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.WebService.WebService;
 
@@ -38,7 +39,8 @@ public class AsyncCheckAccount extends AsyncTask<String, Void , AccountDTO > {
 
     @Override
     protected void onPreExecute() {
-        progressDialog = Utils.progressDialogue(context, "Validating your account");
+        String message = context.getString(R.string.async_check_account_validating_account);
+        progressDialog = Utils.progressDialogue(context, message);
         progressDialog.show();
     }
 
