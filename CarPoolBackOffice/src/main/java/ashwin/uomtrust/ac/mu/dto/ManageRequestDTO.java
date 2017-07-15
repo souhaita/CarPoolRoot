@@ -13,45 +13,45 @@ public class ManageRequestDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Integer manageRequestId;
-    private Integer accountId;
-    private Integer carId;
-    private Integer requestId;
+    private Long manageRequestId;
+    private Long accountId;
+    private Long carId;
+    private Long requestId;
 
     private Date dateCreated;
     private Date dateUpdated;
 
     private RequestStatus requestStatus;
 
-    public Integer getManageRequestId() {
+    public Long getManageRequestId() {
         return manageRequestId;
     }
 
-    public void setManageRequestId(Integer manageRequestId) {
+    public void setManageRequestId(Long manageRequestId) {
         this.manageRequestId = manageRequestId;
     }
 
-    public Integer getAccountId() {
+    public Long getAccountId() {
         return accountId;
     }
 
-    public void setAccountId(Integer accountId) {
+    public void setAccountId(Long accountId) {
         this.accountId = accountId;
     }
 
-    public Integer getCarId() {
+    public Long getCarId() {
         return carId;
     }
 
-    public void setCarId(Integer carId) {
+    public void setCarId(Long carId) {
         this.carId = carId;
     }
 
-    public Integer getRequestId() {
+    public Long getRequestId() {
         return requestId;
     }
 
-    public void setRequestId(Integer requestId) {
+    public void setRequestId(Long requestId) {
         this.requestId = requestId;
     }
 

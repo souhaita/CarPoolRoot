@@ -7,13 +7,20 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ashwin.uomtrust.ac.mu.dto.AccountDTO;
+import ashwin.uomtrust.ac.mu.dto.ManageRequestDTO;
 import ashwin.uomtrust.ac.mu.dto.RequestDTO;
+import ashwin.uomtrust.ac.mu.dto.RequestObject;
 import ashwin.uomtrust.ac.mu.entity.Account;
+import ashwin.uomtrust.ac.mu.entity.Car;
 import ashwin.uomtrust.ac.mu.entity.ManageRequest;
 import ashwin.uomtrust.ac.mu.entity.Request;
 import ashwin.uomtrust.ac.mu.enums.RequestStatus;
 import ashwin.uomtrust.ac.mu.repository.AccountRepository;
+import ashwin.uomtrust.ac.mu.repository.CarRepository;
+import ashwin.uomtrust.ac.mu.repository.ManageRequestRepository;
 import ashwin.uomtrust.ac.mu.repository.RequestRepository;
+import ashwin.uomtrust.ac.mu.utils.Utils;
 
 @Service
 public class RequestServiceImp implements RequestService{
@@ -23,8 +30,13 @@ public class RequestServiceImp implements RequestService{
 	
 	@Autowired
 	private AccountRepository accountRepository;
+	
+	@Autowired
+	private ManageRequestRepository manageRequestRepository;
 
-
+	@Autowired
+	private CarRepository carRepository;
+	
 	@Override
 	public RequestDTO save(RequestDTO requestDTO) {
 		Account account = accountRepository.findOne(requestDTO.getAccountId());
@@ -112,12 +124,14 @@ public class RequestServiceImp implements RequestService{
 	*/
 	
 	@Override
-	public List<RequestDTO> driverGetPendingRequestList(RequestDTO requestDTO) {
+	public List<RequestObject> driverGetPendingRequestList(RequestDTO requestDTO) {
 		List<Request> requestList = requestRepository.getRequestByUserIdAndRequestStatus(requestDTO.getAccountId(), requestDTO.getRequestStatus());
-		
-		List<RequestDTO> requestDTOs = new ArrayList<>();
+				
+		List<RequestObject> requestObjectList = new ArrayList<>();
 		
 		for(Request request : requestList){
+			RequestObject requestObject = new RequestObject();
+			
 			RequestDTO newRequestDTO = new RequestDTO();
 			newRequestDTO.setAccountId(request.getAccount().getAccountId());
 			
@@ -131,6 +145,10 @@ public class RequestServiceImp implements RequestService{
 			newRequestDTO.setPrice(request.getPrice());
 			newRequestDTO.setSeatAvailable(request.getSeatAvailable());
 			
+			Car car = carRepository.getCarByAccountId(request.getAccount().getAccountId());
+			newRequestDTO.setCarId(car.getCarId());
+
+			
 			Calendar cal = Calendar.getInstance();
 			cal.setTimeInMillis(request.getDateCreated().getTime());
 			newRequestDTO.setDateCreated(cal.getTime());
@@ -141,13 +159,48 @@ public class RequestServiceImp implements RequestService{
 			cal.setTimeInMillis(request.getEventDate().getTime());
 			newRequestDTO.setEventDate(cal.getTime());
 			
-			newRequestDTO.setAccountId(request.getAccount().getAccountId());
-
+			newRequestDTO.setAccountId(request.getAccount().getAccountId());			
 			
-			requestDTOs.add(newRequestDTO);
+			List<ManageRequest> manageRequestList = manageRequestRepository.getManageRequestByRequestId(request.getRequestId());
+			List<ManageRequestDTO> manageRquestDTOList = new ArrayList<>();
+			List<AccountDTO> accountDTOList =  new ArrayList<>();
+			
+			for(ManageRequest m : manageRequestList){
+				ManageRequestDTO manageRequestDTO = new ManageRequestDTO();
+				manageRequestDTO.setAccountId(m.getUserAccount().getAccountId());
+				manageRequestDTO.setCarId(m.getCar().getCarId());
+				
+				Calendar mCalendar = Calendar.getInstance();
+				
+				mCalendar.setTimeInMillis(m.getDateCreated().getTime());			
+				manageRequestDTO.setDateCreated(mCalendar.getTime());
+				
+				mCalendar.setTimeInMillis(m.getDateUpdated().getTime());
+				manageRequestDTO.setDateUpdated(mCalendar.getTime());
+				
+				manageRequestDTO.setManageRequestId(m.getManageRequestId());
+				manageRequestDTO.setRequestId(m.getRequest().getRequestId());
+				manageRequestDTO.setRequestStatus(m.getRequestStatus());
+				
+				manageRquestDTOList.add(manageRequestDTO);
+				
+				Account a = m.getUserAccount();
+				AccountDTO accountDTO = new AccountDTO();
+				accountDTO.setAccountId(a.getAccountId());				
+				accountDTO.setFirstName(a.getFirstName());
+				accountDTO.setLastName(a.getLastName());
+				Utils.getImageProfile(accountDTO);
+				
+				accountDTOList.add(accountDTO);
+			}
+				
+			requestObject.setAccountDTOList(accountDTOList);
+			requestObject.setRequestDTO(newRequestDTO);
+			requestObject.setManageRequestDTOList(manageRquestDTOList);			
+			requestObjectList.add(requestObject);
 		}
 		
-		return requestDTOs;
+		return requestObjectList;
 	}
 
 	

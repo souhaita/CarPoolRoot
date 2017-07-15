@@ -13,19 +13,17 @@ public class WebService {
     public static final String API_ACCOUNT = SERVER_URL + "account/";
     public static final String API_CLIENT = SERVER_URL + "client/";
     public static final String API_REQUEST = SERVER_URL + "request/";
-
     public static final String API_CREATE_ACCOUNT = API_ACCOUNT +"createAccount";
-
     public static final String API_CHECK_ACCOUNT_VIA_EMAIL = API_ACCOUNT +"checkAccountViaEmail";
 
 
-    //USER
+    //CAR SEEKER
     public static final String USER_API_GET_PENDING_REQUEST_LIST = API_REQUEST +"userGetPendingRequestList";
     public static final String USER_API_OTHER_REQUEST_LIST = API_REQUEST +"userGetOtherRequestList";
     public static final String USER_API_ACCEPT_OR_REJECT_REQUEST = API_REQUEST +"acceptOrRejectRequestUser";
 
 
-    //DRIVER
+    //CAR POOLER
     public static final String API_DRIVER_CREATE_CAR_DETAILS = API_ACCOUNT +"driverCreateCar";
     public static final String API_DRIVER_CREATE_UPDATE_REQUEST = API_REQUEST +"driverCreateUpdateRequest";
     public static final String API_DRIVER_GET_PENDING_REQUEST_LIST = API_REQUEST +"driverGetPendingRequestList";
@@ -34,7 +32,7 @@ public class WebService {
 
 
 
-
+    // not in use
     public static final String API_DRIVER_OTHER_REQUEST_LIST = API_REQUEST +"driverGetOtherRequestList";
     public static final String TAXI_API_GET_CAR_DETAILS = API_CLIENT +"taxiGetCarDetails";
     public static final String TAXI_API_ACCEPT_OR_REJECT_REQUEST = API_REQUEST +"acceptOrRejectRequestTaxi";

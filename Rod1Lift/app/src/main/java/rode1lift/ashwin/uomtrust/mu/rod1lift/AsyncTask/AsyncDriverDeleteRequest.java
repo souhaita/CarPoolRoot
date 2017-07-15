@@ -12,11 +12,14 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
-import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.RequestAdapter;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.DriverRequestAdapterPending;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.PhotoViewPagerAdapter;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.RequestDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestDTO;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestObject;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.WebService.WebService;
@@ -30,13 +33,13 @@ public class AsyncDriverDeleteRequest extends AsyncTask<RequestDTO, Void ,Boolea
     private Context context;
     private ProgressDialog progressDialog;
     private RequestDTO requestDTO;
-    private RequestAdapter requestAdapter;
-    private List<RequestDTO> requestDTOList;
+    private DriverRequestAdapterPending driverRequestAdapterPending;
+    private List<RequestObject> requestObjectList;
 
-    public AsyncDriverDeleteRequest(final Context context, RequestAdapter requestAdapter, List<RequestDTO> requestDTOList) {
+    public AsyncDriverDeleteRequest(final Context context, DriverRequestAdapterPending driverRequestAdapterPending, List<RequestObject> requestObjectList) {
         this.context = context;
-        this.requestAdapter = requestAdapter;
-        this.requestDTOList = requestDTOList;
+        this.driverRequestAdapterPending = driverRequestAdapterPending;
+        this.requestObjectList = requestObjectList;
     }
 
     @Override
@@ -102,9 +105,13 @@ public class AsyncDriverDeleteRequest extends AsyncTask<RequestDTO, Void ,Boolea
         if(deleted != null && deleted) {
             new RequestDAO(context).deleteRequest(requestDTO.getRequestId());
 
-            requestDTOList.remove(requestDTO);
-            requestAdapter.setRequestDTOList(requestDTOList);
-            requestAdapter.notifyDataSetChanged();
+            List<RequestObject> newRequestObjectList = new ArrayList<>();
+            for(RequestObject r : requestObjectList) {
+                if(!r.getRequestDTO().getRequestId().equals(requestDTO.getRequestId()))
+                    newRequestObjectList.add(r);
+            }
+            driverRequestAdapterPending.setRequestObjectList(newRequestObjectList);
+            driverRequestAdapterPending.notifyDataSetChanged();
         }
         else{
             Utils.alertError(context, context.getString(R.string.error_server));

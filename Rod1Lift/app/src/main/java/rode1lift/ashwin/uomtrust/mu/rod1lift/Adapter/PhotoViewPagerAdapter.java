@@ -9,7 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import java.util.List;
+
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 
 /**
  * Created by Ashwin on 12-Jul-17.
@@ -18,14 +21,23 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
 public class PhotoViewPagerAdapter extends PagerAdapter {
 
     private Context context;
+    private List<byte []> pictures;
+    private boolean pending;
 
-    public PhotoViewPagerAdapter(Context context) {
+    public PhotoViewPagerAdapter(Context context, List<byte []> pictures, boolean pending) {
         this.context = context;
+        this.pictures = pictures;
+        this.pending = pending;
     }
 
 
     @Override
     public int getCount() {
+        if(pictures != null && pictures.size() >0) {
+            int x = pending? pictures.size()+1 : pictures.size();
+            return x;
+        }
+
         return 1;
     }
 
@@ -37,14 +49,12 @@ public class PhotoViewPagerAdapter extends PagerAdapter {
         ImageView imageView = (ImageView)layout.findViewById(R.id.imgCarPager);
 
         try {
-            /*if (position == 0)
-                imageView.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_bin_close_red));
-            else if (position == 1)
-                imageView.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_bin_open_red));
-            else
-                imageView.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_tick_blue));*/
-
-            imageView.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_pending));
+            if(pending){
+                if (position == 0)
+                    imageView.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_pending));
+                else
+                    imageView.setImageBitmap(Utils.convertBlobToBitmap(pictures.get((position-1))));
+            }
 
             collection.addView(layout);
         }
@@ -66,4 +76,19 @@ public class PhotoViewPagerAdapter extends PagerAdapter {
         return view == object;
     }
 
+    public List<byte[]> getPictures() {
+        return pictures;
+    }
+
+    public void setPictures(List<byte[]> pictures) {
+        this.pictures = pictures;
+    }
+
+    public boolean isPending() {
+        return pending;
+    }
+
+    public void setPending(boolean pending) {
+        this.pending = pending;
+    }
 }

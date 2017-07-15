@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import ashwin.uomtrust.ac.mu.dto.RequestDTO;
+import ashwin.uomtrust.ac.mu.dto.RequestObject;
 import ashwin.uomtrust.ac.mu.service.AccountService;
 import ashwin.uomtrust.ac.mu.service.CarService;
 import ashwin.uomtrust.ac.mu.service.RequestService;
@@ -36,7 +37,7 @@ public class RequestController {
 	
 	@CrossOrigin(origins = "http://localhost:8081")
    	@RequestMapping(value = "/driverGetPendingRequestList", method = RequestMethod.POST)
-   	public List<RequestDTO> driverGetPendingRequestList(@RequestBody RequestDTO requestDTO) {    	    	
+   	public List<RequestObject> driverGetPendingRequestList(@RequestBody RequestDTO requestDTO) {    	    	
     	return requestService.driverGetPendingRequestList(requestDTO);
    	}
 
