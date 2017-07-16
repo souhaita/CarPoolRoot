@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -19,6 +20,7 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -34,7 +36,10 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
+
+import static android.content.Context.MODE_PRIVATE;
 
 
 /**
@@ -152,6 +157,13 @@ public class Utils {
         animationDrawable.start();
     }
 
+    public static void animateLayout(FrameLayout frameLayout){
+        AnimationDrawable animationDrawable = (AnimationDrawable) frameLayout.getBackground();
+        animationDrawable.setEnterFadeDuration(4000);
+        animationDrawable.setExitFadeDuration(4000);
+        animationDrawable.start();
+    }
+
     public static void turnGPSOn(Context context){
         Intent intent=new Intent("android.location.GPS_ENABLED_CHANGE");
         intent.putExtra("enabled", true);
@@ -175,16 +187,9 @@ public class Utils {
         return newBitmap;
     }
 
-    /*public static DisplayMetrics getDisplayMetric(Context context){
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-       ((Activity)context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-
-        return displayMetrics;
+    public static Integer getCurrentAccount(Context context){
+        SharedPreferences prefs = context.getSharedPreferences(CONSTANT.APP_NAME, MODE_PRIVATE);
+        Integer currentAccountId = prefs.getInt(CONSTANT.CURRENT_ACCOUNT_ID, 1);
+        return currentAccountId;
     }
-
-    public static int dipToPixels(Context context, float dipValue) {
-        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
-        return (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dipValue, metrics);
-    }*/
-
 }

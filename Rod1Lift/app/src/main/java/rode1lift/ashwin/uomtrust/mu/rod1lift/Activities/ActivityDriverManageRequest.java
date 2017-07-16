@@ -17,6 +17,7 @@ import com.github.clans.fab.FloatingActionMenu;
 
 import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncDriverFetchRequest;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.CarDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.RequestStatus;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
@@ -55,6 +56,12 @@ public class ActivityDriverManageRequest extends Activity {
         requestDTO = new RequestDTO();
         requestDTO.setRequestStatus(RequestStatus.REQUEST_PENDING);
 
+        int userId = Utils.getCurrentAccount(ActivityDriverManageRequest.this);
+        Integer carId = new CarDAO(ActivityDriverManageRequest.this).getCarByAccountID(userId).getCarId();
+
+        if(carId != null)
+            requestDTO.setCarId(carId);
+
         listView = (ListView)findViewById(R.id.sLvManageRequest);
 
         final Spinner spinnerRequestStatus = (Spinner)findViewById(R.id.spinnerRequestStatus);
@@ -92,19 +99,23 @@ public class ActivityDriverManageRequest extends Activity {
             }
         });
 
-        FloatingActionButton fabDriverAccepted = (FloatingActionButton) findViewById(R.id.fabDriverAccepted);
-        fabDriverAccepted.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                spinnerRequestStatus.setSelection(3);
-                fabMenu.close(true);
-            }
-        });
-
         spinnerRequestStatus.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 
+                switch (position){
+                    case 0:
+                        requestDTO.setRequestStatus(RequestStatus.REQUEST_PENDING);
+                        break;
+
+                    case 1:
+                        requestDTO.setRequestStatus(RequestStatus.REQUEST_PENDING);
+                        break;
+
+                    case 2:
+                        requestDTO.setRequestStatus(RequestStatus.USER_ACCEPTED);
+                        break;
+                }
                 new AsyncDriverFetchRequest(ActivityDriverManageRequest.this, listView).execute(requestDTO);
             }
 

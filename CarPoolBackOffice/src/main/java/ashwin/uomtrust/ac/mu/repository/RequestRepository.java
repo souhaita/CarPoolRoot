@@ -18,18 +18,6 @@ import ashwin.uomtrust.ac.mu.enums.RequestStatus;
 @Repository
 public interface RequestRepository extends JpaRepository<Request, Long> {	
 	
-	/*@Modifying
-	@Query("update Request r set r.requestStatus = :requestStatus where r.requestId =:requestId order by r.requestId desc")
-	@Transactional
-	public void updateRequestStatustById(@Param("requestId") Integer requestId, @Param("requestStatus") RequestStatus requestStatus );
-	
-	@Query("select r from Request r where r.requestStatus =:requestStatus order by r.requestId desc")
-	public List<Request> getListRequestsByStatus(@Param("requestStatus") RequestStatus requestStatus);
-	
-	
-	@Query("select r from Request r join r.account a where r.requestStatus = :request_status order by r.requestId desc")
-	public List<Request> getRequestByStatusForTaxi(@Param("requestStatus") Integer requestStatus);*/
-	
 	@Query("select r from Request r join r.account a where r.account = a and a.accountId =:accountId and r.requestStatus =:requestStatus order by r.requestId desc")
 	public List<Request> getRequestByUserIdAndRequestStatus(@Param("accountId") Long accountId,@Param("requestStatus") RequestStatus requestStatus);
 	

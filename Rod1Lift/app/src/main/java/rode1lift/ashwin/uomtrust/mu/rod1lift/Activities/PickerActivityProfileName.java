@@ -32,8 +32,7 @@ public class PickerActivityProfileName extends Activity {
         setContentView(R.layout.picker_profile_name);
         getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
-        SharedPreferences prefs = getSharedPreferences(CONSTANT.APP_NAME, MODE_PRIVATE);
-        userId = prefs.getInt(CONSTANT.CURRENT_ACCOUNT_ID, -1);
+        userId = Utils.getCurrentAccount(PickerActivityProfileName.this);
 
         final EditText eTxtFullName =(EditText)findViewById(R.id.eTxtFullName);
 

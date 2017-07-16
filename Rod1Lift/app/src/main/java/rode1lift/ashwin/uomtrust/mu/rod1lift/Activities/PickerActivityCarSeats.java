@@ -14,6 +14,7 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.CarDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.CarDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 
 
 public class PickerActivityCarSeats extends Activity {
@@ -29,8 +30,7 @@ public class PickerActivityCarSeats extends Activity {
 
         final NumberPicker pickerNumPassenger = (NumberPicker) findViewById(R.id.pickerNumPassenger);
 
-        SharedPreferences prefs = getSharedPreferences(CONSTANT.APP_NAME, MODE_PRIVATE);
-        userId = prefs.getInt(CONSTANT.CURRENT_ACCOUNT_ID, -1);
+        userId = Utils.getCurrentAccount(PickerActivityCarSeats.this);
         carDTO = new CarDAO(PickerActivityCarSeats.this).getCarByAccountID(userId);
 
         pickerNumPassenger.setMinValue(1);

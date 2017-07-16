@@ -18,6 +18,7 @@ public class RequestDTO implements Serializable {
     private Integer price;
     private Integer accountId;
     private Integer seatAvailable;
+    private Integer manageRequestId;
 
     private Date dateCreated;
     private Date dateUpdated;
@@ -123,5 +124,13 @@ public class RequestDTO implements Serializable {
 
     public void setSeatAvailable(Integer seatAvailable) {
         this.seatAvailable = seatAvailable;
+    }
+
+    public Integer getManageRequestId() {
+        return manageRequestId;
+    }
+
+    public void setManageRequestId(Integer manageRequestId) {
+        this.manageRequestId = manageRequestId;
     }
 }

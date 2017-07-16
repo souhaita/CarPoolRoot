@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.support.v4.view.ViewPager;
+import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -25,7 +26,9 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.AccountDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestObject;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.RequestStatus;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.SwipeView.SwipeRevealLayout;
 
 /**
  * Created by Ashwin on 09-Jul-17.
@@ -41,10 +44,12 @@ public class DriverRequestAdapterPending extends BaseAdapter {
     boolean confirmDelete = false;
 
     private DriverRequestAdapterPending DriverRequestAdapterPending = this;
+    private RequestStatus requestStatus;
 
-    public DriverRequestAdapterPending(Context context, List<RequestObject> requestObjectList){
+    public DriverRequestAdapterPending(Context context, List<RequestObject> requestObjectList, RequestStatus requestStatus){
         this.context = context;
         this.requestObjectList = requestObjectList;
+        this.requestStatus = requestStatus;
 
         inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -108,7 +113,7 @@ public class DriverRequestAdapterPending extends BaseAdapter {
             }
         }
 
-        PhotoViewPagerAdapter photoViewPagerAdapter = new PhotoViewPagerAdapter(context, profilePic, true);
+        PhotoViewPagerAdapter photoViewPagerAdapter = new PhotoViewPagerAdapter(context, profilePic);
         imgCarPic.setAdapter(photoViewPagerAdapter);
 
         imgCarPic.setOnTouchListener(new View.OnTouchListener() {
@@ -173,10 +178,10 @@ public class DriverRequestAdapterPending extends BaseAdapter {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 switch (motionEvent.getAction()) {
-                    case MotionEvent.ACTION_MOVE:
+                    case MotionEvent.ACTION_CANCEL:
                         imgDelete.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_bin_close_red));
                         confirmDelete = false;
-                        return true;
+                        return false;
                 }
                 return false;
             }

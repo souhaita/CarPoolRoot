@@ -21,20 +21,17 @@ public class PhotoViewPagerAdapter extends PagerAdapter {
 
     private Context context;
     private List<byte []> pictures;
-    private boolean pending;
 
-    public PhotoViewPagerAdapter(Context context, List<byte []> pictures, boolean pending) {
+    public PhotoViewPagerAdapter(Context context, List<byte []> pictures) {
         this.context = context;
         this.pictures = pictures;
-        this.pending = pending;
     }
 
 
     @Override
     public int getCount() {
         if(pictures != null && pictures.size() >0) {
-            int x = pending? pictures.size()+1 : pictures.size();
-            return x;
+            return pictures.size();
         }
 
         return 1;
@@ -48,11 +45,12 @@ public class PhotoViewPagerAdapter extends PagerAdapter {
         ImageView imageView = (ImageView)layout.findViewById(R.id.imgCarPager);
 
         try {
-            if(pending){
-                if (position == 0)
-                    imageView.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.photo_pending));
-                else
-                    imageView.setImageBitmap(Utils.convertBlobToBitmap(pictures.get((position-1))));
+
+            if(pictures.size() == 0){
+                imageView.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.logo_background));
+            }
+            else {
+                imageView.setImageBitmap(Utils.convertBlobToBitmap(pictures.get((position))));
             }
 
             collection.addView(layout);
@@ -81,13 +79,5 @@ public class PhotoViewPagerAdapter extends PagerAdapter {
 
     public void setPictures(List<byte[]> pictures) {
         this.pictures = pictures;
-    }
-
-    public boolean isPending() {
-        return pending;
-    }
-
-    public void setPending(boolean pending) {
-        this.pending = pending;
     }
 }

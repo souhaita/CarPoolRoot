@@ -23,13 +23,11 @@ public class ManageRequestDAO {
         dbHelper = DatabaseHelper.getInstance(context);
     }
 
-    public ManageRequestDTO getManageRequest(ManageRequestDTO manageRequestDTO) {
+    public ManageRequestDTO getManageRequest(Integer manageRequestId) {
         final StringBuilder sql = new StringBuilder();
         sql.append(" SELECT * ");
         sql.append(" FROM "+ TABLE_NAME);
-        sql.append(" WHERE request_id = " + manageRequestDTO.getRequestId());
-        sql.append(" AND account_id = " + manageRequestDTO.getAccountId());
-        sql.append(" AND car_id = " + manageRequestDTO.getCarId());
+        sql.append(" WHERE manage_request_id = " + manageRequestId);
 
         dbHelper.open();
         Cursor res = dbHelper.executeQuery(sql.toString(), null);
@@ -37,19 +35,26 @@ public class ManageRequestDAO {
             res.moveToFirst();
         }
 
-        while (!res.isAfterLast()) {
+        ManageRequestDTO manageRequestDTO = new ManageRequestDTO();
 
-            manageRequestDTO.setCarId(res.getInt(res.getColumnIndex("car_id")));
-            manageRequestDTO.setAccountId(res.getInt(res.getColumnIndex("account_id")));
-            manageRequestDTO.setDateCreated(new Date(res.getLong(res.getColumnIndex("date_created"))));
-            manageRequestDTO.setDateUpdated(new Date(res.getLong(res.getColumnIndex("date_updated"))));
-            manageRequestDTO.setManageRequestId(res.getInt(res.getColumnIndex("manage_request_id")));
-            manageRequestDTO.setRequestStatus(RequestStatus.valueFor(res.getInt(res.getColumnIndex("request_status"))));
-            manageRequestDTO.setRequestId(res.getInt(res.getColumnIndex("request_id")));
+        while (!res.isAfterLast()) {
+            manageRequestDTO = setDTO(res);
             res.moveToNext();
         }
 
         res.close();
+        return manageRequestDTO;
+    }
+
+    private ManageRequestDTO setDTO(Cursor res){
+        ManageRequestDTO manageRequestDTO = new ManageRequestDTO();
+        manageRequestDTO.setCarId(res.getInt(res.getColumnIndex("car_id")));
+        manageRequestDTO.setAccountId(res.getInt(res.getColumnIndex("account_id")));
+        manageRequestDTO.setDateCreated(new Date(res.getLong(res.getColumnIndex("date_created"))));
+        manageRequestDTO.setDateUpdated(new Date(res.getLong(res.getColumnIndex("date_updated"))));
+        manageRequestDTO.setManageRequestId(res.getInt(res.getColumnIndex("manage_request_id")));
+        manageRequestDTO.setRequestStatus(RequestStatus.valueFor(res.getInt(res.getColumnIndex("request_status"))));
+        manageRequestDTO.setRequestId(res.getInt(res.getColumnIndex("request_id")));
 
         return manageRequestDTO;
     }
@@ -70,20 +75,20 @@ public class ManageRequestDAO {
 
     }
 
+    public void deleteManageRequest(Integer manageRequestId){
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        db.delete(TABLE_NAME, " manage_request_id = " + manageRequestId, null);
+    }
+
     public long saveOrUpdateManageRequest(ManageRequestDTO manageRequestDTO){
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues contentValues = setContentValues(manageRequestDTO);
 
-        boolean newRequest = getManageRequest(manageRequestDTO).getRequestId() == null;
+        boolean newRequest = getManageRequest(manageRequestDTO.getManageRequestId()).getRequestId() == null;
 
         if(newRequest)
             return db.insert(TABLE_NAME, null, contentValues);
-        else {
-            String condition = " request_id = " + manageRequestDTO.getRequestId()
-                                +" and account_id = " + manageRequestDTO.getAccountId()
-                                + " and car_id = "+ manageRequestDTO.getCarId();
-
-            return db.update(TABLE_NAME, contentValues, condition, null);
-        }
+        else
+            return db.update(TABLE_NAME, contentValues, "manage_request_id = "+manageRequestDTO.getManageRequestId(), null);
     }
 }

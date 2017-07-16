@@ -16,6 +16,7 @@ public class RequestDTO implements Serializable {
     private Long requestId;
     private Long carId;
     private Long accountId;
+    private Long manageRequestId;
 
     private Integer price;
     private Integer seatAvailable;
@@ -125,4 +126,12 @@ public class RequestDTO implements Serializable {
     public void setSeatAvailable(Integer seatAvailable) {
         this.seatAvailable = seatAvailable;
     }
+
+	public Long getManageRequestId() {
+		return manageRequestId;
+	}
+
+	public void setManageRequestId(Long manageRequestId) {
+		this.manageRequestId = manageRequestId;
+	}
 }

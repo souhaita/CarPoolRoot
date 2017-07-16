@@ -51,8 +51,7 @@ public class ActivityMain extends AppCompatActivity implements NavigationView.On
         ActivityMap mapActivity = new ActivityMap();
         changeFragment(mapActivity);
 
-        SharedPreferences prefs = getSharedPreferences(CONSTANT.APP_NAME, MODE_PRIVATE);
-        Integer accountId = prefs.getInt(CONSTANT.CURRENT_ACCOUNT_ID, -1);
+        Integer accountId = Utils.getCurrentAccount(getApplicationContext());
 
         AccountDTO accountDTO = new AccountDAO(this).getAccountById(accountId);
 
@@ -155,8 +154,7 @@ public class ActivityMain extends AppCompatActivity implements NavigationView.On
     protected void onResume(){
         super.onResume();
 
-        SharedPreferences prefs = getSharedPreferences(CONSTANT.APP_NAME, MODE_PRIVATE);
-        Integer accountId = prefs.getInt(CONSTANT.CURRENT_ACCOUNT_ID, -1);
+        Integer accountId = Utils.getCurrentAccount(getApplicationContext());
 
         AccountDTO accountDTO = new AccountDAO(this).getAccountById(accountId);
 

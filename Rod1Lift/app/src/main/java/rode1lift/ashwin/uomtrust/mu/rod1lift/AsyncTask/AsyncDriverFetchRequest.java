@@ -22,6 +22,7 @@ import java.util.Date;
 import java.util.List;
 
 
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.DriverRequestAdapterOther;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.DriverRequestAdapterPending;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.ManageRequestDAO;
@@ -46,8 +47,9 @@ public class AsyncDriverFetchRequest extends AsyncTask<RequestDTO, Void ,List<Re
     private Context context;
     private ProgressDialog progressDialog;
     private ListView listView;
+    private RequestStatus requestStatus;
 
-    public AsyncDriverFetchRequest(final Context context, ListView listView ) {
+    public AsyncDriverFetchRequest(final Context context, ListView listView) {
         this.context = context;
         this.listView = listView;
     }
@@ -73,8 +75,12 @@ public class AsyncDriverFetchRequest extends AsyncTask<RequestDTO, Void ,List<Re
 
             RequestDTO requestDTO = params[0];
             if(requestDTO != null) {
+                requestStatus = requestDTO.getRequestStatus();
                 postData.put("requestStatus", requestDTO.getRequestStatus().getValue());
                 postData.put("accountId", userId);
+
+                if(requestDTO.getCarId() != null)
+                    postData.put("carId", requestDTO.getCarId());
             }
 
             String url;
@@ -192,7 +198,7 @@ public class AsyncDriverFetchRequest extends AsyncTask<RequestDTO, Void ,List<Re
     protected void onPostExecute(List<RequestObject> requestObjectList){
         super.onPostExecute(requestObjectList);
 
-        if(requestObjectList != null && requestObjectList.size() >0) {
+        if(requestStatus == RequestStatus.REQUEST_PENDING && requestObjectList != null && requestObjectList.size() >0) {
             List<RequestDTO> requestDTOList = new ArrayList<>();
             List<ManageRequestDTO> manageRequestDTOList = new ArrayList<>();
             List<AccountDTO> accountDTOList = new ArrayList<>();
@@ -217,8 +223,15 @@ public class AsyncDriverFetchRequest extends AsyncTask<RequestDTO, Void ,List<Re
                 manageRequestDAO.saveOrUpdateManageRequest(manageRequestDTO);
             }
 
-            final DriverRequestAdapterPending driverRequestAdapterPending = new DriverRequestAdapterPending(context, requestObjectList);
+            final DriverRequestAdapterPending driverRequestAdapterPending = new DriverRequestAdapterPending(context, requestObjectList, RequestStatus.REQUEST_PENDING);
+            listView.setAdapter(null);
             listView.setAdapter(driverRequestAdapterPending);
+        }
+
+        else if(requestStatus == RequestStatus.USER_ACCEPTED){
+            final DriverRequestAdapterOther driverRequestAdapterOther = new DriverRequestAdapterOther(context, requestObjectList, requestStatus);
+            listView.setAdapter(null);
+            listView.setAdapter(driverRequestAdapterOther);
         }
 
         if(progressDialog != null && progressDialog.isShowing())

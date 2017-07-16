@@ -45,11 +45,14 @@ public class ProfileActivity extends Activity {
     private List<ProfileObject> profileObjectList = new ArrayList<>();
     private RecyclerView recyclerView;
     private ProfileAdapter profileAdapter;
+    private Integer userId = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_main);
+
+        userId = Utils.getCurrentAccount(ProfileActivity.this);
 
         prepareDataList();
         profileAdapter = new ProfileAdapter(ProfileActivity.this, profileObjectList);
@@ -101,8 +104,6 @@ public class ProfileActivity extends Activity {
                 if (data.getData() != null) {
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
 
-                    SharedPreferences prefs = getSharedPreferences(CONSTANT.APP_NAME, MODE_PRIVATE);
-                    Integer userId = prefs.getInt(CONSTANT.CURRENT_ACCOUNT_ID, -1);
                     AccountDTO accountDTO = new AccountDAO(ProfileActivity.this).getAccountById(userId);
                     accountDTO.setProfilePicture(Utils.convertBitmapToBlob(bitmap));
                     new AccountDAO(ProfileActivity.this).saveOrUpdateAccount(accountDTO);
@@ -129,9 +130,6 @@ public class ProfileActivity extends Activity {
             try {
                 if (data.getData() != null) {
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
-
-                    SharedPreferences prefs = getSharedPreferences(CONSTANT.APP_NAME, MODE_PRIVATE);
-                    Integer userId = prefs.getInt(CONSTANT.CURRENT_ACCOUNT_ID, -1);
 
                     CarDTO carDTO = new CarDAO(ProfileActivity.this).getCarByAccountID(userId);
 
@@ -186,9 +184,6 @@ public class ProfileActivity extends Activity {
             profileAdapter.setProfileObjectList(profileObjectList);
             profileAdapter.notifyDataSetChanged();
 
-            SharedPreferences prefs = getSharedPreferences(CONSTANT.APP_NAME, MODE_PRIVATE);
-            Integer userId = prefs.getInt(CONSTANT.CURRENT_ACCOUNT_ID, -1);
-
             CarDTO carDTO = new CarDAO(ProfileActivity.this).getCarByAccountID(userId);
             new AsyncDriverUpdateCar(ProfileActivity.this).execute(carDTO);
 
@@ -201,9 +196,6 @@ public class ProfileActivity extends Activity {
 
 
     private void prepareDataList(){
-        SharedPreferences prefs = getSharedPreferences(CONSTANT.APP_NAME, MODE_PRIVATE);
-        Integer userId = prefs.getInt(CONSTANT.CURRENT_ACCOUNT_ID, -1);
-
         AccountDTO accountDTO = new AccountDAO(ProfileActivity.this).getAccountById(userId);
 
         profileObjectList.add(new ProfileObject(ViewType.PROFILE_PICTURE, accountDTO));

@@ -28,15 +28,9 @@ public class WebService {
     public static final String API_DRIVER_CREATE_UPDATE_REQUEST = API_REQUEST +"driverCreateUpdateRequest";
     public static final String API_DRIVER_GET_PENDING_REQUEST_LIST = API_REQUEST +"driverGetPendingRequestList";
     public static final String API_DRIVER_FETCH_CAR_DETAILS = API_ACCOUNT +"driverFetchCarDetails";
-    public static final String API_DRIVER_DELETE_REQUEST = API_REQUEST +"driverDeleteRequest";
-
-
-
-    // not in use
+    public static final String API_DRIVER_DELETE_PENDING_REQUEST = API_REQUEST +"driverDeletePendingRequest";
+    public static final String API_DRIVER_DELETE_CLIENT_REQUEST = API_REQUEST +"driverDeleteClientRequest";
     public static final String API_DRIVER_OTHER_REQUEST_LIST = API_REQUEST +"driverGetOtherRequestList";
-    public static final String TAXI_API_GET_CAR_DETAILS = API_CLIENT +"taxiGetCarDetails";
-    public static final String TAXI_API_ACCEPT_OR_REJECT_REQUEST = API_REQUEST +"acceptOrRejectRequestTaxi";
-
-
+    public static final String API_DRIVER_ACCEPT_CLIENT_REQUEST = API_REQUEST +"driverAcceptClientRequest";
 
 }

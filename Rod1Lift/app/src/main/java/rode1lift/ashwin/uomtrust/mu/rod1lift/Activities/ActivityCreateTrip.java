@@ -17,6 +17,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Filterable;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -83,6 +84,9 @@ public class ActivityCreateTrip extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_trip);
+
+        FrameLayout flMain = (FrameLayout)findViewById(R.id.flMain);
+        Utils.animateLayout(flMain);
 
         API_KEY = getString(R.string.google_places_api_key);
 

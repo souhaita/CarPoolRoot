@@ -13,6 +13,7 @@ import ashwin.uomtrust.ac.mu.dto.RequestDTO;
 import ashwin.uomtrust.ac.mu.dto.RequestObject;
 import ashwin.uomtrust.ac.mu.service.AccountService;
 import ashwin.uomtrust.ac.mu.service.CarService;
+import ashwin.uomtrust.ac.mu.service.ManageRequestService;
 import ashwin.uomtrust.ac.mu.service.RequestService;
 
 @RestController
@@ -28,6 +29,9 @@ public class RequestController {
 	@Autowired
 	private RequestService requestService;
 	
+	@Autowired
+	private ManageRequestService manageRequestService;
+	
 	
 	@CrossOrigin(origins = "http://localhost:8081")
 	@RequestMapping(value = "/driverCreateUpdateRequest", method = RequestMethod.POST)
@@ -42,8 +46,26 @@ public class RequestController {
    	}
 
 	@CrossOrigin(origins = "http://localhost:8081")
-   	@RequestMapping(value = "/driverDeleteRequest", method = RequestMethod.POST)
-   	public Boolean driverDeleteRequest(@RequestBody RequestDTO requestDTO) {    	    	
-    	return requestService.driverDeleteRequest(requestDTO.getRequestId());
+   	@RequestMapping(value = "/driverDeletePendingRequest", method = RequestMethod.POST)
+   	public Boolean driverDeletePendingRequest(@RequestBody RequestDTO requestDTO) {    	    	
+    	return requestService.driverDeletePendingRequest(requestDTO.getRequestId());
+   	}
+	
+	@CrossOrigin(origins = "http://localhost:8081")
+   	@RequestMapping(value = "/driverDeleteClientRequest", method = RequestMethod.POST)
+   	public Boolean driverDeleteClientRequest(@RequestBody RequestDTO requestDTO) {    	
+    	return manageRequestService.driverDeleteClientRequest(requestDTO.getManageRequestId());
+   	}
+	
+	@CrossOrigin(origins = "http://localhost:8081")
+   	@RequestMapping(value = "/driverAcceptClientRequest", method = RequestMethod.POST)
+   	public Boolean driverAcceptClientRequest(@RequestBody RequestDTO requestDTO) {    	
+    	return manageRequestService.driverAcceptClientRequest(requestDTO.getManageRequestId());
+   	}
+	
+	@CrossOrigin(origins = "http://localhost:8081")
+   	@RequestMapping(value = "/driverGetOtherRequestList", method = RequestMethod.POST)
+   	public List<RequestObject> driverGetOtherRequestList(@RequestBody RequestDTO requestDTO) {    	    	
+    	return manageRequestService.driverGetRequestList(requestDTO);
    	}
 }

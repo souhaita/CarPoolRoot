@@ -17,11 +17,14 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.DriverRequestAdapterOther;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.DriverRequestAdapterPending;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.PhotoViewPagerAdapter;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.ManageRequestDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.RequestDAO;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.ManageRequestDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestObject;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.RequestStatus;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.WebService.WebService;
@@ -41,9 +44,17 @@ public class AsyncDriverDeleteRequest extends AsyncTask<RequestDTO, Void ,Boolea
     private List<RequestObject> requestObjectList;
     private Intent intent;
 
+    private DriverRequestAdapterOther driverRequestAdapterOther;
+
     public AsyncDriverDeleteRequest(final Context context, DriverRequestAdapterPending driverRequestAdapterPending, List<RequestObject> requestObjectList) {
         this.context = context;
         this.driverRequestAdapterPending = driverRequestAdapterPending;
+        this.requestObjectList = requestObjectList;
+    }
+
+    public AsyncDriverDeleteRequest(final Context context, DriverRequestAdapterOther driverRequestAdapterOther, List<RequestObject> requestObjectList) {
+        this.context = context;
+        this.driverRequestAdapterOther = driverRequestAdapterOther;
         this.requestObjectList = requestObjectList;
     }
 
@@ -70,7 +81,17 @@ public class AsyncDriverDeleteRequest extends AsyncTask<RequestDTO, Void ,Boolea
         try{
             postData.put("requestId", requestDTO.getRequestId());
 
-            httpURLConnection = (HttpURLConnection) new URL(WebService.API_DRIVER_DELETE_REQUEST).openConnection();
+            if(requestDTO.getManageRequestId() != null)
+                postData.put("manageRequestId", requestDTO.getManageRequestId());
+
+            String url;
+
+            if(requestDTO.getRequestStatus() == RequestStatus.REQUEST_PENDING)
+                url = WebService.API_DRIVER_DELETE_PENDING_REQUEST;
+            else
+                url = WebService.API_DRIVER_DELETE_CLIENT_REQUEST;
+
+            httpURLConnection = (HttpURLConnection) new URL(url).openConnection();
             httpURLConnection.setRequestMethod("POST");
             httpURLConnection.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
             httpURLConnection.setRequestProperty("Accept", "application/json;charset=UTF-8");
@@ -113,9 +134,9 @@ public class AsyncDriverDeleteRequest extends AsyncTask<RequestDTO, Void ,Boolea
         super.onPostExecute(deleted);
 
         if(deleted != null && deleted) {
-            new RequestDAO(context).deleteRequest(requestDTO.getRequestId());
-
             if(driverRequestAdapterPending != null) {
+                new RequestDAO(context).deleteRequest(requestDTO.getRequestId());
+
                 List<RequestObject> newRequestObjectList = new ArrayList<>();
                 for (RequestObject r : requestObjectList) {
                     if (!r.getRequestDTO().getRequestId().equals(requestDTO.getRequestId()))
@@ -123,6 +144,22 @@ public class AsyncDriverDeleteRequest extends AsyncTask<RequestDTO, Void ,Boolea
                 }
                 driverRequestAdapterPending.setRequestObjectList(newRequestObjectList);
                 driverRequestAdapterPending.notifyDataSetChanged();
+            }
+            else if (driverRequestAdapterOther != null) {
+
+                new ManageRequestDAO(context).deleteManageRequest(requestDTO.getManageRequestId());
+                new RequestDAO(context).deleteRequest(requestDTO.getRequestId());
+
+                List<RequestObject> newRequestObjectList = new ArrayList<>();
+
+                for(int x = 0; x < requestObjectList.size(); x++){
+                    RequestObject r = requestObjectList.get(x);
+                    if (!r.getManageRequestDTOList().get(0).getManageRequestId().equals(requestDTO.getManageRequestId()))
+                        newRequestObjectList.add(r);
+                }
+
+                driverRequestAdapterOther.setRequestObjectList(newRequestObjectList);
+                driverRequestAdapterOther.notifyDataSetChanged();
             }
             else{
                 ((Activity)context).setResult(RESULT_OK, intent);

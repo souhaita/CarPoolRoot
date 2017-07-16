@@ -80,7 +80,7 @@ public class RequestServiceImp implements RequestService{
 	}
 
 	@Override
-	public Boolean driverDeleteRequest(Long requestId) {
+	public Boolean driverDeletePendingRequest(Long requestId) {
 		// TODO Auto-generated method stub
 		requestRepository.driverDeleteRequest(requestId);
 		Request request = requestRepository.getRequestById(requestId);
@@ -91,37 +91,6 @@ public class RequestServiceImp implements RequestService{
 		
 		return result;
 	}
-
-	/*@Override
-	public List<RequestDTO> getRequestByUserIdAndRequestStatus(RequestDTO requestDTO) {
-		// TODO Auto-generated method stub
-		List<Request> requestList = requestRepository.getRequestByUserIdAndRequestStatus(requestDTO.getAccountId(), requestDTO.getRequestStatus().getValue());
-		
-		List<RequestDTO> requestDTOs = new ArrayList<>();
-		
-		for(Request request : requestList){
-			RequestDTO newRequestDTO = new RequestDTO();
-			newRequestDTO.setAccountId(request.getAccount().getAccountId());
-			newRequestDTO.setEventDateTime(request.getEvent_date_time().getTime());
-			newRequestDTO.setPlaceFrom(request.getPlace_from());
-			newRequestDTO.setPlaceTo(request.getPlace_to());
-			newRequestDTO.setRequestId(request.getRequest_id());
-			newRequestDTO.setDetails(request.getDetails());
-			newRequestDTO.setRequestStatus(RequestStatus.valueFor(request.getRequest_status()));
-			
-			requestDTOs.add(newRequestDTO);
-		}
-		
-		return requestDTOs;
-	}*/
-	
-	/*@Override
-	public List<RequestDTO> getOtherRequestByUserIdAndRequestStatus(RequestDTO requestDTO) {
-		// TODO Auto-generated method stub
-		
-		return manageRequestService.getManageRequestByStatusForUser(requestDTO.getRequestStatus().getValue(), requestDTO.getAccountId());
-	}
-	*/
 	
 	@Override
 	public List<RequestObject> driverGetPendingRequestList(RequestDTO requestDTO) {
@@ -161,7 +130,7 @@ public class RequestServiceImp implements RequestService{
 			
 			newRequestDTO.setAccountId(request.getAccount().getAccountId());			
 			
-			List<ManageRequest> manageRequestList = manageRequestRepository.getManageRequestByRequestId(request.getRequestId());
+			List<ManageRequest> manageRequestList = manageRequestRepository.getManageRequestByRequestIdAndRequestStatus(request.getRequestId(), RequestStatus.DRIVER_ACCEPTED);
 			List<ManageRequestDTO> manageRquestDTOList = new ArrayList<>();
 			List<AccountDTO> accountDTOList =  new ArrayList<>();
 			
@@ -203,70 +172,5 @@ public class RequestServiceImp implements RequestService{
 		
 		return requestObjectList;
 	}
-
 	
-	
-	/*@Override
-	public RequestDTO acceptOrRejectRequestTaxi(RequestDTO requestDTO) {
-		// TODO Auto-generated method stub
-		Request request = requestRepository.getRequestById(requestDTO.getRequestId());
-		CarDetails carDetails = carDetailsRepository.getCarById(requestDTO.getCarId());
-		
-		ManageRequest manageRequest = manageRequestRepository.getManageRequestForTaxiByRequestId(requestDTO.getRequestId(), carDetails);
-		
-		if(manageRequest == null || manageRequest.getManage_request_id() == null)
-			manageRequest= new ManageRequest();
-		
-		manageRequest.setCarDetails(carDetails);
-		manageRequest.setRequest(request);
-		
-		if(requestDTO.getPrice() != null)
-			manageRequest.setPrice(requestDTO.getPrice());
-		
-		manageRequest.setUserAccount(request.getAccount());
-		
-		manageRequest.setDate_created(new Date());
-		manageRequest.setDate_updated(new Date());
-		manageRequest.setPrice(requestDTO.getPrice());
-		manageRequest.setRequest_status(requestDTO.getRequestStatus().getValue());
-		
-		manageRequestRepository.save(manageRequest);
-		
-		return requestDTO;
-	}
-*/
-	/*@Override
-	public RequestDTO acceptOrRejectRequestUser(RequestDTO requestDTO) {
-		// TODO Auto-generated method stub
-		Request request = requestRepository.getRequestById(requestDTO.getRequestId());
-		CarDetails carDetails = carDetailsRepository.getCarById(requestDTO.getCarId());
-		
-		ManageRequest manageRequest = manageRequestRepository.getManageRequestForTaxiByRequestId(requestDTO.getRequestId(), carDetails);
-		
-		if(manageRequest == null || manageRequest.getManage_request_id() == null)
-			manageRequest= new ManageRequest();
-		
-		manageRequest.setCarDetails(carDetails);
-		manageRequest.setRequest(request);
-		
-		if(requestDTO.getPrice() != null)
-			manageRequest.setPrice(requestDTO.getPrice());
-		
-		manageRequest.setUserAccount(request.getAccount());
-		
-		manageRequest.setDate_created(new Date());
-		manageRequest.setDate_updated(new Date());
-		manageRequest.setPrice(requestDTO.getPrice());
-		manageRequest.setRequest_status(requestDTO.getRequestStatus().getValue());
-		
-		manageRequestRepository.save(manageRequest);
-		
-		if(requestDTO.getRequestStatus() == RequestStatus.CLIENT_ACCEPTED){
-			request.setRequest_status(RequestStatus.CLIENT_ACCEPTED.getValue());
-			requestRepository.save(request);
-		}
-		
-		return requestDTO;
-	}*/
-
 }

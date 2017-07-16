@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename method &apos;ashwin.uomtrust.ac.mu.service.RequestService.driverDeleteRequest(...)&apos; to &apos;driverDeletePendingRequest&apos;&#x0D;&#x0A;- Original project: &apos;CarPoolBackOffice&apos;&#x0D;&#x0A;- Original element: &apos;ashwin.uomtrust.ac.mu.service.RequestService.driverDeleteRequest(...)&apos;&#x0D;&#x0A;- Renamed element: &apos;ashwin.uomtrust.ac.mu.service.RequestService.driverDeletePendingRequest(...)&apos;&#x0D;&#x0A;- Update references to refactored element" delegate="false" deprecate="false" description="Rename method &apos;driverDeleteRequest&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.method" input="/src\/main\/java&lt;ashwin.uomtrust.ac.mu.service{RequestService.java[RequestService~driverDeleteRequest~QLong;" name="driverDeletePendingRequest" references="true" stamp="1500220446258" version="1.0"/>
+</session>

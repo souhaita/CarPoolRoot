@@ -31,8 +31,7 @@ public class PickerActivityCarPlateNum extends Activity {
         setContentView(R.layout.picker_car_plate_num);
         getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
-        SharedPreferences prefs = getSharedPreferences(CONSTANT.APP_NAME, MODE_PRIVATE);
-        userId = prefs.getInt(CONSTANT.CURRENT_ACCOUNT_ID, -1);
+        userId = Utils.getCurrentAccount(PickerActivityCarPlateNum.this);
         carDTO = new CarDAO(PickerActivityCarPlateNum.this).getCarByAccountID(userId);
 
         final EditText eTxtPlateNum =(EditText)findViewById(R.id.eTxtPlateNum);

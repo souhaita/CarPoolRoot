@@ -199,8 +199,8 @@ public class ActivityCompleteDriverRegistration extends Activity {
 
             switch (requestCode) {
                 case CONSTANT.CAR_MAKE_ACTIVITY:
-                    SharedPreferences prefs = getSharedPreferences(CONSTANT.APP_NAME, MODE_PRIVATE);
-                    Integer userId = prefs.getInt(CONSTANT.CURRENT_ACCOUNT_ID, -1);
+
+                    Integer userId = Utils.getCurrentAccount(ActivityCompleteDriverRegistration.this);
                     carDTO = new CarDAO(ActivityCompleteDriverRegistration.this).getCarByAccountID(userId);
 
                     if(carDTO != null && carDTO.getCarId() != null) {

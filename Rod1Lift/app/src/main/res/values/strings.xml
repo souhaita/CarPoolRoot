@@ -94,6 +94,8 @@
 
     <string name="driver_request_adapter_seats_left">Seats</string>
 
+    <string name="async_driver_accept_client_request">Saving Request</string>
+
 
 
     <string name="menu_edit_profile_header">Edit Profile</string>
@@ -155,7 +157,6 @@
         <item>PENDING</item>
         <item>TRIP FULL</item>
         <item>CLIENT ACCEPTED</item>
-        <item>I REJECTED</item>
     </string-array>
 
         <declare-styleable name="SwipeRevealLayout"><attr name="dragEdge"><flag name="left" value="1"/><flag name="right" value="2"/><flag name="top" value="4"/><flag name="bottom" value="8"/></attr><attr name="mode"><enum name="normal" value="0"/><enum name="same_level" value="1"/></attr><attr format="integer" name="flingVelocity"/><attr format="dimension" name="minDistRequestDisallowParent"/></declare-styleable>
