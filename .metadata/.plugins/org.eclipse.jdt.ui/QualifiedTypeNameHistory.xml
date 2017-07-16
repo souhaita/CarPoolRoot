@@ -33,12 +33,22 @@
 <fullyQualifiedTypeName name="javax.persistence.Id"/>
 <fullyQualifiedTypeName name="javax.persistence.Entity"/>
 <fullyQualifiedTypeName name="java.io.Serializable"/>
-<fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.utils.Utils"/>
-<fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.entity.Car"/>
-<fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.repository.CarRepository"/>
 <fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.enums.AccountRole"/>
 <fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.service.CarService"/>
-<fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.enums.RequestStatus"/>
 <fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.dto.CarDTO"/>
+<fullyQualifiedTypeName name="scala.reflect.macros.internal.macroImpl"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.entity.Account"/>
+<fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.dto.RequestDTO"/>
+<fullyQualifiedTypeName name="com.hazelcast.map.ReachedMaxSizeException"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.entity.ManageRequest"/>
+<fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.repository.ManageRequestRepository"/>
+<fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.dto.ManageRequestDTO"/>
+<fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.dto.AccountDTO"/>
+<fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.utils.Utils"/>
+<fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.dto.RequestObject"/>
+<fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.repository.CarRepository"/>
+<fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.entity.Car"/>
 </qualifiedTypeNameHistroy>

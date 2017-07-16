@@ -1,201 +1,239 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/llMain"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/gradient_list">
+    android:layout_height="match_parent">
 
-    <include layout="@layout/top_menu" />
-
-    <AutoCompleteTextView
-        android:textColor="@color/black"
-        android:layout_weight="0.1"
-        android:textSize="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:id="@+id/autoFrom"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/top_round_corners"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:gravity="center_vertical|start"
-        android:hint="FROM"
-        android:paddingLeft="10dp" />
-    <View
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/transparent_black_50" />
-
-    <AutoCompleteTextView
-        android:textColor="@color/black"
-        android:layout_weight="0.1"
-        android:textSize="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:id="@+id/autoTo"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/square_corners"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:gravity="center_vertical|start"
-        android:hint="TO"
-        android:paddingLeft="10dp" />
-
-    <View
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/transparent_black_50" />
-
-    <LinearLayout
-        android:layout_weight="0.1"
-        android:orientation="horizontal"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="0dp">
-
-    <TextView
-        android:textColor="@color/black"
-        android:textSize="20dp"
-        android:layout_weight="0.5"
-        android:id="@+id/txtDate"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/square_corners"
-        android:focusableInTouchMode="false"
-        android:gravity="center_vertical|start"
-        android:hint="DATE"
-        android:paddingLeft="10dp" />
-
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="@color/transparent_black_50" />
-
-        <TextView
-            android:textColor="@color/black"
-            android:textSize="20dp"
-            android:layout_weight="0.5"
-            android:id="@+id/txtTime"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/square_corners"
-            android:focusableInTouchMode="false"
-            android:gravity="center_vertical|start"
-            android:hint="TIME"
-            android:paddingLeft="10dp" />
-
-
-    </LinearLayout>
-
-    <View
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/transparent_black_50" />
-
-    <LinearLayout
-        android:layout_weight="0.1"
-        android:orientation="horizontal"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="0dp">
-
-        <TextView
-            android:clickable="false"
-            android:textSize="20dp"
-            android:layout_weight="0.5"
-            android:hint="SEAT AVAILABLE"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/square_corners"
-            android:gravity="center_vertical|start"
-            android:paddingLeft="10dp" />
-
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="@color/transparent_black_50" />
-
-        <EditText
-            android:inputType="number"
-            android:layout_weight="0.5"
-            android:textSize="20dp"
-            android:id="@+id/txtSeatAvailable"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/square_corners"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:gravity="center_vertical|start"
-            android:paddingLeft="10dp" />
-
-    </LinearLayout>
-
-
-    <View
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/transparent_black_50" />
-
-    <EditText
-        android:textColor="@color/black"
-        android:inputType="number"
-        android:layout_weight="0.1"
-        android:textSize="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:id="@+id/txtContact"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/bottom_round_corners"
-        android:gravity="center_vertical|start"
-        android:hint="CONTACT DETAILS"
-        android:paddingLeft="10dp" />
-
-    <RelativeLayout
-        android:layout_weight="0.4"
-        android:layout_width="match_parent"
-        android:layout_height="0dp">
-
-        <com.sdsmdg.harjot.crollerTest.Croller
-            android:layout_margin="20dp"
-            android:id="@+id/croller"
+        <LinearLayout
+            android:id="@+id/llMain"
+            android:background="@drawable/gradient_list"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-           />
+            android:layout_height="match_parent">
 
-        <TextView
-            android:background="@drawable/round"
-            android:gravity="center"
-            android:textColor="@color/endColor"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:id="@+id/txtPrice"
-            android:layout_centerInParent="true"
-            android:layout_alignParentTop="@+id/croller"
-            android:layout_width="60dp"
-            android:layout_height="60dp" />
+            <include layout="@layout/top_menu" />
 
-    </RelativeLayout>
-</LinearLayout>
+            <AutoCompleteTextView
+                android:textColor="@color/black"
+                android:layout_weight="0.1"
+                android:textSize="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:id="@+id/autoFrom"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/top_round_corners"
+                android:gravity="center_vertical|start"
+                android:hint="FROM"
+                android:paddingLeft="10dp" />
+            <View
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/transparent_black_50" />
+
+            <AutoCompleteTextView
+                android:textColor="@color/black"
+                android:layout_weight="0.1"
+                android:textSize="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:id="@+id/autoTo"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/square_corners"
+                android:gravity="center_vertical|start"
+                android:hint="TO"
+                android:paddingLeft="10dp" />
+
+            <View
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/transparent_black_50" />
+
+            <LinearLayout
+                android:layout_weight="0.1"
+                android:orientation="horizontal"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+
+            <TextView
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:layout_weight="0.5"
+                android:id="@+id/txtDate"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/square_corners"
+                android:focusableInTouchMode="false"
+                android:gravity="center_vertical|start"
+                android:hint="DATE"
+                android:paddingLeft="10dp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/transparent_black_50" />
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:textSize="20dp"
+                    android:layout_weight="0.5"
+                    android:id="@+id/txtTime"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/square_corners"
+                    android:focusableInTouchMode="false"
+                    android:gravity="center_vertical|start"
+                    android:hint="TIME"
+                    android:paddingLeft="10dp" />
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/transparent_black_50" />
+
+            <LinearLayout
+                android:layout_weight="0.1"
+                android:orientation="horizontal"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+
+                <TextView
+                    android:clickable="false"
+                    android:textSize="20dp"
+                    android:layout_weight="0.5"
+                    android:hint="SEAT AVAILABLE"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/square_corners"
+                    android:gravity="center_vertical|start"
+                    android:paddingLeft="10dp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/transparent_black_50" />
+
+                <EditText
+                    android:inputType="number"
+                    android:layout_weight="0.5"
+                    android:textSize="20dp"
+                    android:id="@+id/txtSeatAvailable"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/square_corners"
+                    android:gravity="center_vertical|start"
+                    android:paddingLeft="10dp" />
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/transparent_black_50" />
+
+            <EditText
+                android:textColor="@color/black"
+                android:inputType="number"
+                android:layout_weight="0.1"
+                android:textSize="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:id="@+id/txtContact"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/bottom_round_corners"
+                android:gravity="center_vertical|start"
+                android:hint="CONTACT DETAILS"
+                android:paddingLeft="10dp" />
+
+            <RelativeLayout
+                android:layout_weight="0.4"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+
+                <com.sdsmdg.harjot.crollerTest.Croller
+                    android:layout_margin="20dp"
+                    android:id="@+id/croller"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                   />
+
+                <TextView
+                    android:background="@drawable/round"
+                    android:gravity="center"
+                    android:textColor="@color/endColor"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:id="@+id/txtPrice"
+                    android:layout_centerInParent="true"
+                    android:layout_alignParentTop="@+id/croller"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp" />
+
+            </RelativeLayout>
+    </LinearLayout>
+
+    <com.github.clans.fab.FloatingActionMenu
+        android:visibility="gone"
+        android:foregroundGravity="center"
+        xmlns:fab="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/fabMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="8dp"
+        fab:menu_fab_size="normal"
+        fab:menu_showShadow="true"
+        fab:menu_shadowColor="#66000000"
+        fab:menu_shadowRadius="4dp"
+        fab:menu_shadowXOffset="1dp"
+        fab:menu_shadowYOffset="3dp"
+        fab:menu_animationDelayPerItem="50"
+        fab:menu_icon="@drawable/fab_add"
+        fab:menu_buttonSpacing="0dp"
+        fab:menu_openDirection="up"
+        fab:menu_backgroundColor="@android:color/transparent"
+        fab:menu_fab_show_animation="@animator/jump_from_down"
+        fab:menu_fab_hide_animation="@animator/jump_to_down">
+
+        <com.github.clans.fab.FloatingActionButton
+            fab:fab_label="@string/floating_menu_driver_delete_trip"
+            fab:fab_size="mini"
+            android:id="@+id/fabDeleteTrip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"  />
+
+        <com.github.clans.fab.FloatingActionButton
+            fab:fab_label="@string/floating_menu_driver_view_details"
+            fab:fab_size="mini"
+            android:id="@+id/fabViewDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"  />
+
+    </com.github.clans.fab.FloatingActionMenu>
+</FrameLayout>

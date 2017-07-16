@@ -136,7 +136,7 @@ public class ActivityMain extends AppCompatActivity implements NavigationView.On
         else if (id == R.id.nav_history) {
 
         }
-        
+
         return true;
     }
 

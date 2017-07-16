@@ -80,10 +80,10 @@ public class RequestServiceImp implements RequestService{
 	}
 
 	@Override
-	public Boolean driverDeleteRequest(Long request_id) {
+	public Boolean driverDeleteRequest(Long requestId) {
 		// TODO Auto-generated method stub
-		requestRepository.driverDeleteRequest(request_id);
-		Request request = requestRepository.getRequestById(request_id);
+		requestRepository.driverDeleteRequest(requestId);
+		Request request = requestRepository.getRequestById(requestId);
 		Boolean result = false;
 		
 		if(request == null || request.getRequestId() == null)

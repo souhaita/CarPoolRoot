@@ -21,6 +21,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 import com.sdsmdg.harjot.crollerTest.Croller;
 
 import org.json.JSONArray;
@@ -36,6 +38,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncDriverCreateOrUpdateRequest;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncDriverDeleteRequest;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncUpdateAccount;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.AccountDAO;
@@ -43,6 +46,7 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.CarDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.AccountDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.CarDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestDTO;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestObject;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.RequestStatus;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
@@ -58,7 +62,7 @@ public class ActivityCreateTrip extends Activity {
     private EditText txtContact, txtSeatAvailable;
     private Croller croller;
 
-    private Calendar requestDateTime = Calendar.getInstance();
+    private Calendar requestDateTime = null;
     private RequestDTO requestDTO = new RequestDTO();
 
     private int accountId;
@@ -70,6 +74,10 @@ public class ActivityCreateTrip extends Activity {
     private static final String OUT_JSON = "/json";
 
     public static String API_KEY;
+    private RequestObject requestObject = null;
+
+    private boolean newTrip = true;
+    private FloatingActionMenu fabMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,12 +109,12 @@ public class ActivityCreateTrip extends Activity {
         String from = getIntent().getStringExtra("from"), to = getIntent().getStringExtra("to");
 
         autoFrom = (AutoCompleteTextView)findViewById(R.id.autoFrom);
-        autoFrom.setAdapter(new GooglePlacesAutocompleteAdapter(this, R.layout.simple_list_places));
+        autoFrom.setAdapter(new GooglePlacesAutocompleteAdapter(this, android.R.layout.simple_list_item_1));
         if(from != null && !TextUtils.isEmpty(from))
             autoFrom.setText(from);
 
         autoTo = (AutoCompleteTextView)findViewById(R.id.autoTo);
-        autoTo.setAdapter(new GooglePlacesAutocompleteAdapter(this, R.layout.simple_list_places));
+        autoTo.setAdapter(new GooglePlacesAutocompleteAdapter(this, android.R.layout.simple_list_item_1));
         if(to != null && !TextUtils.isEmpty(to))
             autoTo.setText(to);
 
@@ -126,6 +134,12 @@ public class ActivityCreateTrip extends Activity {
                 Utils.hideKeyboard(ActivityCreateTrip.this);
 
                 Calendar currentTime = Calendar.getInstance();
+                if(requestDateTime != null){
+                    currentTime.setTime(requestDateTime.getTime());
+                }
+                else
+                    requestDateTime = Calendar.getInstance();
+
                 final int mMonth = currentTime.get(Calendar.MONTH);
                 final int mYear = currentTime.get(Calendar.YEAR);
                 final int mDay = currentTime.get(Calendar.DAY_OF_MONTH);
@@ -138,7 +152,7 @@ public class ActivityCreateTrip extends Activity {
                         requestDateTime.set(Calendar.MONTH, monthOfYear);
                         requestDateTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-                        txtDate.setText(String.valueOf(dayOfMonth) +" "+ new DateFormatSymbols().getMonths()[monthOfYear-1]);
+                        txtDate.setText(String.valueOf(dayOfMonth) +" "+ new DateFormatSymbols().getMonths()[monthOfYear]);
 
                         Utils.hideKeyboard(ActivityCreateTrip.this);
 
@@ -158,6 +172,12 @@ public class ActivityCreateTrip extends Activity {
                 Utils.hideKeyboard(ActivityCreateTrip.this);
 
                 Calendar currentTime = Calendar.getInstance();
+                if(requestDateTime != null){
+                    currentTime.setTime(requestDateTime.getTime());
+                }
+                else
+                    requestDateTime = Calendar.getInstance();
+
                 final int mHour = currentTime.get(Calendar.HOUR_OF_DAY);
                 final int mMinute = currentTime.get(Calendar.MINUTE);
                 final TimePickerDialog timePickerDialog;
@@ -181,13 +201,9 @@ public class ActivityCreateTrip extends Activity {
             }
         });
 
+        requestObject = (RequestObject)getIntent().getSerializableExtra(CONSTANT.REQUEST_OBJECT);
+
         ImageView imgBack = (ImageView)findViewById(R.id.imgBack);
-        imgBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                alertCancel();
-            }
-        });
 
         TextView txtDone = (TextView)findViewById(R.id.txtDone);
         txtDone.setOnClickListener(new View.OnClickListener() {
@@ -198,9 +214,71 @@ public class ActivityCreateTrip extends Activity {
                 }
             }
         });
+
+
+        if(requestObject != null && requestObject.getRequestDTO() != null && requestObject.getRequestDTO().getRequestId() != null){
+
+            requestDTO = requestObject.getRequestDTO();
+            autoFrom.setText(requestDTO.getPlaceFrom());
+            autoTo.setText(requestDTO.getPlaceTo());
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(requestDTO.getEvenDate());
+
+            txtDate.setText(String.valueOf(calendar.getTime().getDate()) +" "+ new DateFormatSymbols().getMonths()[calendar.getTime().getMonth()]);
+
+            int selectedMinute = calendar.getTime().getMinutes();
+            int selectedHour = calendar.getTime().getHours();
+            String min =  String.valueOf(selectedMinute).length() <2? "0"+String.valueOf(selectedMinute):String.valueOf(selectedMinute);
+            txtTime.setText(String.valueOf(selectedHour)+" : "+min);
+
+            String phoneNum = new AccountDAO(ActivityCreateTrip.this).getAccountById(accountId).getPhoneNum().toString();
+            txtContact.setText(phoneNum);
+
+            requestDateTime = Calendar.getInstance();
+            requestDateTime.setTime(requestDTO.getEvenDate());
+
+            croller.setProgress((requestDTO.getPrice()/5));
+
+
+            imgBack.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    finish();
+                }
+            });
+
+            fabMenu = (FloatingActionMenu)findViewById(R.id.fabMenu);
+            fabMenu.setVisibility(View.VISIBLE);
+
+            FloatingActionButton fabViewDetails = (FloatingActionButton)findViewById(R.id.fabViewDetails);
+            fabViewDetails.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    fabMenu.close(true);
+                }
+            });
+
+            FloatingActionButton fabDeleteTrip = (FloatingActionButton)findViewById(R.id.fabDeleteTrip);
+            fabDeleteTrip.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    alertCancel(!newTrip);
+                }
+            });
+        }
+        else{
+            imgBack.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    alertCancel(newTrip);
+                }
+            });
+        }
     }
 
-    private void alertCancel() {
+    private void alertCancel(final boolean newTrip) {
+
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(ActivityCreateTrip.this);
 
         alertDialog.setTitle(getString(R.string.activity_create_trip_confirm_delete));
@@ -208,7 +286,14 @@ public class ActivityCreateTrip extends Activity {
 
         alertDialog.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog,int which) {
-                finish();
+                if(!newTrip){
+                    Intent intent = getIntent();
+                    new AsyncDriverDeleteRequest(ActivityCreateTrip.this, intent).execute(requestDTO);
+                    fabMenu.close(true);
+                }
+                else {
+                    finish();
+                }
             }
         });
 
@@ -223,7 +308,11 @@ public class ActivityCreateTrip extends Activity {
 
     @Override
     public void onBackPressed() {
-        alertCancel();
+        if(requestObject == null)
+            alertCancel(newTrip);
+        else{
+            finish();
+        }
     }
 
     private void slider(){
@@ -336,6 +425,7 @@ public class ActivityCreateTrip extends Activity {
             txtPrice.setText(tripPrice);
             croller.setProgress(Integer.parseInt(tripPrice)/5);
         }
+
     }
 
     // ref: https://examples.javacodegeeks.com/android/android-google-places-autocomplete-api-example/
@@ -425,7 +515,8 @@ public class ActivityCreateTrip extends Activity {
                 protected void publishResults(CharSequence constraint, FilterResults results) {
                     if (results != null && results.count > 0) {
                         notifyDataSetChanged();
-                    } else {
+                    }
+                    else {
                         notifyDataSetInvalidated();
                     }
                 }

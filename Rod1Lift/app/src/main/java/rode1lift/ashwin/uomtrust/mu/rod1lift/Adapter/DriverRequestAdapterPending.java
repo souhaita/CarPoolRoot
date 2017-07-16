@@ -1,12 +1,15 @@
 package rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -16,7 +19,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.ActivityCreateTrip;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncDriverDeleteRequest;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.AccountDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestObject;
@@ -139,7 +144,10 @@ public class DriverRequestAdapterPending extends BaseAdapter {
         llRequestDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(context, ActivityCreateTrip.class);
+                RequestObject requestObject = requestObjectList.get(i);
+                intent.putExtra(CONSTANT.REQUEST_OBJECT, requestObject);
+                ((Activity)context).startActivityForResult(intent, CONSTANT.MANAGE_TRIP_ACTIVITY_DRIVER_REQUEST_PENDING);
             }
         });
 
@@ -165,19 +173,15 @@ public class DriverRequestAdapterPending extends BaseAdapter {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 switch (motionEvent.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        if(llDeleteRequest.isShown())
-                            imgDelete.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_bin_close_red));
-                            confirmDelete = false;
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        break;
                     case MotionEvent.ACTION_MOVE:
-                        break;
+                        imgDelete.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_bin_close_red));
+                        confirmDelete = false;
+                        return true;
                 }
-                return true;
+                return false;
             }
         });
+
 
 
         return view;

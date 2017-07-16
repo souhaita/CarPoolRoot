@@ -69,6 +69,15 @@
     <string name="floating_menu_path_from_two_points">Get direction from 2 different points</string>
     <string name="floating_menu_path_create_trip">Create trip</string>
 
+
+    <string name="floating_menu_clear_pending">Pending</string>
+    <string name="floating_menu_car_full">Trip Full</string>
+    <string name="floating_menu_client_accepted">Client Accepted</string>
+    <string name="floating_menu_i_rejected">I Rejected</string>
+
+    <string name="floating_menu_driver_view_details">View Details</string>
+    <string name="floating_menu_driver_delete_trip">Delete Trip</string>
+
     <string name="async_check_account_validating_account">Validating your account</string>
     <string name="async_create_account_validating_account">Creating your account</string>
     <string name="async_driver_create_car_creating_car_details">Creating your car details</string>

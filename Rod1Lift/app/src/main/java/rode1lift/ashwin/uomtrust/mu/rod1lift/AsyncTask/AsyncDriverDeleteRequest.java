@@ -1,7 +1,9 @@
 package rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 
 import org.json.JSONObject;
@@ -24,6 +26,8 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.WebService.WebService;
 
+import static android.app.Activity.RESULT_OK;
+
 /**
  * Created by Ashwin on 03-Jun-17.
  */
@@ -35,11 +39,17 @@ public class AsyncDriverDeleteRequest extends AsyncTask<RequestDTO, Void ,Boolea
     private RequestDTO requestDTO;
     private DriverRequestAdapterPending driverRequestAdapterPending;
     private List<RequestObject> requestObjectList;
+    private Intent intent;
 
     public AsyncDriverDeleteRequest(final Context context, DriverRequestAdapterPending driverRequestAdapterPending, List<RequestObject> requestObjectList) {
         this.context = context;
         this.driverRequestAdapterPending = driverRequestAdapterPending;
         this.requestObjectList = requestObjectList;
+    }
+
+    public AsyncDriverDeleteRequest(final Context context, Intent intent) {
+        this.context = context;
+        this.intent = intent;
     }
 
     @Override
@@ -105,13 +115,19 @@ public class AsyncDriverDeleteRequest extends AsyncTask<RequestDTO, Void ,Boolea
         if(deleted != null && deleted) {
             new RequestDAO(context).deleteRequest(requestDTO.getRequestId());
 
-            List<RequestObject> newRequestObjectList = new ArrayList<>();
-            for(RequestObject r : requestObjectList) {
-                if(!r.getRequestDTO().getRequestId().equals(requestDTO.getRequestId()))
-                    newRequestObjectList.add(r);
+            if(driverRequestAdapterPending != null) {
+                List<RequestObject> newRequestObjectList = new ArrayList<>();
+                for (RequestObject r : requestObjectList) {
+                    if (!r.getRequestDTO().getRequestId().equals(requestDTO.getRequestId()))
+                        newRequestObjectList.add(r);
+                }
+                driverRequestAdapterPending.setRequestObjectList(newRequestObjectList);
+                driverRequestAdapterPending.notifyDataSetChanged();
             }
-            driverRequestAdapterPending.setRequestObjectList(newRequestObjectList);
-            driverRequestAdapterPending.notifyDataSetChanged();
+            else{
+                ((Activity)context).setResult(RESULT_OK, intent);
+                ((Activity)context).finish();
+            }
         }
         else{
             Utils.alertError(context, context.getString(R.string.error_server));

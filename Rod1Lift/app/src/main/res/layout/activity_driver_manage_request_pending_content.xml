@@ -55,6 +55,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:clickable="true"
             android:id="@+id/llRequestDetails"
             android:background="@color/transparent_black_50"
             android:orientation="horizontal"
