@@ -28,6 +28,7 @@ public class ActivityDriverManageRequest extends Activity {
 
     private ListView listView;
     private RequestDTO requestDTO;
+    private LinearLayout llMainProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,9 +126,6 @@ public class ActivityDriverManageRequest extends Activity {
             }
 
         });
-
-        LinearLayout llMainProfile = (LinearLayout)findViewById(R.id.llMainProfile);
-        Utils.animateLayout(llMainProfile);
     }
 
     public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
@@ -137,5 +135,16 @@ public class ActivityDriverManageRequest extends Activity {
             new AsyncDriverFetchRequest(ActivityDriverManageRequest.this, listView).execute(requestDTO);
         }
 
+    }
+
+    protected void onPause(){
+        super.onPause();
+        llMainProfile.setAnimation(null);
+    }
+
+    protected  void onResume(){
+        super.onResume();
+        llMainProfile = (LinearLayout)findViewById(R.id.llMainProfile);
+        Utils.animateLayout(llMainProfile);
     }
 }

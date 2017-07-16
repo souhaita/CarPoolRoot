@@ -33,6 +33,8 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 
 public class ActivityDriverViewUserDetails extends Activity {
 
+    private LinearLayout llMainDriverViewUserDetails;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,13 +92,21 @@ public class ActivityDriverViewUserDetails extends Activity {
         GridView gridView = (GridView)findViewById(R.id.gvUserDetails);
         gridView.setAdapter(adapter);
 
-
-        LinearLayout llMainDriverViewUserDetails = (LinearLayout)findViewById(R.id.llMainDriverViewUserDetails);
-        Utils.animateLayout(llMainDriverViewUserDetails);
     }
 
     @Override
     public void onBackPressed() {
         finish();
+    }
+
+    protected void onPause(){
+        super.onPause();
+        llMainDriverViewUserDetails.setAnimation(null);
+    }
+
+    protected  void onResume(){
+        super.onResume();
+        llMainDriverViewUserDetails = (LinearLayout)findViewById(R.id.llMainDriverViewUserDetails);
+        Utils.animateLayout(llMainDriverViewUserDetails);
     }
 }

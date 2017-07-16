@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.Filterable;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -80,13 +81,12 @@ public class ActivityCreateTrip extends Activity {
     private boolean newTrip = true;
     private FloatingActionMenu fabMenu;
 
+    private FrameLayout flMain;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_trip);
-
-        FrameLayout flMain = (FrameLayout)findViewById(R.id.flMain);
-        Utils.animateLayout(flMain);
 
         API_KEY = getString(R.string.google_places_api_key);
 
@@ -531,5 +531,16 @@ public class ActivityCreateTrip extends Activity {
             };
             return filter;
         }
+    }
+
+    protected void onPause(){
+        super.onPause();
+       // flMain.setAnimation(null);
+    }
+
+    protected  void onResume(){
+        super.onResume();
+        //flMain = (FrameLayout) findViewById(R.id.flMain);
+        //Utils.animateLayout(flMain);
     }
 }

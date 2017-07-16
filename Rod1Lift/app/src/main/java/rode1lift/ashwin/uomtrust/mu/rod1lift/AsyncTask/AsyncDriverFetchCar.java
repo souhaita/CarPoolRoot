@@ -136,5 +136,4 @@ public class AsyncDriverFetchCar extends AsyncTask<CarDTO, Void ,CarDTO > {
 
         }
     }
-
 }

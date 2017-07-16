@@ -46,6 +46,7 @@ public class ProfileActivity extends Activity {
     private RecyclerView recyclerView;
     private ProfileAdapter profileAdapter;
     private Integer userId = null;
+    private LinearLayout llMainProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,8 +83,6 @@ public class ProfileActivity extends Activity {
             }
         });
 
-        LinearLayout llMainProfile = (LinearLayout)findViewById(R.id.llMainProfile);
-        Utils.animateLayout(llMainProfile);
     }
 
 
@@ -227,6 +226,17 @@ public class ProfileActivity extends Activity {
             profileObjectList.add(new ProfileObject(ViewType.DATA, plateNum, carDTO.getPlateNum()));
             profileObjectList.add(new ProfileObject(ViewType.DATA, numOfPassenger, String.valueOf(carDTO.getNumOfPassenger())));
         }
+    }
+
+    protected void onPause(){
+        super.onPause();
+        llMainProfile.setAnimation(null);
+    }
+
+    protected  void onResume(){
+        super.onResume();
+        llMainProfile = (LinearLayout)findViewById(R.id.llMainProfile);
+        Utils.animateLayout(llMainProfile);
     }
 
 }

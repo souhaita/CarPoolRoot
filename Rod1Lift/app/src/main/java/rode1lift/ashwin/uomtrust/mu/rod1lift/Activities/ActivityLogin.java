@@ -48,7 +48,9 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 public class ActivityLogin extends Activity {
 
     CallbackManager callbackManager;
-    AccountDTO accountDTO = new AccountDTO();
+    private AccountDTO accountDTO = new AccountDTO();
+
+    private LinearLayout llMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,9 +69,6 @@ public class ActivityLogin extends Activity {
             setContentView(R.layout.activity_login);
 
             Utils.disconnectFromFacebook();
-
-            LinearLayout llMain = (LinearLayout)findViewById(R.id.llMain);
-            Utils.animateLayout(llMain);
 
             callbackManager = CallbackManager.Factory.create();
 
@@ -263,5 +262,16 @@ public class ActivityLogin extends Activity {
         });
 
         dialog.show();
+    }
+
+    protected void onPause(){
+        super.onPause();
+        llMain.setAnimation(null);
+    }
+
+    protected  void onResume(){
+        super.onResume();
+        llMain = (LinearLayout)findViewById(R.id.llMain);
+        Utils.animateLayout(llMain);
     }
 }

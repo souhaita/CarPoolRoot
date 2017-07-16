@@ -76,7 +76,7 @@ public class ActivityMain extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        Utils.animateLayout(llMainProfilePic);
+       // Utils.animateLayout(llMainProfilePic);
     }
 
     @Override
