@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:background="@color/transparent_white_50"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_margin="3dp"
+            android:scaleType="centerCrop"
+            android:id="@+id/imgProfile"
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:layout_marginLeft="3dp"
+            android:gravity="center_vertical|left"
+            android:text="test"
+            android:id="@+id/txtFullName"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:textSize="20dp"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+    <com.github.clans.fab.FloatingActionButton
+        android:src="@drawable/icon_call"
+        android:foregroundGravity="center"
+        xmlns:fab="http://schemas.android.com/apk/res-auto"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="15dp"
+        fab:menu_fab_size="normal"
+        fab:menu_showShadow="true"
+        fab:menu_shadowColor="#66000000"
+        fab:menu_shadowRadius="4dp"
+        fab:menu_shadowXOffset="1dp"
+        fab:menu_shadowYOffset="3dp"
+        fab:menu_animationDelayPerItem="50"
+        fab:menu_icon="@drawable/fab_add"
+        fab:menu_buttonSpacing="0dp"
+        fab:menu_openDirection="up"
+        fab:fab_size="mini"
+        android:id="@+id/fabCall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"  />
+</FrameLayout>

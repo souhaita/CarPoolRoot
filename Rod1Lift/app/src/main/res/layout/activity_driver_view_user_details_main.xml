@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    android:id="@+id/llMainDriverViewUserDetails"
+    android:background="@drawable/gradient_list"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <include layout="@layout/top_menu" />
+
+    <LinearLayout
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:orientation="vertical"
+        android:background="@color/transparent_black_50"
+        android:layout_weight="0.2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+            <TextView
+                android:textColor="@color/white"
+                android:id="@+id/txtFrom"
+                android:gravity="center_vertical"
+                android:text="FRom"
+                android:layout_weight="0.6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:textColor="@color/white"
+                android:id="@+id/txtDate"
+                android:gravity="center_vertical|right"
+                android:text="DATE"
+                android:layout_weight="0.4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+            <TextView
+                android:textColor="@color/white"
+                android:gravity="center_vertical"
+                android:text="TO"
+                android:layout_weight="0.6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:textColor="@color/white"
+                android:id="@+id/txtSeatAvailable"
+                android:gravity="center_vertical|right"
+                android:text="Seat"
+                android:layout_weight="0.4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+            <TextView
+                android:textColor="@color/white"
+                android:id="@+id/txtTo"
+                android:gravity="center_vertical"
+                android:text="FRom"
+                android:layout_weight="0.6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:textColor="@color/white"
+                android:id="@+id/txtPrice"
+                android:gravity="center_vertical|right"
+                android:text="DATE"
+                android:layout_weight="0.4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+    <GridView
+        android:layout_weight="0.7"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:layout_marginTop="7dp"
+        android:verticalSpacing="7dp"
+        android:horizontalSpacing="7dp"
+        android:gravity="center"
+        android:id="@+id/gvUserDetails"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:numColumns="2" />
+
+
+</LinearLayout>

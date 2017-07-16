@@ -61,6 +61,7 @@
         <com.github.clans.fab.FloatingActionButton
             fab:fab_label="@string/floating_menu_clear_pending"
             fab:fab_size="mini"
+            android:src="@drawable/icon_pending"
             android:id="@+id/fabPending"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"  />
@@ -69,11 +70,13 @@
             fab:fab_label="@string/floating_menu_car_full"
             fab:fab_size="mini"
             android:id="@+id/fabCarFull"
+            android:src="@drawable/icon_full"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"  />
 
         <com.github.clans.fab.FloatingActionButton
             fab:fab_label="@string/floating_menu_client_accepted"
+            android:src="@drawable/icon_client_accepted"
             fab:fab_size="mini"
             android:id="@+id/fabClientAccepted"
             android:layout_width="wrap_content"
@@ -83,6 +86,7 @@
         <com.github.clans.fab.FloatingActionButton
             fab:fab_label="@string/floating_menu_i_rejected"
             fab:fab_size="mini"
+            android:src="@drawable/icon_rejected"
             android:id="@+id/fabDriverAccepted"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"  />

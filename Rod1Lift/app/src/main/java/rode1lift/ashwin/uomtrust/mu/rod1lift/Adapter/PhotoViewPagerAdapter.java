@@ -1,7 +1,6 @@
 package rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
@@ -51,7 +50,7 @@ public class PhotoViewPagerAdapter extends PagerAdapter {
         try {
             if(pending){
                 if (position == 0)
-                    imageView.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_pending));
+                    imageView.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.photo_pending));
                 else
                     imageView.setImageBitmap(Utils.convertBlobToBitmap(pictures.get((position-1))));
             }

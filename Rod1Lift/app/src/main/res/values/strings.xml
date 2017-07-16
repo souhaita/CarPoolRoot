@@ -61,6 +61,9 @@
 
     <string name="activity_complete_driver_manage_request_header">Manage Trip</string>
 
+    <string name="activity_driver_view_user_details">Passenger Details</string>
+
+
     <string name="activity_profile_name_hint">Full Name</string>
     <string name="activity_profile_name_error">Name can not be null</string>
 
@@ -155,6 +158,6 @@
         <item>I REJECTED</item>
     </string-array>
 
-    <declare-styleable name="SwipeRevealLayout"><attr name="dragEdge"><flag name="left" value="1"/><flag name="right" value="2"/><flag name="top" value="4"/><flag name="bottom" value="8"/></attr><attr name="mode"><enum name="normal" value="0"/><enum name="same_level" value="1"/></attr><attr format="integer" name="flingVelocity"/><attr format="dimension" name="minDistRequestDisallowParent"/></declare-styleable>
+        <declare-styleable name="SwipeRevealLayout"><attr name="dragEdge"><flag name="left" value="1"/><flag name="right" value="2"/><flag name="top" value="4"/><flag name="bottom" value="8"/></attr><attr name="mode"><enum name="normal" value="0"/><enum name="same_level" value="1"/></attr><attr format="integer" name="flingVelocity"/><attr format="dimension" name="minDistRequestDisallowParent"/></declare-styleable>
 
 </resources>

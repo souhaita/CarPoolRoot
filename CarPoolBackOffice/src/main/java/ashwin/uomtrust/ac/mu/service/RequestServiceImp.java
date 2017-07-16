@@ -189,6 +189,7 @@ public class RequestServiceImp implements RequestService{
 				accountDTO.setAccountId(a.getAccountId());				
 				accountDTO.setFirstName(a.getFirstName());
 				accountDTO.setLastName(a.getLastName());
+				accountDTO.setPhoneNum(a.getPhoneNum());
 				Utils.getImageProfile(accountDTO);
 				
 				accountDTOList.add(accountDTO);

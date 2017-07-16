@@ -224,6 +224,7 @@
         <com.github.clans.fab.FloatingActionButton
             fab:fab_label="@string/floating_menu_driver_delete_trip"
             fab:fab_size="mini"
+            android:src="@drawable/icon_delete_bin"
             android:id="@+id/fabDeleteTrip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"  />
@@ -231,6 +232,7 @@
         <com.github.clans.fab.FloatingActionButton
             fab:fab_label="@string/floating_menu_driver_view_details"
             fab:fab_size="mini"
+            android:src="@drawable/icon_view"
             android:id="@+id/fabViewDetails"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"  />

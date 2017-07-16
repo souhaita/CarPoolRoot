@@ -8,7 +8,7 @@
             android:title="MAP" />
         <item
             android:id="@+id/nav_create_trip"
-            android:icon="@drawable/icon_add"
+            android:icon="@drawable/icon_add_trip"
             android:title="CREATE TRIP" />
         <item
             android:id="@+id/nav_manage"

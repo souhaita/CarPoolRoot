@@ -256,6 +256,10 @@ public class ActivityCreateTrip extends Activity {
                 @Override
                 public void onClick(View view) {
                     fabMenu.close(true);
+                    Intent intent = new Intent(ActivityCreateTrip.this, ActivityDriverViewUserDetails.class);
+                    RequestObject requestObject = (RequestObject)getIntent().getSerializableExtra(CONSTANT.REQUEST_OBJECT);
+                    intent.putExtra(CONSTANT.REQUEST_OBJECT, requestObject);
+                    startActivity(intent);
                 }
             });
 
