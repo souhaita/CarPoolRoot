@@ -19,6 +19,8 @@ import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -162,6 +164,13 @@ public class Utils {
         animationDrawable.setEnterFadeDuration(4000);
         animationDrawable.setExitFadeDuration(4000);
         animationDrawable.start();
+    }
+
+    public static void animateList(LinearLayout linearLayout, Context context, int position){
+        Animation animation = AnimationUtils.loadAnimation(context, R.anim.fab_scale_up);
+        animation.setStartOffset(position* 100);
+        animation.setDuration(300);
+        linearLayout.startAnimation(animation);
     }
 
     public static void turnGPSOn(Context context){

@@ -26,6 +26,7 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestObject;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.RequestStatus;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 
 /**
  * Created by Ashwin on 09-Jul-17.
@@ -196,6 +197,8 @@ public class DriverRequestAdapterOther extends BaseAdapter {
         });
 
 
+        LinearLayout llMain = (LinearLayout) view.findViewById(R.id.llMain);
+        Utils.animateList(llMain, context, i);
 
         return view;
     }

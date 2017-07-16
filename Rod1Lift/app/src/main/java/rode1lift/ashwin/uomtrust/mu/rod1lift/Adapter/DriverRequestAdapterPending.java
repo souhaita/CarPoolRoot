@@ -11,6 +11,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -29,6 +31,9 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestObject;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.RequestStatus;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.SwipeView.SwipeRevealLayout;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
+
+import static java.security.AccessController.getContext;
 
 /**
  * Created by Ashwin on 09-Jul-17.
@@ -187,7 +192,8 @@ public class DriverRequestAdapterPending extends BaseAdapter {
             }
         });
 
-
+        LinearLayout llMain = (LinearLayout) view.findViewById(R.id.llMain);
+        Utils.animateList(llMain, context, i);
 
         return view;
     }
