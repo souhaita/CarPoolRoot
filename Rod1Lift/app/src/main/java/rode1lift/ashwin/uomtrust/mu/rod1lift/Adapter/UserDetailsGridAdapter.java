@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.github.clans.fab.FloatingActionButton;
@@ -87,6 +88,8 @@ public class UserDetailsGridAdapter extends BaseAdapter {
             }
         });
 
+        LinearLayout llMain = (LinearLayout)view.findViewById(R.id.llMain);
+        Utils.animateGrid(llMain, context, i);
         return view;
     }
 }

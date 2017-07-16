@@ -167,9 +167,16 @@ public class Utils {
     }
 
     public static void animateList(LinearLayout linearLayout, Context context, int position){
-        Animation animation = AnimationUtils.loadAnimation(context, R.anim.fab_scale_up);
+        Animation animation = AnimationUtils.loadAnimation(context, R.anim.list_effect);
         animation.setStartOffset(position* 100);
-        animation.setDuration(300);
+        animation.setDuration(600);
+        linearLayout.startAnimation(animation);
+    }
+
+    public static void animateGrid(LinearLayout linearLayout, Context context, int position){
+        Animation animation = AnimationUtils.loadAnimation(context, R.anim.fab_slide_in_from_left);
+        animation.setStartOffset(position* 300);
+        animation.setDuration(2000);
         linearLayout.startAnimation(animation);
     }
 
