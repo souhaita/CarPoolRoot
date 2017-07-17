@@ -15,6 +15,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.DriverRequestAdapterOther;
@@ -29,6 +30,7 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.WebService.WebService;
 
+import static android.R.id.list;
 import static android.app.Activity.RESULT_OK;
 
 /**
@@ -142,6 +144,10 @@ public class AsyncDriverDeleteRequest extends AsyncTask<RequestDTO, Void ,Boolea
                     if (!r.getRequestDTO().getRequestId().equals(requestDTO.getRequestId()))
                         newRequestObjectList.add(r);
                 }
+                List<Boolean> b = driverRequestAdapterPending.getConfirmDelete();
+                Collections.fill(b, Boolean.FALSE);
+
+                driverRequestAdapterPending.setConfirmDelete(b);
                 driverRequestAdapterPending.setRequestObjectList(newRequestObjectList);
                 driverRequestAdapterPending.notifyDataSetChanged();
             }
@@ -158,6 +164,10 @@ public class AsyncDriverDeleteRequest extends AsyncTask<RequestDTO, Void ,Boolea
                         newRequestObjectList.add(r);
                 }
 
+                List<Boolean> b = driverRequestAdapterOther.getConfirmDelete();
+                Collections.fill(b, Boolean.FALSE);
+
+                driverRequestAdapterOther.setConfirmDelete(b);
                 driverRequestAdapterOther.setRequestObjectList(newRequestObjectList);
                 driverRequestAdapterOther.notifyDataSetChanged();
             }

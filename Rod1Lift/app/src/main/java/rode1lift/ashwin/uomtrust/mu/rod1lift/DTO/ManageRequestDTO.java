@@ -17,6 +17,7 @@ public class ManageRequestDTO implements Serializable {
     private Integer accountId;
     private Integer carId;
     private Integer requestId;
+    private Integer seatRequested;
 
     private Date dateCreated;
     private Date dateUpdated;
@@ -77,5 +78,13 @@ public class ManageRequestDTO implements Serializable {
 
     public void setRequestStatus(RequestStatus requestStatus) {
         this.requestStatus = requestStatus;
+    }
+
+    public Integer getSeatRequested() {
+        return seatRequested;
+    }
+
+    public void setSeatRequested(Integer seatRequested) {
+        this.seatRequested = seatRequested;
     }
 }

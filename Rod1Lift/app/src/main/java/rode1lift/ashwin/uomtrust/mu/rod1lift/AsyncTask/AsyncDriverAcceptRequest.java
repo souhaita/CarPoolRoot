@@ -15,6 +15,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.DriverRequestAdapterOther;
@@ -126,6 +127,18 @@ public class AsyncDriverAcceptRequest extends AsyncTask<RequestDTO, Void ,Boolea
                     ManageRequestDTO m = r.getManageRequestDTOList().get(0);
                     m.setRequestStatus(RequestStatus.DRIVER_ACCEPTED);
                     new ManageRequestDAO(context).saveOrUpdateManageRequest(m);
+                    RequestDAO requestDAO = new RequestDAO(context);
+                    RequestDTO requestDTO = requestDAO.getRequestByID(m.getRequestId());
+                    int seatAvailable = requestDTO.getSeatAvailable().intValue() - m.getSeatRequested().intValue();
+                    requestDTO.setSeatAvailable(seatAvailable);
+                    requestDTO.setDateUpdated(new Date());
+
+                    if(seatAvailable <1){
+                        requestDTO.setRequestStatus(RequestStatus.FULL);
+                    }
+                    requestDAO.saveOrUpdateRequest(requestDTO);
+
+                    new AsyncDriverCreateOrUpdateRequest(context, false).execute(requestDTO);
                 }
             }
 

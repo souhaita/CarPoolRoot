@@ -117,6 +117,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                 " manage_request_id INTEGER PRIMARY KEY NOT NULL, " +
                 " request_id INTEGER NOT NULL, " +
                 " account_id INTEGER  NOT NULL, " +
+                " seat_requested INTEGER  NOT NULL, " +
                 " car_id INTEGER NOT NULL, " +
                 " request_status INTEGER, " +
                 " date_updated NUMERIC DEFAULT NULL, "+

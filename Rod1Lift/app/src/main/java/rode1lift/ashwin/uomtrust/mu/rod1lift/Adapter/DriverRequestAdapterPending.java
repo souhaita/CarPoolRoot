@@ -46,7 +46,7 @@ public class DriverRequestAdapterPending extends BaseAdapter {
     private Context context;
     private List<RequestObject> requestObjectList;
 
-    boolean confirmDelete = false;
+    List<Boolean> confirmDelete;
 
     private DriverRequestAdapterPending DriverRequestAdapterPending = this;
     private RequestStatus requestStatus;
@@ -55,6 +55,11 @@ public class DriverRequestAdapterPending extends BaseAdapter {
         this.context = context;
         this.requestObjectList = requestObjectList;
         this.requestStatus = requestStatus;
+
+        confirmDelete = new ArrayList<>();
+        for(RequestObject r: requestObjectList){
+            confirmDelete.add(false);
+        }
 
         inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -167,13 +172,13 @@ public class DriverRequestAdapterPending extends BaseAdapter {
         llDeleteRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!confirmDelete){
+                if(!confirmDelete.get(i)){
                     imgDelete.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_bin_open_red));
-                    confirmDelete = true;
+                    confirmDelete.set(i, true);
                 }
                 else{
                     new AsyncDriverDeleteRequest(context, DriverRequestAdapterPending, requestObjectList).execute(requestDTO);
-                    confirmDelete = false;
+                    confirmDelete.set(i, false);
                 }
             }
         });
@@ -185,7 +190,7 @@ public class DriverRequestAdapterPending extends BaseAdapter {
                 switch (motionEvent.getAction()) {
                     case MotionEvent.ACTION_CANCEL:
                         imgDelete.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_bin_close_red));
-                        confirmDelete = false;
+                        confirmDelete.set(i, false);
                         return false;
                 }
                 return false;
@@ -204,5 +209,13 @@ public class DriverRequestAdapterPending extends BaseAdapter {
 
     public void setRequestObjectList(List<RequestObject> requestObjectList) {
         this.requestObjectList = requestObjectList;
+    }
+
+    public List<Boolean> getConfirmDelete() {
+        return confirmDelete;
+    }
+
+    public void setConfirmDelete(List<Boolean> confirmDelete) {
+        this.confirmDelete = confirmDelete;
     }
 }

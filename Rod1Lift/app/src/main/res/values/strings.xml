@@ -44,8 +44,8 @@
     <string name="activity_create_trip_validation_contact_detail">Contact details can not be null</string>
     <string name="activity_create_trip_validation_contact_detail_length">Phone Num should be of lenght 7 - 8</string>
     <string name="activity_create_trip_validation_autocomplete_address_no_match">Please select address from autocomplete list</string>
-    <string name="activity_create_trip_validation_seat_available">Number of seat can not be null</string>
-    <string name="activity_create_trip_validation_seat_available_length">Number of seat should be of between 1</string>
+    <string name="activity_create_trip_validation_seat_available">Number of seatRequested can not be null</string>
+    <string name="activity_create_trip_validation_seat_available_length">Number of seatRequested should be of between 1</string>
     <string name="activity_create_trip_select_date">Select Date</string>
     <string name="activity_create_trip_select_time">Select Time</string>
     <string name="activity_create_trip_confirm_delete">Confirm Delete...</string>
@@ -95,6 +95,8 @@
     <string name="driver_request_adapter_seats_left">Seats</string>
 
     <string name="async_driver_accept_client_request">Saving Request</string>
+
+    <string name="async_driver_accept_client_request_fail">Car seeker requesting more seats than available</string>
 
 
 

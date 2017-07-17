@@ -104,6 +104,7 @@ public class ManageRequestServiceImp implements ManageRequestService{
 			mCalendar.setTimeInMillis(m.getDateUpdated().getTime());
 			manageRequestDTO.setDateUpdated(mCalendar.getTime());
 			
+			manageRequestDTO.setSeatRequested(m.getSeatRequested());
 			manageRequestDTO.setManageRequestId(m.getManageRequestId());
 			manageRequestDTO.setRequestId(m.getRequest().getRequestId());
 			manageRequestDTO.setRequestStatus(m.getRequestStatus());

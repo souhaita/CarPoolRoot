@@ -414,7 +414,9 @@ public class ActivityCreateTrip extends Activity {
             requestDTO.setSeatAvailable(Integer.parseInt(txtSeatAvailable.getText().toString()));
 
             Date date = new Date();
-            requestDTO.setDateCreated(date);
+            if(requestDTO.getDateCreated() == null)
+                requestDTO.setDateCreated(date);
+
             requestDTO.setDateUpdated(date);
         }
         else{

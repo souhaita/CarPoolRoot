@@ -145,6 +145,7 @@ public class AsyncDriverFetchRequest extends AsyncTask<RequestDTO, Void ,List<Re
 
                     ManageRequestDTO manageRequestDTO = new ManageRequestDTO();
                     manageRequestDTO.setManageRequestId(jsonObjectManageRequest.getInt("manageRequestId"));
+                    manageRequestDTO.setSeatRequested(jsonObjectManageRequest.getInt("seatRequested"));
                     manageRequestDTO.setAccountId(jsonObjectManageRequest.getInt("accountId"));
                     manageRequestDTO.setCarId(jsonObjectManageRequest.getInt("carId"));
                     manageRequestDTO.setDateCreated(new Date(jsonObjectManageRequest.getLong("dateCreated")));

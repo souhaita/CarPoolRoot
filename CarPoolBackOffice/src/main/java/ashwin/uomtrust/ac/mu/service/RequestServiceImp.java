@@ -76,6 +76,18 @@ public class RequestServiceImp implements RequestService{
 		RequestDTO newRequestDTO = requestDTO;
 		newRequestDTO.setRequestId(newRequest.getRequestId());
 		
+		
+		if(newRequestDTO.getSeatAvailable() <1){
+			List<ManageRequest> manageRequestList = manageRequestRepository.getManageRequestByRequestId(newRequest.getRequestId());
+			
+			for(ManageRequest m: manageRequestList){
+				if(m.getRequestStatus() != RequestStatus.DRIVER_ACCEPTED)
+					m.setRequestStatus(RequestStatus.DRIVER_REJECTED);
+			}	
+			if(manageRequestList != null && manageRequestList.size() >0)
+				manageRequestRepository.save(manageRequestList);
+		}
+		
 		return newRequestDTO;
 	}
 
@@ -147,6 +159,7 @@ public class RequestServiceImp implements RequestService{
 				mCalendar.setTimeInMillis(m.getDateUpdated().getTime());
 				manageRequestDTO.setDateUpdated(mCalendar.getTime());
 				
+				manageRequestDTO.setSeatRequested(m.getSeatRequested());
 				manageRequestDTO.setManageRequestId(m.getManageRequestId());
 				manageRequestDTO.setRequestId(m.getRequest().getRequestId());
 				manageRequestDTO.setRequestStatus(m.getRequestStatus());

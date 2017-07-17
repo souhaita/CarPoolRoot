@@ -22,6 +22,9 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.ActivityCreateTrip;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncDriverAcceptRequest;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncDriverDeleteRequest;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.ManageRequestDAO;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.RequestDAO;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.ManageRequestDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestObject;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.RequestStatus;
@@ -39,8 +42,7 @@ public class DriverRequestAdapterOther extends BaseAdapter {
     private Context context;
     private List<RequestObject> requestObjectList;
 
-    boolean confirmDelete = false;
-
+    List<Boolean> confirmDelete;
     private DriverRequestAdapterOther DriverRequestAdapterOther = this;
     private RequestStatus requestStatus;
 
@@ -48,6 +50,11 @@ public class DriverRequestAdapterOther extends BaseAdapter {
         this.context = context;
         this.requestObjectList = requestObjectList;
         this.requestStatus = requestStatus;
+
+        confirmDelete = new ArrayList<>();
+        for(RequestObject r: requestObjectList){
+            confirmDelete.add(false);
+        }
 
         inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -160,14 +167,14 @@ public class DriverRequestAdapterOther extends BaseAdapter {
         llDeleteRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!confirmDelete){
+                if(!confirmDelete.get(i)){
                     imgDelete.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_bin_open_red));
-                    confirmDelete = true;
+                    confirmDelete.set(i, true);
                 }
                 else{
                     requestDTO.setManageRequestId(requestObjectList.get(i).getManageRequestDTOList().get(0).getManageRequestId());
                     new AsyncDriverDeleteRequest(context, DriverRequestAdapterOther, requestObjectList).execute(requestDTO);
-                    confirmDelete = false;
+                    confirmDelete.set(i, false);
                 }
             }
         });
@@ -176,9 +183,37 @@ public class DriverRequestAdapterOther extends BaseAdapter {
         llAcceptRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                requestDTO.setManageRequestId(requestObjectList.get(i).getManageRequestDTOList().get(0).getManageRequestId());
-                new AsyncDriverAcceptRequest(context, DriverRequestAdapterOther, requestObjectList).execute(requestDTO);
-                confirmDelete = false;
+                Integer manageRequestId = requestObjectList.get(i).getManageRequestDTOList().get(0).getManageRequestId();
+                ManageRequestDTO serverManageRequest = requestObjectList.get(i).getManageRequestDTOList().get(0);
+
+                RequestDTO serverRequest = requestObjectList.get(i).getRequestDTO();
+
+                ManageRequestDAO manageRequestDAO = new ManageRequestDAO(context);
+                ManageRequestDTO manageRequestDTO = manageRequestDAO.getManageRequest(manageRequestId);
+
+                if(manageRequestDTO != null && manageRequestDTO.getManageRequestId() != null){
+                    RequestDAO requestDAO = new RequestDAO(context);
+                    RequestDTO r = requestDAO.getRequestByID(manageRequestDTO.getRequestId());
+
+                    if(r.getSeatAvailable().intValue() > 0 && r.getSeatAvailable().intValue() <= serverManageRequest.getSeatRequested().intValue()){
+                        requestDTO.setManageRequestId(manageRequestId);
+                        new AsyncDriverAcceptRequest(context, DriverRequestAdapterOther, requestObjectList).execute(requestDTO);
+                        confirmDelete.set(i, false);
+                    }
+                    else{
+                        String message = context.getString(R.string.async_driver_accept_client_request_fail);
+                        Utils.alertError(context, message);
+                    }
+                }
+                else if(serverManageRequest.getSeatRequested().intValue() <= serverRequest.getSeatAvailable().intValue()){
+                    requestDTO.setManageRequestId(manageRequestId);
+                    new AsyncDriverAcceptRequest(context, DriverRequestAdapterOther, requestObjectList).execute(requestDTO);
+                    confirmDelete.set(i, false);
+                }
+                else{
+                    String message = context.getString(R.string.async_driver_accept_client_request_fail);
+                    Utils.alertError(context, message);
+                }
             }
         });
 
@@ -189,7 +224,7 @@ public class DriverRequestAdapterOther extends BaseAdapter {
                 switch (motionEvent.getAction()) {
                     case MotionEvent.ACTION_CANCEL:
                         imgDelete.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_bin_close_red));
-                        confirmDelete = false;
+                        confirmDelete.set(i, false);
                         return false;
                 }
                 return false;
@@ -209,5 +244,13 @@ public class DriverRequestAdapterOther extends BaseAdapter {
 
     public void setRequestObjectList(List<RequestObject> requestObjectList) {
         this.requestObjectList = requestObjectList;
+    }
+
+    public List<Boolean> getConfirmDelete() {
+        return confirmDelete;
+    }
+
+    public void setConfirmDelete(List<Boolean> confirmDelete) {
+        this.confirmDelete = confirmDelete;
     }
 }

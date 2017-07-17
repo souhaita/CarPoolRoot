@@ -50,6 +50,7 @@ public class ManageRequestDAO {
         ManageRequestDTO manageRequestDTO = new ManageRequestDTO();
         manageRequestDTO.setCarId(res.getInt(res.getColumnIndex("car_id")));
         manageRequestDTO.setAccountId(res.getInt(res.getColumnIndex("account_id")));
+        manageRequestDTO.setSeatRequested(res.getInt(res.getColumnIndex("seat_requested")));
         manageRequestDTO.setDateCreated(new Date(res.getLong(res.getColumnIndex("date_created"))));
         manageRequestDTO.setDateUpdated(new Date(res.getLong(res.getColumnIndex("date_updated"))));
         manageRequestDTO.setManageRequestId(res.getInt(res.getColumnIndex("manage_request_id")));
@@ -65,6 +66,7 @@ public class ManageRequestDAO {
 
         values.put("car_id", manageRequestDTO.getCarId());
         values.put("account_id", manageRequestDTO.getAccountId());
+        values.put("seat_requested", manageRequestDTO.getSeatRequested());
         values.put("date_created", manageRequestDTO.getDateCreated().getTime());
         values.put("date_updated", manageRequestDTO.getDateUpdated().getTime());
         values.put("manage_request_id", manageRequestDTO.getManageRequestId());
