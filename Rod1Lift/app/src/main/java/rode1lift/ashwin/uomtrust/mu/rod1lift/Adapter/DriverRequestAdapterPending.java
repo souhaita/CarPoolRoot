@@ -26,6 +26,7 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.ActivityCreateTrip;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncDriverDeleteRequest;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.AccountDTO;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.ManageRequestDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestObject;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.RequestStatus;
@@ -49,12 +50,10 @@ public class DriverRequestAdapterPending extends BaseAdapter {
     List<Boolean> confirmDelete;
 
     private DriverRequestAdapterPending DriverRequestAdapterPending = this;
-    private RequestStatus requestStatus;
 
-    public DriverRequestAdapterPending(Context context, List<RequestObject> requestObjectList, RequestStatus requestStatus){
+    public DriverRequestAdapterPending(Context context, List<RequestObject> requestObjectList){
         this.context = context;
         this.requestObjectList = requestObjectList;
-        this.requestStatus = requestStatus;
 
         confirmDelete = new ArrayList<>();
         for(RequestObject r: requestObjectList){
@@ -105,13 +104,33 @@ public class DriverRequestAdapterPending extends BaseAdapter {
         }
         txtDate.setText(date);
 
-        String seats = context.getString(R.string.driver_request_adapter_seats_left);
+        String seats;
+
         TextView txtSeatAvailable = (TextView)view.findViewById(R.id.txtSeatAvailable);
-        txtSeatAvailable.setText(requestDTO.getSeatAvailable().toString() +" "+seats);
+
+        if(requestDTO.getSeatAvailable() >1) {
+            seats = context.getString(R.string.driver_request_adapter_seats_left);
+            txtSeatAvailable.setText(requestDTO.getSeatAvailable().toString() +" "+seats);
+        }
+        else if (requestDTO.getSeatAvailable() == 1) {
+            seats = context.getString(R.string.driver_request_adapter_seat_left);
+            txtSeatAvailable.setText(requestDTO.getSeatAvailable().toString() +" "+seats);
+        }
+        else {
+            seats = context.getString(R.string.driver_request_adapter_no_seat_left);
+            txtSeatAvailable.setText(seats);
+        }
+
+        int count = requestObjectList.get(i).getAccountDTOList().size();
+        int unitPrice = requestDTO.getPrice();
+        int totalPrice = count * unitPrice;
+
+        String unitSPrice = String.valueOf(unitPrice);
+        String totalSPrice = String.valueOf(totalPrice);
 
         TextView txtPrice = (TextView)view.findViewById(R.id.txtPrice);
-        txtPrice.setText("Rs "+requestDTO.getPrice().toString());
-
+        txtPrice.setText("Rs"+totalSPrice+" ("+unitSPrice+"/p)");
+        
         final ViewPager imgCarPic = (ViewPager) view.findViewById(R.id.imgCarPic);
 
         List<byte []> profilePic = new ArrayList<>();
@@ -153,7 +172,6 @@ public class DriverRequestAdapterPending extends BaseAdapter {
             };
             handler.postDelayed(runnable, 0);
         }
-
 
         LinearLayout llRequestDetails = (LinearLayout)view.findViewById(R.id.llRequestDetails);
         llRequestDetails.setOnClickListener(new View.OnClickListener() {

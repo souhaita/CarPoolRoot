@@ -47,12 +47,7 @@ public class ActivityDriverManageRequest extends Activity {
         });
 
         TextView txtDone = (TextView)findViewById(R.id.txtDone);
-        txtDone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        txtDone.setVisibility(View.INVISIBLE);
 
         requestDTO = new RequestDTO();
         requestDTO.setRequestStatus(RequestStatus.REQUEST_PENDING);
@@ -82,20 +77,11 @@ public class ActivityDriverManageRequest extends Activity {
             }
         });
 
-        FloatingActionButton fabCarFull = (FloatingActionButton) findViewById(R.id.fabCarFull);
-        fabCarFull.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                spinnerRequestStatus.setSelection(1);
-                fabMenu.close(true);
-            }
-        });
-
         FloatingActionButton fabClientAccepted = (FloatingActionButton) findViewById(R.id.fabClientAccepted);
         fabClientAccepted.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                spinnerRequestStatus.setSelection(2);
+                spinnerRequestStatus.setSelection(1);
                 fabMenu.close(true);
             }
         });
@@ -110,10 +96,6 @@ public class ActivityDriverManageRequest extends Activity {
                         break;
 
                     case 1:
-                        requestDTO.setRequestStatus(RequestStatus.REQUEST_PENDING);
-                        break;
-
-                    case 2:
                         requestDTO.setRequestStatus(RequestStatus.USER_ACCEPTED);
                         break;
                 }

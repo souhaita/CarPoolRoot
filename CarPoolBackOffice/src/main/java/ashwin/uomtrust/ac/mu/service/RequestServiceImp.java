@@ -76,18 +76,6 @@ public class RequestServiceImp implements RequestService{
 		RequestDTO newRequestDTO = requestDTO;
 		newRequestDTO.setRequestId(newRequest.getRequestId());
 		
-		
-		if(newRequestDTO.getSeatAvailable() <1){
-			List<ManageRequest> manageRequestList = manageRequestRepository.getManageRequestByRequestId(newRequest.getRequestId());
-			
-			for(ManageRequest m: manageRequestList){
-				if(m.getRequestStatus() != RequestStatus.DRIVER_ACCEPTED)
-					m.setRequestStatus(RequestStatus.DRIVER_REJECTED);
-			}	
-			if(manageRequestList != null && manageRequestList.size() >0)
-				manageRequestRepository.save(manageRequestList);
-		}
-		
 		return newRequestDTO;
 	}
 
@@ -101,12 +89,22 @@ public class RequestServiceImp implements RequestService{
 		if(request == null || request.getRequestId() == null)
 			result = true;
 		
+		List<ManageRequest> manageRequestList = manageRequestRepository.getManageRequestByRequestId(requestId);
+		if(manageRequestList != null && manageRequestList.size()>0){
+			if(manageRequestList != null && manageRequestList.size() >0)
+				manageRequestRepository.delete(manageRequestList);
+		}
+		
 		return result;
 	}
 	
 	@Override
 	public List<RequestObject> driverGetPendingRequestList(RequestDTO requestDTO) {
-		List<Request> requestList = requestRepository.getRequestByUserIdAndRequestStatus(requestDTO.getAccountId(), requestDTO.getRequestStatus());
+		List<RequestStatus> requestStatusList = new ArrayList<>();
+		requestStatusList.add(RequestStatus.REQUEST_PENDING);
+		requestStatusList.add(RequestStatus.FULL);
+
+		List<Request> requestList = requestRepository.getPendingRequestByUserId(requestDTO.getAccountId(), requestStatusList);
 				
 		List<RequestObject> requestObjectList = new ArrayList<>();
 		

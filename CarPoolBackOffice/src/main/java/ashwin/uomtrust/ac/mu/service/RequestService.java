@@ -4,10 +4,12 @@ import java.util.List;
 
 import ashwin.uomtrust.ac.mu.dto.RequestDTO;
 import ashwin.uomtrust.ac.mu.dto.RequestObject;
+import ashwin.uomtrust.ac.mu.entity.Request;
 
 public interface RequestService {
 
 	public RequestDTO save(RequestDTO requestDTO);
+
 	public Boolean driverDeletePendingRequest(Long requestId);
 
 	//public List<RequestDTO> getRequestByUserIdAndRequestStatus(RequestDTO requestDTO);

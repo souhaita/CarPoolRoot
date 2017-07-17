@@ -1,6 +1,5 @@
 package rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -18,8 +17,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.DriverRequestAdapterOther;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.DriverRequestAdapterPending;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.DriverRequestUserAcceptedAdapter;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.ManageRequestDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.RequestDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.ManageRequestDTO;
@@ -29,8 +27,6 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.RequestStatus;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.WebService.WebService;
-
-import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by Ashwin on 03-Jun-17.
@@ -44,12 +40,12 @@ public class AsyncDriverAcceptRequest extends AsyncTask<RequestDTO, Void ,Boolea
     private List<RequestObject> requestObjectList;
     private Intent intent;
 
-    private DriverRequestAdapterOther driverRequestAdapterOther;
+    private DriverRequestUserAcceptedAdapter driverRequestUserAcceptedAdapter;
 
 
-    public AsyncDriverAcceptRequest(final Context context, DriverRequestAdapterOther driverRequestAdapterOther, List<RequestObject> requestObjectList) {
+    public AsyncDriverAcceptRequest(final Context context, DriverRequestUserAcceptedAdapter driverRequestUserAcceptedAdapter, List<RequestObject> requestObjectList) {
         this.context = context;
-        this.driverRequestAdapterOther = driverRequestAdapterOther;
+        this.driverRequestUserAcceptedAdapter = driverRequestUserAcceptedAdapter;
         this.requestObjectList = requestObjectList;
     }
 
@@ -137,13 +133,11 @@ public class AsyncDriverAcceptRequest extends AsyncTask<RequestDTO, Void ,Boolea
                         requestDTO.setRequestStatus(RequestStatus.FULL);
                     }
                     requestDAO.saveOrUpdateRequest(requestDTO);
-
-                    new AsyncDriverCreateOrUpdateRequest(context, false).execute(requestDTO);
                 }
             }
 
-            driverRequestAdapterOther.setRequestObjectList(newRequestObjectList);
-            driverRequestAdapterOther.notifyDataSetChanged();
+            driverRequestUserAcceptedAdapter.setRequestObjectList(newRequestObjectList);
+            driverRequestUserAcceptedAdapter.notifyDataSetChanged();
         }
         else{
             Utils.alertError(context, context.getString(R.string.error_server));

@@ -9,7 +9,7 @@ import ashwin.uomtrust.ac.mu.entity.ManageRequest;
 public interface ManageRequestService {
 
 	public List<ManageRequest> getManageRequestByRequestId(Long requestId);
-	public List<RequestObject> driverGetRequestList(RequestDTO requestDTO);
+	public List<RequestObject> driverGetUserAcceptedRequestList(RequestDTO requestDTO);
 	public Boolean driverDeleteClientRequest(Long manageRequestId);
 	public Boolean driverAcceptClientRequest(Long manageRequestId);
 }

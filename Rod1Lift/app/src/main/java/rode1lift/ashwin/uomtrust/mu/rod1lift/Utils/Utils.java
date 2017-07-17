@@ -31,6 +31,7 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.HttpMethod;
 import com.facebook.login.LoginManager;
+import com.github.clans.fab.FloatingActionButton;
 
 
 import java.io.ByteArrayOutputStream;
@@ -39,6 +40,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.RequestStatus;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -168,17 +170,26 @@ public class Utils {
 
     public static void animateList(LinearLayout linearLayout, Context context, int position){
         Animation animation = AnimationUtils.loadAnimation(context, R.anim.list_effect);
-        animation.setStartOffset(position* 100);
-        animation.setDuration(600);
+        //animation.setStartOffset(position* 100);
+        animation.setDuration(750);
         linearLayout.startAnimation(animation);
     }
 
     public static void animateGrid(LinearLayout linearLayout, Context context, int position){
         Animation animation = AnimationUtils.loadAnimation(context, R.anim.fab_slide_in_from_left);
-        animation.setStartOffset(position* 300);
+        //animation.setStartOffset(position* 300);
         animation.setDuration(2000);
         linearLayout.startAnimation(animation);
     }
+
+    public static void animateFloatingButton(FloatingActionButton floatingActionButton, Context context, int position){
+        Animation animation = AnimationUtils.loadAnimation(context, R.anim.fab_scale_up);
+        //animation.setStartOffset(position* 100);
+        animation.setDuration(1800);
+        floatingActionButton.startAnimation(animation);
+    }
+
+
 
     public static void turnGPSOn(Context context){
         Intent intent=new Intent("android.location.GPS_ENABLED_CHANGE");

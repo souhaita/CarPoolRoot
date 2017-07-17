@@ -18,11 +18,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.DriverRequestAdapterOther;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.DriverRequestUserAcceptedAdapter;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.DriverRequestAdapterPending;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.ManageRequestDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.RequestDAO;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.ManageRequestDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestObject;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.RequestStatus;
@@ -30,7 +29,6 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.WebService.WebService;
 
-import static android.R.id.list;
 import static android.app.Activity.RESULT_OK;
 
 /**
@@ -46,7 +44,7 @@ public class AsyncDriverDeleteRequest extends AsyncTask<RequestDTO, Void ,Boolea
     private List<RequestObject> requestObjectList;
     private Intent intent;
 
-    private DriverRequestAdapterOther driverRequestAdapterOther;
+    private DriverRequestUserAcceptedAdapter driverRequestUserAcceptedAdapter;
 
     public AsyncDriverDeleteRequest(final Context context, DriverRequestAdapterPending driverRequestAdapterPending, List<RequestObject> requestObjectList) {
         this.context = context;
@@ -54,9 +52,9 @@ public class AsyncDriverDeleteRequest extends AsyncTask<RequestDTO, Void ,Boolea
         this.requestObjectList = requestObjectList;
     }
 
-    public AsyncDriverDeleteRequest(final Context context, DriverRequestAdapterOther driverRequestAdapterOther, List<RequestObject> requestObjectList) {
+    public AsyncDriverDeleteRequest(final Context context, DriverRequestUserAcceptedAdapter driverRequestUserAcceptedAdapter, List<RequestObject> requestObjectList) {
         this.context = context;
-        this.driverRequestAdapterOther = driverRequestAdapterOther;
+        this.driverRequestUserAcceptedAdapter = driverRequestUserAcceptedAdapter;
         this.requestObjectList = requestObjectList;
     }
 
@@ -151,25 +149,27 @@ public class AsyncDriverDeleteRequest extends AsyncTask<RequestDTO, Void ,Boolea
                 driverRequestAdapterPending.setRequestObjectList(newRequestObjectList);
                 driverRequestAdapterPending.notifyDataSetChanged();
             }
-            else if (driverRequestAdapterOther != null) {
+            else if (driverRequestUserAcceptedAdapter != null) {
 
                 new ManageRequestDAO(context).deleteManageRequest(requestDTO.getManageRequestId());
                 new RequestDAO(context).deleteRequest(requestDTO.getRequestId());
 
                 List<RequestObject> newRequestObjectList = new ArrayList<>();
 
+                List<Boolean> falseList = new ArrayList<>();
+
                 for(int x = 0; x < requestObjectList.size(); x++){
                     RequestObject r = requestObjectList.get(x);
-                    if (!r.getManageRequestDTOList().get(0).getManageRequestId().equals(requestDTO.getManageRequestId()))
+                    if (!r.getManageRequestDTOList().get(0).getManageRequestId().equals(requestDTO.getManageRequestId())) {
                         newRequestObjectList.add(r);
+                        falseList.add(false);
+                    }
                 }
 
-                List<Boolean> b = driverRequestAdapterOther.getConfirmDelete();
-                Collections.fill(b, Boolean.FALSE);
 
-                driverRequestAdapterOther.setConfirmDelete(b);
-                driverRequestAdapterOther.setRequestObjectList(newRequestObjectList);
-                driverRequestAdapterOther.notifyDataSetChanged();
+                driverRequestUserAcceptedAdapter.setConfirmDelete(falseList);
+                driverRequestUserAcceptedAdapter.setRequestObjectList(newRequestObjectList);
+                driverRequestUserAcceptedAdapter.notifyDataSetChanged();
             }
             else{
                 ((Activity)context).setResult(RESULT_OK, intent);

@@ -38,6 +38,7 @@ import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncDriverCreateOrUpdateRequest;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncDriverDeleteRequest;
@@ -47,6 +48,7 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.AccountDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.CarDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.AccountDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.CarDTO;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.ManageRequestDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestObject;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.RequestStatus;
@@ -88,6 +90,8 @@ public class ActivityCreateTrip extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_trip);
 
+        flMain = (FrameLayout) findViewById(R.id.flMain);
+
         API_KEY = getString(R.string.google_places_api_key);
 
         TextView txtMenuHeader = (TextView)findViewById(R.id.txtMenuHeader);
@@ -107,8 +111,6 @@ public class ActivityCreateTrip extends Activity {
                 startActivityForResult(intent, CONSTANT.CREATE_TRIP_ACTIVITY);
             }
         });
-
-        slider();
 
         String from = getIntent().getStringExtra("from"), to = getIntent().getStringExtra("to");
 
@@ -205,6 +207,8 @@ public class ActivityCreateTrip extends Activity {
             }
         });
 
+        slider();
+
         requestObject = (RequestObject)getIntent().getSerializableExtra(CONSTANT.REQUEST_OBJECT);
 
         ImageView imgBack = (ImageView)findViewById(R.id.imgBack);
@@ -244,7 +248,6 @@ public class ActivityCreateTrip extends Activity {
 
             croller.setProgress((requestDTO.getPrice()/5));
 
-
             imgBack.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -262,8 +265,14 @@ public class ActivityCreateTrip extends Activity {
                     fabMenu.close(true);
                     Intent intent = new Intent(ActivityCreateTrip.this, ActivityDriverViewUserDetails.class);
                     RequestObject requestObject = (RequestObject)getIntent().getSerializableExtra(CONSTANT.REQUEST_OBJECT);
-                    intent.putExtra(CONSTANT.REQUEST_OBJECT, requestObject);
-                    startActivity(intent);
+                    List<ManageRequestDTO> manageRequestDTOList = requestObject.getManageRequestDTOList();
+                    if(manageRequestDTOList != null && manageRequestDTOList.size() >0) {
+                        intent.putExtra(CONSTANT.REQUEST_OBJECT, requestObject);
+                        startActivity(intent);
+                    }
+                    else{
+                        Utils.alertError(ActivityCreateTrip.this, getString(R.string.activity_create_trip_price_no_client));
+                    }
                 }
             });
 
@@ -274,6 +283,26 @@ public class ActivityCreateTrip extends Activity {
                     alertCancel(!newTrip);
                 }
             });
+
+            List<ManageRequestDTO> manageRequestDTOList = requestObject.getManageRequestDTOList();
+            if(manageRequestDTOList != null && manageRequestDTOList.size() >0){
+                Utils.animateLayout(flMain);
+
+                autoFrom.setFocusable(false);
+                autoFrom.setFocusableInTouchMode(false);
+                autoFrom.setEnabled(false);
+                autoTo.setFocusable(false);
+                autoTo.setFocusableInTouchMode(false);
+                autoTo.setEnabled(false);
+                txtDate.setEnabled(false);
+                txtTime.setEnabled(false);
+                txtPrice.setEnabled(false);
+                txtSeatAvailable.setEnabled(false);
+                txtContact.setEnabled(false);
+                croller.setEnabled(false);
+                txtDone.setEnabled(false);
+                txtDone.setVisibility(View.INVISIBLE);
+            }
         }
         else{
             imgBack.setOnClickListener(new View.OnClickListener() {
@@ -350,6 +379,7 @@ public class ActivityCreateTrip extends Activity {
                 txtPrice.setText(String.valueOf(progress*5));
             }
         });
+
     }
 
     private boolean validForm(){
@@ -537,12 +567,10 @@ public class ActivityCreateTrip extends Activity {
 
     protected void onPause(){
         super.onPause();
-       // flMain.setAnimation(null);
+        flMain.setAnimation(null);
     }
 
-    protected  void onResume(){
+    protected void onResume(){
         super.onResume();
-        //flMain = (FrameLayout) findViewById(R.id.flMain);
-        //Utils.animateLayout(flMain);
     }
 }

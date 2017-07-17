@@ -17,11 +17,11 @@ import ashwin.uomtrust.ac.mu.dto.CarDTO;
 
 public class Utils {	
 	
-	//private static final String carDirectory = "D:/UOM/Dissertation/rod1LiftImages/CarGalley/";
-	//private static final String profilePicDirectory = "D:/UOM/Dissertation/rod1LiftImages/ProfilePicGalley/";
+	private static final String carDirectory = "D:/UOM/Dissertation/rod1LiftImages/CarGalley/";
+	private static final String profilePicDirectory = "D:/UOM/Dissertation/rod1LiftImages/ProfilePicGalley/";
 	
-	private static final String carDirectory = "I:/UOM/D/rod1LiftImages/CarGalley/";
-	private static final String profilePicDirectory = "I:/UOM/D/rod1LiftImages/ProfilePicGalley/";
+	//private static final String carDirectory = "I:/UOM/D/rod1LiftImages/CarGalley/";
+	//private static final String profilePicDirectory = "I:/UOM/D/rod1LiftImages/ProfilePicGalley/";
 
 	
 	public static void saveProfilePictureToServer(AccountDTO accountDTO){

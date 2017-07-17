@@ -32,6 +32,8 @@ public class ManageRequestServiceImp implements ManageRequestService{
 	
 	@Autowired
 	private ManageRequestRepository manageRequestRepository;
+	
+	private RequestService requestService;
 
 	@Override
 	public List<ManageRequest> getManageRequestByRequestId(Long requestId) {
@@ -40,9 +42,9 @@ public class ManageRequestServiceImp implements ManageRequestService{
 	}
 
 	@Override
-	public List<RequestObject> driverGetRequestList(RequestDTO requestDTO) {
+	public List<RequestObject> driverGetUserAcceptedRequestList(RequestDTO requestDTO) {
 		// TODO Auto-generated method stub
-		List<ManageRequest> manageRequestList = manageRequestRepository.getDriverManageRequestByRequestStatus(requestDTO.getCarId(), requestDTO.getRequestStatus());
+		List<ManageRequest> manageRequestList = manageRequestRepository.getDriverManageRequestByRequestStatus(requestDTO.getCarId(), RequestStatus.USER_ACCEPTED);
 		
 		List<RequestObject> requestObjectList = new ArrayList<>();
 		
@@ -79,7 +81,6 @@ public class ManageRequestServiceImp implements ManageRequestService{
 			newRequestDTO.setEventDate(cal.getTime());
 			
 			newRequestDTO.setAccountId(request.getAccount().getAccountId());			
-			
 			
 			Account a = m.getUserAccount();
 			AccountDTO accountDTO = new AccountDTO();
@@ -135,9 +136,40 @@ public class ManageRequestServiceImp implements ManageRequestService{
 	@Override
 	public Boolean driverAcceptClientRequest(Long manageRequestId) {
 		// TODO Auto-generated method stub
-		ManageRequest m = manageRequestRepository.findOne(manageRequestId);
-		m.setRequestStatus(RequestStatus.DRIVER_ACCEPTED);
-		manageRequestRepository.save(m);
+		Calendar cal = Calendar.getInstance();
+		
+		ManageRequest manageRequest = manageRequestRepository.findOne(manageRequestId);
+		manageRequest.setRequestStatus(RequestStatus.DRIVER_ACCEPTED);
+		manageRequest.setDateUpdated(cal.getTime());
+		manageRequestRepository.save(manageRequest);
+		
+		Request request = requestRepository.getRequestById(manageRequest.getRequest().getRequestId());
+		request.setDateUpdated(cal.getTime());
+		
+		Integer seatLeft = request.getSeatAvailable().intValue() - manageRequest.getSeatRequested().intValue();
+		request.setSeatAvailable(seatLeft);
+		
+		if(request.getSeatAvailable() <1){
+			request.setRequestStatus(RequestStatus.FULL);
+			
+			List<ManageRequest> manageRequestList = manageRequestRepository.getManageRequestByRequestId(request.getRequestId());
+			
+			if(manageRequestList != null && manageRequestList.size() >0){
+				List<ManageRequest> newList = new ArrayList<>();
+				for(ManageRequest m: manageRequestList){
+					if(m.getRequestStatus() != RequestStatus.DRIVER_ACCEPTED){
+						m.setRequestStatus(RequestStatus.DRIVER_REJECTED);
+						m.setDateUpdated(cal.getTime());
+						newList.add(m);
+					}
+				}	
+				
+				if(newList != null && newList.size() >0)
+					manageRequestRepository.save(newList);
+			}
+		}
+
+		requestRepository.save(request);
 		
 		return true;
 	}

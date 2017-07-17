@@ -22,7 +22,7 @@ import java.util.Date;
 import java.util.List;
 
 
-import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.DriverRequestAdapterOther;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.DriverRequestUserAcceptedAdapter;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.DriverRequestAdapterPending;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.ManageRequestDAO;
@@ -76,7 +76,6 @@ public class AsyncDriverFetchRequest extends AsyncTask<RequestDTO, Void ,List<Re
             RequestDTO requestDTO = params[0];
             if(requestDTO != null) {
                 requestStatus = requestDTO.getRequestStatus();
-                postData.put("requestStatus", requestDTO.getRequestStatus().getValue());
                 postData.put("accountId", userId);
 
                 if(requestDTO.getCarId() != null)
@@ -88,7 +87,7 @@ public class AsyncDriverFetchRequest extends AsyncTask<RequestDTO, Void ,List<Re
             if(requestDTO.getRequestStatus().equals(RequestStatus.REQUEST_PENDING))
                 url = WebService.API_DRIVER_GET_PENDING_REQUEST_LIST;
             else
-                url = WebService.API_DRIVER_OTHER_REQUEST_LIST;
+                url = WebService.API_DRIVER_GET_USER_ACCEPTED_REQUEST_LIST;
 
 
             httpURLConnection = (HttpURLConnection) new URL(url).openConnection();
@@ -151,7 +150,8 @@ public class AsyncDriverFetchRequest extends AsyncTask<RequestDTO, Void ,List<Re
                     manageRequestDTO.setDateCreated(new Date(jsonObjectManageRequest.getLong("dateCreated")));
                     manageRequestDTO.setDateUpdated(new Date(jsonObjectManageRequest.getLong("dateUpdated")));
                     manageRequestDTO.setRequestId(jsonObjectManageRequest.getInt("requestId"));
-                    manageRequestDTO.setRequestStatus(RequestStatus.REQUEST_PENDING);
+                    RequestStatus r = RequestStatus.valueOf(jsonObjectManageRequest.getString("requestStatus"));
+                    manageRequestDTO.setRequestStatus(r);
 
                     manageRequestDTOList.add(manageRequestDTO);
                 }
@@ -199,7 +199,10 @@ public class AsyncDriverFetchRequest extends AsyncTask<RequestDTO, Void ,List<Re
     protected void onPostExecute(List<RequestObject> requestObjectList){
         super.onPostExecute(requestObjectList);
 
-        if(requestStatus == RequestStatus.REQUEST_PENDING && requestObjectList != null && requestObjectList.size() >0) {
+        if(progressDialog != null && progressDialog.isShowing())
+            progressDialog.dismiss();
+
+        if(requestStatus == RequestStatus.REQUEST_PENDING) {
             List<RequestDTO> requestDTOList = new ArrayList<>();
             List<ManageRequestDTO> manageRequestDTOList = new ArrayList<>();
             List<AccountDTO> accountDTOList = new ArrayList<>();
@@ -224,18 +227,19 @@ public class AsyncDriverFetchRequest extends AsyncTask<RequestDTO, Void ,List<Re
                 manageRequestDAO.saveOrUpdateManageRequest(manageRequestDTO);
             }
 
-            final DriverRequestAdapterPending driverRequestAdapterPending = new DriverRequestAdapterPending(context, requestObjectList, RequestStatus.REQUEST_PENDING);
+            final DriverRequestAdapterPending driverRequestAdapterPending = new DriverRequestAdapterPending(context, requestObjectList);
             listView.setAdapter(null);
             listView.setAdapter(driverRequestAdapterPending);
         }
 
-        else if(requestStatus == RequestStatus.USER_ACCEPTED){
-            final DriverRequestAdapterOther driverRequestAdapterOther = new DriverRequestAdapterOther(context, requestObjectList, requestStatus);
+        else if (requestStatus == RequestStatus.USER_ACCEPTED ) {
+            final DriverRequestUserAcceptedAdapter driverRequestUserAcceptedAdapter = new DriverRequestUserAcceptedAdapter(context, requestObjectList);
             listView.setAdapter(null);
-            listView.setAdapter(driverRequestAdapterOther);
+            listView.setAdapter(driverRequestUserAcceptedAdapter);
         }
 
-        if(progressDialog != null && progressDialog.isShowing())
-            progressDialog.dismiss();
+        else  {
+            Utils.alertError(context, context.getString(R.string.error_server));
+        }
     }
 }

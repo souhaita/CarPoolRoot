@@ -1,1 +1,7 @@
 1500220446258	Rename method 'driverDeleteRequest'
+1500310320341	Rename local variable 'newRequestDTO'
+1500311733497	Rename local variable 'cal'
+1500312923381	Rename method 'driverGetRequestList'
+1500313168535	Rename method 'driverGetUserAcceptedList'
+1500314298429	Rename method 'driverGetOtherRequestList'
+1500314981237	Rename method 'getRequestByUserIdAndRequestStatus'

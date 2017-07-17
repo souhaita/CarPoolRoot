@@ -51,6 +51,7 @@
     <string name="activity_create_trip_confirm_delete">Confirm Delete...</string>
     <string name="activity_create_trip_confirm_delete_message">Are you sure you want delete this trip?</string>
     <string name="activity_create_trip_price">Price</string>
+    <string name="activity_create_trip_price_no_client">No one has accepted your request yet!</string>
 
     <string name="activity_map_marker_title_main_here">You are here</string>
     <string name="activity_map_marker_title_from">Trip starts</string>
@@ -73,12 +74,12 @@
     <string name="floating_menu_path_create_trip">Create trip</string>
 
 
-    <string name="floating_menu_clear_pending">Pending</string>
+    <string name="floating_menu_clear_pending">Upcoming Trip</string>
     <string name="floating_menu_car_full">Trip Full</string>
     <string name="floating_menu_client_accepted">Client Accepted</string>
     <string name="floating_menu_i_rejected">I Rejected</string>
 
-    <string name="floating_menu_driver_view_details">View Details</string>
+    <string name="floating_menu_driver_view_details">View Passengers Details</string>
     <string name="floating_menu_driver_delete_trip">Delete Trip</string>
 
     <string name="async_check_account_validating_account">Validating your account</string>
@@ -92,7 +93,9 @@
     <string name="async_driver_update_car_details">Updating your car details</string>
     <string name="async_driver_update_account_details">Updating your account details</string>
 
-    <string name="driver_request_adapter_seats_left">Seats</string>
+    <string name="driver_request_adapter_seats_left">Seats Left</string>
+    <string name="driver_request_adapter_seat_left">Seat Left</string>
+    <string name="driver_request_adapter_no_seat_left">Trip Full</string>
 
     <string name="async_driver_accept_client_request">Saving Request</string>
 
@@ -156,8 +159,7 @@
     <string name="title_activity_profile">ProfileActivity</string>
 
     <string-array name="driver_manage_request_arrays">
-        <item>PENDING</item>
-        <item>TRIP FULL</item>
+        <item>UPCOMING TRIP</item>
         <item>CLIENT ACCEPTED</item>
     </string-array>
 
