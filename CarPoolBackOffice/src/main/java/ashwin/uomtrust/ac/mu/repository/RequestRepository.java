@@ -28,4 +28,7 @@ public interface RequestRepository extends JpaRepository<Request, Long> {
 	
 	@Query("select r from Request r where r.requestId =:requestId")
 	public Request getRequestById(@Param("requestId") Long requestId);		
+	
+	@Query("select r from Request r join r.account a where a.accountId =:accountId and r.eventDate < current_date and r.requestStatus in (:requestStatusList) order by r.eventDate desc")
+	public List<Request> getRequestHistoryForDriver(@Param("accountId") Long accountId, @Param("requestStatusList") List<RequestStatus> requestStatusList);		
 }

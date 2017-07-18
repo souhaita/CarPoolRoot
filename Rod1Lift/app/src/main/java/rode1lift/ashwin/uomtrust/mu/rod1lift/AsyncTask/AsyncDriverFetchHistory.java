@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Base64;
-import android.widget.ListView;
-
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -21,10 +19,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
-import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.DriverRequestUserAcceptedAdapter;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.DriverRequestAdapterPending;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.DriverRequestUserAcceptedAdapter;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.HistoryAdapter;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.AccountDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.ManageRequestDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.RequestDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.AccountDTO;
@@ -42,28 +41,25 @@ import static android.content.Context.MODE_PRIVATE;
  * Created by Ashwin on 03-Jun-17.
  */
 
-public class AsyncDriverFetchRequest extends AsyncTask<RequestDTO, Void ,List<RequestObject >> {
+public class AsyncDriverFetchHistory extends AsyncTask<Void, Void ,List<RequestObject >> {
 
     private Context context;
     private ProgressDialog progressDialog;
-    private ListView listView;
-    private RequestStatus requestStatus;
 
-    public AsyncDriverFetchRequest(final Context context, ListView listView) {
+    public AsyncDriverFetchHistory(final Context context) {
         this.context = context;
-        this.listView = listView;
     }
 
     @Override
     protected void onPreExecute() {
-        String message = context.getString(R.string.async_driver_fetch_trip_details);
+        String message = context.getString(R.string.async_driver_fetch_history);
         progressDialog = Utils.progressDialogue(context,message);
         progressDialog.show();
     }
 
 
     @Override
-    protected List<RequestObject> doInBackground(RequestDTO... params) {
+    protected List<RequestObject> doInBackground(Void... params) {
         JSONObject postData = new JSONObject();
 
         HttpURLConnection httpURLConnection = null;
@@ -72,24 +68,9 @@ public class AsyncDriverFetchRequest extends AsyncTask<RequestDTO, Void ,List<Re
 
             int userId = Utils.getCurrentAccount(context);
 
-            RequestDTO requestDTO = params[0];
-            if(requestDTO != null) {
-                requestStatus = requestDTO.getRequestStatus();
-                postData.put("accountId", userId);
+            postData.put("accountId", userId);
 
-                if(requestDTO.getCarId() != null)
-                    postData.put("carId", requestDTO.getCarId());
-            }
-
-            String url;
-
-            if(requestDTO.getRequestStatus().equals(RequestStatus.REQUEST_PENDING))
-                url = WebService.API_DRIVER_GET_PENDING_REQUEST_LIST;
-            else
-                url = WebService.API_DRIVER_GET_USER_ACCEPTED_REQUEST_LIST;
-
-
-            httpURLConnection = (HttpURLConnection) new URL(url).openConnection();
+            httpURLConnection = (HttpURLConnection) new URL(WebService.API_DRIVER_GET_HISTORY_LIST).openConnection();
             httpURLConnection.setRequestMethod("POST");
             httpURLConnection.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
             httpURLConnection.setRequestProperty("Accept", "application/json;charset=UTF-8");
@@ -126,14 +107,10 @@ public class AsyncDriverFetchRequest extends AsyncTask<RequestDTO, Void ,List<Re
                 newRequestDTO.setAccountId(jsonObjectRequest.getInt("accountId"));
                 newRequestDTO.setRequestId(jsonObjectRequest.getInt("requestId"));
                 newRequestDTO.setSeatAvailable(jsonObjectRequest.getInt("seatAvailable"));
-                newRequestDTO.setRequestStatus(requestDTO.getRequestStatus());
                 newRequestDTO.setEvenDate(new Date(jsonObjectRequest.getLong("eventDate")));
                 newRequestDTO.setPlaceFrom(jsonObjectRequest.getString("placeFrom"));
                 newRequestDTO.setPlaceTo(jsonObjectRequest.getString("placeTo"));
                 newRequestDTO.setPrice(jsonObjectRequest.getInt("price"));
-                newRequestDTO.setDateCreated(new Date(jsonObjectRequest.getLong("dateCreated")));
-                newRequestDTO.setDateUpdated(new Date(jsonObjectRequest.getLong("dateUpdated")));
-                newRequestDTO.setCarId(jsonObjectRequest.getInt("carId"));
 
 
                 List<ManageRequestDTO> manageRequestDTOList = new ArrayList<>();
@@ -161,14 +138,14 @@ public class AsyncDriverFetchRequest extends AsyncTask<RequestDTO, Void ,List<Re
                 for(int y = 0; y<jsonAccountMain.length(); y++){
                     JSONObject jsonObjectAccount = jsonAccountMain.getJSONObject(y);
 
-                    AccountDTO accountDTO = new AccountDTO();
-                    accountDTO.setAccountId(jsonObjectAccount.getInt("accountId"));
-                    accountDTO.setFirstName(jsonObjectAccount.getString("firstName"));
-                    accountDTO.setLastName(jsonObjectAccount.getString("lastName"));
-                    accountDTO.setPhoneNum(jsonObjectAccount.getInt("phoneNum"));
-                    accountDTO.setProfilePicture(Base64.decode(jsonObjectAccount.getString("sProfilePicture"), Base64.DEFAULT));
+                    AccountDTO account = new AccountDTO();
+                    account.setAccountId(jsonObjectAccount.getInt("accountId"));
+                    account.setFirstName(jsonObjectAccount.getString("firstName"));
+                    account.setLastName(jsonObjectAccount.getString("lastName"));
+                    account.setPhoneNum(jsonObjectAccount.getInt("phoneNum"));
+                    account.setProfilePicture(Base64.decode(jsonObjectAccount.getString("sProfilePicture"), Base64.DEFAULT));
 
-                    accountDTOList.add(accountDTO);
+                    accountDTOList.add(account);
                 }
 
                 requestObject.setRequestDTO(newRequestDTO);
@@ -201,40 +178,15 @@ public class AsyncDriverFetchRequest extends AsyncTask<RequestDTO, Void ,List<Re
         if(progressDialog != null && progressDialog.isShowing())
             progressDialog.dismiss();
 
-        if(requestStatus == RequestStatus.REQUEST_PENDING) {
-            List<RequestDTO> requestDTOList = new ArrayList<>();
-            List<ManageRequestDTO> manageRequestDTOList = new ArrayList<>();
-            List<AccountDTO> accountDTOList = new ArrayList<>();
+        if(requestObjectList != null && requestObjectList.size() >0) {
+           /* HistoryAdapter historyAdapter = new HistoryAdapter(context, requestObjectList);
 
-            for(int x = 0; x<requestObjectList.size(); x++) {
-                requestDTOList.add(requestObjectList.get(x).getRequestDTO());
+            cardView.setAdapter(historyAdapter);
 
-                if(requestObjectList.get(x).getManageRequestDTOList() != null && requestObjectList.get(x).getManageRequestDTOList().size() >0)
-                    manageRequestDTOList.addAll(requestObjectList.get(x).getManageRequestDTOList());
-
-                if(requestObjectList.get(x).getAccountDTOList() != null && requestObjectList.get(x).getAccountDTOList().size()>0)
-                    accountDTOList.addAll(requestObjectList.get(x).getAccountDTOList());
-            }
-
-            RequestDAO requestDAO = new RequestDAO(context);
-            for(RequestDTO requestDTO : requestDTOList){
-                requestDAO.saveOrUpdateRequest(requestDTO);
-            }
-
-            ManageRequestDAO manageRequestDAO = new ManageRequestDAO(context);
-            for(ManageRequestDTO manageRequestDTO : manageRequestDTOList){
-                manageRequestDAO.saveOrUpdateManageRequest(manageRequestDTO);
-            }
-
-            final DriverRequestAdapterPending driverRequestAdapterPending = new DriverRequestAdapterPending(context, requestObjectList);
-            listView.setAdapter(null);
-            listView.setAdapter(driverRequestAdapterPending);
-        }
-
-        else if (requestStatus == RequestStatus.USER_ACCEPTED ) {
-            final DriverRequestUserAcceptedAdapter driverRequestUserAcceptedAdapter = new DriverRequestUserAcceptedAdapter(context, requestObjectList);
-            listView.setAdapter(null);
-            listView.setAdapter(driverRequestUserAcceptedAdapter);
+            cardView.setAnimInterpolator(new LinearInterpolator());
+            cardView.setTransformerToFront(new DefaultTransformerToFront());
+            cardView.setTransformerToBack(new DefaultTransformerToBack());
+            cardView.setZIndexTransformerToBack(new DefaultZIndexTransformerCommon());*/
         }
 
         else  {

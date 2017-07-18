@@ -133,7 +133,8 @@ public class ActivityMain extends AppCompatActivity implements NavigationView.On
             startActivity(intent);
         }
         else if (id == R.id.nav_history) {
-
+            Intent intent = new Intent(ActivityMain.this, ActivityDriverHistory.class);
+            startActivity(intent);
         }
 
         return true;

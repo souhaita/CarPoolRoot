@@ -31,4 +31,8 @@ public interface ManageRequestRepository extends JpaRepository<ManageRequest, Lo
 	@Query("delete from ManageRequest m where m.manageRequestId =:manageRequestId")
 	@Transactional
 	public void driverDeleteClieRequest(@Param("manageRequestId") Long manageRequestId);
+	
+	@Query("select m from ManageRequest m join m.request r where r.requestId =:requestId and m.requestStatus in (:requestStatusList)")
+	public List<ManageRequest> getManageRequestByRequestIdAndRequestStatus(@Param("requestId") Long requestId, @Param("requestStatusList") List<RequestStatus> requestStatusList);	
+		
 }

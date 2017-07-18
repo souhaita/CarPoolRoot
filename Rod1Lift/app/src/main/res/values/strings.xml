@@ -92,6 +92,8 @@
     <string name="async_driver_fetch_trip_details">Downloading updates</string>
     <string name="async_driver_update_car_details">Updating your car details</string>
     <string name="async_driver_update_account_details">Updating your account details</string>
+    <string name="async_driver_fetch_history">Downloading history</string>
+
 
     <string name="driver_request_adapter_seats_left">Seats Left</string>
     <string name="driver_request_adapter_seat_left">Seat Left</string>

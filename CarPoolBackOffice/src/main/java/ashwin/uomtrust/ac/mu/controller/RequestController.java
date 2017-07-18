@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ashwin.uomtrust.ac.mu.dto.RequestDTO;
 import ashwin.uomtrust.ac.mu.dto.RequestObject;
+import ashwin.uomtrust.ac.mu.entity.Account;
 import ashwin.uomtrust.ac.mu.service.AccountService;
 import ashwin.uomtrust.ac.mu.service.CarService;
 import ashwin.uomtrust.ac.mu.service.ManageRequestService;
@@ -67,5 +68,11 @@ public class RequestController {
    	@RequestMapping(value = "/driverGetUserAcceptedRequestList", method = RequestMethod.POST)
    	public List<RequestObject> driverGetUserAcceptedRequestList(@RequestBody RequestDTO requestDTO) {    	    	
     	return manageRequestService.driverGetUserAcceptedRequestList(requestDTO);
+   	}
+	
+	@CrossOrigin(origins = "http://localhost:8081")
+   	@RequestMapping(value = "/driverGetHistoryList", method = RequestMethod.POST)
+   	public List<RequestObject>  driverGetHistoryList(@RequestBody Account account) {    	    	
+    	return requestService.driverGetHistoryList(account);
    	}
 }

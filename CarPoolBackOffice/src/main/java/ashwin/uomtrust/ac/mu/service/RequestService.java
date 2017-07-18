@@ -4,6 +4,7 @@ import java.util.List;
 
 import ashwin.uomtrust.ac.mu.dto.RequestDTO;
 import ashwin.uomtrust.ac.mu.dto.RequestObject;
+import ashwin.uomtrust.ac.mu.entity.Account;
 import ashwin.uomtrust.ac.mu.entity.Request;
 
 public interface RequestService {
@@ -15,6 +16,8 @@ public interface RequestService {
 	//public List<RequestDTO> getRequestByUserIdAndRequestStatus(RequestDTO requestDTO);
 	//public List<RequestDTO> getOtherRequestByUserIdAndRequestStatus(RequestDTO requestDTO);
 	public List<RequestObject> driverGetPendingRequestList(RequestDTO requestDTO);
+	public List<RequestObject> driverGetHistoryList(Account account);
+
 	//public RequestDTO acceptOrRejectRequestTaxi(RequestDTO requestDTO);
 	//public RequestDTO acceptOrRejectRequestUser(RequestDTO requestDTO);
 
