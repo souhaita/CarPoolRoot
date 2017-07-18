@@ -13,6 +13,8 @@ public class CONSTANT {
     public static final String CURRENT_ACCOUNT_ID = "CURRENT_ACCOUNT_ID";
     public static final String TRIP_PRICE = "price";
     public static final String REQUEST_OBJECT = "requestObject";
+    public static final String CREATE_TRIP_FROM = "from";
+    public static final String CREATE_TRIP_TO = "to";
 
     public static final int PICK_IMAGE_REQUEST = 1;
     public static final int PERMISSION_CAMERA = 2;

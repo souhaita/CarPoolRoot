@@ -95,7 +95,13 @@ public class ActivityDriverViewUserDetails extends Activity {
             txtSeatAvailable.setText(seats);
         }
 
-        int count = accountDTOList.size();
+        List<ManageRequestDTO> manageRequestDTOList = requestObject.getManageRequestDTOList();
+
+        int count = 0;
+        for(ManageRequestDTO m : manageRequestDTOList){
+            count += m.getSeatRequested();
+        }
+
         int unitPrice = requestDTO.getPrice();
         int totalPrice = count * unitPrice;
 
@@ -108,7 +114,6 @@ public class ActivityDriverViewUserDetails extends Activity {
         UserDetailsGridAdapter adapter = new UserDetailsGridAdapter(ActivityDriverViewUserDetails.this,accountDTOList);
         GridView gridView = (GridView)findViewById(R.id.gvUserDetails);
         gridView.setAdapter(adapter);
-
     }
 
     @Override

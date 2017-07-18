@@ -1,7 +1,9 @@
 package rode1lift.ashwin.uomtrust.mu.rod1lift.Activities;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -135,6 +137,13 @@ public class ActivityMain extends AppCompatActivity implements NavigationView.On
         else if (id == R.id.nav_history) {
             Intent intent = new Intent(ActivityMain.this, ActivityDriverHistory.class);
             startActivity(intent);
+        }
+        else if (id == R.id.nav_logout) {
+            Intent intent = new Intent(ActivityMain.this, ActivityLogout.class);
+            startActivity(intent);
+
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
         }
 
         return true;

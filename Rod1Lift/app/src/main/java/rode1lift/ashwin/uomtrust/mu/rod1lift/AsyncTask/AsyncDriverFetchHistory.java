@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
 
 import org.json.JSONArray;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.ActivityDriverHistory;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.DriverRequestAdapterPending;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.DriverRequestUserAcceptedAdapter;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.HistoryAdapter;
@@ -45,9 +47,11 @@ public class AsyncDriverFetchHistory extends AsyncTask<Void, Void ,List<RequestO
 
     private Context context;
     private ProgressDialog progressDialog;
+    private RecyclerView recyclerView;
 
-    public AsyncDriverFetchHistory(final Context context) {
+    public AsyncDriverFetchHistory(final Context context, RecyclerView recyclerView ) {
         this.context = context;
+        this.recyclerView = recyclerView;
     }
 
     @Override
@@ -179,14 +183,8 @@ public class AsyncDriverFetchHistory extends AsyncTask<Void, Void ,List<RequestO
             progressDialog.dismiss();
 
         if(requestObjectList != null && requestObjectList.size() >0) {
-           /* HistoryAdapter historyAdapter = new HistoryAdapter(context, requestObjectList);
-
-            cardView.setAdapter(historyAdapter);
-
-            cardView.setAnimInterpolator(new LinearInterpolator());
-            cardView.setTransformerToFront(new DefaultTransformerToFront());
-            cardView.setTransformerToBack(new DefaultTransformerToBack());
-            cardView.setZIndexTransformerToBack(new DefaultZIndexTransformerCommon());*/
+            HistoryAdapter historyAdapter = new HistoryAdapter(context, requestObjectList);
+            recyclerView.setAdapter(historyAdapter);
         }
 
         else  {

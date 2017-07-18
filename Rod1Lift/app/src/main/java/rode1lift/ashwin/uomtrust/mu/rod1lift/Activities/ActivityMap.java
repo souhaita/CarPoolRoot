@@ -56,6 +56,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.AccountDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
@@ -276,8 +277,8 @@ public class ActivityMap extends Fragment implements
 
     private void startActivity(){
         Intent intent = new Intent(getActivity(), ActivityCreateTrip.class);
-        intent.putExtra("from", from);
-        intent.putExtra("to", to);
+        intent.putExtra(CONSTANT.CREATE_TRIP_FROM, from);
+        intent.putExtra(CONSTANT.CREATE_TRIP_TO, to);
         startActivity(intent);
     }
 

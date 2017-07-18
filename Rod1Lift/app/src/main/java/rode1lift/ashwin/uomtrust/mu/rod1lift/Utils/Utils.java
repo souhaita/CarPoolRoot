@@ -137,6 +137,14 @@ public class Utils {
         builder.show();
     }
 
+    public static void clearSharedPref(Context context){
+        SharedPreferences prefs =  context.getSharedPreferences(CONSTANT.APP_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.clear();
+        editor.commit();
+    }
+
+
     public static void hideKeyboard(Activity activity) {
         InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
         //Find the currently focused view, so we can grab the correct window token from it.

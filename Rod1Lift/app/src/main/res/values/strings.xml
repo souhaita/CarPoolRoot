@@ -62,7 +62,12 @@
 
     <string name="activity_complete_driver_manage_request_header">Manage Trip</string>
 
+    <string name="activity_driver_history_header">Past Trips</string>
+
     <string name="activity_driver_view_user_details">Passenger Details</string>
+
+    <string name="activity_map_logout_title">Logout</string>
+    <string name="activity_map_logout_message">Confirm logout?</string>
 
 
     <string name="activity_profile_name_hint">Full Name</string>
@@ -121,6 +126,7 @@
     <string name="ok"> OK </string>
     <string name="cancel"> CANCEL </string>
 
+
     <string-array name="carMake">
         <item>TOYOTA</item>
         <item>NISSAN</item>
@@ -167,4 +173,9 @@
 
         <declare-styleable name="SwipeRevealLayout"><attr name="dragEdge"><flag name="left" value="1"/><flag name="right" value="2"/><flag name="top" value="4"/><flag name="bottom" value="8"/></attr><attr name="mode"><enum name="normal" value="0"/><enum name="same_level" value="1"/></attr><attr format="integer" name="flingVelocity"/><attr format="dimension" name="minDistRequestDisallowParent"/></declare-styleable>
 
+    <string name="menu_map">MAP</string>
+    <string name="menu_create_trip">CREATE TRIP</string>
+    <string name="menu_manage_request">MANAGE REQUEST</string>
+    <string name="menu_history">HISTORY</string>
+    <string name="menu_logout">LOGOUT</string>
 </resources>

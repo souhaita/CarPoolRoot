@@ -121,7 +121,13 @@ public class DriverRequestAdapterPending extends BaseAdapter {
             txtSeatAvailable.setText(seats);
         }
 
-        int count = requestObjectList.get(i).getAccountDTOList().size();
+        List<ManageRequestDTO> manageRequestDTOList = requestObjectList.get(i).getManageRequestDTOList();
+
+        int count = 0;
+        for(ManageRequestDTO m : manageRequestDTOList){
+            count += m.getSeatRequested();
+        }
+
         int unitPrice = requestDTO.getPrice();
         int totalPrice = count * unitPrice;
 

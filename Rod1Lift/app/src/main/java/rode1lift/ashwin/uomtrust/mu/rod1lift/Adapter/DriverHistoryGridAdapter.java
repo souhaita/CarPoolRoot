@@ -6,13 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -30,13 +27,13 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
  * Created by Ashwin on 16-Jul-17.
  */
 
-public class UserDetailsGridAdapter extends BaseAdapter {
+public class DriverHistoryGridAdapter extends BaseAdapter {
 
     private static LayoutInflater inflater = null;
     private Context context;
     private List<AccountDTO> accountDTOList;
 
-    public UserDetailsGridAdapter(Context context, List<AccountDTO> accountDTOList) {
+    public DriverHistoryGridAdapter(Context context, List<AccountDTO> accountDTOList) {
 
         this.context = context;
         this.accountDTOList = accountDTOList;
@@ -63,7 +60,7 @@ public class UserDetailsGridAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        view = inflater.inflate(R.layout.activity_driver_view_user_details_content, null);
+        view = inflater.inflate(R.layout.activity_driver_view_history_content_sub_content, null);
 
         final AccountDTO a = accountDTOList.get(i);
 
@@ -73,27 +70,6 @@ public class UserDetailsGridAdapter extends BaseAdapter {
 
         TextView txtFullName = (TextView) view.findViewById(R.id.txtFullName);
         txtFullName.setText(a.getFirstName() + " " + a.getLastName());
-
-        FloatingActionButton fabCall = (FloatingActionButton) view.findViewById(R.id.fabCall);
-        fabCall.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (a.getPhoneNum() != null) {
-                    Intent callIntent = new Intent(Intent.ACTION_CALL);
-                    callIntent.setData(Uri.parse("tel:"+a.getPhoneNum().toString()));
-                    if (ActivityCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                        ActivityCompat.requestPermissions(((Activity)context), new String[]{Manifest.permission.CALL_PHONE}, 0);
-                        return;
-                    }
-                    context.startActivity(callIntent);
-                }
-            }
-        });
-
-        LinearLayout llMain = (LinearLayout)view.findViewById(R.id.llMain);
-        Utils.animateGrid(llMain, context, i);
-
-        Utils.animateFloatingButton(fabCall, context, i);
 
         return view;
     }

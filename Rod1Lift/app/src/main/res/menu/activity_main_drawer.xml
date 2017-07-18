@@ -5,20 +5,23 @@
         <item
             android:id="@+id/nav_map"
             android:icon="@drawable/icon_map"
-            android:title="MAP" />
+            android:title="@string/menu_map" />
         <item
             android:id="@+id/nav_create_trip"
             android:icon="@drawable/icon_add_trip"
-            android:title="CREATE TRIP" />
+            android:title="@string/menu_create_trip" />
         <item
             android:id="@+id/nav_manage"
             android:icon="@drawable/icon_manage"
-            android:title="MANAGE REQUEST" />
+            android:title="@string/menu_manage_request" />
         <item
             android:id="@+id/nav_history"
             android:icon="@drawable/icon_history"
-            android:title="HISTORY" />
-
+            android:title="@string/menu_history" />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/icon_logout"
+            android:title="@string/menu_logout" />
     </group>
 
    <!-- <item android:title="Communicate">

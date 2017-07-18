@@ -112,7 +112,7 @@ public class ActivityCreateTrip extends Activity {
             }
         });
 
-        String from = getIntent().getStringExtra("from"), to = getIntent().getStringExtra("to");
+        String from = getIntent().getStringExtra(CONSTANT.CREATE_TRIP_FROM), to = getIntent().getStringExtra(CONSTANT.CREATE_TRIP_TO);
 
         autoFrom = (AutoCompleteTextView)findViewById(R.id.autoFrom);
         autoFrom.setAdapter(new GooglePlacesAutocompleteAdapter(this, android.R.layout.simple_list_item_1));
