@@ -10,16 +10,41 @@
         android:layout_width="match_parent"
         android:layout_height="190dp">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_marginTop="8dp"
+        <FrameLayout
             android:layout_gravity="center"
-            android:id="@+id/imgViewProfile"
             android:layout_width="130dp"
-            android:layout_height="130dp"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:src="@drawable/logo_background"
-            app:civ_border_width="1dp"
-            app:civ_border_color="@color/transparent_white_50" />
+            android:layout_height="130dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_marginTop="8dp"
+                android:id="@+id/imgViewProfile"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:src="@drawable/logo_background"
+                app:civ_border_width="1dp"
+                app:civ_border_color="@color/transparent_white_50" />
+
+            <com.github.clans.fab.FloatingActionButton
+                fab:fab_size="mini"
+                android:foregroundGravity="center"
+                android:src="@drawable/icon_call"
+                xmlns:fab="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/fabPhoneNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|right"
+                fab:menu_fab_size="normal"
+                fab:menu_showShadow="true"
+                fab:menu_shadowColor="#66000000"
+                fab:menu_shadowRadius="4dp"
+                fab:menu_shadowXOffset="1dp"
+                fab:menu_shadowYOffset="3dp"
+                fab:menu_animationDelayPerItem="50"
+                fab:menu_icon="@drawable/fab_add"
+                fab:menu_buttonSpacing="0dp"  />
+
+        </FrameLayout>
 
             <TextView
                 android:textStyle="bold"

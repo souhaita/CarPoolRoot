@@ -33,6 +33,7 @@
             fab:menu_fab_hide_animation="@animator/jump_to_down">
 
             <com.github.clans.fab.FloatingActionButton
+                android:foregroundGravity="center"
                 fab:fab_label="@string/floating_menu_clear_marker"
                 fab:fab_size="mini"
                 android:src="@drawable/icon_delete"
@@ -41,6 +42,7 @@
                 android:layout_height="wrap_content"  />
 
             <com.github.clans.fab.FloatingActionButton
+                android:foregroundGravity="center"
                 fab:fab_label="@string/floating_menu_path_create_trip"
                 fab:fab_size="mini"
                 android:src="@drawable/icon_add_trip_small"
@@ -49,6 +51,7 @@
                 android:layout_height="wrap_content"  />
 
             <com.github.clans.fab.FloatingActionButton
+                android:foregroundGravity="center"
                 fab:fab_label="@string/floating_menu_path_from_two_points"
                 fab:fab_size="mini"
                 android:src="@drawable/icon_two_direction"

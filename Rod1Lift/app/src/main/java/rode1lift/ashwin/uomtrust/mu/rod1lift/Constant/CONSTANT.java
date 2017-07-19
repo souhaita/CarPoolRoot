@@ -22,6 +22,7 @@ public class CONSTANT {
     public static final int CAR_MAKE_ACTIVITY = 4;
     public static final int MAIN_ACTIVITY = 5;
     public static final int PROFILE_ACTIVITY_NAME = 6;
+    public static final int PROFILE_ACTIVITY_PHONE_NUMBER = PROFILE_ACTIVITY_NAME;
     public static final int PROFILE_ACTIVITY_PROFILE_PIC = 7;
     public static final int PROFILE_ACTIVITY_PROFILE_CAR_1 = 8;
     public static final int PROFILE_ACTIVITY_PROFILE_CAR_2 = 9;

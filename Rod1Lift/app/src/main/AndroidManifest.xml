@@ -73,6 +73,9 @@
             android:name=".Activities.PickerActivityCarPlateNum"
             android:theme="@style/Theme.UserDialog"/>
 
+        <activity
+            android:name=".Activities.PickerActivityPhoneNumber"
+            android:theme="@style/Theme.UserDialog"/>
 
         <activity
             android:name=".Activities.PickerActivityProfileName"

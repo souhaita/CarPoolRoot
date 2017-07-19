@@ -46,7 +46,7 @@ public class ActivityDriverHistory extends Activity {
         TextView txtDone = (TextView)findViewById(R.id.txtDone);
         txtDone.setVisibility(View.INVISIBLE);
 
-        final CarouselLayoutManager layoutManager = new CarouselLayoutManager(CarouselLayoutManager.VERTICAL);
+        final CarouselLayoutManager layoutManager = new CarouselLayoutManager(CarouselLayoutManager.HORIZONTAL);
         final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycleViewHistory);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);

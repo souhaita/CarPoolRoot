@@ -409,7 +409,7 @@ public class ActivityCreateTrip extends Activity {
             Utils.alertError(ActivityCreateTrip.this, getResources().getString(R.string.activity_create_trip_validation_contact_detail));
             return false;
         }
-        else if(txtContact.getText().toString().length() >8 || txtContact.getText().toString().length() <7){
+        else if(txtContact.getText().toString().length() >=9 || txtContact.getText().toString().length() <=6){
             Utils.alertError(ActivityCreateTrip.this, getResources().getString(R.string.activity_create_trip_validation_contact_detail_length));
             return false;
         }

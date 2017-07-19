@@ -90,7 +90,7 @@ public class ProfileActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == CONSTANT.PROFILE_ACTIVITY_NAME && resultCode == RESULT_OK) {
+        if ((requestCode == CONSTANT.PROFILE_ACTIVITY_NAME || requestCode == CONSTANT.PROFILE_ACTIVITY_PHONE_NUMBER) && resultCode == RESULT_OK) {
             profileObjectList = new ArrayList<>();
             prepareDataList();
 

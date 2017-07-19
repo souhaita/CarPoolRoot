@@ -178,4 +178,8 @@
     <string name="menu_manage_request">MANAGE REQUEST</string>
     <string name="menu_history">HISTORY</string>
     <string name="menu_logout">LOGOUT</string>
+
+    <string name="activity_phone_number_hint">Phone Num</string>
+
+
 </resources>
