@@ -75,6 +75,7 @@
 
     <string name="floating_menu_clear_marker">Clear Marker</string>
     <string name="floating_menu_path_from_current_position">Get direction from current position</string>
+    <string name="floating_menu_current_position">Locate Me</string>
     <string name="floating_menu_path_from_two_points">Get direction from 2 different points</string>
     <string name="floating_menu_path_create_trip">Create trip</string>
 

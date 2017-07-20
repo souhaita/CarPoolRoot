@@ -35,4 +35,6 @@ public class CONSTANT {
 
     public static final int CREATE_TRIP_ACTIVITY = 16;
     public static final int MANAGE_TRIP_ACTIVITY_DRIVER_REQUEST_PENDING = 17;
+    public static final int PERMISSION_GPS = 18;
+
 }

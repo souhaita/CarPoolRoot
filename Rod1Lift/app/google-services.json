@@ -1,7 +1,9 @@
 {
   "project_info": {
     "project_number": "752574715602",
-    "project_id": "rod1lift-1499181017719"
+    "firebase_url": "https://rod1lift-1499181017719.firebaseio.com",
+    "project_id": "rod1lift-1499181017719",
+    "storage_bucket": "rod1lift-1499181017719.appspot.com"
   },
   "client": [
     {
@@ -12,6 +14,10 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "752574715602-i2lcsvmkt648upuebbfgm8sbein1m8kj.apps.googleusercontent.com",
+          "client_type": 3
+        },
         {
           "client_id": "752574715602-d12h9v9aj0a8kgauv3ptoks5kp1for84.apps.googleusercontent.com",
           "client_type": 3
@@ -35,11 +41,16 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "752574715602-i2lcsvmkt648upuebbfgm8sbein1m8kj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
-          "status": 1
+          "status": 2
         }
       }
     }
