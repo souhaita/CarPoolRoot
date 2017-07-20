@@ -91,8 +91,6 @@ public class ActivityMain extends AppCompatActivity
     private SupportMapFragment mapFrag;
     private LocationRequest mLocationRequest;
     private GoogleApiClient mGoogleApiClient;
-    private Location mLastLocation;
-    private Marker mCurrLocationMarker;
 
     private boolean allowLocationChange = true;
 
@@ -293,22 +291,13 @@ public class ActivityMain extends AppCompatActivity
     public void onConnectionFailed(ConnectionResult connectionResult) {}
 
     @Override
-    public void onLocationChanged(Location location)
-    {
-        mLastLocation = location;
+    public void onLocationChanged(Location location) {
 
         //Place current location marker
         double lat = location.getLatitude();
         double lng = location.getLongitude();
 
         mLatLng = new LatLng(lat, lng);
-        /*MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(latLng);
-        markerOptions.title("Current Position");
-        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
-        mCurrLocationMarker = mGoogleMap.addMarker(markerOptions);*/
-        //move map camera
-
         if(allowLocationChange) {
             allowLocationChange = !allowLocationChange;
             currentMarker();
@@ -336,9 +325,12 @@ public class ActivityMain extends AppCompatActivity
                 // Show an explanation to the user *asynchronously* -- don't block
                 // this thread waiting for the user's response! After the user
                 // sees the explanation, try again to request the permission.
+
+                String title = getString(R.string.activity_main_gps_permission_title);
+                String message = getString(R.string.activity_main_gps_permission_message);
                 new AlertDialog.Builder(this)
-                        .setTitle("Location Permission Needed")
-                        .setMessage("This app needs the Location permission, please accept to use location functionality")
+                        .setTitle(title)
+                        .setMessage(message)
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
@@ -456,13 +448,6 @@ public class ActivityMain extends AppCompatActivity
                     // Start downloading json data from Google Directions API
                     FetchUrl.execute(url);
                     //move map camera
-
-                    LatLngBounds.Builder builder = new LatLngBounds.Builder();
-                    builder.include(origin);
-                    builder.include(dest);
-                    LatLngBounds bounds = builder.build();
-
-                    //googleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 25));
                     CameraPosition cameraPosition = new CameraPosition.Builder().target(origin).zoom(12).build();
                     mGoogleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
                 }
@@ -474,7 +459,6 @@ public class ActivityMain extends AppCompatActivity
         FloatingActionButton fabPathFromTwoPoints;
         FloatingActionButton fabPathFromCurrentPosition;
         FloatingActionButton fabLocateMe;
-        ;
 
         fabMenu = (FloatingActionMenu)findViewById(R.id.fabMenu);
         fabMenu.setClosedOnTouchOutside(true);
