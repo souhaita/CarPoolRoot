@@ -39,5 +39,6 @@ public class CONSTANT {
     public static final int MANAGE_TRIP_ACTIVITY_DRIVER_REQUEST_PENDING = 17;
     public static final int PERMISSION_GPS = 18;
     public static final int GOOGLE_SIGN_IN = 19;
+    public static final int SEARCH_TRIP_ACTIVITY = 20;
 
 }

@@ -96,7 +96,7 @@ public class ActivityDriverManageRequest extends Activity {
                         break;
 
                     case 1:
-                        requestDTO.setRequestStatus(RequestStatus.USER_ACCEPTED);
+                        requestDTO.setRequestStatus(RequestStatus.PASSENGER_ACCEPTED);
                         break;
                 }
                 new AsyncDriverFetchRequest(ActivityDriverManageRequest.this, listView).execute(requestDTO);

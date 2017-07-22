@@ -74,6 +74,10 @@
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity
+            android:name=".Activities.ActivityPassengerViewDriverProfile"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity
             android:name=".Activities.PickerActivityCarMake"
             android:theme="@style/Theme.UserDialog"/>
 

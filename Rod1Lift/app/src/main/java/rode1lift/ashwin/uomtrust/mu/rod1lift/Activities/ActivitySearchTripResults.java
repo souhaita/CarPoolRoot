@@ -18,6 +18,7 @@ import android.widget.DatePicker;
 import android.widget.Filterable;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -34,6 +35,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.PassengerSearchTripAdapter;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncDriverFetchRequest;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncPassengerFetchRequest;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestDTO;
@@ -46,19 +48,25 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 
 public class ActivitySearchTripResults extends Activity {
 
+    private RecyclerView rcTripResults;
+    private RequestDTO requestDTO;
+    private LinearLayout llMain;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_trip_results);
 
+        llMain = (LinearLayout)findViewById(R.id.llMain);
+
         TextView txtMenuHeader = (TextView)findViewById(R.id.txtMenuHeader);
         txtMenuHeader.setText(getString(R.string.activity_search_trip_results_header));
 
-        final RecyclerView rcTripResults = (RecyclerView)findViewById(R.id.rcTripResults);
+        rcTripResults = (RecyclerView)findViewById(R.id.rcTripResults);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(ActivitySearchTripResults.this, LinearLayoutManager.VERTICAL, false);
         rcTripResults.setLayoutManager(mLayoutManager);
 
-        RequestDTO requestDTO = new RequestDTO();
+        requestDTO = new RequestDTO();
         requestDTO.setRequestStatus(RequestStatus.REQUEST_PENDING);
         new AsyncPassengerFetchRequest(ActivitySearchTripResults.this, rcTripResults).execute(requestDTO);
 
@@ -75,6 +83,14 @@ public class ActivitySearchTripResults extends Activity {
 
     }
 
+    public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == CONSTANT.SEARCH_TRIP_ACTIVITY) {
+            new AsyncPassengerFetchRequest(ActivitySearchTripResults.this, rcTripResults).execute(requestDTO);
+        }
+
+    }
 
     @Override
     public void onBackPressed() {
@@ -83,9 +99,11 @@ public class ActivitySearchTripResults extends Activity {
 
     protected void onPause(){
         super.onPause();
+        llMain.setAnimation(null);
     }
 
     protected void onResume(){
         super.onResume();
+        Utils.animateLayout(llMain);
     }
 }

@@ -162,6 +162,14 @@ public class ActivitySearchTrip extends Activity {
                 }
             }
         });
+
+        ImageView imgBack = (ImageView)findViewById(R.id.imgBack);
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               finish();
+            }
+        });
     }
 
 

@@ -2,7 +2,6 @@ package rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Base64;
 import android.widget.ListView;
@@ -24,7 +23,6 @@ import java.util.List;
 
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.DriverRequestUserAcceptedAdapter;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.DriverRequestAdapterPending;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.ManageRequestDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.RequestDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.AccountDTO;
@@ -35,8 +33,6 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.RequestStatus;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.WebService.WebService;
-
-import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by Ashwin on 03-Jun-17.
@@ -230,7 +226,7 @@ public class AsyncDriverFetchRequest extends AsyncTask<RequestDTO, Void ,List<Re
             listView.setAdapter(driverRequestAdapterPending);
         }
 
-        else if (requestStatus == RequestStatus.USER_ACCEPTED ) {
+        else if (requestStatus == RequestStatus.PASSENGER_ACCEPTED) {
             final DriverRequestUserAcceptedAdapter driverRequestUserAcceptedAdapter = new DriverRequestUserAcceptedAdapter(context, requestObjectList);
             listView.setAdapter(null);
             listView.setAdapter(driverRequestUserAcceptedAdapter);

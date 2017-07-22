@@ -81,4 +81,12 @@ public class RequestController {
    	public List<RequestObject> passengerGetPendingList(@RequestBody RequestDTO requestDTO) {    	    	
     	return requestService.passengerGetPendingList(requestDTO);
    	}
+	
+	@CrossOrigin(origins = "http://localhost:8081")
+   	@RequestMapping(value = "/passengerDeleteRequest", method = RequestMethod.POST)
+   	public Boolean passengerDeleteRequest(@RequestBody RequestDTO requestDTO) {    	
+    	return manageRequestService.passengerDeleteRequest(requestDTO);
+   	}
+	
+	
 }

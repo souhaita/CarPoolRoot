@@ -20,7 +20,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.ActivityCreateTrip;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.ActivityPassengerViewDriverProfile;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.ActivityProfile;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncDriverDeleteRequest;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncPassengerDeleteRequest;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.AccountDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.CarDTO;
@@ -28,6 +31,7 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.ManageRequestDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestObject;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.SwipeView.SwipeRevealLayout;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 
 /**
@@ -65,15 +69,15 @@ public class PassengerSearchTripAdapter extends RecyclerView.Adapter<RecyclerVie
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
-        final viewHolder view = (viewHolder)holder;
-        RequestDTO requestDTO = requestObjectList.get(position).getRequestDTO();
+        final viewHolder viewHolder = (viewHolder)holder;
+        final RequestDTO requestDTO = requestObjectList.get(position).getRequestDTO();
 
-        view.txtFrom.setText(requestDTO.getPlaceFrom());
-        view.txtTo.setText(requestDTO.getPlaceTo());
-        view.txtPrice.setText(requestDTO.getPrice().toString());
-        view.txtSeatAvailable.setText(requestDTO.getSeatAvailable().toString());
+        viewHolder.txtFrom.setText(requestDTO.getPlaceFrom());
+        viewHolder.txtTo.setText(requestDTO.getPlaceTo());
+        viewHolder.txtPrice.setText(requestDTO.getPrice().toString());
+        viewHolder.txtSeatAvailable.setText(requestDTO.getSeatAvailable().toString());
 
         SimpleDateFormat format = new SimpleDateFormat("dd MMM HH:mm");
         String date = null;
@@ -84,7 +88,7 @@ public class PassengerSearchTripAdapter extends RecyclerView.Adapter<RecyclerVie
             e.printStackTrace();
         }
 
-        view.txtDate.setText(date);
+        viewHolder.txtDate.setText(date);
 
         List<byte []> images = new ArrayList<>();
 
@@ -106,9 +110,9 @@ public class PassengerSearchTripAdapter extends RecyclerView.Adapter<RecyclerVie
             images.add(carDTO.getPicture4());
 
         final PhotoViewPagerAdapter photoViewPagerAdapter = new PhotoViewPagerAdapter(context,images);
-        view.imgViewPager.setAdapter(photoViewPagerAdapter);
+        viewHolder.imgViewPager.setAdapter(photoViewPagerAdapter);
 
-        view.imgViewPager.setOnTouchListener(new View.OnTouchListener() {
+        viewHolder.imgViewPager.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 return true;
@@ -125,7 +129,7 @@ public class PassengerSearchTripAdapter extends RecyclerView.Adapter<RecyclerVie
                     if (i < 0)
                         i = photoViewPagerAdapter.getCount() - 1;
 
-                    view.imgViewPager.setCurrentItem(i);
+                    viewHolder.imgViewPager.setCurrentItem(i);
                     i--;
 
                     handler.postDelayed(this, 5000);
@@ -134,6 +138,51 @@ public class PassengerSearchTripAdapter extends RecyclerView.Adapter<RecyclerVie
             handler.postDelayed(runnable, 0);
         }
 
+        viewHolder.llAcceptRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        viewHolder.llDeleteRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!confirmDelete.get(position)){
+                    viewHolder.imgDelete.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_bin_open_red));
+                    confirmDelete.set(position, true);
+                }
+                else{
+                    new AsyncPassengerDeleteRequest(context, passengerSearchTripAdapter, requestObjectList).execute(requestDTO);
+                }
+            }
+        });
+
+        viewHolder.llRequestDetails.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_CANCEL:
+                        viewHolder.imgDelete.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_bin_close_red));
+                        confirmDelete.set(position, false);
+                        return false;
+                }
+                return false;
+            }
+        });
+
+        viewHolder.llRequestDetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ActivityPassengerViewDriverProfile.class);
+                RequestObject requestObject = requestObjectList.get(position);
+                intent.putExtra(CONSTANT.REQUEST_OBJECT, requestObject);
+                context.startActivity(intent);
+                //((Activity)context).startActivityForResult(intent, CONSTANT.MANAGE_TRIP_ACTIVITY_DRIVER_REQUEST_PENDING);
+            }
+        });
+
+        Utils.animateList(viewHolder.llMain, context, position);
     }
 
     @Override
@@ -146,6 +195,8 @@ public class PassengerSearchTripAdapter extends RecyclerView.Adapter<RecyclerVie
     public class viewHolder extends RecyclerView.ViewHolder {
         public TextView txtFrom, txtTo, txtFullName, txtPrice, txtDate, txtSeatAvailable;
         public ViewPager imgViewPager;
+        public ImageView imgDelete, imgAccept;
+        public LinearLayout llAcceptRequest, llDeleteRequest, llMain, llRequestDetails;
 
         public viewHolder(View view) {
             super(view);
@@ -156,6 +207,38 @@ public class PassengerSearchTripAdapter extends RecyclerView.Adapter<RecyclerVie
             txtDate = (TextView)view.findViewById(R.id.txtDate);
             txtSeatAvailable = (TextView)view.findViewById(R.id.txtSeatAvailable);
             imgViewPager = (ViewPager) view.findViewById(R.id.imgViewPager);
+
+            imgAccept = (ImageView)view.findViewById(R.id.imgAccept);
+            imgDelete = (ImageView)view.findViewById(R.id.imgDelete);
+
+            llAcceptRequest = (LinearLayout)view.findViewById(R.id.llAcceptRequest);
+            llDeleteRequest = (LinearLayout)view.findViewById(R.id.llDeleteRequest);
+            llMain = (LinearLayout)view.findViewById(R.id.llMain);
+            llRequestDetails = (LinearLayout)view.findViewById(R.id.llRequestDetails);
         }
+    }
+
+    public List<RequestObject> getRequestObjectList() {
+        return requestObjectList;
+    }
+
+    public void setRequestObjectList(List<RequestObject> requestObjectList) {
+        this.requestObjectList = requestObjectList;
+    }
+
+    public List<Boolean> getConfirmDelete() {
+        return confirmDelete;
+    }
+
+    public void setConfirmDelete(List<Boolean> confirmDelete) {
+        this.confirmDelete = confirmDelete;
+    }
+
+    public PassengerSearchTripAdapter getPassengerSearchTripAdapter() {
+        return passengerSearchTripAdapter;
+    }
+
+    public void setPassengerSearchTripAdapter(PassengerSearchTripAdapter passengerSearchTripAdapter) {
+        this.passengerSearchTripAdapter = passengerSearchTripAdapter;
     }
 }

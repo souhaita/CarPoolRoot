@@ -101,6 +101,7 @@
     <string name="async_driver_create_or_update_trip_create_trip">Creating your trip</string>
     <string name="async_driver_create_or_update_trip_update_update">Updating your trip</string>
     <string name="async_driver_delete_trip_delete">Deleting your trip</string>
+    <string name="async_passenger_delete_trip_delete">Deleting selected trip</string>
     <string name="async_driver_fetch_car_details">Downloading your data</string>
     <string name="async_driver_fetch_trip_details">Downloading updates</string>
     <string name="async_driver_update_car_details">Updating your car details</string>

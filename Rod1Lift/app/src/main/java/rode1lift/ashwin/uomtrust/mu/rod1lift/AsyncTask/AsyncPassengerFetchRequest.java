@@ -1,11 +1,8 @@
 package rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
 
@@ -16,26 +13,18 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.ActivityCreateTrip;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.ActivitySearchTripResults;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.DriverRequestUserAcceptedAdapter;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.PassengerSearchTripAdapter;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.ManageRequestDAO;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.RequestDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.AccountDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.CarDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.ManageRequestDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestObject;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestObjectList;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.RequestStatus;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
@@ -72,7 +61,6 @@ public class AsyncPassengerFetchRequest extends AsyncTask<RequestDTO, Void ,List
         HttpURLConnection httpURLConnection = null;
 
         try{
-
             int userId = Utils.getCurrentAccount(context);
 
             RequestDTO requestDTO = params[0];
@@ -95,7 +83,6 @@ public class AsyncPassengerFetchRequest extends AsyncTask<RequestDTO, Void ,List
             httpURLConnection.setRequestProperty("Accept", "application/json;charset=UTF-8");
             httpURLConnection.setDoOutput(true);
             httpURLConnection.connect();
-
 
             DataOutputStream wr = new DataOutputStream(httpURLConnection.getOutputStream());
             wr.writeBytes(postData.toString());
@@ -249,7 +236,7 @@ public class AsyncPassengerFetchRequest extends AsyncTask<RequestDTO, Void ,List
             }
         }
 
-        else if (requestStatus == RequestStatus.USER_ACCEPTED ) {
+        else if (requestStatus == RequestStatus.PASSENGER_ACCEPTED) {
 
         }
 

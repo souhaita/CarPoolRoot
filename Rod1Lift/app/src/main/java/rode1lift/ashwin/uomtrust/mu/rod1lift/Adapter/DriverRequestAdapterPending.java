@@ -202,7 +202,6 @@ public class DriverRequestAdapterPending extends BaseAdapter {
                 }
                 else{
                     new AsyncDriverDeleteRequest(context, DriverRequestAdapterPending, requestObjectList).execute(requestDTO);
-                    confirmDelete.set(i, false);
                 }
             }
         });

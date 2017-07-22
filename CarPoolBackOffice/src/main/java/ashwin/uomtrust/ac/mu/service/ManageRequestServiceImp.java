@@ -2,6 +2,7 @@ package ashwin.uomtrust.ac.mu.service;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import ashwin.uomtrust.ac.mu.entity.ManageRequest;
 import ashwin.uomtrust.ac.mu.entity.Request;
 import ashwin.uomtrust.ac.mu.enums.RequestStatus;
 import ashwin.uomtrust.ac.mu.repository.AccountRepository;
+import ashwin.uomtrust.ac.mu.repository.CarRepository;
 import ashwin.uomtrust.ac.mu.repository.ManageRequestRepository;
 import ashwin.uomtrust.ac.mu.repository.RequestRepository;
 import ashwin.uomtrust.ac.mu.utils.Utils;
@@ -33,6 +35,9 @@ public class ManageRequestServiceImp implements ManageRequestService{
 	@Autowired
 	private ManageRequestRepository manageRequestRepository;
 	
+	@Autowired
+	private CarRepository carRepository;
+	
 	private RequestService requestService;
 
 	@Override
@@ -44,7 +49,7 @@ public class ManageRequestServiceImp implements ManageRequestService{
 	@Override
 	public List<RequestObject> driverGetUserAcceptedRequestList(RequestDTO requestDTO) {
 		// TODO Auto-generated method stub
-		List<ManageRequest> manageRequestList = manageRequestRepository.getDriverManageRequestByRequestStatus(requestDTO.getCarId(), RequestStatus.USER_ACCEPTED);
+		List<ManageRequest> manageRequestList = manageRequestRepository.getDriverManageRequestByRequestStatus(requestDTO.getCarId(), RequestStatus.PASSENGER_ACCEPTED);
 		
 		List<RequestObject> requestObjectList = new ArrayList<>();
 		
@@ -169,6 +174,29 @@ public class ManageRequestServiceImp implements ManageRequestService{
 		}
 
 		requestRepository.save(request);
+		
+		return true;
+	}
+
+	@Override
+	public Boolean passengerDeleteRequest(RequestDTO requestDTO) {
+		// TODO Auto-generated method stub
+		Request request = requestRepository.findOne(requestDTO.getRequestId());
+		
+		Car car = carRepository.getCarByAccountId(request.getAccount().getAccountId());
+		
+		ManageRequest manageRequest = new ManageRequest();
+		manageRequest.setCar(car);
+		manageRequest.setDateCreated(new Date());
+		manageRequest.setDateUpdated(new Date());
+		manageRequest.setRequest(request);
+		manageRequest.setSeatRequested(0);
+		
+		Account account = accountRepository.findByAccountId(requestDTO.getAccountId());
+		
+		manageRequest.setUserAccount(account);
+		manageRequest.setRequestStatus(RequestStatus.PASSENGER_REJECTED);
+		manageRequestRepository.save(manageRequest);
 		
 		return true;
 	}

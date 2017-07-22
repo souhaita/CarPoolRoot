@@ -6,3 +6,5 @@
 1500314298429	Rename method 'driverGetOtherRequestList'
 1500314981237	Rename method 'getRequestByUserIdAndRequestStatus'
 1500721855604	Rename local variable 'newCarDTO'
+1500745305843	Rename enum constant 'USER_ACCEPTED'
+1500745319517	Rename enum constant 'USER_REJECTED'

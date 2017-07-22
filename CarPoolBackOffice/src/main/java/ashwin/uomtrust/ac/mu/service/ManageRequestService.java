@@ -12,4 +12,6 @@ public interface ManageRequestService {
 	public List<RequestObject> driverGetUserAcceptedRequestList(RequestDTO requestDTO);
 	public Boolean driverDeleteClientRequest(Long manageRequestId);
 	public Boolean driverAcceptClientRequest(Long manageRequestId);
+	public Boolean passengerDeleteRequest(RequestDTO requestDTO);
+
 }
