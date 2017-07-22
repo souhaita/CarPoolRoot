@@ -32,12 +32,18 @@ import com.facebook.GraphResponse;
 import com.facebook.HttpMethod;
 import com.facebook.login.LoginManager;
 import com.github.clans.fab.FloatingActionButton;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.RequestStatus;
@@ -226,5 +232,30 @@ public class Utils {
         SharedPreferences prefs = context.getSharedPreferences(CONSTANT.APP_NAME, MODE_PRIVATE);
         Integer currentAccountId = prefs.getInt(CONSTANT.CURRENT_ACCOUNT_ID, 1);
         return currentAccountId;
+    }
+
+    public static void signOut(GoogleApiClient mGoogleApiClient) {
+        Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+        new ResultCallback<Status>() {
+            @Override
+            public void onResult(Status status) {
+
+            }
+        });
+    }
+
+    public static Bitmap getBitmapFromURL(String src) {
+        try {
+            URL url = new URL(src);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            Bitmap myBitmap = BitmapFactory.decodeStream(input);
+            return myBitmap;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

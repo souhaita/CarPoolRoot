@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.Base64;
 
@@ -59,14 +60,21 @@ public class AsyncCreateAccount extends AsyncTask<AccountDTO, Void ,AccountDTO> 
         HttpURLConnection httpURLConnection = null;
 
         try{
-            postData.put("firstName", accountDTO.getFirstName());
-            postData.put("lastName", accountDTO.getLastName());
+            postData.put("fullName", accountDTO.getFullName());
             postData.put("email", accountDTO.getEmail());
             postData.put("accountRole", accountDTO.getAccountRole().getValue());
             postData.put("accountStatus", accountDTO.getAccountStatus().getValue());
 
+            if(accountDTO.getGoogleId() != null && accountDTO.getGooglePhotoPath() != null) {
+                Bitmap bitmap = Utils.getBitmapFromURL(accountDTO.getGooglePhotoPath());
+                accountDTO.setProfilePicture(Utils.convertBitmapToBlob(bitmap));
+            }
+
             if(accountDTO.getFacebookId() != null)
                 postData.put("facebookId", accountDTO.getFacebookId());
+
+            if(accountDTO.getGoogleId() != null)
+                postData.put("googleId", accountDTO.getGoogleId());
 
             if(accountDTO.getDateCreated() != null)
                 postData.put("dateCreated", accountDTO.getDateCreated().getTime());
@@ -125,6 +133,10 @@ public class AsyncCreateAccount extends AsyncTask<AccountDTO, Void ,AccountDTO> 
 
         if(accountDTO != null && accountDTO.getAccountId() > 0) {
             new AccountDAO(context).updateAccountIdFromWS(accountDTO.getAccountId());
+
+            if(accountDTO.getGoogleId() != null && accountDTO.getGooglePhotoPath() != null){
+                new AccountDAO(context).saveOrUpdateAccount(accountDTO);
+            }
 
             SharedPreferences.Editor editor = context.getSharedPreferences(CONSTANT.APP_NAME, MODE_PRIVATE).edit();
             editor.putBoolean(CONSTANT.LOGIN, true);

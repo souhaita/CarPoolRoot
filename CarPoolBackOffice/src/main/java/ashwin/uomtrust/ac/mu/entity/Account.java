@@ -27,9 +27,10 @@ public class Account {
 	
 	private Integer phoneNum;
 	
-	private String firstName;
-	private String lastName;	
+	private String fullName;
 	private String facebookId;
+	private String googleId;
+
 	
 	@Column(length = 100, nullable = false, unique = true)
 	private String email;
@@ -63,22 +64,6 @@ public class Account {
 
 	public void setAccountId(Long accountId) {
 		this.accountId = accountId;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
 	}
 
 	public String getEmail() {
@@ -132,5 +117,21 @@ public class Account {
 
 	public void setPhoneNum(Integer phoneNum) {
 		this.phoneNum = phoneNum;
+	}
+
+	public String getFullName() {
+		return fullName;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+
+	public String getGoogleId() {
+		return googleId;
+	}
+
+	public void setGoogleId(String googleId) {
+		this.googleId = googleId;
 	}
 }

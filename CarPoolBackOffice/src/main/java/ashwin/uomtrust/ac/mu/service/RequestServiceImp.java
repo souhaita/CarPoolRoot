@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ashwin.uomtrust.ac.mu.dto.AccountDTO;
+import ashwin.uomtrust.ac.mu.dto.CarDTO;
 import ashwin.uomtrust.ac.mu.dto.ManageRequestDTO;
 import ashwin.uomtrust.ac.mu.dto.RequestDTO;
 import ashwin.uomtrust.ac.mu.dto.RequestObject;
@@ -36,6 +37,7 @@ public class RequestServiceImp implements RequestService{
 
 	@Autowired
 	private CarRepository carRepository;
+	
 	
 	@Override
 	public RequestDTO save(RequestDTO requestDTO) {
@@ -167,8 +169,7 @@ public class RequestServiceImp implements RequestService{
 				Account a = m.getUserAccount();
 				AccountDTO accountDTO = new AccountDTO();
 				accountDTO.setAccountId(a.getAccountId());				
-				accountDTO.setFirstName(a.getFirstName());
-				accountDTO.setLastName(a.getLastName());
+				accountDTO.setFullName(a.getFullName());
 				accountDTO.setPhoneNum(a.getPhoneNum());
 				Utils.getImageProfile(accountDTO);
 				
@@ -259,8 +260,7 @@ public class RequestServiceImp implements RequestService{
 				Account a = m.getUserAccount();
 				AccountDTO accountDTO = new AccountDTO();
 				accountDTO.setAccountId(a.getAccountId());				
-				accountDTO.setFirstName(a.getFirstName());
-				accountDTO.setLastName(a.getLastName());
+				accountDTO.setFullName(a.getFullName());
 				accountDTO.setPhoneNum(a.getPhoneNum());
 				Utils.getImageProfile(accountDTO);
 				
@@ -270,6 +270,83 @@ public class RequestServiceImp implements RequestService{
 			requestObject.setAccountDTOList(accountDTOList);
 			requestObject.setRequestDTO(newRequestDTO);
 			requestObject.setManageRequestDTOList(manageRquestDTOList);			
+			requestObjectList.add(requestObject);
+		}
+		
+		return requestObjectList;
+	}
+
+	@Override
+	public List<RequestObject> passengerGetPendingList(RequestDTO requestDTO) {
+		// TODO Auto-generated method stub
+		List<RequestStatus> requestStatusList = new ArrayList<>();
+		requestStatusList.add(RequestStatus.REQUEST_PENDING);
+
+		List<Request> requestList = requestRepository.getRequestByStatus(requestStatusList);
+				
+		List<RequestObject> requestObjectList = new ArrayList<>();
+		
+		for(Request request : requestList){
+			RequestObject requestObject = new RequestObject();
+			
+			RequestDTO newRequestDTO = new RequestDTO();
+			newRequestDTO.setAccountId(request.getAccount().getAccountId());
+			
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTimeInMillis(request.getEventDate().getTime());
+			newRequestDTO.setEventDate(calendar.getTime());
+			newRequestDTO.setPlaceFrom(request.getPlaceFrom());
+			newRequestDTO.setPlaceTo(request.getPlaceTo());
+			newRequestDTO.setRequestId(request.getRequestId());
+			newRequestDTO.setRequestStatus(request.getRequestStatus());
+			newRequestDTO.setPrice(request.getPrice());
+			newRequestDTO.setSeatAvailable(request.getSeatAvailable());
+			
+			Car car = carRepository.getCarByAccountId(request.getAccount().getAccountId());
+			newRequestDTO.setCarId(car.getCarId());
+
+			
+			Calendar cal = Calendar.getInstance();
+			cal.setTimeInMillis(request.getDateCreated().getTime());
+			newRequestDTO.setDateCreated(cal.getTime());
+			
+			cal.setTimeInMillis(request.getDateUpdated().getTime());
+			newRequestDTO.setDateUpdated(cal.getTime());
+			
+			cal.setTimeInMillis(request.getEventDate().getTime());
+			newRequestDTO.setEventDate(cal.getTime());
+			
+			newRequestDTO.setAccountId(request.getAccount().getAccountId());		
+			
+			List<AccountDTO> accountDTOList =  new ArrayList<>();
+			
+			Account a = car.getUserAccount();
+			AccountDTO accountDTO = new AccountDTO();
+			accountDTO.setAccountId(a.getAccountId());				
+			accountDTO.setFullName(a.getFullName());
+			accountDTO.setPhoneNum(a.getPhoneNum());
+			Utils.getImageProfile(accountDTO);
+			
+			accountDTOList.add(accountDTO);
+			
+			CarDTO carDTO = new CarDTO();
+			carDTO.setCarId(car.getCarId());
+			carDTO.setYear(car.getYear());
+			carDTO.setAccountId(car.getUserAccount().getAccountId());
+			carDTO.setMake(car.getMake());
+			carDTO.setNumOfPassenger(car.getNumOfPassenger());	
+			carDTO.setPlateNum(car.getPlateNum());	
+			carDTO.setModel(car.getModel());		
+
+			Utils.getImageCar(carDTO);
+			
+			List<CarDTO> carDTOList = new ArrayList<>();
+			carDTOList.add(carDTO);
+			
+			requestObject.setCarDTOList(carDTOList);
+				
+			requestObject.setAccountDTOList(accountDTOList);
+			requestObject.setRequestDTO(newRequestDTO);
 			requestObjectList.add(requestObject);
 		}
 		

@@ -18,10 +18,11 @@ public class AccountDTO implements Serializable {
     private Integer phoneNum;
 
     private String email;
-    private String firstName;
-    private String lastName;
+    private String fullName;
     private String facebookId;
     private String sProfilePicture;
+    private String googleId;
+    private String googlePhotoPath;
 
     private AccountRole accountRole;
     private AccountStatus accountStatus;
@@ -45,22 +46,6 @@ public class AccountDTO implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public String getFacebookId() {
@@ -125,5 +110,29 @@ public class AccountDTO implements Serializable {
 
     public void setsProfilePicture(String sProfilePicture) {
         this.sProfilePicture = sProfilePicture;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getGoogleId() {
+        return googleId;
+    }
+
+    public void setGoogleId(String googleId) {
+        this.googleId = googleId;
+    }
+
+    public String getGooglePhotoPath() {
+        return googlePhotoPath;
+    }
+
+    public void setGooglePhotoPath(String googlePhotoPath) {
+        this.googlePhotoPath = googlePhotoPath;
     }
 }

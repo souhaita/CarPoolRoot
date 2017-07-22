@@ -59,9 +59,9 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                 " phone_num INTEGER, " +
                 " email TEXT UNIQUE NOT NULL, " +
                 " profile_picture BLOB, " +
-                " first_name TEXT NOT NULL, " +
-                " last_name TEXT NOT NULL, " +
+                " full_name TEXT NOT NULL, " +
                 " facebook_id TEXT, " +
+                " google_id TEXT, " +
                 " account_role INTEGER NOT NULL, " +
                 " account_status INTEGER NOT NULL, " +
                 " date_created NUMERIC DEFAULT NULL, " +

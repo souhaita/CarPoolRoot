@@ -42,10 +42,18 @@ public class AccountServiceImp implements AccountService{
 			accountDTO.setDateUpdated(calendar.getTime());
 			
 			accountDTO.setEmail(email);
-			accountDTO.setFacebookId(account.getFacebookId());
-			accountDTO.setFirstName(account.getFirstName());
-			accountDTO.setLastName(account.getLastName());
-			accountDTO.setPhoneNum(account.getPhoneNum());
+			
+			if(account.getGoogleId() != null)
+				account.setGoogleId(accountDTO.getGoogleId());
+
+			if(account.getFacebookId() != null)
+				accountDTO.setFacebookId(account.getFacebookId());
+			
+			accountDTO.setFullName(account.getFullName());
+			
+			if(account.getPhoneNum() != null)
+				accountDTO.setPhoneNum(account.getPhoneNum());
+			
 			Utils.getImageProfile(accountDTO);
 		}
 		
@@ -83,10 +91,15 @@ public class AccountServiceImp implements AccountService{
 			account.setDateUpdated(accountDTO.getDateUpdated());
 		}
 		
+		if(accountDTO.getGoogleId() != null)
+			account.setGoogleId(accountDTO.getGoogleId());
+		
 		account.setEmail(accountDTO.getEmail());
-		account.setFacebookId(accountDTO.getFacebookId());
-		account.setFirstName(accountDTO.getFirstName());
-		account.setLastName(accountDTO.getLastName());
+		
+		if(accountDTO.getFacebookId() != null)
+			account.setFacebookId(accountDTO.getFacebookId());
+		
+		account.setFullName(accountDTO.getFullName());
 		
 		if(accountDTO.getPhoneNum() != null)
 			account.setPhoneNum(accountDTO.getPhoneNum());

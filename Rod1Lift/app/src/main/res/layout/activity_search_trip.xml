@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/flMain"
+    android:layout_width="match_parent"
+    android:background="@drawable/gradient_list"
+    android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/llMain"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include layout="@layout/top_menu" />
+
+            <AutoCompleteTextView
+                android:textColor="@color/white"
+                android:layout_weight="0.1"
+                android:textSize="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:id="@+id/autoFrom"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/top_round_corners"
+                android:gravity="center_vertical|start"
+                android:hint="FROM"
+                android:paddingLeft="10dp" />
+            <View
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/transparent_black_50" />
+
+            <AutoCompleteTextView
+                android:textColor="@color/white"
+                android:layout_weight="0.1"
+                android:textSize="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:id="@+id/autoTo"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/square_corners"
+                android:gravity="center_vertical|start"
+                android:hint="TO"
+                android:paddingLeft="10dp" />
+
+            <View
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/transparent_black_50" />
+
+            <LinearLayout
+                android:layout_weight="0.1"
+                android:orientation="horizontal"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+
+                <TextView
+                    android:textColor="@color/white"
+                    android:textSize="20dp"
+                    android:layout_weight="0.5"
+                    android:id="@+id/txtDate"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/bottom_round_corners_left"
+                    android:focusableInTouchMode="false"
+                    android:gravity="center_vertical|start"
+                    android:hint="DATE"
+                    android:paddingLeft="10dp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/transparent_black_50" />
+
+                <TextView
+                    android:textColor="@color/white"
+                    android:textSize="20dp"
+                    android:layout_weight="0.5"
+                    android:id="@+id/txtTime"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/bottom_round_corners_right"
+                    android:focusableInTouchMode="false"
+                    android:gravity="center_vertical|start"
+                    android:hint="TIME"
+                    android:paddingLeft="10dp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_weight="0.5"
+                android:layout_width="match_parent"
+                android:layout_height="0dp" />
+    </LinearLayout>
+
+</FrameLayout>

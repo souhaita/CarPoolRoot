@@ -37,7 +37,7 @@ public class PickerActivityProfileName extends Activity {
         final EditText eTxtFullName =(EditText)findViewById(R.id.eTxtFullName);
 
         final AccountDTO accountDTO = new AccountDAO(PickerActivityProfileName.this).getAccountById(userId);
-        eTxtFullName.setText(accountDTO.getFirstName() + " "+ accountDTO.getLastName());
+        eTxtFullName.setText(accountDTO.getFullName());
 
         TextView txtDone = (TextView)findViewById(R.id.txtDone);
 
@@ -69,23 +69,13 @@ public class PickerActivityProfileName extends Activity {
 
     private void setData(EditText eTxtFullName, AccountDTO accountDTO){
         if(TextUtils.isEmpty(eTxtFullName.getText().toString())){
-            String message = getString(R.string.activity_complete_driver_registration_plate_num_error);
+            String message = getString(R.string.activity_profile_name_error);
             Utils.alertError(PickerActivityProfileName.this, message);
 
             Utils.vibrate(PickerActivityProfileName.this);
         }
         else{
-
-            String[] splited = eTxtFullName.getText().toString().split("\\s+");
-
-            if(splited.length == 2) {
-                accountDTO.setFirstName(splited[0]);
-                accountDTO.setLastName(splited[1]);
-            }
-            else if (splited.length == 1){
-                accountDTO.setFirstName(splited[0]);
-                accountDTO.setLastName(" ");
-            }
+            accountDTO.setFullName(eTxtFullName.getText().toString());
 
             new AccountDAO(PickerActivityProfileName.this).saveOrUpdateAccount(accountDTO);
 

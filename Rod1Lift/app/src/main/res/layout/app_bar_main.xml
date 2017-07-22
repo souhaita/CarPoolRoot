@@ -9,7 +9,7 @@
     <android.support.design.widget.AppBarLayout
         android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="?attr/actionBarSize"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
@@ -17,7 +17,7 @@
             android:gravity="center"
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="match_parent"
             android:background="@drawable/gradient_list"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
@@ -37,75 +37,84 @@
             tools:context=".Activities.ActivityMain"
             android:name="com.google.android.gms.maps.SupportMapFragment"/>
 
-
-        <com.github.clans.fab.FloatingActionMenu
-            android:foregroundGravity="center"
-            xmlns:fab="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/fabMenu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:layout_marginBottom="8dp"
-            fab:menu_fab_size="normal"
-            fab:menu_showShadow="true"
-            fab:menu_shadowColor="#66000000"
-            fab:menu_shadowRadius="4dp"
-            fab:menu_shadowXOffset="1dp"
-            fab:menu_shadowYOffset="3dp"
-            fab:menu_animationDelayPerItem="50"
-            fab:menu_icon="@drawable/fab_add"
-            fab:menu_buttonSpacing="0dp"
-            fab:menu_openDirection="up"
-            fab:menu_backgroundColor="@android:color/transparent"
-            fab:menu_fab_show_animation="@animator/jump_from_down"
-            fab:menu_fab_hide_animation="@animator/jump_to_down">
-
-            <com.github.clans.fab.FloatingActionButton
+            <com.github.clans.fab.FloatingActionMenu
                 android:foregroundGravity="center"
-                fab:fab_label="@string/floating_menu_clear_marker"
-                fab:fab_size="mini"
-                android:src="@drawable/icon_delete"
-                android:id="@+id/fabClearMarker"
+                xmlns:fab="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/fabMenu"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"  />
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|right"
+                android:layout_marginBottom="8dp"
+                fab:menu_fab_size="normal"
+                fab:menu_showShadow="true"
+                fab:menu_shadowColor="#66000000"
+                fab:menu_shadowRadius="4dp"
+                fab:menu_shadowXOffset="1dp"
+                fab:menu_shadowYOffset="3dp"
+                fab:menu_animationDelayPerItem="50"
+                fab:menu_icon="@drawable/fab_add"
+                fab:menu_buttonSpacing="0dp"
+                fab:menu_openDirection="up"
+                fab:menu_backgroundColor="@android:color/transparent"
+                fab:menu_fab_show_animation="@animator/jump_from_down"
+                fab:menu_fab_hide_animation="@animator/jump_to_down">
 
-            <com.github.clans.fab.FloatingActionButton
-                android:foregroundGravity="center"
-                fab:fab_label="@string/floating_menu_path_create_trip"
-                fab:fab_size="mini"
-                android:src="@drawable/icon_add_trip_small"
-                android:id="@+id/fabCreateTrip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"  />
+                <com.github.clans.fab.FloatingActionButton
+                    android:foregroundGravity="center"
+                    fab:fab_label="@string/floating_menu_clear_marker"
+                    fab:fab_size="mini"
+                    android:src="@drawable/icon_delete"
+                    android:id="@+id/fabClearMarker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"  />
 
-            <com.github.clans.fab.FloatingActionButton
-                android:foregroundGravity="center"
-                fab:fab_label="@string/floating_menu_path_from_two_points"
-                fab:fab_size="mini"
-                android:src="@drawable/icon_two_path"
-                android:id="@+id/fabPathFromTwoPoints"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"  />
+                <com.github.clans.fab.FloatingActionButton
+                    android:visibility="gone"
+                    android:foregroundGravity="center"
+                    fab:fab_label="@string/floating_menu_path_search_trip"
+                    fab:fab_size="mini"
+                    android:src="@drawable/icon_search_trip_small"
+                    android:id="@+id/fabSearchTrip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"  />
+
+                <com.github.clans.fab.FloatingActionButton
+                    android:visibility="gone"
+                    android:foregroundGravity="center"
+                    fab:fab_label="@string/floating_menu_path_create_trip"
+                    fab:fab_size="mini"
+                    android:src="@drawable/icon_add_trip_small"
+                    android:id="@+id/fabCreateTrip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"  />
+
+                <com.github.clans.fab.FloatingActionButton
+                    android:foregroundGravity="center"
+                    fab:fab_label="@string/floating_menu_path_from_two_points"
+                    fab:fab_size="mini"
+                    android:src="@drawable/icon_two_path"
+                    android:id="@+id/fabPathFromTwoPoints"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"  />
 
 
-            <com.github.clans.fab.FloatingActionButton
-                fab:fab_label="@string/floating_menu_path_from_current_position"
-                fab:fab_size="mini"
-                android:src="@drawable/icon_one_path"
-                android:id="@+id/fabPathFromCurrentPosition"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"  />
+                <com.github.clans.fab.FloatingActionButton
+                    fab:fab_label="@string/floating_menu_path_from_current_position"
+                    fab:fab_size="mini"
+                    android:src="@drawable/icon_one_path"
+                    android:id="@+id/fabPathFromCurrentPosition"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"  />
 
-            <com.github.clans.fab.FloatingActionButton
-                fab:fab_label="@string/floating_menu_current_position"
-                fab:fab_size="mini"
-                android:src="@drawable/icon_locate_me"
-                android:id="@+id/fabLocateMe"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"  />
+                <com.github.clans.fab.FloatingActionButton
+                    fab:fab_label="@string/floating_menu_current_position"
+                    fab:fab_size="mini"
+                    android:src="@drawable/icon_locate_me"
+                    android:id="@+id/fabLocateMe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"  />
 
-        </com.github.clans.fab.FloatingActionMenu>
-
+            </com.github.clans.fab.FloatingActionMenu>
     </FrameLayout>
 
 </android.support.design.widget.CoordinatorLayout>

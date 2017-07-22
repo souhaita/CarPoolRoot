@@ -2,11 +2,8 @@ package rode1lift.ashwin.uomtrust.mu.rod1lift.Activities;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Address;
@@ -15,8 +12,6 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -27,7 +22,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -50,8 +44,6 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
@@ -72,6 +64,7 @@ import java.util.Locale;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.AccountDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.AccountDTO;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.AccountRole;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 
@@ -107,6 +100,8 @@ public class ActivityMain extends AppCompatActivity
 
     private String currentLocation = null;
 
+    private AccountRole accountRole;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -128,8 +123,14 @@ public class ActivityMain extends AppCompatActivity
         Integer accountId = Utils.getCurrentAccount(getApplicationContext());
 
         AccountDTO accountDTO = new AccountDAO(this).getAccountById(accountId);
+        accountRole = accountDTO.getAccountRole();
 
         setProfileDetails(navigationView, accountDTO);
+
+        if(accountRole == accountRole.PASSENGER) {
+            navigationView.getMenu().clear();
+            navigationView.inflateMenu(R.menu.passenger_menu);
+        }
 
         getSupportActionBar().setTitle("LIFT");
 
@@ -145,13 +146,13 @@ public class ActivityMain extends AppCompatActivity
         imgProfilePic.setImageBitmap(Utils.convertBlobToBitmap(accountDTO.getProfilePicture()));
 
         TextView txtFullName = (TextView) view.findViewById(R.id.txtFullName);
-        txtFullName.setText(accountDTO.getFirstName() +" "+accountDTO.getLastName());
+        txtFullName.setText(accountDTO.getFullName());
 
         LinearLayout llMainProfilePic = (LinearLayout)view.findViewById(R.id.llMainProfilePic);
         llMainProfilePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ActivityMain.this, ProfileActivity.class);
+                Intent intent = new Intent(ActivityMain.this, ActivityProfile.class);
                 startActivityForResult(intent, CONSTANT.MAIN_ACTIVITY);
             }
         });
@@ -198,7 +199,6 @@ public class ActivityMain extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_map) {
-
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
             drawer.closeDrawer(GravityCompat.START);
         }
@@ -206,12 +206,28 @@ public class ActivityMain extends AppCompatActivity
             Intent intent = new Intent(ActivityMain.this, ActivityCreateTrip.class);
             startActivity(intent);
         }
+        else if (id == R.id.nav_search_trip) {
+            Intent intent = new Intent(ActivityMain.this, ActivitySearchTrip.class);
+            startActivity(intent);
+        }
         else if (id == R.id.nav_manage) {
-            Intent intent = new Intent(ActivityMain.this, ActivityDriverManageRequest.class);
+            Intent intent;
+
+            if(accountRole == AccountRole.DRIVER)
+                intent = new Intent(ActivityMain.this, ActivityDriverManageRequest.class);
+            else
+                intent = new Intent(ActivityMain.this, null);
+
             startActivity(intent);
         }
         else if (id == R.id.nav_history) {
-            Intent intent = new Intent(ActivityMain.this, ActivityDriverHistory.class);
+            Intent intent;
+
+            if(accountRole == AccountRole.DRIVER)
+                intent = new Intent(ActivityMain.this, ActivityDriverHistory.class);
+            else
+                intent = new Intent(ActivityMain.this, null);
+
             startActivity(intent);
         }
         else if (id == R.id.nav_logout) {
@@ -456,6 +472,7 @@ public class ActivityMain extends AppCompatActivity
 
         FloatingActionButton fabClearMarker;
         FloatingActionButton fabCreateTrip;
+        FloatingActionButton fabSearchTrip;
         FloatingActionButton fabPathFromTwoPoints;
         FloatingActionButton fabPathFromCurrentPosition;
         FloatingActionButton fabLocateMe;
@@ -467,7 +484,23 @@ public class ActivityMain extends AppCompatActivity
         fabPathFromCurrentPosition = (FloatingActionButton) findViewById(R.id.fabPathFromCurrentPosition);
         fabPathFromTwoPoints = (FloatingActionButton) findViewById(R.id.fabPathFromTwoPoints);
         fabCreateTrip = (FloatingActionButton) findViewById(R.id.fabCreateTrip);
+        fabSearchTrip = (FloatingActionButton) findViewById(R.id.fabSearchTrip);
         fabLocateMe = (FloatingActionButton) findViewById(R.id.fabLocateMe);
+
+        if(accountRole == AccountRole.DRIVER){
+            fabCreateTrip.setVisibility(View.VISIBLE);
+        }
+        else{
+            fabSearchTrip.setVisibility(View.VISIBLE);
+        }
+
+        fabSearchTrip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fabMenu.close(true);
+                startActivity_passenger();
+            }
+        });
 
         fabLocateMe.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -522,7 +555,7 @@ public class ActivityMain extends AppCompatActivity
                     markerPoints.clear();
                     mGoogleMap.clear();
                     mGoogleMap.addMarker(currentPositionMarker);
-                    startActivity();
+                    startActivity_driver();
                 }
                 else{
                     alertError();
@@ -532,8 +565,15 @@ public class ActivityMain extends AppCompatActivity
     }
 
 
-    private void startActivity(){
+    private void startActivity_driver(){
         Intent intent = new Intent(ActivityMain.this, ActivityCreateTrip.class);
+        intent.putExtra(CONSTANT.CREATE_TRIP_FROM, from);
+        intent.putExtra(CONSTANT.CREATE_TRIP_TO, to);
+        startActivity(intent);
+    }
+
+    private void startActivity_passenger(){
+        Intent intent = new Intent(ActivityMain.this, null);
         intent.putExtra(CONSTANT.CREATE_TRIP_FROM, from);
         intent.putExtra(CONSTANT.CREATE_TRIP_TO, to);
         startActivity(intent);
@@ -563,7 +603,7 @@ public class ActivityMain extends AppCompatActivity
         builder.setNegativeButton(ActivityMain.this.getString(R.string.no), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                startActivity();
+                startActivity_driver();
                 dialogInterface.dismiss();
             }
         });

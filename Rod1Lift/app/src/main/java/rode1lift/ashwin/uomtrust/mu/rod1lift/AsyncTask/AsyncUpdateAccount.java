@@ -48,8 +48,7 @@ public class AsyncUpdateAccount extends AsyncTask<AccountDTO, Void ,AccountDTO> 
 
         try{
             postData.put("accountId", accountDTO.getAccountId());
-            postData.put("firstName", accountDTO.getFirstName());
-            postData.put("lastName", accountDTO.getLastName());
+            postData.put("fullName", accountDTO.getFullName());
             postData.put("email", accountDTO.getEmail());
             postData.put("accountRole", accountDTO.getAccountRole().getValue());
             postData.put("accountStatus", accountDTO.getAccountStatus().getValue());

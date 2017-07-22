@@ -85,7 +85,7 @@
             <LinearLayout
                 android:gravity="center"
                 android:paddingLeft="2dp"
-                android:paddingRight="2dp"
+                android:paddingRight="4dp"
                 android:orientation="vertical"
                 android:layout_weight="0.6"
                 android:layout_width="0dp"

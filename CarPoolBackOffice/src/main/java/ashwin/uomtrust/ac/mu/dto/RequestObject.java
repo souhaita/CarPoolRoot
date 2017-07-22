@@ -17,6 +17,7 @@ public class RequestObject implements Serializable {
 	private RequestDTO requestDTO;
 	private List<ManageRequestDTO> manageRequestDTOList;
 	private List<AccountDTO> accountDTOList;
+	private List<CarDTO> carDTOList;
    
 	public RequestDTO getRequestDTO() {
 		return requestDTO;
@@ -35,5 +36,11 @@ public class RequestObject implements Serializable {
 	}
 	public void setAccountDTOList(List<AccountDTO> accountDTOList) {
 		this.accountDTOList = accountDTOList;
-	}   
+	}
+	public List<CarDTO> getCarDTOList() {
+		return carDTOList;
+	}
+	public void setCarDTOList(List<CarDTO> carDTOList) {
+		this.carDTOList = carDTOList;
+	}
 }

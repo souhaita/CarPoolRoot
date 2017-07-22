@@ -163,8 +163,7 @@ public class AsyncDriverFetchRequest extends AsyncTask<RequestDTO, Void ,List<Re
 
                     AccountDTO accountDTO = new AccountDTO();
                     accountDTO.setAccountId(jsonObjectAccount.getInt("accountId"));
-                    accountDTO.setFirstName(jsonObjectAccount.getString("firstName"));
-                    accountDTO.setLastName(jsonObjectAccount.getString("lastName"));
+                    accountDTO.setFullName(jsonObjectAccount.getString("fullName"));
                     accountDTO.setPhoneNum(jsonObjectAccount.getInt("phoneNum"));
                     accountDTO.setProfilePicture(Base64.decode(jsonObjectAccount.getString("sProfilePicture"), Base64.DEFAULT));
 

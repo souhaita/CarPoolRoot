@@ -63,7 +63,15 @@
 
         <activity
             android:name=".Activities.ActivityLogout"
-            android:theme="@style/Theme.UserDialog"/>
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity
+            android:name=".Activities.ActivitySearchTrip"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity
+            android:name=".Activities.ActivitySearchTripResults"
+            android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity
             android:name=".Activities.PickerActivityCarMake"
@@ -86,7 +94,7 @@
             android:theme="@style/Theme.UserDialog"/>
 
         <activity
-            android:name=".Activities.ProfileActivity"
+            android:name=".Activities.ActivityProfile"
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity

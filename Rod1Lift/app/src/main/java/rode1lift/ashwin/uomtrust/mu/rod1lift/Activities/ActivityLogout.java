@@ -36,8 +36,6 @@ public class ActivityLogout extends Activity {
         txtYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Utils.disconnectFromFacebook();
-
                 Utils.clearSharedPref(ActivityLogout.this);
 
                 Intent intent = new Intent(ActivityLogout.this,ActivityLogin.class);

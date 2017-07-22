@@ -4,8 +4,13 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
@@ -21,6 +26,13 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 import org.json.JSONObject;
 
@@ -44,8 +56,12 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.AccountStatus;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 
+import static android.content.Context.MODE_PRIVATE;
+import static com.facebook.FacebookSdk.getApplicationContext;
+import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT.GOOGLE_SIGN_IN;
 
-public class ActivityLogin extends Activity {
+
+public class ActivityLogin extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
 
     CallbackManager callbackManager;
     private AccountDTO accountDTO = new AccountDTO();
@@ -69,6 +85,7 @@ public class ActivityLogin extends Activity {
             setContentView(R.layout.activity_login);
 
             Utils.disconnectFromFacebook();
+            final GoogleApiClient mGoogleApiClient = initGoogleSettings();
 
             callbackManager = CallbackManager.Factory.create();
 
@@ -110,31 +127,114 @@ public class ActivityLogin extends Activity {
                 //...
             });
 
+
+            SignInButton btnSignIn = (SignInButton) findViewById(R.id.btnGoogleSignIn);
+            btnSignIn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    googleLogin(mGoogleApiClient);
+                }
+            });
+
         }
+    }
+
+    private GoogleApiClient initGoogleSettings() {
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        GoogleApiClient mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(ActivityLogin.this, ActivityLogin.this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
+
+        try {
+            Utils.signOut(mGoogleApiClient);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return mGoogleApiClient;
+
+    }
+
+    private void googleLogin(GoogleApiClient mGoogleApiClient){
+        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        startActivityForResult(signInIntent, GOOGLE_SIGN_IN);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == CONSTANT.GOOGLE_SIGN_IN){
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            handleGoogleSignInResult(result);
+        }
+    }
+
+    private void handleGoogleSignInResult(GoogleSignInResult result){
+        // Signed in successfully, show authenticated UI.
+        GoogleSignInAccount gAccount = result.getSignInAccount();
+        String email = gAccount.getEmail();
+
+        if(checkIfAccountExist(email)){
+            login();
+        }
+        else {
+
+            String fullName = gAccount.getDisplayName();
+            String googleId = gAccount.getId();
+
+            if (gAccount.getPhotoUrl() != null) {
+                String googlePhotoPath = gAccount.getPhotoUrl().toString();
+                accountDTO.setGooglePhotoPath(googlePhotoPath);
+            } else {
+                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.logo_background);
+                accountDTO.setProfilePicture(Utils.convertBitmapToBlob(bitmap));
+            }
+
+            accountDTO.setEmail(email);
+            accountDTO.setFullName(fullName);
+            accountDTO.setGoogleId(googleId);
+            accountDTO.setAccountId(-1);
+            accountDTO.setAccountStatus(AccountStatus.ACTIVE);
+
+            Date date = new Date();
+            accountDTO.setDateUpdated(date);
+            accountDTO.setDateCreated(date);
+
+            selectUserType();
+        }
     }
 
     private void login(){
-
         SharedPreferences.Editor editor = getSharedPreferences(CONSTANT.APP_NAME, MODE_PRIVATE).edit();
         editor.putBoolean(CONSTANT.LOGIN, true);
         editor.putInt(CONSTANT.CURRENT_ACCOUNT_ID, accountDTO.getAccountId());
         editor.commit();
 
         CarDTO carDTO = new CarDAO(ActivityLogin.this).getCarByAccountID(accountDTO.getAccountId());
-        if(carDTO != null && carDTO.getCarId() != null) {
+
+        if(accountDTO.getAccountRole() == AccountRole.DRIVER) {
+            if (carDTO != null && carDTO.getCarId() != null) {
+                new AccountDAO(ActivityLogin.this).saveOrUpdateAccount(accountDTO);
+                Intent intent = new Intent(ActivityLogin.this, ActivityMain.class);
+                startActivity(intent);
+                finish();
+            } else {
+                carDTO.setAccountId(accountDTO.getAccountId());
+                new AsyncDriverFetchCar(ActivityLogin.this).execute(carDTO);
+            }
+        }
+        else{
+            new AccountDAO(ActivityLogin.this).saveOrUpdateAccount(accountDTO);
             Intent intent = new Intent(ActivityLogin.this, ActivityMain.class);
             startActivity(intent);
             finish();
-        }
-        else{
-            carDTO.setAccountId(accountDTO.getAccountId());
-            new AsyncDriverFetchCar(ActivityLogin.this).execute(carDTO);
         }
     }
 
@@ -170,10 +270,14 @@ public class ActivityLogin extends Activity {
                 }
 
                 if (object.has("first_name")) {
-                    accountDTO.setFirstName(object.getString("first_name"));
-                }
-                if (object.has("last_name")) {
-                    accountDTO.setLastName(object.getString("last_name"));
+
+                    String fullName = object.getString("first_name");
+
+                    if (object.has("last_name")) {
+                        fullName += " "+object.getString("last_name");
+                    }
+
+                    accountDTO.setFullName(fullName);
                 }
 
                 accountDTO.setAccountId(-1);
@@ -256,7 +360,6 @@ public class ActivityLogin extends Activity {
                     accountDTO.setAccountRole(AccountRole.PASSENGER);
                     new AccountDAO(ActivityLogin.this).saveOrUpdateAccount(accountDTO);
                     new AsyncCreateAccount(ActivityLogin.this).execute(accountDTO);
-                    finish();
                 }
             }
         });
@@ -273,5 +376,10 @@ public class ActivityLogin extends Activity {
         super.onResume();
         llMain = (LinearLayout)findViewById(R.id.llMain);
         Utils.animateLayout(llMain);
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
     }
 }

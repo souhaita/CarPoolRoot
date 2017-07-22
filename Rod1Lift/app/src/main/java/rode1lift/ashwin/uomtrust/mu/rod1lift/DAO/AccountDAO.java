@@ -57,9 +57,9 @@ public class AccountDAO {
         accountDTO.setAccountId(res.getInt(res.getColumnIndex("account_id")));
         accountDTO.setEmail(res.getString(res.getColumnIndex("email")));
         accountDTO.setProfilePicture(res.getBlob(res.getColumnIndex("profile_picture")));
-        accountDTO.setFirstName(res.getString(res.getColumnIndex("first_name")));
-        accountDTO.setLastName(res.getString(res.getColumnIndex("last_name")));
+        accountDTO.setFullName(res.getString(res.getColumnIndex("full_name")));
         accountDTO.setFacebookId(res.getString(res.getColumnIndex("facebook_id")));
+        accountDTO.setGoogleId(res.getString(res.getColumnIndex("google_id")));
         accountDTO.setAccountRole(res.getInt(res.getColumnIndex("account_role")) != 0? AccountRole.PASSENGER : AccountRole.DRIVER);
         accountDTO.setAccountStatus(res.getInt(res.getColumnIndex("account_status")) == 0? AccountStatus.ACTIVE : AccountStatus.DESACTIVE);
         accountDTO.setDateCreated(new Date(res.getLong(res.getColumnIndex("date_created"))));
@@ -78,14 +78,19 @@ public class AccountDAO {
         if(accountDTO.getProfilePicture() != null);
             values.put("profile_picture", accountDTO.getProfilePicture());
 
-        values.put("first_name", accountDTO.getFirstName());
-        values.put("last_name", accountDTO.getLastName());
+        values.put("full_name", accountDTO.getFullName());
 
         if(accountDTO.getFacebookId() != null  && !TextUtils.isEmpty(accountDTO.getFacebookId()))
             values.put("facebook_id", accountDTO.getFacebookId());
 
-        values.put("account_role", accountDTO.getAccountRole().ordinal());
-        values.put("account_status", accountDTO.getAccountStatus().ordinal());
+        if(accountDTO.getGoogleId() != null  && !TextUtils.isEmpty(accountDTO.getGoogleId()))
+            values.put("google_id", accountDTO.getGoogleId());
+
+        if(accountDTO.getAccountRole() != null)
+            values.put("account_role", accountDTO.getAccountRole().ordinal());
+
+        if(accountDTO.getAccountStatus() != null)
+            values.put("account_status", accountDTO.getAccountStatus().ordinal());
 
         if(accountDTO.getDateCreated() != null)
             values.put("date_created", accountDTO.getDateCreated().getTime());

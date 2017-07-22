@@ -144,8 +144,7 @@ public class AsyncDriverFetchHistory extends AsyncTask<Void, Void ,List<RequestO
 
                     AccountDTO account = new AccountDTO();
                     account.setAccountId(jsonObjectAccount.getInt("accountId"));
-                    account.setFirstName(jsonObjectAccount.getString("firstName"));
-                    account.setLastName(jsonObjectAccount.getString("lastName"));
+                    account.setFullName(jsonObjectAccount.getString("fullName"));
                     account.setPhoneNum(jsonObjectAccount.getInt("phoneNum"));
                     account.setProfilePicture(Base64.decode(jsonObjectAccount.getString("sProfilePicture"), Base64.DEFAULT));
 

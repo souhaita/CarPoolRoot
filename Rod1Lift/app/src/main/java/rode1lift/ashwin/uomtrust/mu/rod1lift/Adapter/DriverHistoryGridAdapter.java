@@ -69,7 +69,7 @@ public class DriverHistoryGridAdapter extends BaseAdapter {
             imageView.setImageBitmap(Utils.convertBlobToBitmap(a.getProfilePicture()));
 
         TextView txtFullName = (TextView) view.findViewById(R.id.txtFullName);
-        txtFullName.setText(a.getFirstName() + " " + a.getLastName());
+        txtFullName.setText(a.getFullName());
 
         return view;
     }

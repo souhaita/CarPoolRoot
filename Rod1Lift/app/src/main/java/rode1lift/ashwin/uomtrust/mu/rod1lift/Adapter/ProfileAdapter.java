@@ -54,7 +54,6 @@ public class ProfileAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_profile_content, parent, false);
         return new AllViewHolder(view);
-
     }
 
     @Override
@@ -72,10 +71,9 @@ public class ProfileAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             view.llData.setVisibility(View.GONE);
             view.llCar.setVisibility(View.GONE);
 
-            String firstName = profileObjectList.get(position).getLabel();
-            String lastName = profileObjectList.get(position).getData();
+            String fullName = profileObjectList.get(position).getLabel();
 
-            view.txtFullName.setText(firstName +" "+lastName);
+            view.txtFullName.setText(fullName);
             view.txtFullName.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

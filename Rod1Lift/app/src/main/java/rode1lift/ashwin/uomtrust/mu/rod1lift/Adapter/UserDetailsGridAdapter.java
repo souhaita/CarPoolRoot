@@ -72,7 +72,7 @@ public class UserDetailsGridAdapter extends BaseAdapter {
             imageView.setImageBitmap(Utils.convertBlobToBitmap(a.getProfilePicture()));
 
         TextView txtFullName = (TextView) view.findViewById(R.id.txtFullName);
-        txtFullName.setText(a.getFirstName() + " " + a.getLastName());
+        txtFullName.setText(a.getFullName());
 
         FloatingActionButton fabCall = (FloatingActionButton) view.findViewById(R.id.fabCall);
         fabCall.setOnClickListener(new View.OnClickListener() {

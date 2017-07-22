@@ -85,8 +85,7 @@ public class ManageRequestServiceImp implements ManageRequestService{
 			Account a = m.getUserAccount();
 			AccountDTO accountDTO = new AccountDTO();
 			accountDTO.setAccountId(a.getAccountId());				
-			accountDTO.setFirstName(a.getFirstName());
-			accountDTO.setLastName(a.getLastName());
+			accountDTO.setFullName(a.getFullName());
 			accountDTO.setPhoneNum(a.getPhoneNum());
 			Utils.getImageProfile(accountDTO);
 			

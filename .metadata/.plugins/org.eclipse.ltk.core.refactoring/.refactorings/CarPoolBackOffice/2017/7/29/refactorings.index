@@ -5,3 +5,4 @@
 1500313168535	Rename method 'driverGetUserAcceptedList'
 1500314298429	Rename method 'driverGetOtherRequestList'
 1500314981237	Rename method 'getRequestByUserIdAndRequestStatus'
+1500721855604	Rename local variable 'newCarDTO'

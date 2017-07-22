@@ -60,6 +60,12 @@
     <string name="activity_map_marker_create_trip_validation_message">No trip detected. Would you like to create one on the map?</string>
 
 
+    <string name="activity_search_trip_header">Search Trip</string>
+    <string name="activity_search_trip_results_header">Search Results</string>
+    <string name="activity_search_trip_search">Search</string>
+    <string name="activity_search_trip_validation_autocomplete_address">Address can not be null</string>
+
+
     <string name="activity_complete_driver_manage_request_header">Manage Trip</string>
 
     <string name="activity_driver_history_header">Past Trips</string>
@@ -78,6 +84,7 @@
     <string name="floating_menu_current_position">Locate Me</string>
     <string name="floating_menu_path_from_two_points">Get direction from 2 different points</string>
     <string name="floating_menu_path_create_trip">Create trip</string>
+    <string name="floating_menu_path_search_trip">Search trip</string>
 
 
     <string name="floating_menu_clear_pending">Upcoming Trip</string>
@@ -179,6 +186,8 @@
     <string name="menu_manage_request">MANAGE REQUEST</string>
     <string name="menu_history">HISTORY</string>
     <string name="menu_logout">LOGOUT</string>
+    <string name="menu_search_trip">SEARCH TRIP</string>
+
 
     <string name="activity_phone_number_hint">Phone Num</string>
 

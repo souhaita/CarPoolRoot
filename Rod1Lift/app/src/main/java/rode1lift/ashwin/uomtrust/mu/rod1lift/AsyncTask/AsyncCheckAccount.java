@@ -84,8 +84,7 @@ public class AsyncCheckAccount extends AsyncTask<String, Void , AccountDTO > {
                 accountDTO.setAccountId(jsonObject.getInt("accountId"));
                 accountDTO.setEmail(accountDTO.getEmail());
                 accountDTO.setProfilePicture(Base64.decode(jsonObject.getString("sProfilePicture"), Base64.DEFAULT));
-                accountDTO.setFirstName(jsonObject.getString("firstName"));
-                accountDTO.setLastName(jsonObject.getString("lastName"));
+                accountDTO.setFullName(jsonObject.getString("fullName"));
                 accountDTO.setFacebookId(jsonObject.getString("facebookId"));
                 accountDTO.setAccountRole(AccountRole.valueOf(jsonObject.getString("accountRole")));
                 accountDTO.setAccountStatus(AccountStatus.valueOf(jsonObject.getString("accountStatus")));

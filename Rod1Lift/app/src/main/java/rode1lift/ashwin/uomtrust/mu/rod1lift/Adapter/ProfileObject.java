@@ -22,8 +22,7 @@ public class ProfileObject{
     public ProfileObject(ViewType viewType, AccountDTO accountDTO){
         this.viewType = viewType;
         this.profilePicture = accountDTO.getProfilePicture();
-        this.label = accountDTO.getFirstName();
-        this.data = accountDTO.getLastName();
+        this.label = accountDTO.getFullName();
     }
 
     public ProfileObject(ViewType viewType, byte [] carsPictures){

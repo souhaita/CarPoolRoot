@@ -13,6 +13,8 @@ public class CONSTANT {
     public static final String CURRENT_ACCOUNT_ID = "CURRENT_ACCOUNT_ID";
     public static final String TRIP_PRICE = "price";
     public static final String REQUEST_OBJECT = "requestObject";
+    public static final String REQUEST_OBJECT_LIST = "requestObjectList";
+    public static final String BUNDLE_LIST = "bundleList";
     public static final String CREATE_TRIP_FROM = "from";
     public static final String CREATE_TRIP_TO = "to";
 
@@ -36,5 +38,6 @@ public class CONSTANT {
     public static final int CREATE_TRIP_ACTIVITY = 16;
     public static final int MANAGE_TRIP_ACTIVITY_DRIVER_REQUEST_PENDING = 17;
     public static final int PERMISSION_GPS = 18;
+    public static final int GOOGLE_SIGN_IN = 19;
 
 }
