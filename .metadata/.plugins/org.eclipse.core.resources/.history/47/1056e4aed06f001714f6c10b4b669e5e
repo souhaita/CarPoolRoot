@@ -417,11 +417,7 @@ public class ManageRequestServiceImp implements ManageRequestService{
 	@Override
 	public List<RequestObject> passengerGetHistoryList(RequestDTO requestDTO) {
 		// TODO Auto-generated method stub
-		List<RequestStatus> requestStatusList = new ArrayList<>();
-		requestStatusList.add(RequestStatus.DRIVER_ACCEPTED);
-		requestStatusList.add(RequestStatus.PAID);
-		
-		List<ManageRequest> manageRequestList = manageRequestRepository.getPassengerManageRequestByRequestStatus(requestDTO.getAccountId(), requestStatusList);
+List<ManageRequest> manageRequestList = manageRequestRepository.getPassengerManageRequestByRequestStatus(requestDTO.getAccountId(), requestDTO.getRequestStatus());
 		
 		List<RequestObject> requestObjectList = new ArrayList<>();
 		
@@ -511,6 +507,6 @@ public class ManageRequestServiceImp implements ManageRequestService{
 		}
 
 		return requestObjectList;
-
+	}
 	}
 }
