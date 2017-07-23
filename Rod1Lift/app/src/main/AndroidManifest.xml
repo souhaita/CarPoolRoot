@@ -62,6 +62,10 @@
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity
+            android:name=".Activities.ActivityPassengerHistory"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity
             android:name=".Activities.ActivityLogout"
             android:theme="@style/AppTheme.NoActionBar"/>
 

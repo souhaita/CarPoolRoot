@@ -116,6 +116,7 @@
     <string name="driver_request_adapter_seats_left">Seats Left</string>
     <string name="driver_request_adapter_seat_left">Seat Left</string>
     <string name="driver_request_adapter_no_seat_left">Trip Full</string>
+    <string name="passenger_view_history_seat">Seat</string>
 
     <string name="async_driver_accept_client_request">Saving Request</string>
 

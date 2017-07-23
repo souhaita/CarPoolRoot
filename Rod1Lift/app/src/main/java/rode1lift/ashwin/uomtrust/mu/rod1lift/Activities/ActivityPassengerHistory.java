@@ -12,19 +12,19 @@ import com.azoft.carousellayoutmanager.CarouselLayoutManager;
 import com.azoft.carousellayoutmanager.CarouselZoomPostLayoutListener;
 import com.azoft.carousellayoutmanager.CenterScrollListener;
 
-import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncDriverFetchHistory;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncPassengerFetchHistory;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 
 
-public class ActivityDriverHistory extends Activity {
+public class ActivityPassengerHistory extends Activity {
 
     private LinearLayout llMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_driver_view_history_main);
+        setContentView(R.layout.activity_passenger_view_history_main);
 
         TextView txtMenuHeader = (TextView)findViewById(R.id.txtMenuHeader);
         txtMenuHeader.setText(getString(R.string.activity_driver_history_header));
@@ -48,7 +48,7 @@ public class ActivityDriverHistory extends Activity {
         recyclerView.addOnScrollListener(new CenterScrollListener());
         layoutManager.setPostLayoutListener(new CarouselZoomPostLayoutListener());
 
-        new AsyncDriverFetchHistory(ActivityDriverHistory.this, recyclerView).execute();
+        new AsyncPassengerFetchHistory(ActivityPassengerHistory.this, recyclerView).execute();
     }
 
     protected void onPause(){

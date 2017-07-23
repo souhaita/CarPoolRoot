@@ -22,6 +22,7 @@ public class WebService {
     public static final String API_PASSENGER_DELETE_REQUEST = API_REQUEST +"passengerDeleteRequest";
     public static final String API_PASSENGER_ACCEPT_REQUEST = API_REQUEST +"passengerAcceptRequest";
     public static final String API_PASSENGER_GET_ACCEPTED_LIST = API_REQUEST +"passengerGetAcceptedRequest";
+    public static final String API_PASSENGER_GET_HISTORY_LIST = API_REQUEST +"passengerGetHistoryList";
 
 
     //CAR POOLER

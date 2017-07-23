@@ -3,14 +3,11 @@ package rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -32,12 +29,12 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
  * Created by vgobin on 18-Jul-17.
  */
 
-public class HistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class DriverHistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<RequestObject> requestObjectList;
     private Context context;
 
-    public HistoryAdapter(Context context, List<RequestObject> requestObjectList){
+    public DriverHistoryAdapter(Context context, List<RequestObject> requestObjectList){
         this.requestObjectList = requestObjectList;
         this.context = context;
 

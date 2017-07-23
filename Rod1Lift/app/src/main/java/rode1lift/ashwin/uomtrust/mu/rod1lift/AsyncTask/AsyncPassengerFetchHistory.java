@@ -19,8 +19,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.DriverHistoryAdapter;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.PassengerHistoryAdapter;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.AccountDTO;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.CarDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.ManageRequestDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestObject;
@@ -33,13 +34,13 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.WebService.WebService;
  * Created by Ashwin on 03-Jun-17.
  */
 
-public class AsyncDriverFetchHistory extends AsyncTask<Void, Void ,List<RequestObject >> {
+public class AsyncPassengerFetchHistory extends AsyncTask<Void, Void ,List<RequestObject >> {
 
     private Context context;
     private ProgressDialog progressDialog;
     private RecyclerView recyclerView;
 
-    public AsyncDriverFetchHistory(final Context context, RecyclerView recyclerView ) {
+    public AsyncPassengerFetchHistory(final Context context, RecyclerView recyclerView ) {
         this.context = context;
         this.recyclerView = recyclerView;
     }
@@ -64,7 +65,7 @@ public class AsyncDriverFetchHistory extends AsyncTask<Void, Void ,List<RequestO
 
             postData.put("accountId", userId);
 
-            httpURLConnection = (HttpURLConnection) new URL(WebService.API_DRIVER_GET_HISTORY_LIST).openConnection();
+            httpURLConnection = (HttpURLConnection) new URL(WebService.API_PASSENGER_GET_HISTORY_LIST).openConnection();
             httpURLConnection.setRequestMethod("POST");
             httpURLConnection.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
             httpURLConnection.setRequestProperty("Accept", "application/json;charset=UTF-8");
@@ -100,16 +101,20 @@ public class AsyncDriverFetchHistory extends AsyncTask<Void, Void ,List<RequestO
                 RequestDTO newRequestDTO = new RequestDTO();
                 newRequestDTO.setAccountId(jsonObjectRequest.getInt("accountId"));
                 newRequestDTO.setRequestId(jsonObjectRequest.getInt("requestId"));
-                newRequestDTO.setSeatAvailable(jsonObjectRequest.getInt("seatAvailable"));
+
+                newRequestDTO.setSeatRequested(jsonObjectRequest.getInt("seatRequested"));
                 newRequestDTO.setEvenDate(new Date(jsonObjectRequest.getLong("eventDate")));
                 newRequestDTO.setPlaceFrom(jsonObjectRequest.getString("placeFrom"));
                 newRequestDTO.setPlaceTo(jsonObjectRequest.getString("placeTo"));
                 newRequestDTO.setPrice(jsonObjectRequest.getInt("price"));
+                newRequestDTO.setDateCreated(new Date(jsonObjectRequest.getLong("dateCreated")));
+                newRequestDTO.setDateUpdated(new Date(jsonObjectRequest.getLong("dateUpdated")));
+                newRequestDTO.setCarId(jsonObjectRequest.getInt("carId"));
 
 
                 List<ManageRequestDTO> manageRequestDTOList = new ArrayList<>();
                 JSONArray jsonManageRequestMain = jsonObjectList.getJSONArray("manageRequestDTOList");
-                for(int y = 0; y<jsonManageRequestMain.length(); y++){
+                for (int y = 0; y < jsonManageRequestMain.length(); y++) {
                     JSONObject jsonObjectManageRequest = jsonManageRequestMain.getJSONObject(y);
 
                     ManageRequestDTO manageRequestDTO = new ManageRequestDTO();
@@ -126,21 +131,58 @@ public class AsyncDriverFetchHistory extends AsyncTask<Void, Void ,List<RequestO
                     manageRequestDTOList.add(manageRequestDTO);
                 }
 
-
                 List<AccountDTO> accountDTOList = new ArrayList<>();
                 JSONArray jsonAccountMain = jsonObjectList.getJSONArray("accountDTOList");
                 for(int y = 0; y<jsonAccountMain.length(); y++){
                     JSONObject jsonObjectAccount = jsonAccountMain.getJSONObject(y);
 
-                    AccountDTO account = new AccountDTO();
-                    account.setAccountId(jsonObjectAccount.getInt("accountId"));
-                    account.setFullName(jsonObjectAccount.getString("fullName"));
-                    account.setPhoneNum(jsonObjectAccount.getInt("phoneNum"));
-                    account.setProfilePicture(Base64.decode(jsonObjectAccount.getString("sProfilePicture"), Base64.DEFAULT));
+                    AccountDTO accountDTO = new AccountDTO();
+                    accountDTO.setAccountId(jsonObjectAccount.getInt("accountId"));
+                    accountDTO.setFullName(jsonObjectAccount.getString("fullName"));
+                    accountDTO.setPhoneNum(jsonObjectAccount.getInt("phoneNum"));
+                    accountDTO.setProfilePicture(Base64.decode(jsonObjectAccount.getString("sProfilePicture"), Base64.DEFAULT));
 
-                    accountDTOList.add(account);
+                    accountDTOList.add(accountDTO);
                 }
 
+                JSONArray jsonCarMain = jsonObjectList.getJSONArray("carDTOList");
+                CarDTO carDTO = new CarDTO();
+                for(int y = 0; y<jsonCarMain.length(); y++){
+                    JSONObject jsonObject = jsonCarMain.getJSONObject(y);
+
+                    carDTO.setCarId(jsonObject.getInt("carId"));
+                    carDTO.setYear(jsonObject.getInt("year"));
+                    carDTO.setAccountId(jsonObject.getInt("accountId"));
+                    carDTO.setMake(jsonObject.getString("make"));
+                    carDTO.setPlateNum(jsonObject.getString("plateNum"));
+                    carDTO.setNumOfPassenger(jsonObject.getInt("numOfPassenger"));
+                    carDTO.setModel(jsonObject.getString("model"));
+
+                    if(jsonObject.getString("sPicture1") != null) {
+                        carDTO.setHasPic1(true);
+                        carDTO.setPicture1(Base64.decode(jsonObject.getString("sPicture1"), Base64.DEFAULT));
+                    }
+
+                    if(jsonObject.getString("sPicture2") != null) {
+                        carDTO.setHasPic2(true);
+                        carDTO.setPicture2(Base64.decode(jsonObject.getString("sPicture2"), Base64.DEFAULT));
+                    }
+
+                    if(jsonObject.getString("sPicture1") != null) {
+                        carDTO.setHasPic3(true);
+                        carDTO.setPicture3(Base64.decode(jsonObject.getString("sPicture3"), Base64.DEFAULT));
+                    }
+
+                    if(jsonObject.getString("sPicture1") != null) {
+                        carDTO.setHasPic4(true);
+                        carDTO.setPicture4(Base64.decode(jsonObject.getString("sPicture4"), Base64.DEFAULT));
+                    }
+
+                }
+                List<CarDTO> carDTOList = new ArrayList<>();
+                carDTOList.add(carDTO);
+
+                requestObject.setCarDTO(carDTOList);
                 requestObject.setRequestDTO(newRequestDTO);
                 requestObject.setManageRequestDTOList(manageRequestDTOList);
                 requestObject.setAccountDTOList(accountDTOList);
@@ -172,8 +214,8 @@ public class AsyncDriverFetchHistory extends AsyncTask<Void, Void ,List<RequestO
             progressDialog.dismiss();
 
         if(requestObjectList != null && requestObjectList.size() >0) {
-            DriverHistoryAdapter driverHistoryAdapter = new DriverHistoryAdapter(context, requestObjectList);
-            recyclerView.setAdapter(driverHistoryAdapter);
+            PassengerHistoryAdapter passengerHistoryAdapter = new PassengerHistoryAdapter(context, requestObjectList);
+            recyclerView.setAdapter(passengerHistoryAdapter);
         }
 
         else  {

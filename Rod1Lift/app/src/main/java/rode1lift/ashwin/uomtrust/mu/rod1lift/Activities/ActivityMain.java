@@ -20,7 +20,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -127,7 +126,7 @@ public class ActivityMain extends AppCompatActivity
 
         setProfileDetails(navigationView, accountDTO);
 
-        if(accountRole == accountRole.PASSENGER) {
+        if(accountRole == AccountRole.PASSENGER) {
             navigationView.getMenu().clear();
             navigationView.inflateMenu(R.menu.passenger_menu);
         }
@@ -226,7 +225,7 @@ public class ActivityMain extends AppCompatActivity
             if(accountRole == AccountRole.DRIVER)
                 intent = new Intent(ActivityMain.this, ActivityDriverHistory.class);
             else
-                intent = new Intent(ActivityMain.this, null);
+                intent = new Intent(ActivityMain.this,  ActivityPassengerHistory.class);
 
             startActivity(intent);
         }
