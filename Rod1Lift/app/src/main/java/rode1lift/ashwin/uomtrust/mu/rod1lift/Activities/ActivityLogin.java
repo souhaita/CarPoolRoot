@@ -1,12 +1,10 @@
 package rode1lift.ashwin.uomtrust.mu.rod1lift.Activities;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.annotation.NonNull;
@@ -56,8 +54,6 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.AccountStatus;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 
-import static android.content.Context.MODE_PRIVATE;
-import static com.facebook.FacebookSdk.getApplicationContext;
 import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT.GOOGLE_SIGN_IN;
 
 
@@ -298,7 +294,7 @@ public class ActivityLogin extends AppCompatActivity implements GoogleApiClient.
         Boolean exist = false;
         try {
             accountDTO = new AsyncCheckAccount(ActivityLogin.this).execute(email).get();
-            exist = accountDTO.getAccountId() == null? false: true;
+            exist = accountDTO.getAccountId() != null;
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {

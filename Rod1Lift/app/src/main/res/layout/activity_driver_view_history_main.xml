@@ -4,8 +4,7 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@drawable/gradient_list"
-    xmlns:infiniteCard="http://schemas.android.com/tools">
+    android:background="@drawable/gradient_list">
 
     <include layout="@layout/top_menu" />
 

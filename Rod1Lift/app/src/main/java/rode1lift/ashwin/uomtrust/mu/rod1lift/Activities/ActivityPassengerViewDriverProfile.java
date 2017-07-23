@@ -2,9 +2,7 @@ package rode1lift.ashwin.uomtrust.mu.rod1lift.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -19,32 +17,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.PassengerViewDriverProfileAdapter;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.ProfileAdapter;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.ProfileObject;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncDriverUpdateCar;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncPassengerAcceptRequest;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncUpdateAccount;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.AccountDAO;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.CarDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.AccountDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.CarDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestObject;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.AccountRole;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.ViewType;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
-
-import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT.PROFILE_ACTIVITY_PROFILE_CAR_1;
-import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT.PROFILE_ACTIVITY_PROFILE_CAR_2;
-import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT.PROFILE_ACTIVITY_PROFILE_CAR_3;
-import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT.PROFILE_ACTIVITY_PROFILE_CAR_4;
-import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT.PROFILE_ACTIVITY_PROFILE_CAR_MAKE;
-import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT.PROFILE_ACTIVITY_PROFILE_CAR_PASSENGER;
-import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT.PROFILE_ACTIVITY_PROFILE_CAR_PLATE_NUM;
-import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT.PROFILE_ACTIVITY_PROFILE_CAR_YEAR;
-import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT.PROFILE_ACTIVITY_PROFILE_PIC;
 
 public class ActivityPassengerViewDriverProfile extends Activity {
 

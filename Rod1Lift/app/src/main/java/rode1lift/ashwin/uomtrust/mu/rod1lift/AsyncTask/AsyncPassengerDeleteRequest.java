@@ -1,9 +1,7 @@
 package rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 
 import org.json.JSONObject;
@@ -18,19 +16,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.DriverRequestAdapterPending;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.DriverRequestUserAcceptedAdapter;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.PassengerSearchTripAdapter;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.ManageRequestDAO;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.RequestDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestObject;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.RequestStatus;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.WebService.WebService;
-
-import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by Ashwin on 03-Jun-17.

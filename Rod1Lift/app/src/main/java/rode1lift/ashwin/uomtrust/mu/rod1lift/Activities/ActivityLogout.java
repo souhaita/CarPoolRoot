@@ -1,24 +1,13 @@
 package rode1lift.ashwin.uomtrust.mu.rod1lift.Activities;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.facebook.FacebookSdk;
 
-import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.AccountDAO;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.AccountDTO;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.CarDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 

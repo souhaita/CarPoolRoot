@@ -6,7 +6,6 @@ import android.os.AsyncTask;
 import android.util.Base64;
 import android.widget.ListView;
 
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -20,9 +19,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
-import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.DriverRequestUserAcceptedAdapter;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.DriverRequestAdapterPending;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.DriverRequestUserAcceptedAdapter;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.ManageRequestDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.RequestDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.AccountDTO;

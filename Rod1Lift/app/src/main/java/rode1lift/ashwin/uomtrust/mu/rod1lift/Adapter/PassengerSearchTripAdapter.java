@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,20 +18,15 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.ActivityCreateTrip;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.ActivityPassengerViewDriverProfile;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.ActivityProfile;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncDriverDeleteRequest;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncPassengerAcceptRequest;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncPassengerDeleteRequest;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.AccountDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.CarDTO;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.ManageRequestDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestObject;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.SwipeView.SwipeRevealLayout;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 
 /**

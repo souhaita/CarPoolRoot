@@ -2,6 +2,7 @@ package rode1lift.ashwin.uomtrust.mu.rod1lift.DTO;
 
 import java.io.Serializable;
 import java.util.Date;
+
 import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.AccountRole;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.AccountStatus;
 
