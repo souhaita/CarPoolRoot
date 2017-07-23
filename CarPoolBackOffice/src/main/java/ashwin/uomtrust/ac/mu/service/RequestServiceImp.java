@@ -277,14 +277,14 @@ public class RequestServiceImp implements RequestService{
 	}
 
 	@Override
-	public List<RequestObject> passengerGetPendingList(RequestDTO requestDTO) {
+	public List<RequestObject> passengerGetNewList(RequestDTO requestDTO) {
 		// TODO Auto-generated method stub
 		List<RequestStatus> requestStatusList = new ArrayList<>();
 		requestStatusList.add(RequestStatus.REQUEST_PENDING);
 
 		List<Request> requestList = requestRepository.getRequestByStatus(requestStatusList);
 		
-		List<ManageRequest> manageRequestList = manageRequestRepository.getPassengerManageRequestByRequestStatus(requestDTO.getAccountId(), RequestStatus.PASSENGER_REJECTED);
+		List<ManageRequest> manageRequestList = manageRequestRepository.getPassengerManageRequest(requestDTO.getAccountId());
 				
 		List<RequestObject> requestObjectList = new ArrayList<>();
 		

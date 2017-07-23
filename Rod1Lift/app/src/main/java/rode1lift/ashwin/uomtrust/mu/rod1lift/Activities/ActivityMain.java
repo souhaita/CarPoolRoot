@@ -216,7 +216,7 @@ public class ActivityMain extends AppCompatActivity
             if(accountRole == AccountRole.DRIVER)
                 intent = new Intent(ActivityMain.this, ActivityDriverManageRequest.class);
             else
-                intent = new Intent(ActivityMain.this, null);
+                intent = new Intent(ActivityMain.this, ActivityPassengerManageRequest.class);
 
             startActivity(intent);
         }
@@ -363,7 +363,7 @@ public class ActivityMain extends AppCompatActivity
             } else {
                 // No explanation needed, we can request the permission.
                 ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CALL_PHONE, Manifest.permission.CAMERA},
                         PERMISSION_GPS );
             }
         }

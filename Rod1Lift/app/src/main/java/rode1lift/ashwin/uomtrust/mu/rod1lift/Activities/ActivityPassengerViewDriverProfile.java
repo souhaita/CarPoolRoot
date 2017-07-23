@@ -12,6 +12,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,12 +22,14 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.PassengerViewDriverProfileA
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.ProfileAdapter;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.ProfileObject;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncDriverUpdateCar;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncPassengerAcceptRequest;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncUpdateAccount;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.AccountDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.CarDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.AccountDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.CarDTO;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestObject;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.AccountRole;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.ViewType;
@@ -47,6 +52,14 @@ public class ActivityPassengerViewDriverProfile extends Activity {
     private RecyclerView recyclerView;
     private PassengerViewDriverProfileAdapter profileAdapter;
     private LinearLayout llMainProfile;
+    private RequestDTO requestDTO;
+
+    private FloatingActionMenu fabMenu;
+    private FloatingActionButton fabSeat1;
+    private FloatingActionButton fabSeat2;
+    private FloatingActionButton fabSeat3;
+    private FloatingActionButton fabSeat4;
+    private FloatingActionButton fabSeat5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,60 +76,161 @@ public class ActivityPassengerViewDriverProfile extends Activity {
         recyclerView.setAdapter(profileAdapter);
 
         TextView txtMenuHeader = (TextView)findViewById(R.id.txtMenuHeader);
-        txtMenuHeader.setText(getString(R.string.title_activity_profile));
+        txtMenuHeader.setText(getString(R.string.title_activity_passenger_view_driver_profile));
 
         ImageView imgBack = (ImageView)findViewById(R.id.imgBack);
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = getIntent();
+                setResult(RESULT_OK, intent);
                 finish();
             }
         });
 
         TextView txtDone = (TextView)findViewById(R.id.txtDone);
-        txtDone.setOnClickListener(new View.OnClickListener() {
+        txtDone.setVisibility(View.INVISIBLE);
+
+        fabMenu = (FloatingActionMenu)findViewById(R.id.fabMenu);
+        fabMenu.setVisibility(View.VISIBLE);
+
+        fabSeat1 = (FloatingActionButton)findViewById(R.id.fabSeat1);
+        fabSeat2 = (FloatingActionButton)findViewById(R.id.fabSeat2);
+        fabSeat3 = (FloatingActionButton)findViewById(R.id.fabSeat3);
+        fabSeat4 = (FloatingActionButton)findViewById(R.id.fabSeat4);
+        fabSeat5 = (FloatingActionButton)findViewById(R.id.fabSeat5);
+
+        fabSeat1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                finish();
+            public void onClick(View view) {
+                fabMenu.close(true);
+                requestDTO.setSeatRequested(1);
+                new AsyncPassengerAcceptRequest(ActivityPassengerViewDriverProfile.this, null, null).execute(requestDTO);
             }
         });
 
+        fabSeat2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fabMenu.close(true);
+                requestDTO.setSeatRequested(2);
+                new AsyncPassengerAcceptRequest(ActivityPassengerViewDriverProfile.this, null, null).execute(requestDTO);
+            }
+        });
+
+        fabSeat3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fabMenu.close(true);
+                requestDTO.setSeatRequested(3);
+                new AsyncPassengerAcceptRequest(ActivityPassengerViewDriverProfile.this, null, null).execute(requestDTO);
+            }
+        });
+
+        fabSeat4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fabMenu.close(true);
+                requestDTO.setSeatRequested(4);
+                new AsyncPassengerAcceptRequest(ActivityPassengerViewDriverProfile.this, null, null).execute(requestDTO);
+            }
+        });
+
+        fabSeat5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fabMenu.close(true);
+                requestDTO.setSeatRequested(5);
+                new AsyncPassengerAcceptRequest(ActivityPassengerViewDriverProfile.this, null, null).execute(requestDTO);
+            }
+        });
+
+        if(requestDTO.getSeatAvailable() != null)
+            setAvailableSeatNum();
+        else{
+            fabMenu.setVisibility(View.GONE);
+        }
+    }
+
+    private void setAvailableSeatNum(){
+        int seatAvailable = requestDTO.getSeatAvailable();
+
+        switch (seatAvailable){
+            case 1:
+                fabSeat5.setVisibility(View.GONE);
+                fabSeat4.setVisibility(View.GONE);
+                fabSeat3.setVisibility(View.GONE);
+                fabSeat2.setVisibility(View.GONE);
+                break;
+
+            case 2:
+                fabSeat5.setVisibility(View.GONE);
+                fabSeat4.setVisibility(View.GONE);
+                fabSeat3.setVisibility(View.GONE);
+                break;
+
+            case 3:
+                fabSeat5.setVisibility(View.GONE);
+                fabSeat4.setVisibility(View.GONE);
+                break;
+
+            case 4:
+                fabSeat5.setVisibility(View.GONE);
+                break;
+
+            default:
+                fabSeat5.setVisibility(View.VISIBLE);
+                fabSeat4.setVisibility(View.VISIBLE);
+                fabSeat3.setVisibility(View.VISIBLE);
+                fabSeat2.setVisibility(View.VISIBLE);
+                fabSeat1.setVisibility(View.VISIBLE);
+                break;
+        }
     }
 
     private void prepareDataList(){
         RequestObject requestObject = (RequestObject)getIntent().getSerializableExtra(CONSTANT.REQUEST_OBJECT);
 
+        requestDTO = requestObject.getRequestDTO();
+
         AccountDTO accountDTO = requestObject.getAccountDTOList().get(0);
+
+        byte [] profile = Utils.getPictures(null, accountDTO.getAccountId().toString(), false);
+        accountDTO.setProfilePicture(profile);
 
         profileObjectList.add(new ProfileObject(ViewType.PROFILE_PICTURE, accountDTO));
 
-        if(accountDTO.getAccountRole() == AccountRole.DRIVER) {
+        CarDTO carDTO = requestObject.getCarDTO().get(0);
 
-            CarDTO carDTO = requestObject.getCarDTO().get(0);
-
-            if (carDTO.isHasPic1())
-                profileObjectList.add(new ProfileObject(ViewType.CARS_PICTURES, carDTO.getPicture1()));
-
-            if (carDTO.isHasPic2())
-                profileObjectList.add(new ProfileObject(ViewType.CARS_PICTURES, carDTO.getPicture2()));
-
-            if (carDTO.isHasPic3())
-                profileObjectList.add(new ProfileObject(ViewType.CARS_PICTURES, carDTO.getPicture3()));
-
-            if (carDTO.isHasPic4())
-                profileObjectList.add(new ProfileObject(ViewType.CARS_PICTURES, carDTO.getPicture4()));
-
-
-            String carDetails = getString(R.string.activity_complete_driver_registration_car_details);
-            String year = getString(R.string.activity_complete_driver_registration_year);
-            String plateNum = getString(R.string.activity_complete_driver_registration_plate_num);
-            String numOfPassenger = getString(R.string.activity_complete_driver_registration_number_of_passenger);
-
-            profileObjectList.add(new ProfileObject(ViewType.DATA, carDetails, carDTO.getMake() + " " + carDTO.getModel()));
-            profileObjectList.add(new ProfileObject(ViewType.DATA, year, String.valueOf(carDTO.getYear())));
-            profileObjectList.add(new ProfileObject(ViewType.DATA, plateNum, carDTO.getPlateNum()));
-            profileObjectList.add(new ProfileObject(ViewType.DATA, numOfPassenger, String.valueOf(carDTO.getNumOfPassenger())));
+        if (carDTO.isHasPic1()) {
+            byte [] car1 = Utils.getPictures(carDTO.getCarId().toString(), "1", true);
+            profileObjectList.add(new ProfileObject(ViewType.CARS_PICTURES, car1));
         }
+
+        if (carDTO.isHasPic2()) {
+            byte [] car2 = Utils.getPictures(carDTO.getCarId().toString(), "2", true);
+            profileObjectList.add(new ProfileObject(ViewType.CARS_PICTURES, car2));
+        }
+
+        if (carDTO.isHasPic3()) {
+            byte [] car3 = Utils.getPictures(carDTO.getCarId().toString(), "3", true);
+            profileObjectList.add(new ProfileObject(ViewType.CARS_PICTURES, car3));
+        }
+
+        if (carDTO.isHasPic4()) {
+            byte [] car4 = Utils.getPictures(carDTO.getCarId().toString(), "4", true);
+            profileObjectList.add(new ProfileObject(ViewType.CARS_PICTURES, car4));
+        }
+
+        String carDetails = getString(R.string.activity_complete_driver_registration_car_details);
+        String year = getString(R.string.activity_complete_driver_registration_year);
+        String plateNum = getString(R.string.activity_complete_driver_registration_plate_num);
+        String numOfPassenger = getString(R.string.activity_complete_driver_registration_number_of_passenger);
+
+        profileObjectList.add(new ProfileObject(ViewType.DATA, carDetails, carDTO.getMake() + " " + carDTO.getModel()));
+        profileObjectList.add(new ProfileObject(ViewType.DATA, year, String.valueOf(carDTO.getYear())));
+        profileObjectList.add(new ProfileObject(ViewType.DATA, plateNum, carDTO.getPlateNum()));
+        profileObjectList.add(new ProfileObject(ViewType.DATA, numOfPassenger, String.valueOf(carDTO.getNumOfPassenger())));
     }
 
     protected void onPause(){

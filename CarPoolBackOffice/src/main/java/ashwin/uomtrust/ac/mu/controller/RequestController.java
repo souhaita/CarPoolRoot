@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import ashwin.uomtrust.ac.mu.dto.ManageRequestDTO;
 import ashwin.uomtrust.ac.mu.dto.RequestDTO;
 import ashwin.uomtrust.ac.mu.dto.RequestObject;
 import ashwin.uomtrust.ac.mu.entity.Account;
@@ -77,15 +78,33 @@ public class RequestController {
    	}
 	
 	@CrossOrigin(origins = "http://localhost:8081")
-   	@RequestMapping(value = "/passengerGetPendingList", method = RequestMethod.POST)
-   	public List<RequestObject> passengerGetPendingList(@RequestBody RequestDTO requestDTO) {    	    	
-    	return requestService.passengerGetPendingList(requestDTO);
+   	@RequestMapping(value = "/passengerGetNewList", method = RequestMethod.POST)
+   	public List<RequestObject> passengerGetNewList(@RequestBody RequestDTO requestDTO) {    	    	
+    	return requestService.passengerGetNewList(requestDTO);
    	}
 	
 	@CrossOrigin(origins = "http://localhost:8081")
    	@RequestMapping(value = "/passengerDeleteRequest", method = RequestMethod.POST)
    	public Boolean passengerDeleteRequest(@RequestBody RequestDTO requestDTO) {    	
     	return manageRequestService.passengerDeleteRequest(requestDTO);
+   	}
+	
+	@CrossOrigin(origins = "http://localhost:8081")
+   	@RequestMapping(value = "/passengerAcceptRequest", method = RequestMethod.POST)
+   	public boolean passengerAcceptRequest(@RequestBody ManageRequestDTO manageRequestDTO) {    	
+    	return manageRequestService.passengerAcceptRequest(manageRequestDTO);
+   	}
+	
+	@CrossOrigin(origins = "http://localhost:8081")
+   	@RequestMapping(value = "/passengerGetPendingList", method = RequestMethod.POST)
+   	public List<RequestObject> passengerGetPendingList(@RequestBody RequestDTO requestDTO) {    	    	
+    	return manageRequestService.passengerGetPendingList(requestDTO);
+   	}
+	
+	@CrossOrigin(origins = "http://localhost:8081")
+   	@RequestMapping(value = "/passengerGetAcceptedRequest", method = RequestMethod.POST)
+   	public List<RequestObject> passengerGetAcceptedRequest(@RequestBody RequestDTO requestDTO) {    	    	
+    	return manageRequestService.passengerGetAcceptedRequest(requestDTO);
    	}
 	
 	

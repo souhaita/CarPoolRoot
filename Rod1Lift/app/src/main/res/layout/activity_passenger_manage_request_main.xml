@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/llMainProfile"
+        android:background="@drawable/gradient_list"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <include layout="@layout/top_menu" />
+
+    <Spinner
+        android:background="@color/transparent_black_50"
+        android:textAlignment="center"
+        android:spinnerMode="dialog"
+        android:id="@+id/spinnerRequestStatus"
+        android:layout_weight="0.1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:divider="@android:color/transparent"
+        android:background="@color/transparent_black_50"
+        android:layout_weight="0.8"
+        android:scrollbars="none"
+        android:id="@+id/rvManageRequest"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+    </android.support.v7.widget.RecyclerView>
+
+    </LinearLayout>
+
+    <com.github.clans.fab.FloatingActionMenu
+        android:foregroundGravity="center"
+        xmlns:fab="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/fabMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="8dp"
+        fab:menu_fab_size="normal"
+        fab:menu_showShadow="true"
+        fab:menu_shadowColor="#66000000"
+        fab:menu_shadowRadius="4dp"
+        fab:menu_shadowXOffset="1dp"
+        fab:menu_shadowYOffset="3dp"
+        fab:menu_animationDelayPerItem="50"
+        fab:menu_icon="@drawable/fab_add"
+        fab:menu_buttonSpacing="0dp"
+        fab:menu_openDirection="up"
+        fab:menu_backgroundColor="@android:color/transparent"
+        fab:menu_fab_show_animation="@animator/jump_from_down"
+        fab:menu_fab_hide_animation="@animator/jump_to_down">
+
+        <com.github.clans.fab.FloatingActionButton
+            fab:fab_label="@string/floating_menu_clear_pending"
+            fab:fab_size="mini"
+            android:src="@drawable/icon_pending"
+            android:id="@+id/fabPending"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"  />
+
+        <com.github.clans.fab.FloatingActionButton
+            fab:fab_label="@string/floating_menu_I_accepted"
+            android:src="@drawable/icon_client_accepted"
+            fab:fab_size="mini"
+            android:id="@+id/fabPassengerAccepter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"  />
+
+    </com.github.clans.fab.FloatingActionMenu>
+
+
+</FrameLayout>

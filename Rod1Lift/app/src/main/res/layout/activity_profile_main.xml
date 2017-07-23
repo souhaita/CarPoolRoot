@@ -11,13 +11,83 @@
 
     <include layout="@layout/top_menu" />
 
-    <android.support.v7.widget.RecyclerView
+    <FrameLayout
         android:layout_weight="0.9"
-        android:id="@+id/recycleViewProfile"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:dividerHeight="1dp"
-        android:divider="@color/grey_profile"/>
+        android:layout_height="0dp">
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycleViewProfile"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:dividerHeight="1dp"
+            android:divider="@color/grey_profile"/>
+
+        <com.github.clans.fab.FloatingActionMenu
+            android:visibility="gone"
+            android:foregroundGravity="center"
+            xmlns:fab="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/fabMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_marginBottom="8dp"
+            fab:menu_fab_size="normal"
+            fab:menu_showShadow="true"
+            fab:menu_shadowColor="#66000000"
+            fab:menu_shadowRadius="4dp"
+            fab:menu_shadowXOffset="1dp"
+            fab:menu_shadowYOffset="3dp"
+            fab:menu_animationDelayPerItem="50"
+            fab:menu_icon="@drawable/fab_add"
+            fab:menu_buttonSpacing="0dp"
+            fab:menu_openDirection="up"
+            fab:menu_backgroundColor="@android:color/transparent"
+            fab:menu_fab_show_animation="@animator/jump_from_down"
+            fab:menu_fab_hide_animation="@animator/jump_to_down">
+
+            <com.github.clans.fab.FloatingActionButton
+                fab:fab_label="@string/floating_menu_passenger_reserve_seat"
+                fab:fab_size="mini"
+                android:src="@drawable/icon_five"
+                android:id="@+id/fabSeat5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"  />
+
+            <com.github.clans.fab.FloatingActionButton
+                fab:fab_label="@string/floating_menu_passenger_reserve_seat"
+                fab:fab_size="mini"
+                android:src="@drawable/icon_four"
+                android:id="@+id/fabSeat4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"  />
+
+            <com.github.clans.fab.FloatingActionButton
+                fab:fab_label="@string/floating_menu_passenger_reserve_seat"
+                fab:fab_size="mini"
+                android:src="@drawable/icon_three"
+                android:id="@+id/fabSeat3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"  />
+
+            <com.github.clans.fab.FloatingActionButton
+                fab:fab_label="@string/floating_menu_passenger_reserve_seat"
+                fab:fab_size="mini"
+                android:src="@drawable/icon_two"
+                android:id="@+id/fabSeat2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"  />
+
+            <com.github.clans.fab.FloatingActionButton
+                fab:fab_label="@string/floating_menu_passenger_reserve_seat"
+                fab:fab_size="mini"
+                android:src="@drawable/icon_one"
+                android:id="@+id/fabSeat1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"  />
+
+        </com.github.clans.fab.FloatingActionMenu>
+
+    </FrameLayout>
 
 </LinearLayout>

@@ -17,9 +17,11 @@ public class WebService {
 
 
     //CAR SEEKER
-    public static final String API_PASSENGER_GET_PENDING_REQUEST_LIST = API_REQUEST +"passengerGetPendingList";
+    public static final String API_PASSENGER_GET_NEW_REQUEST_LIST = API_REQUEST +"passengerGetNewList";
+    public static final String API_PASSENGER_GET_PENDING_LIST = API_REQUEST +"passengerGetPendingList";
     public static final String API_PASSENGER_DELETE_REQUEST = API_REQUEST +"passengerDeleteRequest";
-    public static final String USER_API_ACCEPT_OR_REJECT_REQUEST = API_REQUEST +"acceptOrRejectRequestUser";
+    public static final String API_PASSENGER_ACCEPT_REQUEST = API_REQUEST +"passengerAcceptRequest";
+    public static final String API_PASSENGER_GET_ACCEPTED_LIST = API_REQUEST +"passengerGetAcceptedRequest";
 
 
     //CAR POOLER

@@ -13,10 +13,12 @@ public class CONSTANT {
     public static final String CURRENT_ACCOUNT_ID = "CURRENT_ACCOUNT_ID";
     public static final String TRIP_PRICE = "price";
     public static final String REQUEST_OBJECT = "requestObject";
-    public static final String REQUEST_OBJECT_LIST = "requestObjectList";
-    public static final String BUNDLE_LIST = "bundleList";
+
     public static final String CREATE_TRIP_FROM = "from";
     public static final String CREATE_TRIP_TO = "to";
+    public static final String PROFILE_PICTURE_PATH = "profilePicture";
+    public static final String CAR_PICTURE_PATH = "carPictures";
+    public static final String ROOT_DIRECTORY = ".rod1Lift";
 
     public static final int PICK_IMAGE_REQUEST = 1;
     public static final int PERMISSION_CAMERA = 2;
@@ -40,5 +42,6 @@ public class CONSTANT {
     public static final int PERMISSION_GPS = 18;
     public static final int GOOGLE_SIGN_IN = 19;
     public static final int SEARCH_TRIP_ACTIVITY = 20;
+    public static final int PASSENGER_VIEW_TRIP_ACTIVITY = 21;
 
 }

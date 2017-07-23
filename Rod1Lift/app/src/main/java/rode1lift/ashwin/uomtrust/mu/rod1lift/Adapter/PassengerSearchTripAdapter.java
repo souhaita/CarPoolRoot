@@ -23,6 +23,7 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.ActivityCreateTrip;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.ActivityPassengerViewDriverProfile;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.ActivityProfile;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncDriverDeleteRequest;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncPassengerAcceptRequest;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncPassengerDeleteRequest;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.AccountDTO;
@@ -141,7 +142,8 @@ public class PassengerSearchTripAdapter extends RecyclerView.Adapter<RecyclerVie
         viewHolder.llAcceptRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                requestDTO.setSeatRequested(1);
+                new AsyncPassengerAcceptRequest(context, passengerSearchTripAdapter, requestObjectList).execute(requestDTO);
             }
         });
 
@@ -176,9 +178,32 @@ public class PassengerSearchTripAdapter extends RecyclerView.Adapter<RecyclerVie
             public void onClick(View view) {
                 Intent intent = new Intent(context, ActivityPassengerViewDriverProfile.class);
                 RequestObject requestObject = requestObjectList.get(position);
+
+                AccountDTO account = requestObject.getAccountDTOList().get(0);
+                CarDTO car = requestObject.getCarDTO().get(0);
+
+                Utils.savePictureToFolder(account.getProfilePicture(), CONSTANT.PROFILE_PICTURE_PATH, account.getAccountId().toString(), false);
+
+                if(car.getPicture1() != null)
+                    Utils.savePictureToFolder(car.getPicture1(), car.getCarId().toString(), "1", true);
+
+                if(car.getPicture2() != null)
+                    Utils.savePictureToFolder(car.getPicture2(), car.getCarId().toString(), "2", true);
+
+                if(car.getPicture3() != null)
+                    Utils.savePictureToFolder(car.getPicture3(), car.getCarId().toString(), "3", true);
+
+                if(car.getPicture4() != null)
+                    Utils.savePictureToFolder(car.getPicture4(), car.getCarId().toString(), "4", true);
+
+                requestObject.getAccountDTOList().get(0).setProfilePicture(null);
+                requestObject.getCarDTO().get(0).setPicture1(null);
+                requestObject.getCarDTO().get(0).setPicture2(null);
+                requestObject.getCarDTO().get(0).setPicture3(null);
+                requestObject.getCarDTO().get(0).setPicture4(null);
+
                 intent.putExtra(CONSTANT.REQUEST_OBJECT, requestObject);
-                context.startActivity(intent);
-                //((Activity)context).startActivityForResult(intent, CONSTANT.MANAGE_TRIP_ACTIVITY_DRIVER_REQUEST_PENDING);
+                ((Activity)context).startActivityForResult(intent, CONSTANT.SEARCH_TRIP_ACTIVITY);
             }
         });
 

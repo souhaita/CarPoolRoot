@@ -20,6 +20,7 @@ import java.util.Date;
 import java.util.List;
 
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.PassengerSearchTripAdapter;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.PassengerViewTripAdapter;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.AccountDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.CarDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.ManageRequestDTO;
@@ -39,11 +40,11 @@ public class AsyncPassengerFetchRequest extends AsyncTask<RequestDTO, Void ,List
     private Context context;
     private ProgressDialog progressDialog;
     private RequestStatus requestStatus;
-    private RecyclerView rcTripResults;
+    private RecyclerView recyclerView;
 
     public AsyncPassengerFetchRequest(final Context context, RecyclerView rcTripResults) {
         this.context = context;
-        this.rcTripResults = rcTripResults;
+        this.recyclerView = rcTripResults;
     }
 
     @Override
@@ -72,10 +73,12 @@ public class AsyncPassengerFetchRequest extends AsyncTask<RequestDTO, Void ,List
 
             String url;
 
-            if(requestDTO.getRequestStatus().equals(RequestStatus.REQUEST_PENDING))
-                url = WebService.API_PASSENGER_GET_PENDING_REQUEST_LIST;
+            if(requestDTO.getRequestStatus() == RequestStatus.REQUEST_PENDING)
+                url = WebService.API_PASSENGER_GET_NEW_REQUEST_LIST;
+             else if(requestDTO.getRequestStatus()== RequestStatus.DRIVER_ACCEPTED)
+                url = WebService.API_PASSENGER_GET_PENDING_LIST;
             else
-                url = null;
+                url = WebService.API_PASSENGER_GET_ACCEPTED_LIST;
 
             httpURLConnection = (HttpURLConnection) new URL(url).openConnection();
             httpURLConnection.setRequestMethod("POST");
@@ -112,7 +115,12 @@ public class AsyncPassengerFetchRequest extends AsyncTask<RequestDTO, Void ,List
                 RequestDTO newRequestDTO = new RequestDTO();
                 newRequestDTO.setAccountId(jsonObjectRequest.getInt("accountId"));
                 newRequestDTO.setRequestId(jsonObjectRequest.getInt("requestId"));
-                newRequestDTO.setSeatAvailable(jsonObjectRequest.getInt("seatAvailable"));
+
+                if(requestStatus == RequestStatus.REQUEST_PENDING)
+                    newRequestDTO.setSeatAvailable(jsonObjectRequest.getInt("seatAvailable"));
+                else
+                    newRequestDTO.setSeatRequested(jsonObjectRequest.getInt("seatRequested"));
+
                 newRequestDTO.setRequestStatus(requestDTO.getRequestStatus());
                 newRequestDTO.setEvenDate(new Date(jsonObjectRequest.getLong("eventDate")));
                 newRequestDTO.setPlaceFrom(jsonObjectRequest.getString("placeFrom"));
@@ -232,12 +240,15 @@ public class AsyncPassengerFetchRequest extends AsyncTask<RequestDTO, Void ,List
 
             if(requestObjectList != null && requestObjectList.size() >0) {
                 final PassengerSearchTripAdapter passengerSearchTripAdapter = new PassengerSearchTripAdapter(context, requestObjectList);
-                rcTripResults.setAdapter(passengerSearchTripAdapter);
+                recyclerView.setAdapter(passengerSearchTripAdapter);
             }
         }
 
-        else if (requestStatus == RequestStatus.PASSENGER_ACCEPTED) {
-
+        else if (requestStatus == RequestStatus.DRIVER_ACCEPTED || requestStatus == RequestStatus.PASSENGER_ACCEPTED) {
+            if(requestObjectList != null && requestObjectList.size()>0) {
+                final PassengerViewTripAdapter passengerViewTripAdapter = new PassengerViewTripAdapter(context, requestObjectList);
+                recyclerView.setAdapter(passengerViewTripAdapter);
+            }
         }
 
         else  {

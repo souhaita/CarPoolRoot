@@ -13,6 +13,7 @@ import android.graphics.Matrix;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.os.Vibrator;
 import android.provider.Settings;
 import android.util.DisplayMetrics;
@@ -40,6 +41,8 @@ import com.google.android.gms.common.api.Status;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -257,5 +260,90 @@ public class Utils {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public static void savePictureToFolder(byte [] imageToSave, String folderId, String fileName, boolean carPhotos) {
+        File rootFolder = getRootDirectory();
+
+        try {
+            if (!rootFolder.exists()) {
+                rootFolder.mkdirs();
+            }
+
+            File subFolder;
+
+            if(carPhotos){
+                File carFolder = new File(rootFolder,CONSTANT.CAR_PICTURE_PATH);
+                if (!carFolder.exists()) {
+                    carFolder.mkdirs();
+                }
+
+                subFolder = new File(carFolder,folderId);
+            }
+            else{
+                File profilePictureFolder = new File(rootFolder,CONSTANT.PROFILE_PICTURE_PATH);
+                if (!profilePictureFolder.exists()) {
+                    profilePictureFolder.mkdirs();
+                }
+
+                subFolder = profilePictureFolder;
+
+            }
+
+            if (!subFolder.exists()) {
+                subFolder.mkdirs();
+            }
+
+            File file = new File(subFolder,fileName+".jpg");
+
+            FileOutputStream out = new FileOutputStream(file);
+            out.write(imageToSave);
+            out.close();
+        }
+
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static byte [] getPictures(String folderId, String fileName, boolean carPhotos){
+        File path = getRootDirectory();
+        Bitmap mBitmap = null;
+
+        if(path.exists()){
+            try {
+                File subFolder;
+
+                if(carPhotos){
+                    File folder = new File(path, CONSTANT.CAR_PICTURE_PATH);
+                    subFolder = new File(folder, folderId);
+                }
+                else {
+                 subFolder = new File(path, CONSTANT.PROFILE_PICTURE_PATH);
+                }
+
+                File photo = new File(subFolder, fileName + ".jpg");
+                mBitmap = BitmapFactory.decodeFile(photo.getAbsolutePath());
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+
+        return convertBitmapToBlob(mBitmap);
+    }
+
+    public static void deletePhotos(){
+        File dir = getRootDirectory();
+        if (dir.isDirectory()) {
+            String[] children = dir.list();
+            for (int i = 0; i < children.length; i++) {
+                new File(dir, children[i]).delete();
+            }
+        }
+    }
+
+    private static File getRootDirectory(){
+        return new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), CONSTANT.ROOT_DIRECTORY);
     }
 }

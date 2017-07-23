@@ -1,9 +1,0 @@
-package ashwin.uomtrust.ac.mu.service;
-
-import ashwin.uomtrust.ac.mu.entity.ManageRequest;
-
-public interface ManageRequestService {
-
-	public ManageRequest getDriverManageRequestByRequestId(Long requestId);
-
-}

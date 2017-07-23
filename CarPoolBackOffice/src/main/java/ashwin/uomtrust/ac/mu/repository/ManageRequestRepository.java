@@ -37,4 +37,7 @@ public interface ManageRequestRepository extends JpaRepository<ManageRequest, Lo
 	
 	@Query("select m from ManageRequest m join m.userAccount a where a.accountId =:accountId and m.requestStatus =:requestStatus")
 	public List<ManageRequest> getPassengerManageRequestByRequestStatus(@Param("accountId") Long accountId, @Param("requestStatus") RequestStatus requestStatus);
+	
+	@Query("select m from ManageRequest m join m.userAccount a where a.accountId =:accountId")
+	public List<ManageRequest> getPassengerManageRequest(@Param("accountId") Long accountId);
 }

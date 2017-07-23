@@ -90,10 +90,13 @@
     <string name="floating_menu_clear_pending">Upcoming Trip</string>
     <string name="floating_menu_car_full">Trip Full</string>
     <string name="floating_menu_client_accepted">Client Accepted</string>
+    <string name="floating_menu_I_accepted">I Accepted</string>
     <string name="floating_menu_i_rejected">I Rejected</string>
 
     <string name="floating_menu_driver_view_details">View Passengers Details</string>
     <string name="floating_menu_driver_delete_trip">Delete Trip</string>
+
+    <string name="floating_menu_passenger_reserve_seat">No. seats to reserved</string>
 
     <string name="async_check_account_validating_account">Validating your account</string>
     <string name="async_create_account_validating_account">Creating your account</string>
@@ -102,6 +105,7 @@
     <string name="async_driver_create_or_update_trip_update_update">Updating your trip</string>
     <string name="async_driver_delete_trip_delete">Deleting your trip</string>
     <string name="async_passenger_delete_trip_delete">Deleting selected trip</string>
+    <string name="async_passenger_accept_trip">Updating selected trip</string>
     <string name="async_driver_fetch_car_details">Downloading your data</string>
     <string name="async_driver_fetch_trip_details">Downloading updates</string>
     <string name="async_driver_update_car_details">Updating your car details</string>
@@ -175,9 +179,16 @@
     </string-array>
     <string name="title_activity_profile">ProfileActivity</string>
 
+    <string name="title_activity_passenger_view_driver_profile">Driver\'s Profile</string>
+
     <string-array name="driver_manage_request_arrays">
         <item>UPCOMING TRIP</item>
         <item>CLIENT ACCEPTED</item>
+    </string-array>
+
+    <string-array name="passenger_manage_request_arrays">
+        <item>UPCOMING TRIP</item>
+        <item>I ACCEPTED</item>
     </string-array>
 
         <declare-styleable name="SwipeRevealLayout"><attr name="dragEdge"><flag name="left" value="1"/><flag name="right" value="2"/><flag name="top" value="4"/><flag name="bottom" value="8"/></attr><attr name="mode"><enum name="normal" value="0"/><enum name="same_level" value="1"/></attr><attr format="integer" name="flingVelocity"/><attr format="dimension" name="minDistRequestDisallowParent"/></declare-styleable>
