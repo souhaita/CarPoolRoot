@@ -112,4 +112,11 @@ public class RequestController {
    	public List<RequestObject> passengerGetHistoryList(@RequestBody RequestDTO requestDTO) {    	    	
     	return manageRequestService.passengerGetHistoryList(requestDTO);
    	}
+	
+	@CrossOrigin(origins = "http://localhost:8081")
+   	@RequestMapping(value = "/passengerPayRequest", method = RequestMethod.POST)
+   	public boolean passengerPayRequest(@RequestBody ManageRequestDTO manageRequestDTO) {    	    	
+    	return manageRequestService.passengerPayRequest(manageRequestDTO);
+   	}
+	
 }

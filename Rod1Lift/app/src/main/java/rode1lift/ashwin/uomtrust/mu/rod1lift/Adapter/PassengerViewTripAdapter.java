@@ -1,6 +1,7 @@
 package rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.view.ViewPager;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -17,15 +19,20 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.ActivityCompleteDriverRegistration;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.ActivityPassengerViewDriverProfile;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncPassengerPayRequest;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.AccountDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.CarDTO;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.ManageRequestDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestObject;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.RequestStatus;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
+
+import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT.PICK_IMAGE_REQUEST;
 
 /**
  * Created by Ashwin on 09-Jul-17.
@@ -37,13 +44,13 @@ public class PassengerViewTripAdapter extends RecyclerView.Adapter<RecyclerView.
 
     private Context context;
     private List<RequestObject> requestObjectList;
-
+    private PassengerViewTripAdapter passengerViewTripAdapter = this;
     private RequestStatus requestStatus = null;
 
     public PassengerViewTripAdapter(Context context, List<RequestObject> requestObjectList){
         this.context = context;
         this.requestObjectList = requestObjectList;
-        requestStatus = requestObjectList.get(0).getRequestDTO().getRequestStatus();
+        requestStatus = requestObjectList.get(0).getManageRequestDTOList().get(0).getRequestStatus();
 
         inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -131,11 +138,12 @@ public class PassengerViewTripAdapter extends RecyclerView.Adapter<RecyclerView.
             handler.postDelayed(runnable, 0);
         }
 
-        if(requestStatus == RequestStatus.REQUEST_PENDING) {
+        if(requestStatus == RequestStatus.DRIVER_ACCEPTED) {
             viewHolder.llPayment.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    ManageRequestDTO manageRequestDTO = requestObjectList.get(position).getManageRequestDTOList().get(0);
+                    showPaymentMenu(manageRequestDTO);
                 }
             });
         }
@@ -200,7 +208,7 @@ public class PassengerViewTripAdapter extends RecyclerView.Adapter<RecyclerView.
             txtSeatRequested = (TextView)view.findViewById(R.id.txtSeatRequested);
             imgViewPager = (ViewPager) view.findViewById(R.id.imgViewPager);
 
-            if(requestStatus == RequestStatus.REQUEST_PENDING) {
+            if(requestStatus == RequestStatus.DRIVER_ACCEPTED) {
                 imgPayment = (ImageView) view.findViewById(R.id.imgPayment);
                 llPayment = (LinearLayout) view.findViewById(R.id.llPayment);
             }
@@ -216,5 +224,33 @@ public class PassengerViewTripAdapter extends RecyclerView.Adapter<RecyclerView.
 
     public void setRequestObjectList(List<RequestObject> requestObjectList) {
         this.requestObjectList = requestObjectList;
+    }
+
+    private void showPaymentMenu(final ManageRequestDTO manageRequestDTO) {
+        final Dialog menuDialog = new Dialog(context, R.style.WalkthroughTheme);
+        menuDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        menuDialog.setContentView(R.layout.dilaogue_payment);
+        menuDialog.setCanceledOnTouchOutside(true);
+        menuDialog.setCancelable(true);
+
+        TextView txtPayPal = (TextView) menuDialog.findViewById(R.id.txtPayPal);
+        TextView txtCash = (TextView) menuDialog.findViewById(R.id.txtCash);
+
+        txtPayPal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+            }
+        });
+
+        txtCash.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AsyncPassengerPayRequest(menuDialog, context, passengerViewTripAdapter, requestObjectList).execute(manageRequestDTO);
+            }
+        });
+
+        menuDialog.show();
     }
 }

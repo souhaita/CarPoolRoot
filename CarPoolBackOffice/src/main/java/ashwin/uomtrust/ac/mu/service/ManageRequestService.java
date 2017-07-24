@@ -18,6 +18,6 @@ public interface ManageRequestService {
 	public List<RequestObject> passengerGetPendingList(RequestDTO requestDTO);
 	public List<RequestObject> passengerGetAcceptedRequest(RequestDTO requestDTO);
 	public List<RequestObject> passengerGetHistoryList(RequestDTO requestDTO);
-
+	public boolean passengerPayRequest(ManageRequestDTO manageRequestDTO);
 	
 }

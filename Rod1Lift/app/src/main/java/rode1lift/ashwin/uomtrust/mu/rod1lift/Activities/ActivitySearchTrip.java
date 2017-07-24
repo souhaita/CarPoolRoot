@@ -146,6 +146,17 @@ public class ActivitySearchTrip extends Activity {
                finish();
             }
         });
+
+        Intent intent = getIntent();
+        if(intent != null){
+            if(intent.getStringExtra(CONSTANT.SEARCH_TRIP_FROM) != null){
+                autoFrom.setText(intent.getStringExtra(CONSTANT.SEARCH_TRIP_FROM));
+            }
+
+            if(intent.getStringExtra(CONSTANT.SEARCH_TRIP_TO) != null){
+                autoTo.setText(intent.getStringExtra(CONSTANT.SEARCH_TRIP_TO));
+            }
+        }
     }
 
 

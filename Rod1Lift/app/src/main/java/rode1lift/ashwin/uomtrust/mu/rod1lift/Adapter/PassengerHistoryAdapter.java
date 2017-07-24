@@ -73,24 +73,32 @@ public class PassengerHistoryAdapter extends RecyclerView.Adapter<RecyclerView.V
         view.llHeaderDetails.setBackgroundColor(color);
 
         CarDTO carDTO = requestObjectList.get(i).getCarDTO().get(0);
-        List<byte []> carImages = new ArrayList<>();
+        //List<byte []> carImages = new ArrayList<>();
 
-        if(carDTO.getPicture1() != null)
-            carImages.add(carDTO.getPicture1());
+        if(carDTO.getPicture1() != null) {
+            view.img1.setImageBitmap(Utils.convertBlobToBitmap(carDTO.getPicture1()));
+            //carImages.add(carDTO.getPicture1());
+        }
 
-        if(carDTO.getPicture2() != null)
-            carImages.add(carDTO.getPicture2());
+        if(carDTO.getPicture2() != null) {
+            view.img2.setImageBitmap(Utils.convertBlobToBitmap(carDTO.getPicture2()));
+            //carImages.add(carDTO.getPicture2());
+        }
 
-        if(carDTO.getPicture3() != null)
-            carImages.add(carDTO.getPicture3());
+        if(carDTO.getPicture3() != null) {
+            view.img3.setImageBitmap(Utils.convertBlobToBitmap(carDTO.getPicture3()));
+            //carImages.add(carDTO.getPicture3());
+        }
 
-        if(carDTO.getPicture4() != null)
-            carImages.add(carDTO.getPicture4());
+        if(carDTO.getPicture4() != null) {
+            view.img4.setImageBitmap(Utils.convertBlobToBitmap(carDTO.getPicture4()));
+            //carImages.add(carDTO.getPicture4());
+        }
 
-        if(carImages != null && carImages.size() >0) {
+        /*if(carImages != null && carImages.size() >0) {
             PassengerHistoryGridAdapter d = new PassengerHistoryGridAdapter(context, carImages);
             view.gvPassengerHistory.setAdapter(d);
-        }
+        }*/
 
         AccountDTO accountDTO = requestObjectList.get(i).getAccountDTOList().get(0);
         view.imgProfilePic.setImageBitmap(Utils.convertBlobToBitmap(accountDTO.getProfilePicture()));
@@ -105,9 +113,9 @@ public class PassengerHistoryAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     public class HistoryViewHolder extends RecyclerView.ViewHolder {
         public TextView txtFrom, txtDate, txtSeatRequested, txtTo, txtPrice;
-        public GridView gvPassengerHistory;
+        //public GridView gvPassengerHistory;
         public LinearLayout llHeaderDetails;
-        public ImageView imgProfilePic;
+        public ImageView imgProfilePic, img1, img2, img3, img4;
 
         public HistoryViewHolder(View view) {
             super(view);
@@ -117,9 +125,13 @@ public class PassengerHistoryAdapter extends RecyclerView.Adapter<RecyclerView.V
             txtSeatRequested = (TextView) view.findViewById(R.id.txtSeatRequested);
             txtTo = (TextView) view.findViewById(R.id.txtTo);
             txtPrice = (TextView) view.findViewById(R.id.txtPrice);
-            gvPassengerHistory = (GridView) view.findViewById(R.id.gvPassengerHistory);
+            //gvPassengerHistory = (GridView) view.findViewById(R.id.gvPassengerHistory);
             llHeaderDetails = (LinearLayout) view.findViewById(R.id.llHeaderDetails);
             imgProfilePic = (ImageView) view.findViewById(R.id.imgProfilePic);
+            img1 = (ImageView) view.findViewById(R.id.img1);
+            img2 = (ImageView) view.findViewById(R.id.img2);
+            img3 = (ImageView) view.findViewById(R.id.img3);
+            img4 = (ImageView) view.findViewById(R.id.img4);
         }
     }
 }

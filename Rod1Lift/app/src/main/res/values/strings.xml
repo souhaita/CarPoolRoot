@@ -106,6 +106,7 @@
     <string name="async_driver_delete_trip_delete">Deleting your trip</string>
     <string name="async_passenger_delete_trip_delete">Deleting selected trip</string>
     <string name="async_passenger_accept_trip">Updating selected trip</string>
+    <string name="async_passenger_accept_pay_trip">Updating trip</string>
     <string name="async_driver_fetch_car_details">Downloading your data</string>
     <string name="async_driver_fetch_trip_details">Downloading updates</string>
     <string name="async_driver_update_car_details">Updating your car details</string>
@@ -207,5 +208,7 @@
     <string name="activity_main_gps_permission_title">Location Permission Needed</string>
     <string name="activity_main_gps_permission_message">"This app needs the Location permission, please accept to use location functionality"</string>
 
+    <string name="activity_passenger_payment_paypal">PAYPAL</string>
+    <string name="activity_passenger_payment_other">CASH</string>
 
 </resources>

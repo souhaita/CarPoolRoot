@@ -513,4 +513,16 @@ public class ManageRequestServiceImp implements ManageRequestService{
 		return requestObjectList;
 
 	}
+
+	@Override
+	public boolean passengerPayRequest(ManageRequestDTO manageRequestDTO) {
+		// TODO Auto-generated method stub
+		ManageRequest m = manageRequestRepository.findOne(manageRequestDTO.getManageRequestId());
+		if(m != null && m.getManageRequestId() != null){
+			m.setRequestStatus(RequestStatus.PAID);
+			manageRequestRepository.save(m);
+			return true;
+		}
+		return false;
+	}
 }

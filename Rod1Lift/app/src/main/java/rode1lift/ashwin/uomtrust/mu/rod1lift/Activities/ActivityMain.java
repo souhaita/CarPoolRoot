@@ -572,9 +572,9 @@ public class ActivityMain extends AppCompatActivity
     }
 
     private void startActivity_passenger(){
-        Intent intent = new Intent(ActivityMain.this, null);
-        intent.putExtra(CONSTANT.CREATE_TRIP_FROM, from);
-        intent.putExtra(CONSTANT.CREATE_TRIP_TO, to);
+        Intent intent = new Intent(ActivityMain.this, ActivitySearchTrip.class);
+        intent.putExtra(CONSTANT.SEARCH_TRIP_FROM, from);
+        intent.putExtra(CONSTANT.SEARCH_TRIP_TO, to);
         startActivity(intent);
     }
 
