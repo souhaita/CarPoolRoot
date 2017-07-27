@@ -75,9 +75,13 @@ public class PickerActivityCarPlateNum extends Activity {
             if (carDTO != null && carDTO.getCarId() != null) {
                 carDTO.setPlateNum(eTxtPlateNum.getText().toString());
             } else {
-                carDTO = new CarDTO();
+                carDTO = new CarDAO(PickerActivityCarPlateNum.this).getCarByAccountID(-1);
+
+                if(carDTO == null || carDTO.getCarId() == null)
+                    carDTO = new CarDTO();
+
                 carDTO.setCarId(-1);
-                carDTO.setAccountId(userId);
+                carDTO.setAccountId(-1);
                 carDTO.setPlateNum(eTxtPlateNum.getText().toString());
             }
 

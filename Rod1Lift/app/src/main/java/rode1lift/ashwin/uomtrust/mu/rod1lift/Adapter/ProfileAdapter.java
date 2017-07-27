@@ -13,11 +13,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.github.clans.fab.FloatingActionButton;
+
 import java.util.List;
 
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.PickerActivityCarMake;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.PickerActivityCarPlateNum;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.PickerActivityCarSeats;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.PickerActivityPhoneNumber;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.PickerActivityProfileName;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.ViewType;
@@ -87,6 +90,14 @@ public class ProfileAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 @Override
                 public void onClick(View view) {
                     showMenu(PROFILE_ACTIVITY_PROFILE_PIC);
+                }
+            });
+
+            view.fabPhoneNum.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, PickerActivityPhoneNumber.class);
+                    ((Activity) context).startActivityForResult(intent, CONSTANT.PROFILE_ACTIVITY_PHONE_NUMBER);
                 }
             });
 
@@ -166,6 +177,8 @@ public class ProfileAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         public LinearLayout llProfile, llData, llCar;
 
+        public FloatingActionButton fabPhoneNum;
+
         public AllViewHolder(View view) {
             super(view);
 
@@ -181,6 +194,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             llData = (LinearLayout) view.findViewById(R.id.llData);
             llCar = (LinearLayout) view.findViewById(R.id.llCar);
 
+            fabPhoneNum = (FloatingActionButton) view.findViewById(R.id.fabPhoneNum);
         }
     }
 

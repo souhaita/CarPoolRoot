@@ -20,6 +20,7 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.PassengerViewDriverProfileA
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.ProfileObject;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncPassengerAcceptRequest;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.AccountDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.AccountDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.CarDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestDTO;
@@ -82,12 +83,23 @@ public class ActivityPassengerViewDriverProfile extends Activity {
         fabSeat4 = (FloatingActionButton)findViewById(R.id.fabSeat4);
         fabSeat5 = (FloatingActionButton)findViewById(R.id.fabSeat5);
 
+        int userId = Utils.getCurrentAccount(ActivityPassengerViewDriverProfile.this);
+        final AccountDTO account = new AccountDAO(ActivityPassengerViewDriverProfile.this).getAccountById(userId);
+
         fabSeat1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 fabMenu.close(true);
                 requestDTO.setSeatRequested(1);
-                new AsyncPassengerAcceptRequest(ActivityPassengerViewDriverProfile.this, null, null).execute(requestDTO);
+
+                if(account.getPhoneNum() != null && account.getPhoneNum() >0) {
+                    new AsyncPassengerAcceptRequest(ActivityPassengerViewDriverProfile.this, null, null).execute(requestDTO);
+                }
+                else{
+                    Intent intent = new Intent(ActivityPassengerViewDriverProfile.this, PickerActivityPhoneNumber.class);
+                    startActivityForResult(intent, CONSTANT.PROFILE_ACTIVITY_PHONE_NUMBER);
+                }
+
             }
         });
 
@@ -96,7 +108,14 @@ public class ActivityPassengerViewDriverProfile extends Activity {
             public void onClick(View view) {
                 fabMenu.close(true);
                 requestDTO.setSeatRequested(2);
-                new AsyncPassengerAcceptRequest(ActivityPassengerViewDriverProfile.this, null, null).execute(requestDTO);
+
+                if(account.getPhoneNum() != null && account.getPhoneNum() >0) {
+                    new AsyncPassengerAcceptRequest(ActivityPassengerViewDriverProfile.this, null, null).execute(requestDTO);
+                }
+                else{
+                    Intent intent = new Intent(ActivityPassengerViewDriverProfile.this, PickerActivityPhoneNumber.class);
+                    startActivityForResult(intent, CONSTANT.PROFILE_ACTIVITY_PHONE_NUMBER);
+                }
             }
         });
 
@@ -105,7 +124,14 @@ public class ActivityPassengerViewDriverProfile extends Activity {
             public void onClick(View view) {
                 fabMenu.close(true);
                 requestDTO.setSeatRequested(3);
-                new AsyncPassengerAcceptRequest(ActivityPassengerViewDriverProfile.this, null, null).execute(requestDTO);
+
+                if(account.getPhoneNum() != null && account.getPhoneNum() >0) {
+                    new AsyncPassengerAcceptRequest(ActivityPassengerViewDriverProfile.this, null, null).execute(requestDTO);
+                }
+                else{
+                    Intent intent = new Intent(ActivityPassengerViewDriverProfile.this, PickerActivityPhoneNumber.class);
+                    startActivityForResult(intent, CONSTANT.PROFILE_ACTIVITY_PHONE_NUMBER);
+                }
             }
         });
 
@@ -114,7 +140,14 @@ public class ActivityPassengerViewDriverProfile extends Activity {
             public void onClick(View view) {
                 fabMenu.close(true);
                 requestDTO.setSeatRequested(4);
-                new AsyncPassengerAcceptRequest(ActivityPassengerViewDriverProfile.this, null, null).execute(requestDTO);
+
+                if(account.getPhoneNum() != null && account.getPhoneNum() >0) {
+                    new AsyncPassengerAcceptRequest(ActivityPassengerViewDriverProfile.this, null, null).execute(requestDTO);
+                }
+                else{
+                    Intent intent = new Intent(ActivityPassengerViewDriverProfile.this, PickerActivityPhoneNumber.class);
+                    startActivityForResult(intent, CONSTANT.PROFILE_ACTIVITY_PHONE_NUMBER);
+                }
             }
         });
 
@@ -123,7 +156,14 @@ public class ActivityPassengerViewDriverProfile extends Activity {
             public void onClick(View view) {
                 fabMenu.close(true);
                 requestDTO.setSeatRequested(5);
-                new AsyncPassengerAcceptRequest(ActivityPassengerViewDriverProfile.this, null, null).execute(requestDTO);
+
+                if(account.getPhoneNum() != null && account.getPhoneNum() >0) {
+                    new AsyncPassengerAcceptRequest(ActivityPassengerViewDriverProfile.this, null, null).execute(requestDTO);
+                }
+                else{
+                    Intent intent = new Intent(ActivityPassengerViewDriverProfile.this, PickerActivityPhoneNumber.class);
+                    startActivityForResult(intent, CONSTANT.PROFILE_ACTIVITY_PHONE_NUMBER);
+                }
             }
         });
 
@@ -131,6 +171,14 @@ public class ActivityPassengerViewDriverProfile extends Activity {
             setAvailableSeatNum();
         else{
             fabMenu.setVisibility(View.GONE);
+        }
+    }
+
+    public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == CONSTANT.PROFILE_ACTIVITY_PHONE_NUMBER) {
+            new AsyncPassengerAcceptRequest(ActivityPassengerViewDriverProfile.this, null, null).execute(requestDTO);
         }
     }
 

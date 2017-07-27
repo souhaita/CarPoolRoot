@@ -100,17 +100,17 @@ public class PickerActivityCarMake extends Activity {
                     carDTO.setYear(pickerYear.getValue());
                 }
                 else{
-                    carDTO = new CarDTO();
+                    carDTO = new CarDAO(PickerActivityCarMake.this).getCarByAccountID(-1);
+
+                    if(carDTO == null || carDTO.getCarId() == null)
+                        carDTO = new CarDTO();
+
                     carDTO.setCarId(-1);
-                    carDTO.setAccountId(userId);
+                    carDTO.setAccountId(-1);
                     carDTO.setModel(arrayModel[pickerModel.getValue()]);
                     carDTO.setYear(pickerYear.getValue());
                     carDTO.setNumOfPassenger(4);
                     carDTO.setMake(arrayCarMake[pickerMake.getValue()]);
-                    carDTO.setHasPic1(false);
-                    carDTO.setHasPic2(false);
-                    carDTO.setHasPic3(false);
-                    carDTO.setHasPic4(false);
                 }
 
                 new CarDAO(PickerActivityCarMake.this).saveOrUpdateCar(carDTO);

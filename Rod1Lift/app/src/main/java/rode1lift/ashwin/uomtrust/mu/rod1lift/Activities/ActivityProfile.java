@@ -89,7 +89,11 @@ public class ActivityProfile extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if ((requestCode == CONSTANT.PROFILE_ACTIVITY_NAME || requestCode == CONSTANT.PROFILE_ACTIVITY_PHONE_NUMBER) && resultCode == RESULT_OK) {
+        if ((requestCode == CONSTANT.PROFILE_ACTIVITY_NAME) && resultCode == RESULT_OK) {
+
+            AccountDTO accountDTO = new AccountDAO(ActivityProfile.this).getAccountById(userId);
+            new AsyncUpdateAccount(ActivityProfile.this).execute(accountDTO);
+
             profileObjectList = new ArrayList<>();
             prepareDataList();
 

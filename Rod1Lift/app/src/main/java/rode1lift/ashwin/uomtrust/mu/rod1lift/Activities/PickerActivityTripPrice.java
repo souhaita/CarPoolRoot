@@ -27,9 +27,6 @@ public class PickerActivityTripPrice extends Activity {
         setContentView(R.layout.picker_trip_price);
         getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
-      /*  SharedPreferences prefs = getSharedPreferences(CONSTANT.APP_NAME, MODE_PRIVATE);
-        Integer userId = prefs.getInt(CONSTANT.CURRENT_ACCOUNT_ID, -1);*/
-
         eTxtTripPrice =(EditText)findViewById(R.id.eTxtTripPrice);
 
         String tripPrice = getIntent().getStringExtra(CONSTANT.TRIP_PRICE);
@@ -65,14 +62,13 @@ public class PickerActivityTripPrice extends Activity {
     }
 
     private void setData(EditText eTxtFullName){
-        Integer tripPrice = Integer.parseInt(eTxtFullName.getText().toString());
         if(TextUtils.isEmpty(eTxtFullName.getText().toString())){
             String message = "Trip price can not be null";
             Utils.alertError(PickerActivityTripPrice.this, message);
 
             Utils.vibrate(PickerActivityTripPrice.this);
         }
-        else if(tripPrice >100 || tripPrice < 10){
+        else if(Integer.parseInt(eTxtFullName.getText().toString()) >100 || Integer.parseInt(eTxtFullName.getText().toString()) < 10){
             String message = "Price range should be between Rs 10 to Rs 100";
             Utils.alertError(PickerActivityTripPrice.this, message);
 
@@ -81,6 +77,8 @@ public class PickerActivityTripPrice extends Activity {
         else{
             Intent intent = getIntent();
             Double tripPriceFlooring;
+
+            Integer tripPrice = Integer.parseInt(eTxtFullName.getText().toString());
 
             if(tripPrice %5 == 0){
                 tripPriceFlooring = (double)tripPrice;

@@ -61,9 +61,13 @@ public class PickerActivityCarSeats extends Activity {
                     carDTO.setNumOfPassenger(pickerNumPassenger.getValue());
                 }
                 else{
-                    carDTO = new CarDTO();
+                    carDTO = new CarDAO(PickerActivityCarSeats.this).getCarByAccountID(-1);
+
+                    if(carDTO == null || carDTO.getCarId() == null)
+                        carDTO = new CarDTO();
+
                     carDTO.setCarId(-1);
-                    carDTO.setAccountId(userId);
+                    carDTO.setAccountId(-1);
                     carDTO.setNumOfPassenger(pickerNumPassenger.getValue());
                 }
 

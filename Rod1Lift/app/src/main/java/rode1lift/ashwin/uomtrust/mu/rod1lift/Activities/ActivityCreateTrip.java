@@ -96,9 +96,7 @@ public class ActivityCreateTrip extends Activity {
         TextView txtMenuHeader = (TextView)findViewById(R.id.txtMenuHeader);
         txtMenuHeader.setText(getString(R.string.activity_create_trip_header));
 
-        SharedPreferences prefs = ActivityCreateTrip.this.getSharedPreferences(CONSTANT.APP_NAME, MODE_PRIVATE);
-        accountId = prefs.getInt(CONSTANT.CURRENT_ACCOUNT_ID, 1);
-
+        accountId = Utils.getCurrentAccount(ActivityCreateTrip.this);
         accountDTO = new AccountDAO(ActivityCreateTrip.this).getAccountById(accountId);
 
         txtPrice = (TextView)findViewById(R.id.txtPrice);

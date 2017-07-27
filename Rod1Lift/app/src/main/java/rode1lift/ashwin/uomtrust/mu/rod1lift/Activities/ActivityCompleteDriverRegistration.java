@@ -70,6 +70,13 @@ public class ActivityCompleteDriverRegistration extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_complete_driver_registration);
 
+        if (ActivityCompat.checkSelfPermission(ActivityCompleteDriverRegistration.this, Manifest.permission.CAMERA ) != PackageManager.PERMISSION_GRANTED
+                        ||  ActivityCompat.checkSelfPermission(ActivityCompleteDriverRegistration.this, Manifest.permission.WRITE_EXTERNAL_STORAGE ) != PackageManager.PERMISSION_GRANTED
+                        ||  ActivityCompat.checkSelfPermission(ActivityCompleteDriverRegistration.this, Manifest.permission.READ_EXTERNAL_STORAGE )!= PackageManager.PERMISSION_GRANTED ) {
+
+            ActivityCompat.requestPermissions(ActivityCompleteDriverRegistration.this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_CAMERA);
+        }
+
         LinearLayout llCarMake = (LinearLayout)findViewById(R.id.llCarMake);
         llCarMake.setOnClickListener(new View.OnClickListener() {
             @Override

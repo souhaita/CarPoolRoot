@@ -26,7 +26,7 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.WebService.WebService;
 public class AsyncUpdateAccount extends AsyncTask<AccountDTO, Void ,AccountDTO> {
 
     private Context context;
-    private ProgressDialog progressDialog;
+    //private ProgressDialog progressDialog;
 
     public AsyncUpdateAccount(final Context context) {
         this.context = context;
@@ -34,9 +34,9 @@ public class AsyncUpdateAccount extends AsyncTask<AccountDTO, Void ,AccountDTO> 
 
     @Override
     protected void onPreExecute() {
-        String message = context.getString(R.string.async_driver_update_account_details);
+        /*String message = context.getString(R.string.async_driver_update_account_details);
         progressDialog = Utils.progressDialogue(context, message);
-        progressDialog.show();
+        progressDialog.show();*/
     }
 
 
@@ -52,6 +52,9 @@ public class AsyncUpdateAccount extends AsyncTask<AccountDTO, Void ,AccountDTO> 
             postData.put("email", accountDTO.getEmail());
             postData.put("accountRole", accountDTO.getAccountRole().getValue());
             postData.put("accountStatus", accountDTO.getAccountStatus().getValue());
+
+            if(accountDTO.getPhoneNum() != null)
+                postData.put("phoneNum", accountDTO.getPhoneNum());
 
             if(accountDTO.getFacebookId() != null)
                 postData.put("facebookId", accountDTO.getFacebookId());
@@ -101,8 +104,8 @@ public class AsyncUpdateAccount extends AsyncTask<AccountDTO, Void ,AccountDTO> 
                 httpURLConnection.disconnect();
             }
 
-            if(progressDialog != null && progressDialog.isShowing())
-                progressDialog.dismiss();
+            /*if(progressDialog != null && progressDialog.isShowing())
+                progressDialog.dismiss();*/
         }
 
         return null;

@@ -12,8 +12,11 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncUpdateAccount;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.AccountDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.AccountDTO;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 
@@ -80,7 +83,7 @@ public class PickerActivityPhoneNumber extends Activity {
             else {
                 accountDTO.setPhoneNum(Integer.parseInt(phoneNum));
                 new AccountDAO(PickerActivityPhoneNumber.this).saveOrUpdateAccount(accountDTO);
-
+                new AsyncUpdateAccount(PickerActivityPhoneNumber.this).execute(accountDTO);
                 Intent intent = getIntent();
                 setResult(RESULT_OK, intent);
                 finish();

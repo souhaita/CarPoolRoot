@@ -19,9 +19,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.ActivityPassengerViewDriverProfile;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.PickerActivityPhoneNumber;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncPassengerAcceptRequest;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncPassengerDeleteRequest;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.AccountDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.AccountDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.CarDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestDTO;
@@ -136,8 +138,17 @@ public class PassengerSearchTripAdapter extends RecyclerView.Adapter<RecyclerVie
         viewHolder.llAcceptRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                requestDTO.setSeatRequested(1);
-                new AsyncPassengerAcceptRequest(context, passengerSearchTripAdapter, requestObjectList).execute(requestDTO);
+                int userId = Utils.getCurrentAccount(context);
+                AccountDTO account = new AccountDAO(context).getAccountById(userId);
+
+                if(account.getPhoneNum() != null && account.getPhoneNum() >0) {
+                    requestDTO.setSeatRequested(1);
+                    new AsyncPassengerAcceptRequest(context, passengerSearchTripAdapter, requestObjectList).execute(requestDTO);
+                }
+                else{
+                    Intent intent = new Intent(context, PickerActivityPhoneNumber.class);
+                    ((Activity)context).startActivityForResult(intent, CONSTANT.PROFILE_ACTIVITY_PHONE_NUMBER);
+                }
             }
         });
 
