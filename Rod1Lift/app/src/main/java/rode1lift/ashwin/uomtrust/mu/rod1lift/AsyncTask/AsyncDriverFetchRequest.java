@@ -1,10 +1,16 @@
 package rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
+import android.view.View;
 import android.widget.ListView;
+
+import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -19,8 +25,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.ActivityDriverManageRequest;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.DriverRequestAdapterPending;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.DriverRequestUserAcceptedAdapter;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.DriverRequestUserAcceptedAdapterSticky;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.ManageRequestDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.RequestDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.AccountDTO;
@@ -40,12 +48,10 @@ public class AsyncDriverFetchRequest extends AsyncTask<RequestDTO, Void ,List<Re
 
     private Context context;
     private ProgressDialog progressDialog;
-    private ListView listView;
     private RequestStatus requestStatus;
 
-    public AsyncDriverFetchRequest(final Context context, ListView listView) {
+    public AsyncDriverFetchRequest(final Context context) {
         this.context = context;
-        this.listView = listView;
     }
 
     @Override
@@ -220,14 +226,39 @@ public class AsyncDriverFetchRequest extends AsyncTask<RequestDTO, Void ,List<Re
             }
 
             final DriverRequestAdapterPending driverRequestAdapterPending = new DriverRequestAdapterPending(context, requestObjectList);
-            listView.setAdapter(null);
-            listView.setAdapter(driverRequestAdapterPending);
+
+            RecyclerView rv = (RecyclerView)((Activity)context).findViewById(R.id.rv);
+            LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+            rv.setLayoutManager(layoutManager);
+            rv.setAdapter(driverRequestAdapterPending);
         }
 
         else if (requestStatus == RequestStatus.PASSENGER_ACCEPTED) {
             final DriverRequestUserAcceptedAdapter driverRequestUserAcceptedAdapter = new DriverRequestUserAcceptedAdapter(context, requestObjectList);
-            listView.setAdapter(null);
-            listView.setAdapter(driverRequestUserAcceptedAdapter);
+            RecyclerView rv = (RecyclerView)((Activity)context).findViewById(R.id.rv);
+            LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+            rv.setLayoutManager(layoutManager);
+            rv.setAdapter(driverRequestUserAcceptedAdapter);
+
+            /*final DriverRequestUserAcceptedAdapterSticky driverRequestUserAcceptedAdapterSticky = new DriverRequestUserAcceptedAdapterSticky(context, requestObjectList);
+
+            rvPassengerAccepted.setVisibility(View.VISIBLE);
+            LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+            rvPassengerAccepted.setLayoutManager(layoutManager);
+            rvPassengerAccepted.setAdapter(driverRequestUserAcceptedAdapterSticky);
+            rvPassengerAccepted.setHasFixedSize(false);
+
+            final StickyRecyclerHeadersDecoration headersDecor = new StickyRecyclerHeadersDecoration(driverRequestUserAcceptedAdapterSticky);
+            rvPassengerAccepted.addItemDecoration(headersDecor);
+            rvPassengerAccepted.invalidateItemDecorations();
+            headersDecor.invalidateHeaders();
+
+            driverRequestUserAcceptedAdapterSticky.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+                @Override public void onChanged() {
+                    super.onChanged();
+                    headersDecor.invalidateHeaders();
+                }
+            });*/
         }
 
         else  {

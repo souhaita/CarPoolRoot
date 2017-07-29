@@ -75,12 +75,7 @@ public class ActivityProfile extends Activity {
         });
 
         TextView txtDone = (TextView)findViewById(R.id.txtDone);
-        txtDone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        txtDone.setVisibility(View.INVISIBLE);
 
     }
 

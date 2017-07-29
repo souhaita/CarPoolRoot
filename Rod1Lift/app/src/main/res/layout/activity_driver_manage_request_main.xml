@@ -23,16 +23,38 @@
         android:layout_width="match_parent"
         android:layout_height="0dp" />
 
-    <ListView
-        android:divider="@android:color/transparent"
-        android:background="@color/transparent_black_50"
-        android:layout_weight="0.8"
-        android:scrollbars="none"
-        android:id="@+id/sLvManageRequest"
-        android:layout_width="match_parent"
-        android:layout_height="0dp">
+       <!-- <FrameLayout
+            android:background="@color/transparent_black_50"
+            android:layout_weight="0.8"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
 
-    </ListView>
+            <android.support.v7.widget.RecyclerView
+                android:visibility="gone"
+                android:divider="@android:color/transparent"
+                android:scrollbars="none"
+                android:id="@+id/rvPending"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <android.support.v7.widget.RecyclerView
+                android:visibility="gone"
+                android:divider="@android:color/transparent"
+                android:scrollbars="none"
+                android:id="@+id/rvPassengerAccepted"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </FrameLayout>-->
+
+        <android.support.v7.widget.RecyclerView
+            android:divider="@android:color/transparent"
+            android:scrollbars="none"
+            android:id="@+id/rv"
+            android:background="@color/transparent_black_50"
+            android:layout_weight="0.8"
+            android:layout_width="match_parent"
+            android:layout_height="0dp" />
 
     </LinearLayout>
 

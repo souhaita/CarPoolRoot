@@ -3,6 +3,8 @@ package rode1lift.ashwin.uomtrust.mu.rod1lift.Activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -26,7 +28,6 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 
 public class ActivityDriverManageRequest extends Activity {
 
-    private ListView listView;
     private RequestDTO requestDTO;
     private LinearLayout llMainProfile;
 
@@ -57,8 +58,6 @@ public class ActivityDriverManageRequest extends Activity {
 
         if(carId != null)
             requestDTO.setCarId(carId);
-
-        listView = (ListView)findViewById(R.id.sLvManageRequest);
 
         final Spinner spinnerRequestStatus = (Spinner)findViewById(R.id.spinnerRequestStatus);
         final ArrayAdapter adapter = ArrayAdapter.createFromResource(this,R.array.driver_manage_request_arrays,android.R.layout.simple_spinner_item);
@@ -99,7 +98,7 @@ public class ActivityDriverManageRequest extends Activity {
                         requestDTO.setRequestStatus(RequestStatus.PASSENGER_ACCEPTED);
                         break;
                 }
-                new AsyncDriverFetchRequest(ActivityDriverManageRequest.this, listView).execute(requestDTO);
+                new AsyncDriverFetchRequest(ActivityDriverManageRequest.this).execute(requestDTO);
             }
 
             @Override
@@ -114,7 +113,7 @@ public class ActivityDriverManageRequest extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == CONSTANT.MANAGE_TRIP_ACTIVITY_DRIVER_REQUEST_PENDING) {
-            new AsyncDriverFetchRequest(ActivityDriverManageRequest.this, listView).execute(requestDTO);
+            new AsyncDriverFetchRequest(ActivityDriverManageRequest.this).execute(requestDTO);
         }
 
     }

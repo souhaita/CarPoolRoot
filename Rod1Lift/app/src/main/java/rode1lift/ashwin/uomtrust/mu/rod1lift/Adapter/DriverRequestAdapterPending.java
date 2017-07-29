@@ -5,17 +5,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.ActivityCreateTrip;
@@ -31,7 +32,7 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
  * Created by Ashwin on 09-Jul-17.
  */
 
-public class DriverRequestAdapterPending extends BaseAdapter {
+public class DriverRequestAdapterPending extends RecyclerView.Adapter {
 
     private static LayoutInflater inflater = null;
 
@@ -54,37 +55,24 @@ public class DriverRequestAdapterPending extends BaseAdapter {
         inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    @Override
-    public int getCount() {
-        if(requestObjectList != null )
-            return requestObjectList.size();
 
-        return 0;
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_driver_manage_request_pending_content, parent, false);
+        return new ViewHolder(v);
     }
 
     @Override
-    public Object getItem(int i) {
-        return i;
-    }
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int i) {
 
-    @Override
-    public long getItemId(int i) {
-        return i;
-    }
-
-    @Override
-    public View getView(final int i, View view, ViewGroup viewGroup) {
-        view = inflater.inflate(R.layout.activity_driver_manage_request_pending_content, null);
+        final ViewHolder viewHolder = (ViewHolder)holder;
 
         final RequestDTO requestDTO = requestObjectList.get(i).getRequestDTO();
 
-        TextView txtFrom = (TextView)view.findViewById(R.id.txtFrom);
-        txtFrom.setText(requestDTO.getPlaceFrom());
+        viewHolder.txtFrom.setText(requestDTO.getPlaceFrom());
 
-        TextView txtTo = (TextView)view.findViewById(R.id.txtTo);
-        txtTo.setText(requestDTO.getPlaceTo());
+        viewHolder.txtTo.setText(requestDTO.getPlaceTo());
 
-        TextView txtDate = (TextView)view.findViewById(R.id.txtDate);
         SimpleDateFormat format = new SimpleDateFormat("dd MMM HH:mm");
         String date = null;
         try {
@@ -93,23 +81,22 @@ public class DriverRequestAdapterPending extends BaseAdapter {
         catch (Exception e){
 
         }
-        txtDate.setText(date);
+        viewHolder.txtDate.setText(date);
 
         String seats;
 
-        TextView txtSeatAvailable = (TextView)view.findViewById(R.id.txtSeatAvailable);
 
         if(requestDTO.getSeatAvailable() >1) {
             seats = context.getString(R.string.driver_request_adapter_seats_left);
-            txtSeatAvailable.setText(requestDTO.getSeatAvailable().toString() +" "+seats);
+            viewHolder.txtSeatAvailable.setText(requestDTO.getSeatAvailable().toString() +" "+seats);
         }
         else if (requestDTO.getSeatAvailable() == 1) {
             seats = context.getString(R.string.driver_request_adapter_seat_left);
-            txtSeatAvailable.setText(requestDTO.getSeatAvailable().toString() +" "+seats);
+            viewHolder.txtSeatAvailable.setText(requestDTO.getSeatAvailable().toString() +" "+seats);
         }
         else {
             seats = context.getString(R.string.driver_request_adapter_no_seat_left);
-            txtSeatAvailable.setText(seats);
+            viewHolder.txtSeatAvailable.setText(seats);
         }
 
         List<ManageRequestDTO> manageRequestDTOList = requestObjectList.get(i).getManageRequestDTOList();
@@ -125,24 +112,25 @@ public class DriverRequestAdapterPending extends BaseAdapter {
         String unitSPrice = String.valueOf(unitPrice);
         String totalSPrice = String.valueOf(totalPrice);
 
-        TextView txtPrice = (TextView)view.findViewById(R.id.txtPrice);
-        txtPrice.setText("Rs"+totalSPrice+" ("+unitSPrice+"/p)");
-        
-        final ViewPager imgCarPic = (ViewPager) view.findViewById(R.id.imgCarPic);
+        viewHolder.txtPrice.setText("Rs"+totalSPrice+" ("+unitSPrice+"/p)");
+
 
         List<byte []> profilePic = new ArrayList<>();
+        final List<String> fullName =  new ArrayList<>();
         if(requestObjectList.get(i).getAccountDTOList() != null && requestObjectList.get(i).getAccountDTOList().size() >0){
             for(int x = 0; x < requestObjectList.get(i).getAccountDTOList().size(); x++){
                 if(requestObjectList.get(i).getAccountDTOList().get(x).getProfilePicture() != null){
                     profilePic.add(requestObjectList.get(i).getAccountDTOList().get(x).getProfilePicture());
+                    fullName.add(requestObjectList.get(i).getAccountDTOList().get(x).getFullName());
                 }
             }
         }
 
-        PhotoViewPagerAdapter photoViewPagerAdapter = new PhotoViewPagerAdapter(context, profilePic);
-        imgCarPic.setAdapter(photoViewPagerAdapter);
 
-        imgCarPic.setOnTouchListener(new View.OnTouchListener() {
+        PhotoViewPagerAdapter photoViewPagerAdapter = new PhotoViewPagerAdapter(context, profilePic);
+        viewHolder.imgViewPhoto.setAdapter(photoViewPagerAdapter);
+
+        viewHolder.imgViewPhoto.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 return true;
@@ -152,16 +140,19 @@ public class DriverRequestAdapterPending extends BaseAdapter {
         final PhotoViewPagerAdapter photoAdapter = photoViewPagerAdapter;
 
         if(photoViewPagerAdapter.getCount() > 1) {
+            viewHolder.txtPassengerFullName.setVisibility(View.VISIBLE);
+
             final android.os.Handler handler = new android.os.Handler();
             Runnable runnable = new Runnable() {
                 int i = photoAdapter.getCount() - 1;
 
                 public void run() {
-
                     if (i < 0)
                         i = photoAdapter.getCount() - 1;
 
-                    imgCarPic.setCurrentItem(i);
+                    viewHolder.txtPassengerFullName.setText(fullName.get(i));
+
+                    viewHolder.imgViewPhoto.setCurrentItem(i);
                     i--;
 
                     handler.postDelayed(this, 5000);
@@ -170,8 +161,7 @@ public class DriverRequestAdapterPending extends BaseAdapter {
             handler.postDelayed(runnable, 0);
         }
 
-        LinearLayout llRequestDetails = (LinearLayout)view.findViewById(R.id.llRequestDetails);
-        llRequestDetails.setOnClickListener(new View.OnClickListener() {
+        viewHolder.llRequestDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, ActivityCreateTrip.class);
@@ -181,14 +171,12 @@ public class DriverRequestAdapterPending extends BaseAdapter {
             }
         });
 
-        final ImageView imgDelete = (ImageView)view.findViewById(R.id.imgDelete);
 
-        final LinearLayout llDeleteRequest = (LinearLayout)view.findViewById(R.id.llDeleteRequest);
-        llDeleteRequest.setOnClickListener(new View.OnClickListener() {
+        viewHolder.llDeleteRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(!confirmDelete.get(i)){
-                    imgDelete.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_bin_open_red));
+                    viewHolder.imgDelete.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_bin_open_red));
                     confirmDelete.set(i, true);
                 }
                 else{
@@ -198,12 +186,12 @@ public class DriverRequestAdapterPending extends BaseAdapter {
         });
 
 
-        llRequestDetails.setOnTouchListener(new View.OnTouchListener() {
+        viewHolder.llRequestDetails.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 switch (motionEvent.getAction()) {
                     case MotionEvent.ACTION_CANCEL:
-                        imgDelete.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_bin_close_red));
+                        viewHolder.imgDelete.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.icon_bin_close_red));
                         confirmDelete.set(i, false);
                         return false;
                 }
@@ -211,10 +199,43 @@ public class DriverRequestAdapterPending extends BaseAdapter {
             }
         });
 
-        LinearLayout llMain = (LinearLayout) view.findViewById(R.id.llMain);
-        Utils.animateList(llMain, context, i);
+        Utils.animateList(viewHolder.llMain, context, i);
+    }
 
-        return view;
+    @Override
+    public long getItemId(int i) {
+        return i;
+    }
+
+    @Override
+    public int getItemCount() {
+        if(requestObjectList != null )
+            return requestObjectList.size();
+        return 0;
+    }
+
+
+    private class ViewHolder extends RecyclerView.ViewHolder {
+
+        final TextView txtFrom, txtTo, txtDate, txtPrice, txtSeatAvailable, txtPassengerFullName;
+        final ViewPager imgViewPhoto;
+        final LinearLayout llRequestDetails,llDeleteRequest,llMain;
+        final ImageView imgDelete;
+
+        ViewHolder(final View view) {
+            super(view);
+            txtSeatAvailable = (TextView)view.findViewById(R.id.txtSeatAvailable);
+            txtFrom = (TextView)view.findViewById(R.id.txtFrom);
+            txtTo = (TextView)view.findViewById(R.id.txtTo);
+            txtDate = (TextView)view.findViewById(R.id.txtDate);
+            txtPrice = (TextView)view.findViewById(R.id.txtPrice);
+            txtPassengerFullName = (TextView)view.findViewById(R.id.txtPassengerFullName);
+            imgViewPhoto = (ViewPager)view.findViewById(R.id.imgViewPhoto);
+            llRequestDetails = (LinearLayout)view.findViewById(R.id.llRequestDetails);
+            llMain = (LinearLayout)view.findViewById(R.id.llMain);
+            imgDelete = (ImageView)view.findViewById(R.id.imgDelete);
+            llDeleteRequest = (LinearLayout)view.findViewById(R.id.llDeleteRequest);
+        }
     }
 
     public List<RequestObject> getRequestObjectList() {
