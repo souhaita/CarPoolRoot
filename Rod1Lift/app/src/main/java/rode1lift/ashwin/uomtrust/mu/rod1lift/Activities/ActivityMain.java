@@ -72,6 +72,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
+import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncSaveDeviceToken;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.AccountDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.AccountDTO;
@@ -200,6 +201,10 @@ public class ActivityMain extends AppCompatActivity
     private void saveFirebaseRegId() {
         SharedPreferences pref = getApplicationContext().getSharedPreferences(CONSTANT.SHARED_PREF, 0);
         String regId = pref.getString(CONSTANT.FIREBASE_REGISTRATION_KEY, null);
+
+        if(regId != null){
+            new AsyncSaveDeviceToken(ActivityMain.this).execute(regId);
+        }
 
         Log.e(TAG, "Firebase reg id: " + regId);
     }

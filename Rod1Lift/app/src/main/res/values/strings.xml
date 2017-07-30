@@ -96,7 +96,7 @@
     <string name="floating_menu_driver_view_details">View Passengers Details</string>
     <string name="floating_menu_driver_delete_trip">Delete Trip</string>
 
-    <string name="floating_menu_passenger_reserve_seat">No. seats to reserved</string>
+    <string name="floating_menu_passenger_reserve_seat">No. seats to reserve</string>
 
     <string name="async_check_account_validating_account">Validating your account</string>
     <string name="async_create_account_validating_account">Creating your account</string>
@@ -119,6 +119,7 @@
     <string name="driver_request_adapter_seat_left">Seat Left</string>
     <string name="driver_request_adapter_no_seat_left">Trip Full</string>
     <string name="passenger_view_history_seat">Seat</string>
+    <string name="passenger_view_trip_seat">Seat Available</string>
 
     <string name="async_driver_accept_client_request">Saving Request</string>
 

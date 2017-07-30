@@ -73,8 +73,9 @@ public class PassengerViewTripAdapter extends RecyclerView.Adapter<RecyclerView.
 
         viewHolder.txtFrom.setText(requestDTO.getPlaceFrom());
         viewHolder.txtTo.setText(requestDTO.getPlaceTo());
-        viewHolder.txtPrice.setText(requestDTO.getPrice().toString());
-        viewHolder.txtSeatRequested.setText(requestDTO.getSeatRequested().toString());
+        viewHolder.txtPrice.setText("Rs"+requestDTO.getPrice().toString());
+        String seat = context.getString(R.string.passenger_view_history_seat);
+        viewHolder.txtSeatRequested.setText(requestDTO.getSeatRequested().toString()+" "+seat);
 
         SimpleDateFormat format = new SimpleDateFormat("dd MMM HH:mm");
         String date = null;
@@ -91,6 +92,8 @@ public class PassengerViewTripAdapter extends RecyclerView.Adapter<RecyclerView.
 
         AccountDTO accountDTO = requestObjectList.get(position).getAccountDTOList().get(0);
         images.add(accountDTO.getProfilePicture());
+
+        viewHolder.txtDriverFullName.setText(accountDTO.getFullName());
 
         CarDTO carDTO = requestObjectList.get(position).getCarDTO().get(0);
 
@@ -190,7 +193,7 @@ public class PassengerViewTripAdapter extends RecyclerView.Adapter<RecyclerView.
     }
 
     public class viewHolder extends RecyclerView.ViewHolder {
-        public TextView txtFrom, txtTo, txtFullName, txtPrice, txtDate, txtSeatRequested;
+        public TextView txtFrom, txtTo, txtDriverFullName, txtPrice, txtDate, txtSeatRequested;
         public ViewPager imgViewPager;
         public ImageView imgPayment;
         public LinearLayout llPayment, llMain, llRequestDetails;
@@ -204,6 +207,8 @@ public class PassengerViewTripAdapter extends RecyclerView.Adapter<RecyclerView.
             txtDate = (TextView)view.findViewById(R.id.txtDate);
             txtSeatRequested = (TextView)view.findViewById(R.id.txtSeatRequested);
             imgViewPager = (ViewPager) view.findViewById(R.id.imgViewPager);
+            txtDriverFullName = (TextView)view.findViewById(R.id.txtDriverFullName);
+
 
             if(requestStatus == RequestStatus.DRIVER_ACCEPTED) {
                 imgPayment = (ImageView) view.findViewById(R.id.imgPayment);

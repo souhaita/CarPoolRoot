@@ -56,4 +56,6 @@
 <fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.entity.Request"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="java.lang.String"/>
+<fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.entity.Device"/>
+<fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.service.DeviceService"/>
 </qualifiedTypeNameHistroy>

@@ -14,7 +14,6 @@ import ashwin.uomtrust.ac.mu.dto.DeviceDTO;
 import ashwin.uomtrust.ac.mu.entity.Account;
 import ashwin.uomtrust.ac.mu.service.AccountService;
 import ashwin.uomtrust.ac.mu.service.CarService;
-import ashwin.uomtrust.ac.mu.service.DeviceService;
 
 @RestController
 @RequestMapping("/api/account")
@@ -25,9 +24,6 @@ public class AccountController {
 	
 	@Autowired
 	private CarService carService;
-	
-	@Autowired
-	private DeviceService deviceService;
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -80,12 +76,10 @@ public class AccountController {
 	
 	@CrossOrigin(origins = "http://localhost:8081")
 	@RequestMapping(value = "/saveDeviceToken", method = RequestMethod.POST)
-	public DeviceDTO saveDeviceToken(@RequestBody DeviceDTO deviceDTO) {
+	public void saveDeviceToken(@RequestBody DeviceDTO deviceDTO) {
 		if(deviceDTO != null && deviceDTO.getAccountId() !=null ){
-			return deviceService.save(deviceDTO);
+			return carService.findCarByAccountId(carDTO.getAccountId());
 		}
-		
-		return null;
 	}
 
 }

@@ -24,7 +24,7 @@ import ashwin.uomtrust.ac.mu.repository.RequestRepository;
 import ashwin.uomtrust.ac.mu.utils.Utils;
 
 @Service
-public class RequestServiceImp implements RequestService{
+public class DeviceServiceImp implements DeviceService{
 	
 	@Autowired
 	private RequestRepository requestRepository;
@@ -340,7 +340,7 @@ public class RequestServiceImp implements RequestService{
 		finalRequestList.addAll(apprxRequestList1);
 		finalRequestList.addAll(apprxRequestList2);
 		
-		if(manageRequestList != null && manageRequestList.size() >0 && finalRequestList != null && finalRequestList.size()>0){
+		if(manageRequestList != null && manageRequestList.size() >0){
 			for(Request request : finalRequestList){
 				for(ManageRequest manageRequest : manageRequestList){
 					if(manageRequest.getRequest().getRequestId().intValue() != request.getRequestId().intValue()){

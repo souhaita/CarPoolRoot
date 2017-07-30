@@ -224,7 +224,7 @@ public class Utils {
 
     public static Integer getCurrentAccount(Context context){
         SharedPreferences prefs = context.getSharedPreferences(CONSTANT.APP_NAME, MODE_PRIVATE);
-        Integer currentAccountId = prefs.getInt(CONSTANT.CURRENT_ACCOUNT_ID, 1);
+        Integer currentAccountId = prefs.getInt(CONSTANT.CURRENT_ACCOUNT_ID, -1);
         return currentAccountId;
     }
 

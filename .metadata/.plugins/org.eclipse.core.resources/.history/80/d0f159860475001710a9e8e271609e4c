@@ -84,8 +84,6 @@ public class AccountController {
 		if(deviceDTO != null && deviceDTO.getAccountId() !=null ){
 			return deviceService.save(deviceDTO);
 		}
-		
-		return null;
 	}
 
 }

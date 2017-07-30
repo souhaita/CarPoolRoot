@@ -668,7 +668,7 @@ public class ActivityCompleteDriverRegistration extends Activity {
         switch (requestCode) {
             case PERMISSION_CAMERA:
                 if(grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED && grantResults[2] == PackageManager.PERMISSION_GRANTED )
-                    openCamera();
+                    //openCamera();
                 break;
         }
     }

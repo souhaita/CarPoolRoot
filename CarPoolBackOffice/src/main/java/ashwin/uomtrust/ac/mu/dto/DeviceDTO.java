@@ -11,32 +11,32 @@ public class DeviceDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Integer deviceId;
-    private Integer accountId;
+    private Long deviceId;
+    private Long accountId;
 
     private String deviceToken;
 
-    public Integer getDeviceId() {
-        return deviceId;
-    }
+	public Long getDeviceId() {
+		return deviceId;
+	}
 
-    public void setDeviceId(Integer deviceId) {
-        this.deviceId = deviceId;
-    }
+	public void setDeviceId(Long deviceId) {
+		this.deviceId = deviceId;
+	}
 
-    public Integer getAccountId() {
-        return accountId;
-    }
+	public Long getAccountId() {
+		return accountId;
+	}
 
-    public void setAccountId(Integer accountId) {
-        this.accountId = accountId;
-    }
+	public void setAccountId(Long accountId) {
+		this.accountId = accountId;
+	}
 
-    public String getDeviceToken() {
-        return deviceToken;
-    }
+	public String getDeviceToken() {
+		return deviceToken;
+	}
 
-    public void setDeviceToken(String deviceToken) {
-        this.deviceToken = deviceToken;
-    }
+	public void setDeviceToken(String deviceToken) {
+		this.deviceToken = deviceToken;
+	}
 }

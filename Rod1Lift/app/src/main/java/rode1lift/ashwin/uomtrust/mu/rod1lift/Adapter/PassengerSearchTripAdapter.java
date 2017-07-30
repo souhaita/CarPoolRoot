@@ -73,8 +73,10 @@ public class PassengerSearchTripAdapter extends RecyclerView.Adapter<RecyclerVie
 
         viewHolder.txtFrom.setText(requestDTO.getPlaceFrom());
         viewHolder.txtTo.setText(requestDTO.getPlaceTo());
-        viewHolder.txtPrice.setText(requestDTO.getPrice().toString());
-        viewHolder.txtSeatAvailable.setText(requestDTO.getSeatAvailable().toString());
+        viewHolder.txtPrice.setText("Rs"+requestDTO.getPrice().toString());
+
+        String seatAvailable = context.getString(R.string.passenger_view_trip_seat);
+        viewHolder.txtSeatAvailable.setText(requestDTO.getSeatAvailable().toString()+ " "+seatAvailable);
 
         SimpleDateFormat format = new SimpleDateFormat("dd MMM HH:mm");
         String date = null;

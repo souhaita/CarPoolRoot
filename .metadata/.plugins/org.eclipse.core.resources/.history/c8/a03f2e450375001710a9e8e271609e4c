@@ -10,11 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ashwin.uomtrust.ac.mu.dto.AccountDTO;
 import ashwin.uomtrust.ac.mu.dto.CarDTO;
-import ashwin.uomtrust.ac.mu.dto.DeviceDTO;
 import ashwin.uomtrust.ac.mu.entity.Account;
 import ashwin.uomtrust.ac.mu.service.AccountService;
 import ashwin.uomtrust.ac.mu.service.CarService;
-import ashwin.uomtrust.ac.mu.service.DeviceService;
 
 @RestController
 @RequestMapping("/api/account")
@@ -25,9 +23,6 @@ public class AccountController {
 	
 	@Autowired
 	private CarService carService;
-	
-	@Autowired
-	private DeviceService deviceService;
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -75,16 +70,6 @@ public class AccountController {
 		if(carDTO != null && carDTO.getAccountId() !=null ){
 			return carService.findCarByAccountId(carDTO.getAccountId());
 		}
-		return null;
-	}
-	
-	@CrossOrigin(origins = "http://localhost:8081")
-	@RequestMapping(value = "/saveDeviceToken", method = RequestMethod.POST)
-	public DeviceDTO saveDeviceToken(@RequestBody DeviceDTO deviceDTO) {
-		if(deviceDTO != null && deviceDTO.getAccountId() !=null ){
-			return deviceService.save(deviceDTO);
-		}
-		
 		return null;
 	}
 

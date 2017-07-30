@@ -108,7 +108,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         String qb = "CREATE TABLE IF NOT EXISTS device (" +
                 " device_id INTEGER PRIMARY KEY NOT NULL , " +
                 " account_id INTEGER NOT NULL, " +
-                " account_token text ); ";
+                " device_token text ); ";
         db.execSQL(qb);
     }
 

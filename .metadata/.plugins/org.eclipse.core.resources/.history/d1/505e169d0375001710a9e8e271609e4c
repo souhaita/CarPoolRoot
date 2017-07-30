@@ -1,0 +1,22 @@
+package ashwin.uomtrust.ac.mu.repository;
+
+import java.util.Date;
+import java.util.List;
+
+import javax.transaction.Transactional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
+import ashwin.uomtrust.ac.mu.entity.Request;
+import ashwin.uomtrust.ac.mu.enums.RequestStatus;
+
+
+
+@Repository
+public interface DeviceRepository extends JpaRepository<Device, Long> {	
+	
+}

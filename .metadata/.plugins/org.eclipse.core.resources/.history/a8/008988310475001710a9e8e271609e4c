@@ -1,0 +1,48 @@
+package ashwin.uomtrust.ac.mu.service;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import ashwin.uomtrust.ac.mu.dto.AccountDTO;
+import ashwin.uomtrust.ac.mu.dto.CarDTO;
+import ashwin.uomtrust.ac.mu.dto.DeviceDTO;
+import ashwin.uomtrust.ac.mu.dto.ManageRequestDTO;
+import ashwin.uomtrust.ac.mu.dto.RequestDTO;
+import ashwin.uomtrust.ac.mu.dto.RequestObject;
+import ashwin.uomtrust.ac.mu.entity.Account;
+import ashwin.uomtrust.ac.mu.entity.Car;
+import ashwin.uomtrust.ac.mu.entity.Device;
+import ashwin.uomtrust.ac.mu.entity.ManageRequest;
+import ashwin.uomtrust.ac.mu.entity.Request;
+import ashwin.uomtrust.ac.mu.enums.RequestStatus;
+import ashwin.uomtrust.ac.mu.repository.AccountRepository;
+import ashwin.uomtrust.ac.mu.repository.CarRepository;
+import ashwin.uomtrust.ac.mu.repository.ManageRequestRepository;
+import ashwin.uomtrust.ac.mu.repository.RequestRepository;
+import ashwin.uomtrust.ac.mu.utils.Utils;
+
+@Service
+public class DeviceServiceImp implements DeviceService{
+	
+	@Autowired
+	private AccountRepository accountRepository;
+
+	@Override
+	public DeviceDTO save(DeviceDTO deviceDTO) {
+		// TODO Auto-generated method stub
+		Device device = new Device();
+		
+		if(deviceDTO.getDeviceId() == null){
+			device.setDeviceId(deviceDTO.getDeviceId());;
+		}
+		
+		
+		device.setDeviceToken(deviceDTO.getDeviceToken());
+		
+		return null;
+	}	
+}
