@@ -2,9 +2,15 @@ package rode1lift.ashwin.uomtrust.mu.rod1lift.Activities;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
@@ -12,15 +18,20 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -45,6 +56,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -64,6 +76,7 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.AccountDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.AccountDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.AccountRole;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Firebase.FirebaseNotificationUtils;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 
@@ -101,12 +114,56 @@ public class ActivityMain extends AppCompatActivity
 
     private AccountRole accountRole;
 
+    //FireBase
+    private static final String TAG = ActivityMain.class.getSimpleName();
+    private BroadcastReceiver mRegistrationBroadcastReceiver;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+        //FireBase
+        mRegistrationBroadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+
+                // checking for type intent filter
+                if (intent.getAction().equals(CONSTANT.REGISTRATION_COMPLETE)) {
+                    // gcm successfully registered
+                    // now subscribe to `global` topic to receive app wide notifications
+                    FirebaseMessaging.getInstance().subscribeToTopic(CONSTANT.TOPIC_GLOBAL);
+
+                    saveFirebaseRegId();
+
+                } else if (intent.getAction().equals(CONSTANT.PUSH_NOTIFICATION)) {
+                    // new push notification is received
+                    String message = intent.getStringExtra(CONSTANT.FIREBASE_MESSAGE);
+
+                    CoordinatorLayout clMain = (CoordinatorLayout)findViewById(R.id.clMain);
+                    Snackbar snackbar = Snackbar.make(clMain, message, Snackbar.LENGTH_LONG);
+                    View view = snackbar.getView();
+                    view.setBackgroundColor(getResources().getColor(R.color.red));
+
+                    TextView tv = (TextView) view.findViewById(android.support.design.R.id.snackbar_text);
+                    tv.setTextColor(getResources().getColor(R.color.white));
+                    tv.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                    tv.setTextSize(15f);
+
+                    CoordinatorLayout.LayoutParams params=(CoordinatorLayout.LayoutParams)view.getLayoutParams();
+                    params.gravity = Gravity.TOP;
+                    params.height = toolbar.getHeight();
+                    view.setLayoutParams(params);
+                    snackbar.show();
+                }
+            }
+        };
+
+        saveFirebaseRegId();
+        //end
 
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -136,6 +193,15 @@ public class ActivityMain extends AppCompatActivity
         mapFrag = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapView);
         mapFrag.getMapAsync(this);
 
+    }
+
+    // Fetches reg id from shared preferences
+    // and displays on the screen
+    private void saveFirebaseRegId() {
+        SharedPreferences pref = getApplicationContext().getSharedPreferences(CONSTANT.SHARED_PREF, 0);
+        String regId = pref.getString(CONSTANT.FIREBASE_REGISTRATION_KEY, null);
+
+        Log.e(TAG, "Firebase reg id: " + regId);
     }
 
     private void setProfileDetails(NavigationView navigationView, AccountDTO accountDTO){
@@ -249,6 +315,23 @@ public class ActivityMain extends AppCompatActivity
         AccountDTO accountDTO = new AccountDAO(this).getAccountById(accountId);
 
         setProfileDetails(navigationView, accountDTO);
+
+        //FireBase
+        // register GCM registration complete receiver
+        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver, new IntentFilter(CONSTANT.REGISTRATION_COMPLETE));
+
+        // register new push message receiver
+        // by doing this, the activity will be notified each time a new message arrives
+        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver, new IntentFilter(CONSTANT.PUSH_NOTIFICATION));
+
+        // clear the notification area when the app is opened
+        FirebaseNotificationUtils.clearNotifications(getApplicationContext());
+    }
+
+    @Override
+    protected void onPause() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
+        super.onPause();
     }
 
     @Override
