@@ -79,7 +79,7 @@ public class PassengerSearchTripAdapter extends RecyclerView.Adapter<RecyclerVie
         SimpleDateFormat format = new SimpleDateFormat("dd MMM HH:mm");
         String date = null;
         try {
-            date = format.format(requestDTO.getEvenDate());
+            date = format.format(requestDTO.getEventDate());
         }
         catch (Exception e){
             e.printStackTrace();
@@ -107,14 +107,16 @@ public class PassengerSearchTripAdapter extends RecyclerView.Adapter<RecyclerVie
             images.add(carDTO.getPicture4());
 
         final PhotoViewPagerAdapter photoViewPagerAdapter = new PhotoViewPagerAdapter(context,images);
-        viewHolder.imgViewPager.setAdapter(photoViewPagerAdapter);
+        viewHolder.imgViewPhoto.setAdapter(photoViewPagerAdapter);
 
-        viewHolder.imgViewPager.setOnTouchListener(new View.OnTouchListener() {
+        viewHolder.imgViewPhoto.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 return true;
             }
         });
+
+        viewHolder.txtDriverFullName.setText(accountDTO.getFullName());
 
         if(photoViewPagerAdapter.getCount() > 1) {
             final android.os.Handler handler = new android.os.Handler();
@@ -126,7 +128,7 @@ public class PassengerSearchTripAdapter extends RecyclerView.Adapter<RecyclerVie
                     if (i < 0)
                         i = photoViewPagerAdapter.getCount() - 1;
 
-                    viewHolder.imgViewPager.setCurrentItem(i);
+                    viewHolder.imgViewPhoto.setCurrentItem(i);
                     i--;
 
                     handler.postDelayed(this, 5000);
@@ -223,8 +225,8 @@ public class PassengerSearchTripAdapter extends RecyclerView.Adapter<RecyclerVie
     }
 
     public class viewHolder extends RecyclerView.ViewHolder {
-        public TextView txtFrom, txtTo, txtFullName, txtPrice, txtDate, txtSeatAvailable;
-        public ViewPager imgViewPager;
+        public TextView txtFrom, txtTo, txtDriverFullName, txtPrice, txtDate, txtSeatAvailable;
+        public ViewPager imgViewPhoto;
         public ImageView imgDelete, imgAccept;
         public LinearLayout llAcceptRequest, llDeleteRequest, llMain, llRequestDetails;
 
@@ -236,7 +238,9 @@ public class PassengerSearchTripAdapter extends RecyclerView.Adapter<RecyclerVie
             txtPrice = (TextView)view.findViewById(R.id.txtPrice);
             txtDate = (TextView)view.findViewById(R.id.txtDate);
             txtSeatAvailable = (TextView)view.findViewById(R.id.txtSeatAvailable);
-            imgViewPager = (ViewPager) view.findViewById(R.id.imgViewPager);
+            txtDriverFullName = (TextView)view.findViewById(R.id.txtDriverFullName);
+
+            imgViewPhoto = (ViewPager) view.findViewById(R.id.imgViewPhoto);
 
             imgAccept = (ImageView)view.findViewById(R.id.imgAccept);
             imgDelete = (ImageView)view.findViewById(R.id.imgDelete);

@@ -70,7 +70,7 @@ public class AsyncDriverCreateOrUpdateRequest extends AsyncTask<RequestDTO, Void
                 postData.put("dateCreated", requestDTO.getDateCreated().getTime());
 
             postData.put("dateUpdated", requestDTO.getDateUpdated().getTime());
-            postData.put("eventDate", requestDTO.getEvenDate().getTime());
+            postData.put("eventDate", requestDTO.getEventDate().getTime());
 
             httpURLConnection = (HttpURLConnection) new URL(WebService.API_DRIVER_CREATE_UPDATE_REQUEST).openConnection();
             httpURLConnection.setRequestMethod("POST");

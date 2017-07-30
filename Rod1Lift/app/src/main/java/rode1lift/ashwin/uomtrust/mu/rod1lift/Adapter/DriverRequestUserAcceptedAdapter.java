@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -76,7 +75,7 @@ public class DriverRequestUserAcceptedAdapter extends RecyclerView.Adapter {
         SimpleDateFormat format = new SimpleDateFormat("dd MMM HH:mm");
         String date = null;
         try {
-            date = format.format(requestDTO.getEvenDate());
+            date = format.format(requestDTO.getEventDate());
         }
         catch (Exception e){
 

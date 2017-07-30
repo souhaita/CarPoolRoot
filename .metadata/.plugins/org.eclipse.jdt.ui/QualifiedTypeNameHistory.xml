@@ -46,13 +46,14 @@
 <fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.entity.Car"/>
 <fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.service.ManageRequestService"/>
 <fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.entity.Account"/>
-<fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.entity.Request"/>
 <fullyQualifiedTypeName name="java.util.Calendar"/>
 <fullyQualifiedTypeName name="org.apache.hadoop.mapred.gethistory_jsp"/>
 <fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.dto.RequestDTO"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.entity.ManageRequest"/>
 <fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.repository.CarRepository"/>
-<fullyQualifiedTypeName name="java.util.Date"/>
 <fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.enums.RequestStatus"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.entity.Request"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="java.lang.String"/>
 </qualifiedTypeNameHistroy>

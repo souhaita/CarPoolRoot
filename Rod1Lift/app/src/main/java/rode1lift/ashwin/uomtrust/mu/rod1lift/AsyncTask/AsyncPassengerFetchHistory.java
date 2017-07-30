@@ -103,7 +103,7 @@ public class AsyncPassengerFetchHistory extends AsyncTask<Void, Void ,List<Reque
                 newRequestDTO.setRequestId(jsonObjectRequest.getInt("requestId"));
 
                 newRequestDTO.setSeatRequested(jsonObjectRequest.getInt("seatRequested"));
-                newRequestDTO.setEvenDate(new Date(jsonObjectRequest.getLong("eventDate")));
+                newRequestDTO.setEventDate(new Date(jsonObjectRequest.getLong("eventDate")));
                 newRequestDTO.setPlaceFrom(jsonObjectRequest.getString("placeFrom"));
                 newRequestDTO.setPlaceTo(jsonObjectRequest.getString("placeTo"));
                 newRequestDTO.setPrice(jsonObjectRequest.getInt("price"));

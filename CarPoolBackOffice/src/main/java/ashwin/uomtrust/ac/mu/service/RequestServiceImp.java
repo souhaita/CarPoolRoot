@@ -281,15 +281,67 @@ public class RequestServiceImp implements RequestService{
 		// TODO Auto-generated method stub
 		List<RequestStatus> requestStatusList = new ArrayList<>();
 		requestStatusList.add(RequestStatus.REQUEST_PENDING);
+		
+		Request r = new Request();
+		Calendar c = Calendar.getInstance();
+		c.setTimeInMillis(requestDTO.getEventDate().getTime());
+		r.setEventDate(c.getTime());
+		r.setPlaceFrom(requestDTO.getPlaceFrom());
+		r.setPlaceTo(requestDTO.getPlaceTo());
+		
 
-		List<Request> requestList = requestRepository.getRequestByStatus(requestStatusList);
+		List<Request> exactRequestList = new ArrayList<>();
+		exactRequestList = requestRepository.getRequest(RequestStatus.REQUEST_PENDING, r.getPlaceFrom(), r.getPlaceTo(), r.getEventDate());
+		
+		List<Request> tempExactList = new ArrayList<>();
+		if(exactRequestList == null || exactRequestList.size() == 0){
+			r.setRequestId(-1L);
+			tempExactList.add(r);
+		}
+		else{
+			tempExactList.addAll(exactRequestList);
+		}
+		
+		List<Request> apprxRequestList1 = requestRepository.getApprxRequest(RequestStatus.REQUEST_PENDING, r.getPlaceFrom(), r.getPlaceTo(), r.getEventDate(), tempExactList);
+		
+		
+		List<Request> tempApprxRequestList1= new ArrayList<>();
+		tempApprxRequestList1.addAll(tempExactList);
+		
+		if(tempApprxRequestList1 != null || tempApprxRequestList1.size() > 0){
+			tempApprxRequestList1.addAll(apprxRequestList1);
+		}
+		
+		String placeFrom = r.getPlaceFrom();
+		String placeTo = r.getPlaceTo();
+		
+		String[] subFrom = placeFrom.split("[\\s\\W]"); //Matches any white-space character, Matches any nonword character.
+		String[] subTo = placeTo.split("[\\s\\W]");
+		
+		String from;		
+		String to;		
+		
+		from = subFrom[0];
+		if(subFrom.length >1)
+			from +="%"+subFrom[1]+"%";
+		
+		to = subTo[0];
+		if(subTo.length >1)
+			to +="%"+subTo[1]+"%";
+		
+		List<Request> apprxRequestList2 = requestRepository.getApprxRequest(RequestStatus.REQUEST_PENDING, from, to, r.getEventDate(), tempApprxRequestList1);
 		
 		List<ManageRequest> manageRequestList = manageRequestRepository.getPassengerManageRequest(requestDTO.getAccountId());
 				
 		List<RequestObject> requestObjectList = new ArrayList<>();
 		
+		List<Request> finalRequestList = new ArrayList<>();
+		finalRequestList.addAll(exactRequestList);
+		finalRequestList.addAll(apprxRequestList1);
+		finalRequestList.addAll(apprxRequestList2);
+		
 		if(manageRequestList != null && manageRequestList.size() >0){
-			for(Request request : requestList){
+			for(Request request : finalRequestList){
 				for(ManageRequest manageRequest : manageRequestList){
 					if(manageRequest.getRequest().getRequestId().intValue() != request.getRequestId().intValue()){
 						RequestObject requestObject = new RequestObject();
@@ -357,8 +409,8 @@ public class RequestServiceImp implements RequestService{
 				}
 			}
 		}
-		else{
-			for(Request request : requestList){
+		else if (finalRequestList != null && finalRequestList.size() >0){
+			for(Request request : finalRequestList){
 				RequestObject requestObject = new RequestObject();
 				
 				RequestDTO newRequestDTO = new RequestDTO();
@@ -420,7 +472,94 @@ public class RequestServiceImp implements RequestService{
 				requestObject.setAccountDTOList(accountDTOList);
 				requestObject.setRequestDTO(newRequestDTO);
 				requestObjectList.add(requestObject);				
+			}	
+		}
+		else{
+			List<Request> tmpFromList = requestRepository.getRequestFrom(RequestStatus.REQUEST_PENDING, from, r.getEventDate());
+			List<Request> tmpToList = new ArrayList<>();
+			for(Request request : tmpFromList){
+				
+				String[] fSubFrom = request.getPlaceTo().split("[\\s\\W]"); //Matches any white-space character, Matches any nonword character.
+				
+				String fFrom = fSubFrom[0];
+				if(fSubFrom.length >1)
+					fFrom +="%"+fSubFrom[1]+"%";
+				
+				tmpToList = requestRepository.getRequestTo(RequestStatus.REQUEST_PENDING, fFrom, to, r.getEventDate());
 			}
+			
+			List<Request> finalList = new ArrayList<>();
+			
+			if(tmpToList != null && tmpToList.size() >0){
+				finalList.addAll(tmpFromList);
+				finalList.addAll(tmpToList);
+			}
+				
+			
+			for(Request request : finalList){
+				RequestObject requestObject = new RequestObject();
+				
+				RequestDTO newRequestDTO = new RequestDTO();
+				newRequestDTO.setAccountId(request.getAccount().getAccountId());
+				
+				Calendar calendar = Calendar.getInstance();
+				calendar.setTimeInMillis(request.getEventDate().getTime());
+				newRequestDTO.setEventDate(calendar.getTime());
+				newRequestDTO.setPlaceFrom(request.getPlaceFrom());
+				newRequestDTO.setPlaceTo(request.getPlaceTo());
+				newRequestDTO.setRequestId(request.getRequestId());
+				newRequestDTO.setRequestStatus(request.getRequestStatus());
+				newRequestDTO.setPrice(request.getPrice());
+				newRequestDTO.setSeatAvailable(request.getSeatAvailable());
+				
+				Car car = carRepository.getCarByAccountId(request.getAccount().getAccountId());
+				newRequestDTO.setCarId(car.getCarId());
+
+				
+				Calendar cal = Calendar.getInstance();
+				cal.setTimeInMillis(request.getDateCreated().getTime());
+				newRequestDTO.setDateCreated(cal.getTime());
+				
+				cal.setTimeInMillis(request.getDateUpdated().getTime());
+				newRequestDTO.setDateUpdated(cal.getTime());
+				
+				cal.setTimeInMillis(request.getEventDate().getTime());
+				newRequestDTO.setEventDate(cal.getTime());
+				
+				newRequestDTO.setAccountId(request.getAccount().getAccountId());		
+				
+				List<AccountDTO> accountDTOList =  new ArrayList<>();
+				
+				Account a = car.getUserAccount();
+				AccountDTO accountDTO = new AccountDTO();
+				accountDTO.setAccountId(a.getAccountId());				
+				accountDTO.setFullName(a.getFullName());
+				accountDTO.setPhoneNum(a.getPhoneNum());
+				Utils.getImageProfile(accountDTO);
+				
+				accountDTOList.add(accountDTO);
+				
+				CarDTO carDTO = new CarDTO();
+				carDTO.setCarId(car.getCarId());
+				carDTO.setYear(car.getYear());
+				carDTO.setAccountId(car.getUserAccount().getAccountId());
+				carDTO.setMake(car.getMake());
+				carDTO.setNumOfPassenger(car.getNumOfPassenger());	
+				carDTO.setPlateNum(car.getPlateNum());	
+				carDTO.setModel(car.getModel());		
+
+				Utils.getImageCar(carDTO);
+				
+				List<CarDTO> carDTOList = new ArrayList<>();
+				carDTOList.add(carDTO);
+				
+				requestObject.setCarDTOList(carDTOList);
+					
+				requestObject.setAccountDTOList(accountDTOList);
+				requestObject.setRequestDTO(newRequestDTO);
+				requestObjectList.add(requestObject);				
+			}	
+
 		}
 		
 		return requestObjectList;

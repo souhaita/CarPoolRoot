@@ -101,7 +101,7 @@ public class AsyncDriverFetchHistory extends AsyncTask<Void, Void ,List<RequestO
                 newRequestDTO.setAccountId(jsonObjectRequest.getInt("accountId"));
                 newRequestDTO.setRequestId(jsonObjectRequest.getInt("requestId"));
                 newRequestDTO.setSeatAvailable(jsonObjectRequest.getInt("seatAvailable"));
-                newRequestDTO.setEvenDate(new Date(jsonObjectRequest.getLong("eventDate")));
+                newRequestDTO.setEventDate(new Date(jsonObjectRequest.getLong("eventDate")));
                 newRequestDTO.setPlaceFrom(jsonObjectRequest.getString("placeFrom"));
                 newRequestDTO.setPlaceTo(jsonObjectRequest.getString("placeTo"));
                 newRequestDTO.setPrice(jsonObjectRequest.getInt("price"));

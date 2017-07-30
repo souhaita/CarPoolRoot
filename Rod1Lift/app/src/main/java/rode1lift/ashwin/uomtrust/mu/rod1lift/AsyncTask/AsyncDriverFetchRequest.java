@@ -7,10 +7,6 @@ import android.os.AsyncTask;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
-import android.view.View;
-import android.widget.ListView;
-
-import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -25,10 +21,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.ActivityDriverManageRequest;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.DriverRequestAdapterPending;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.DriverRequestUserAcceptedAdapter;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.DriverRequestUserAcceptedAdapterSticky;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.ManageRequestDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.RequestDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.AccountDTO;
@@ -127,7 +121,7 @@ public class AsyncDriverFetchRequest extends AsyncTask<RequestDTO, Void ,List<Re
                 newRequestDTO.setRequestId(jsonObjectRequest.getInt("requestId"));
                 newRequestDTO.setSeatAvailable(jsonObjectRequest.getInt("seatAvailable"));
                 newRequestDTO.setRequestStatus(requestDTO.getRequestStatus());
-                newRequestDTO.setEvenDate(new Date(jsonObjectRequest.getLong("eventDate")));
+                newRequestDTO.setEventDate(new Date(jsonObjectRequest.getLong("eventDate")));
                 newRequestDTO.setPlaceFrom(jsonObjectRequest.getString("placeFrom"));
                 newRequestDTO.setPlaceTo(jsonObjectRequest.getString("placeTo"));
                 newRequestDTO.setPrice(jsonObjectRequest.getInt("price"));

@@ -39,8 +39,7 @@ public class ActivitySearchTripResults extends Activity {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(ActivitySearchTripResults.this, LinearLayoutManager.VERTICAL, false);
         rcTripResults.setLayoutManager(mLayoutManager);
 
-        requestDTO = new RequestDTO();
-        requestDTO.setRequestStatus(RequestStatus.REQUEST_PENDING);
+        requestDTO = (RequestDTO)getIntent().getSerializableExtra(CONSTANT.REQUESTDTO);
         new AsyncPassengerFetchRequest(ActivitySearchTripResults.this, rcTripResults).execute(requestDTO);
 
         TextView txtDone = (TextView)findViewById(R.id.txtDone);

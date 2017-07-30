@@ -69,6 +69,12 @@ public class AsyncPassengerFetchRequest extends AsyncTask<RequestDTO, Void ,List
                 requestStatus = requestDTO.getRequestStatus();
                 postData.put("accountId", userId);
                 postData.put("requestStatus", requestStatus.getValue());
+
+                if(requestDTO.getEventDate() != null){
+                    postData.put("eventDate", requestDTO.getEventDate().getTime());
+                    postData.put("placeFrom", requestDTO.getPlaceFrom());
+                    postData.put("placeTo", requestDTO.getPlaceTo());
+                }
             }
 
             String url;
@@ -122,7 +128,7 @@ public class AsyncPassengerFetchRequest extends AsyncTask<RequestDTO, Void ,List
                     newRequestDTO.setSeatRequested(jsonObjectRequest.getInt("seatRequested"));
 
                 newRequestDTO.setRequestStatus(requestDTO.getRequestStatus());
-                newRequestDTO.setEvenDate(new Date(jsonObjectRequest.getLong("eventDate")));
+                newRequestDTO.setEventDate(new Date(jsonObjectRequest.getLong("eventDate")));
                 newRequestDTO.setPlaceFrom(jsonObjectRequest.getString("placeFrom"));
                 newRequestDTO.setPlaceTo(jsonObjectRequest.getString("placeTo"));
                 newRequestDTO.setPrice(jsonObjectRequest.getInt("price"));

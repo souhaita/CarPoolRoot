@@ -23,7 +23,7 @@ public class RequestDTO implements Serializable {
 
     private Date dateCreated;
     private Date dateUpdated;
-    private Date evenDate;
+    private Date eventDate;
 
     private String placeFrom;
     private String placeTo;
@@ -79,12 +79,12 @@ public class RequestDTO implements Serializable {
         this.dateUpdated = dateUpdated;
     }
 
-    public Date getEvenDate() {
-        return evenDate;
+    public Date getEventDate() {
+        return eventDate;
     }
 
-    public void setEvenDate(Date evenDate) {
-        this.evenDate = evenDate;
+    public void setEventDate(Date eventDate) {
+        this.eventDate = eventDate;
     }
 
     public String getPlaceFrom() {

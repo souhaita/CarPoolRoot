@@ -6,7 +6,6 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -194,6 +193,7 @@ public class ActivityCreateTrip extends Activity {
 
                         requestDateTime.set(Calendar.HOUR_OF_DAY, selectedHour);
                         requestDateTime.set(Calendar.MINUTE, selectedMinute);
+                        requestDateTime.set(Calendar.SECOND, 0);
 
                         Utils.hideKeyboard(ActivityCreateTrip.this);
                     }
@@ -228,7 +228,7 @@ public class ActivityCreateTrip extends Activity {
             autoTo.setText(requestDTO.getPlaceTo());
 
             Calendar calendar = Calendar.getInstance();
-            calendar.setTime(requestDTO.getEvenDate());
+            calendar.setTime(requestDTO.getEventDate());
 
             txtDate.setText(String.valueOf(calendar.getTime().getDate()) +" "+ new DateFormatSymbols().getMonths()[calendar.getTime().getMonth()]);
 
@@ -241,7 +241,7 @@ public class ActivityCreateTrip extends Activity {
             txtContact.setText(phoneNum);
 
             requestDateTime = Calendar.getInstance();
-            requestDateTime.setTime(requestDTO.getEvenDate());
+            requestDateTime.setTime(requestDTO.getEventDate());
 
             croller.setProgress((requestDTO.getPrice()/5));
 
@@ -435,7 +435,7 @@ public class ActivityCreateTrip extends Activity {
             requestDTO.setAccountId(accountId);
             requestDTO.setPlaceFrom(autoFrom.getText().toString());
             requestDTO.setPlaceTo(autoTo.getText().toString());
-            requestDTO.setEvenDate(requestDateTime.getTime());
+            requestDTO.setEventDate(requestDateTime.getTime());
             requestDTO.setRequestStatus(RequestStatus.REQUEST_PENDING);
             requestDTO.setPrice(Integer.parseInt(txtPrice.getText().toString()));
             requestDTO.setSeatAvailable(Integer.parseInt(txtSeatAvailable.getText().toString()));

@@ -19,7 +19,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.ActivityCompleteDriverRegistration;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.ActivityPassengerViewDriverProfile;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncPassengerPayRequest;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
@@ -31,8 +30,6 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestObject;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.RequestStatus;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
-
-import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT.PICK_IMAGE_REQUEST;
 
 /**
  * Created by Ashwin on 09-Jul-17.
@@ -82,7 +79,7 @@ public class PassengerViewTripAdapter extends RecyclerView.Adapter<RecyclerView.
         SimpleDateFormat format = new SimpleDateFormat("dd MMM HH:mm");
         String date = null;
         try {
-            date = format.format(requestDTO.getEvenDate());
+            date = format.format(requestDTO.getEventDate());
         }
         catch (Exception e){
             e.printStackTrace();

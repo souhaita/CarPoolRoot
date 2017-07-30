@@ -1,5 +1,6 @@
 package ashwin.uomtrust.ac.mu.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -32,7 +33,19 @@ public interface RequestRepository extends JpaRepository<Request, Long> {
 	@Query("select r from Request r join r.account a where a.accountId =:accountId and r.eventDate < current_date and r.requestStatus in (:requestStatusList) order by r.eventDate desc")
 	public List<Request> getRequestHistoryForDriver(@Param("accountId") Long accountId, @Param("requestStatusList") List<RequestStatus> requestStatusList);		
 	
-	
 	@Query("select r from Request r where r.requestStatus in (:requestStatusList)")
-	public List<Request> getRequestByStatus(@Param("requestStatusList") List<RequestStatus> requestStatusList);		
+	public List<Request> getRequestByStatus(@Param("requestStatusList") List<RequestStatus> requestStatusList);
+	
+	@Query("select r from Request r where r.requestStatus =:requestStatus and r.placeFrom =:placeFrom and r.placeTo =:placeTo and r.eventDate =:eventDate")
+	public List<Request> getRequest(@Param("requestStatus") RequestStatus requestStatus, @Param("placeFrom") String placeFrom, @Param("placeTo") String placeTo, @Param("eventDate") Date eventDate);
+	
+	@Query("select r from Request r where r.requestStatus =:requestStatus and r.placeFrom like %:placeFrom% and DATE(r.eventDate) = DATE(:eventDate)")
+	public List<Request> getRequestFrom(@Param("requestStatus") RequestStatus requestStatus, @Param("placeFrom") String placeFrom, @Param("eventDate") Date eventDate);
+		
+	@Query("select r from Request r where r.requestStatus =:requestStatus and r.placeFrom like %:placeFrom% and r.placeTo like %:placeTo% and DATE(r.eventDate) = DATE(:eventDate)")
+	public List<Request> getRequestTo(@Param("requestStatus") RequestStatus requestStatus, @Param("placeFrom") String placeFrom, @Param("placeTo") String placeTo, @Param("eventDate") Date eventDate);
+	
+	
+	@Query("select r from Request r where r.requestStatus =:requestStatus and r.placeFrom like %:placeFrom% and r.placeTo like %:placeTo% and DATE(r.eventDate) = DATE(:eventDate) and r not in (:exactRequestList)")
+	public List<Request> getApprxRequest(@Param("requestStatus") RequestStatus requestStatus, @Param("placeFrom") String placeFrom, @Param("placeTo") String placeTo, @Param("eventDate") Date eventDate, @Param("exactRequestList") List<Request> exactRequestList);
 }

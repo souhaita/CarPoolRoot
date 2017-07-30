@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.ActivityCreateTrip;
@@ -76,7 +75,7 @@ public class DriverRequestAdapterPending extends RecyclerView.Adapter {
         SimpleDateFormat format = new SimpleDateFormat("dd MMM HH:mm");
         String date = null;
         try {
-            date = format.format(requestDTO.getEvenDate());
+            date = format.format(requestDTO.getEventDate());
         }
         catch (Exception e){
 
@@ -114,7 +113,6 @@ public class DriverRequestAdapterPending extends RecyclerView.Adapter {
 
         viewHolder.txtPrice.setText("Rs"+totalSPrice+" ("+unitSPrice+"/p)");
 
-
         List<byte []> profilePic = new ArrayList<>();
         final List<String> fullName =  new ArrayList<>();
         if(requestObjectList.get(i).getAccountDTOList() != null && requestObjectList.get(i).getAccountDTOList().size() >0){
@@ -125,7 +123,6 @@ public class DriverRequestAdapterPending extends RecyclerView.Adapter {
                 }
             }
         }
-
 
         PhotoViewPagerAdapter photoViewPagerAdapter = new PhotoViewPagerAdapter(context, profilePic);
         viewHolder.imgViewPhoto.setAdapter(photoViewPagerAdapter);
@@ -159,6 +156,7 @@ public class DriverRequestAdapterPending extends RecyclerView.Adapter {
                 }
             };
             handler.postDelayed(runnable, 0);
+
         }
 
         viewHolder.llRequestDetails.setOnClickListener(new View.OnClickListener() {

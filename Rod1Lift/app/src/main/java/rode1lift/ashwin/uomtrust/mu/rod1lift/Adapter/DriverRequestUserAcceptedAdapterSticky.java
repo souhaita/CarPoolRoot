@@ -1,18 +1,11 @@
 package rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
@@ -22,17 +15,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.ActivityCreateTrip;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncDriverAcceptRequest;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncDriverDeleteRequest;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.ManageRequestDAO;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.RequestDAO;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.ManageRequestDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestObject;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 
 /**
  * Created by Ashwin on 09-Jul-17.
@@ -103,7 +88,7 @@ public class DriverRequestUserAcceptedAdapterSticky extends RecyclerView.Adapter
         SimpleDateFormat format = new SimpleDateFormat("dd MMM HH:mm");
         String date = null;
         try {
-            date = format.format(requestDTO.getEvenDate());
+            date = format.format(requestDTO.getEventDate());
         }
         catch (Exception e){
 

@@ -31,6 +31,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestDTO;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.RequestStatus;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 
@@ -51,6 +53,8 @@ public class ActivitySearchTrip extends Activity {
     public static String API_KEY;
 
     private FrameLayout flMain;
+    private RequestDTO requestDTO;
+    private Calendar requestDateTime = Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +92,10 @@ public class ActivitySearchTrip extends Activity {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
 
+                        requestDateTime.set(Calendar.YEAR, year);
+                        requestDateTime.set(Calendar.MONTH, monthOfYear);
+                        requestDateTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
                         txtDate.setText(String.valueOf(dayOfMonth) +" "+ new DateFormatSymbols().getMonths()[monthOfYear]);
 
                         Utils.hideKeyboard(ActivitySearchTrip.this);
@@ -119,6 +127,10 @@ public class ActivitySearchTrip extends Activity {
 
                         txtTime.setText(String.valueOf(selectedHour)+" : "+min);
 
+                        requestDateTime.set(Calendar.HOUR_OF_DAY, selectedHour);
+                        requestDateTime.set(Calendar.MINUTE, selectedMinute);
+                        requestDateTime.set(Calendar.SECOND, 0);
+
                         Utils.hideKeyboard(ActivitySearchTrip.this);
                     }
                 }, mHour, mMinute, false);
@@ -134,7 +146,9 @@ public class ActivitySearchTrip extends Activity {
             @Override
             public void onClick(View view) {
                 if(validForm()){
-                   startActivity(new Intent(ActivitySearchTrip.this, ActivitySearchTripResults.class));
+                    Intent intent = new Intent(ActivitySearchTrip.this, ActivitySearchTripResults.class);
+                    intent.putExtra(CONSTANT.REQUESTDTO,requestDTO);
+                    startActivity(intent);
                 }
             }
         });
@@ -166,7 +180,6 @@ public class ActivitySearchTrip extends Activity {
     }
 
 
-
     private boolean validForm(){
         boolean validForm = true;
 
@@ -185,6 +198,13 @@ public class ActivitySearchTrip extends Activity {
         else if(TextUtils.isEmpty(txtTime.getText())){
             Utils.alertError(ActivitySearchTrip.this, getResources().getString(R.string.activity_create_trip_validation_time));
             return false;
+        }
+        else{
+            requestDTO = new RequestDTO();
+            requestDTO.setRequestStatus(RequestStatus.REQUEST_PENDING);
+            requestDTO.setEventDate(requestDateTime.getTime());
+            requestDTO.setPlaceTo(autoTo.getText().toString());
+            requestDTO.setPlaceFrom(autoFrom.getText().toString());
         }
 
         return validForm;

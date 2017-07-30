@@ -86,7 +86,7 @@ public class DriverHistoryAdapter extends RecyclerView.Adapter<RecyclerView.View
         SimpleDateFormat format = new SimpleDateFormat("dd MMM HH:mm");
         String date = null;
         try {
-            date = format.format(requestDTO.getEvenDate());
+            date = format.format(requestDTO.getEventDate());
         }
         catch (Exception e){
 
