@@ -19,6 +19,9 @@
         app:civ_border_color="@android:color/transparent"/>
 
     <TextView
+        android:maxLines="1"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
         android:layout_weight="0.3"
         android:textColor="@color/white"
         android:gravity="center|top"

@@ -21,6 +21,9 @@
             android:src="@mipmap/ic_launcher" />
 
         <TextView
+            android:maxLines="1"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
             android:textColor="@color/white"
             android:layout_marginLeft="3dp"
             android:gravity="center_vertical|left"

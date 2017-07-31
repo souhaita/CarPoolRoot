@@ -23,8 +23,8 @@ public class DeviceServiceImp implements DeviceService{
 		// TODO Auto-generated method stub
 		Device device = new Device();
 		
-		if(deviceDTO.getDeviceId() == null){
-			device.setDeviceId(deviceDTO.getDeviceId());;
+		if(deviceDTO.getDeviceId() != null){
+			device.setDeviceId(deviceDTO.getDeviceId());
 		}
 		
 		device.setDeviceToken(deviceDTO.getDeviceToken());

@@ -60,6 +60,11 @@ public class AsyncSaveDeviceToken extends AsyncTask<String, Void ,DeviceDTO> {
 
         try{
             int userId = Utils.getCurrentAccount(context);
+            DeviceDTO deviceDTO = new DeviceDAO(context).checkToken(userId, deviceToken);
+
+            if(deviceDTO != null && deviceDTO.getDeviceId() != null)
+                postData.put("deviceId", deviceDTO.getDeviceId());
+
             postData.put("accountId", userId);
             postData.put("deviceToken", deviceToken);
 
@@ -86,7 +91,9 @@ public class AsyncSaveDeviceToken extends AsyncTask<String, Void ,DeviceDTO> {
                 builder.append(inputLine).append("\n");
             }
 
-            DeviceDTO deviceDTO = new DeviceDTO();
+            if(deviceDTO == null && deviceDTO.getAccountId() == null)
+                deviceDTO = new DeviceDTO();
+
             deviceDTO.setAccountId(userId);
             deviceDTO.setDeviceToken(deviceToken);
 

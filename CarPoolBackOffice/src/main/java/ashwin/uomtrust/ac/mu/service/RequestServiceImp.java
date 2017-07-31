@@ -14,13 +14,16 @@ import ashwin.uomtrust.ac.mu.dto.RequestDTO;
 import ashwin.uomtrust.ac.mu.dto.RequestObject;
 import ashwin.uomtrust.ac.mu.entity.Account;
 import ashwin.uomtrust.ac.mu.entity.Car;
+import ashwin.uomtrust.ac.mu.entity.Device;
 import ashwin.uomtrust.ac.mu.entity.ManageRequest;
 import ashwin.uomtrust.ac.mu.entity.Request;
 import ashwin.uomtrust.ac.mu.enums.RequestStatus;
 import ashwin.uomtrust.ac.mu.repository.AccountRepository;
 import ashwin.uomtrust.ac.mu.repository.CarRepository;
+import ashwin.uomtrust.ac.mu.repository.DeviceRepository;
 import ashwin.uomtrust.ac.mu.repository.ManageRequestRepository;
 import ashwin.uomtrust.ac.mu.repository.RequestRepository;
+import ashwin.uomtrust.ac.mu.utils.PushNotifictionHelper;
 import ashwin.uomtrust.ac.mu.utils.Utils;
 
 @Service
@@ -37,6 +40,9 @@ public class RequestServiceImp implements RequestService{
 
 	@Autowired
 	private CarRepository carRepository;
+	
+	@Autowired
+	private DeviceRepository deviceRepository;
 	
 	
 	@Override
@@ -93,8 +99,20 @@ public class RequestServiceImp implements RequestService{
 		
 		List<ManageRequest> manageRequestList = manageRequestRepository.getManageRequestByRequestId(requestId);
 		if(manageRequestList != null && manageRequestList.size()>0){
-			if(manageRequestList != null && manageRequestList.size() >0)
+			if(manageRequestList != null && manageRequestList.size() >0){
+				
+				for(ManageRequest manageRequest : manageRequestList){
+					List<Device> deviceList = deviceRepository.getDeviceByAccountId(manageRequest.getUserAccount().getAccountId());
+
+					for(Device device :deviceList){
+						String title = "Trip: "+request.getPlaceFrom() +" to "+ request.getPlaceTo();
+						String message = request.getAccount().getFullName()+" "+"deleted the trip";
+						PushNotifictionHelper.sendPushNotification(device.getDeviceToken(),title, message);
+					}
+				}
+				
 				manageRequestRepository.delete(manageRequestList);
+			}
 		}
 		
 		return result;
@@ -362,70 +380,75 @@ public class RequestServiceImp implements RequestService{
 		
 		if(manageRequestList != null && manageRequestList.size() >0 && finalRequestList != null && finalRequestList.size()>0){
 			for(Request request : finalRequestList){
+				boolean found = false;
 				for(ManageRequest manageRequest : manageRequestList){
-					if(manageRequest.getRequest().getRequestId().intValue() != request.getRequestId().intValue()){
-						RequestObject requestObject = new RequestObject();
-						
-						RequestDTO newRequestDTO = new RequestDTO();
-						newRequestDTO.setAccountId(request.getAccount().getAccountId());
-						
-						Calendar calendar = Calendar.getInstance();
-						calendar.setTimeInMillis(request.getEventDate().getTime());
-						newRequestDTO.setEventDate(calendar.getTime());
-						newRequestDTO.setPlaceFrom(request.getPlaceFrom());
-						newRequestDTO.setPlaceTo(request.getPlaceTo());
-						newRequestDTO.setRequestId(request.getRequestId());
-						newRequestDTO.setRequestStatus(request.getRequestStatus());
-						newRequestDTO.setPrice(request.getPrice());
-						newRequestDTO.setSeatAvailable(request.getSeatAvailable());
-						
-						Car car = carRepository.getCarByAccountId(request.getAccount().getAccountId());
-						newRequestDTO.setCarId(car.getCarId());
-		
-						
-						Calendar cal = Calendar.getInstance();
-						cal.setTimeInMillis(request.getDateCreated().getTime());
-						newRequestDTO.setDateCreated(cal.getTime());
-						
-						cal.setTimeInMillis(request.getDateUpdated().getTime());
-						newRequestDTO.setDateUpdated(cal.getTime());
-						
-						cal.setTimeInMillis(request.getEventDate().getTime());
-						newRequestDTO.setEventDate(cal.getTime());
-						
-						newRequestDTO.setAccountId(request.getAccount().getAccountId());		
-						
-						List<AccountDTO> accountDTOList =  new ArrayList<>();
-						
-						Account a = car.getUserAccount();
-						AccountDTO accountDTO = new AccountDTO();
-						accountDTO.setAccountId(a.getAccountId());				
-						accountDTO.setFullName(a.getFullName());
-						accountDTO.setPhoneNum(a.getPhoneNum());
-						Utils.getImageProfile(accountDTO);
-						
-						accountDTOList.add(accountDTO);
-						
-						CarDTO carDTO = new CarDTO();
-						carDTO.setCarId(car.getCarId());
-						carDTO.setYear(car.getYear());
-						carDTO.setAccountId(car.getUserAccount().getAccountId());
-						carDTO.setMake(car.getMake());
-						carDTO.setNumOfPassenger(car.getNumOfPassenger());	
-						carDTO.setPlateNum(car.getPlateNum());	
-						carDTO.setModel(car.getModel());		
-		
-						Utils.getImageCar(carDTO);
-						
-						List<CarDTO> carDTOList = new ArrayList<>();
-						carDTOList.add(carDTO);
-						
-						requestObject.setCarDTOList(carDTOList);
-							
-						requestObject.setAccountDTOList(accountDTOList);
-						requestObject.setRequestDTO(newRequestDTO);
-						requestObjectList.add(requestObject);
+					if(manageRequest.getRequest().getRequestId().intValue() == request.getRequestId().intValue()){
+						found = true;
 					}
+				}
+				
+				if(!found){
+					RequestObject requestObject = new RequestObject();
+					
+					RequestDTO newRequestDTO = new RequestDTO();
+					newRequestDTO.setAccountId(request.getAccount().getAccountId());
+					
+					Calendar calendar = Calendar.getInstance();
+					calendar.setTimeInMillis(request.getEventDate().getTime());
+					newRequestDTO.setEventDate(calendar.getTime());
+					newRequestDTO.setPlaceFrom(request.getPlaceFrom());
+					newRequestDTO.setPlaceTo(request.getPlaceTo());
+					newRequestDTO.setRequestId(request.getRequestId());
+					newRequestDTO.setRequestStatus(request.getRequestStatus());
+					newRequestDTO.setPrice(request.getPrice());
+					newRequestDTO.setSeatAvailable(request.getSeatAvailable());
+					
+					Car car = carRepository.getCarByAccountId(request.getAccount().getAccountId());
+					newRequestDTO.setCarId(car.getCarId());
+	
+					
+					Calendar cal = Calendar.getInstance();
+					cal.setTimeInMillis(request.getDateCreated().getTime());
+					newRequestDTO.setDateCreated(cal.getTime());
+					
+					cal.setTimeInMillis(request.getDateUpdated().getTime());
+					newRequestDTO.setDateUpdated(cal.getTime());
+					
+					cal.setTimeInMillis(request.getEventDate().getTime());
+					newRequestDTO.setEventDate(cal.getTime());
+					
+					newRequestDTO.setAccountId(request.getAccount().getAccountId());		
+					
+					List<AccountDTO> accountDTOList =  new ArrayList<>();
+					
+					Account a = car.getUserAccount();
+					AccountDTO accountDTO = new AccountDTO();
+					accountDTO.setAccountId(a.getAccountId());				
+					accountDTO.setFullName(a.getFullName());
+					accountDTO.setPhoneNum(a.getPhoneNum());
+					Utils.getImageProfile(accountDTO);
+					
+					accountDTOList.add(accountDTO);
+					
+					CarDTO carDTO = new CarDTO();
+					carDTO.setCarId(car.getCarId());
+					carDTO.setYear(car.getYear());
+					carDTO.setAccountId(car.getUserAccount().getAccountId());
+					carDTO.setMake(car.getMake());
+					carDTO.setNumOfPassenger(car.getNumOfPassenger());	
+					carDTO.setPlateNum(car.getPlateNum());	
+					carDTO.setModel(car.getModel());		
+	
+					Utils.getImageCar(carDTO);
+					
+					List<CarDTO> carDTOList = new ArrayList<>();
+					carDTOList.add(carDTO);
+					
+					requestObject.setCarDTOList(carDTOList);
+						
+					requestObject.setAccountDTOList(accountDTOList);
+					requestObject.setRequestDTO(newRequestDTO);
+					requestObjectList.add(requestObject);
 				}
 			}
 		}

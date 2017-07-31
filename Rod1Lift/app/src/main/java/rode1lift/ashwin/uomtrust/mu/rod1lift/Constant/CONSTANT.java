@@ -60,4 +60,5 @@ public class CONSTANT {
     public static final String SHARED_PREF = "rod1LiftFirebase";
     public static final String FIREBASE_REGISTRATION_KEY = "firebaseRegistrationKey";
     public static final String FIREBASE_MESSAGE = "firebaseMessage";
+    public static final String FIREBASE_TITLE = "firebaseTitle";
 }

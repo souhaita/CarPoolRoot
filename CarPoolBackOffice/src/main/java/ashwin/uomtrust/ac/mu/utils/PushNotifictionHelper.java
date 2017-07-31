@@ -34,6 +34,7 @@ public class PushNotifictionHelper {
 		    JSONObject info = new JSONObject();
 		    info.put("title", title);
 		    info.put("body", message);
+		    info.put("message", message);
 		    json.put("notification", info);
 		    
 	        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());

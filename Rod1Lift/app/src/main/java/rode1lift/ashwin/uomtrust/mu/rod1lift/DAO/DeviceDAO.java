@@ -47,6 +47,33 @@ public class DeviceDAO {
         return deviceDTO;
     }
 
+    public DeviceDTO checkToken(int accountId, String deviceToken) {
+        final StringBuilder sql = new StringBuilder();
+        sql.append(" SELECT * ");
+        sql.append(" FROM "+ TABLE_NAME);
+        sql.append(" WHERE account_id = " + accountId);
+        sql.append(" and device_token = '" + deviceToken + "'");
+
+        dbHelper.open();
+        Cursor res = dbHelper.executeQuery(sql.toString(), null);
+        if (res != null) {
+            res.moveToFirst();
+        }
+
+        DeviceDTO deviceDTO = new DeviceDTO();
+
+        while (!res.isAfterLast()) {
+
+            deviceDTO = setDeviceDetails(res);
+
+            res.moveToNext();
+        }
+
+        res.close();
+
+        return deviceDTO;
+    }
+
 
     public DeviceDTO getDeviceByID(int deviceId) {
         final StringBuilder sql = new StringBuilder();

@@ -22,7 +22,6 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.ActivitySearchTrip;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.PassengerSearchTripAdapter;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestObject;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.Firebase.PushNotifictionHelper;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.WebService.WebService;
@@ -88,8 +87,6 @@ public class AsyncPassengerAcceptRequest extends AsyncTask<RequestDTO, Void ,Boo
             while ((inputLine = reader.readLine()) != null) {
                 builder.append(inputLine).append("\n");
             }
-
-            //PushNotifictionHelper.sendPushNotification();
 
             return builder.toString().contains("true");
 

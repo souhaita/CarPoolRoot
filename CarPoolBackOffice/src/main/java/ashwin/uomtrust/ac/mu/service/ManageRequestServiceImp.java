@@ -183,6 +183,14 @@ public class ManageRequestServiceImp implements ManageRequestService{
 
 		requestRepository.save(request);
 		
+		List<Device> deviceList = deviceRepository.getDeviceByAccountId(manageRequest.getUserAccount().getAccountId());
+
+		for(Device device :deviceList){
+			String title = "Trip: "+request.getPlaceFrom() +" to "+ request.getPlaceTo();
+			String message = manageRequest.getUserAccount().getFullName()+" "+"accepted your request";
+			PushNotifictionHelper.sendPushNotification(device.getDeviceToken(),title, message);
+		}
+		
 		return true;
 	}
 
@@ -230,8 +238,8 @@ public class ManageRequestServiceImp implements ManageRequestService{
 		List<Device> deviceList = deviceRepository.getDeviceByAccountId(car.getUserAccount().getAccountId());
 		
 		for(Device device :deviceList){
-			String title = "";
-			String message = "";
+			String title = "Trip: "+r.getPlaceFrom() +" to "+ r.getPlaceTo();
+			String message = account.getFullName()+" want a lift ";
 			PushNotifictionHelper.sendPushNotification(device.getDeviceToken(),title, message);
 		}
 		
@@ -535,6 +543,15 @@ public class ManageRequestServiceImp implements ManageRequestService{
 		if(m != null && m.getManageRequestId() != null){
 			m.setRequestStatus(RequestStatus.PAID);
 			manageRequestRepository.save(m);
+			
+			List<Device> deviceList = deviceRepository.getDeviceByAccountId(m.getCar().getUserAccount().getAccountId());
+
+			for(Device device :deviceList){
+				String title = "Trip: "+m.getRequest().getPlaceFrom() +" to "+ m.getRequest().getPlaceTo();
+				String message = m.getUserAccount().getFullName()+" made your payment ";
+				PushNotifictionHelper.sendPushNotification(device.getDeviceToken(),title, message);
+			}
+			
 			return true;
 		}
 		return false;

@@ -142,10 +142,11 @@ public class ActivityMain extends AppCompatActivity
 
                 } else if (intent.getAction().equals(CONSTANT.PUSH_NOTIFICATION)) {
                     // new push notification is received
+                    String title = intent.getStringExtra(CONSTANT.FIREBASE_TITLE);
                     String message = intent.getStringExtra(CONSTANT.FIREBASE_MESSAGE);
 
                     CoordinatorLayout clMain = (CoordinatorLayout)findViewById(R.id.clMain);
-                    Snackbar snackbar = Snackbar.make(clMain, message, Snackbar.LENGTH_LONG);
+                    Snackbar snackbar = Snackbar.make(clMain, title+"\n"+message, Snackbar.LENGTH_LONG);
                     View view = snackbar.getView();
                     view.setBackgroundColor(getResources().getColor(R.color.red));
 
@@ -156,7 +157,7 @@ public class ActivityMain extends AppCompatActivity
 
                     CoordinatorLayout.LayoutParams params=(CoordinatorLayout.LayoutParams)view.getLayoutParams();
                     params.gravity = Gravity.TOP;
-                    params.height = toolbar.getHeight();
+                    params.height = (int)(toolbar.getHeight()*1.5);
                     view.setLayoutParams(params);
                     snackbar.show();
                 }

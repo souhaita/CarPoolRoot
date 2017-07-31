@@ -48,4 +48,5 @@ public interface RequestRepository extends JpaRepository<Request, Long> {
 	
 	@Query("select r from Request r where r.requestStatus =:requestStatus and r.placeFrom like %:placeFrom% and r.placeTo like %:placeTo% and DATE(r.eventDate) = DATE(:eventDate) and r not in (:exactRequestList)")
 	public List<Request> getApprxRequest(@Param("requestStatus") RequestStatus requestStatus, @Param("placeFrom") String placeFrom, @Param("placeTo") String placeTo, @Param("eventDate") Date eventDate, @Param("exactRequestList") List<Request> exactRequestList);
+	
 }
