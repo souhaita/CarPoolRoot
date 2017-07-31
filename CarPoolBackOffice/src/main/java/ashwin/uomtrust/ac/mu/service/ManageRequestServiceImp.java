@@ -230,7 +230,9 @@ public class ManageRequestServiceImp implements ManageRequestService{
 		List<Device> deviceList = deviceRepository.getDeviceByAccountId(car.getUserAccount().getAccountId());
 		
 		for(Device device :deviceList){
-			PushNotifictionHelper.sendPushNotification(device.getDeviceToken());
+			String title = "";
+			String message = "";
+			PushNotifictionHelper.sendPushNotification(device.getDeviceToken(),title, message);
 		}
 		
 		return true;
