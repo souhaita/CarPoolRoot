@@ -206,7 +206,7 @@ public class Utils {
     }
 
     public static Bitmap setPhotoRotation(Bitmap originalBmp){
-        Bitmap newBitmap = null;
+        Bitmap newBitmap = originalBmp;
         if (Build.MANUFACTURER.equalsIgnoreCase("samsung")
                 || Build.MANUFACTURER.equalsIgnoreCase("LGE")
                 || Build.MANUFACTURER.equalsIgnoreCase("sony")) {

@@ -288,9 +288,9 @@ public class ActivityCompleteDriverRegistration extends Activity {
                             bitmap = Utils.setPhotoRotation(bitmap);
 
                             ImageView imageView = getImageView(imageViewTouched);
+                            imageView.setVisibility(View.VISIBLE);
                             imageView.setImageBitmap(bitmap);
 
-                            bitmap.recycle();
                             savePictureToDTO();
 
                         } catch (Exception e) {
@@ -636,7 +636,7 @@ public class ActivityCompleteDriverRegistration extends Activity {
         File mediaStorageDir = new File(
                 Environment
                         .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
-                CONSTANT.IMAGE_DIRECTORY_NAME);
+                CONSTANT.ROOT_DIRECTORY);
 
         // Create the storage directory if it does not exist
         if (!mediaStorageDir.exists()) {

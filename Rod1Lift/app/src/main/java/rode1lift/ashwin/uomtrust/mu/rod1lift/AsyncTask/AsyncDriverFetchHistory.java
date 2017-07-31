@@ -176,8 +176,8 @@ public class AsyncDriverFetchHistory extends AsyncTask<Void, Void ,List<RequestO
             recyclerView.setAdapter(driverHistoryAdapter);
         }
 
-        else  {
+        /*else  {
             Utils.alertError(context, context.getString(R.string.error_server));
-        }
+        }*/
     }
 }

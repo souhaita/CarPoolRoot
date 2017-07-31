@@ -218,8 +218,8 @@ public class AsyncPassengerFetchHistory extends AsyncTask<Void, Void ,List<Reque
             recyclerView.setAdapter(passengerHistoryAdapter);
         }
 
-        else  {
+       /* else  {
             Utils.alertError(context, context.getString(R.string.error_server));
-        }
+        }*/
     }
 }

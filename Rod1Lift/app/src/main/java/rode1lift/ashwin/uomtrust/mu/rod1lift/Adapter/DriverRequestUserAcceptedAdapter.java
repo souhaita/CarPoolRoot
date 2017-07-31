@@ -147,7 +147,7 @@ public class DriverRequestUserAcceptedAdapter extends RecyclerView.Adapter {
                     RequestDTO r = requestDAO.getRequestByID(manageRequestDTO.getRequestId());
 
                     if(r.getSeatAvailable().intValue() > 0 && serverManageRequest.getSeatRequested().intValue() <= r.getSeatAvailable().intValue()){
-                        requestDTO.setManageRequestId(manageRequestId);
+                        r.setManageRequestId(manageRequestId);
                         new AsyncDriverAcceptRequest(context, DriverRequestUserAcceptedAdapter, requestObjectList).execute(requestDTO);
                         confirmDelete.set(i, false);
                     }

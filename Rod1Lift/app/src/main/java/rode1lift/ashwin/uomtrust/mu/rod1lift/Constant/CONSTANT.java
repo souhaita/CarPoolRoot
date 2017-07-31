@@ -6,8 +6,6 @@ package rode1lift.ashwin.uomtrust.mu.rod1lift.Constant;
 
 public class CONSTANT {
 
-    public static final String IMAGE_DIRECTORY_NAME = "Rod1Lift";
-
     public static final String APP_NAME = "rod1Lift";
     public static final String LOGIN = "LOGIN";
     public static final String CURRENT_ACCOUNT_ID = "CURRENT_ACCOUNT_ID";
