@@ -318,16 +318,36 @@ public class RequestServiceImp implements RequestService{
 		String[] subFrom = placeFrom.split("[\\s\\W]"); //Matches any white-space character, Matches any nonword character.
 		String[] subTo = placeTo.split("[\\s\\W]");
 		
-		String from;		
-		String to;		
+		String from = null;		
+		String to = null;		
 		
-		from = subFrom[0];
+		/*from = subFrom[0];
 		if(subFrom.length >1)
 			from +="%"+subFrom[1]+"%";
 		
 		to = subTo[0];
 		if(subTo.length >1)
-			to +="%"+subTo[1]+"%";
+			to +="%"+subTo[1]+"%";*/
+		
+		//TEST
+		for(int x = 0; x< subFrom.length; x++){
+			if(x != (subFrom.length - 1)){
+				from += subFrom[x].substring(0, 1)+"%";
+			}
+			else{
+				from += subFrom[x]; 
+			}
+		}
+			
+		for(int x = 0; x< subTo.length; x++){
+			if(x != (subTo.length - 1)){
+				to += subTo[x].substring(0, 1)+"%";
+			}
+			else{
+				to += subTo[x]; 
+			}
+		}
+		//END OF TEST
 		
 		List<Request> apprxRequestList2 = requestRepository.getApprxRequest(RequestStatus.REQUEST_PENDING, from, to, r.getEventDate(), tempApprxRequestList1);
 		

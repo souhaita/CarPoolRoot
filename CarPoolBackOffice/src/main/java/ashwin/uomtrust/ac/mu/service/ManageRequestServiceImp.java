@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.hadoop.mapred.gethistory_jsp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,13 +16,16 @@ import ashwin.uomtrust.ac.mu.dto.RequestDTO;
 import ashwin.uomtrust.ac.mu.dto.RequestObject;
 import ashwin.uomtrust.ac.mu.entity.Account;
 import ashwin.uomtrust.ac.mu.entity.Car;
+import ashwin.uomtrust.ac.mu.entity.Device;
 import ashwin.uomtrust.ac.mu.entity.ManageRequest;
 import ashwin.uomtrust.ac.mu.entity.Request;
 import ashwin.uomtrust.ac.mu.enums.RequestStatus;
 import ashwin.uomtrust.ac.mu.repository.AccountRepository;
 import ashwin.uomtrust.ac.mu.repository.CarRepository;
+import ashwin.uomtrust.ac.mu.repository.DeviceRepository;
 import ashwin.uomtrust.ac.mu.repository.ManageRequestRepository;
 import ashwin.uomtrust.ac.mu.repository.RequestRepository;
+import ashwin.uomtrust.ac.mu.utils.PushNotifictionHelper;
 import ashwin.uomtrust.ac.mu.utils.Utils;
 
 @Service
@@ -40,6 +44,9 @@ public class ManageRequestServiceImp implements ManageRequestService{
 	private CarRepository carRepository;
 	
 	private RequestService requestService;
+	
+	@Autowired
+	private DeviceRepository deviceRepository;
 
 	@Override
 	public List<ManageRequest> getManageRequestByRequestId(Long requestId) {
@@ -220,6 +227,11 @@ public class ManageRequestServiceImp implements ManageRequestService{
 		m.setRequestStatus(RequestStatus.PASSENGER_ACCEPTED);
 		manageRequestRepository.save(m);
 		
+		List<Device> deviceList = deviceRepository.getDeviceByAccountId(car.getUserAccount().getAccountId());
+		
+		for(Device device :deviceList){
+			PushNotifictionHelper.sendPushNotification(device.getDeviceToken());
+		}
 		
 		return true;
 	}
