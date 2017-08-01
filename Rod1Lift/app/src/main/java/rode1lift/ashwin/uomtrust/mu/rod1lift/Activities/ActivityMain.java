@@ -194,7 +194,6 @@ public class ActivityMain extends AppCompatActivity
 
         mapFrag = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapView);
         mapFrag.getMapAsync(this);
-
     }
 
     // Fetches reg id from shared preferences
@@ -473,8 +472,9 @@ public class ActivityMain extends AppCompatActivity
 
                         if (mGoogleApiClient == null) {
                             buildGoogleApiClient();
+                            mGoogleMap.setMyLocationEnabled(true);
+                            setMapListener();
                         }
-                        mGoogleMap.setMyLocationEnabled(true);
                     }
 
                 } else {
