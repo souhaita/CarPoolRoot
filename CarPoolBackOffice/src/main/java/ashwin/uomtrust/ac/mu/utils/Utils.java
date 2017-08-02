@@ -12,6 +12,7 @@ import org.apache.tomcat.util.codec.binary.Base64;
 
 import ashwin.uomtrust.ac.mu.dto.AccountDTO;
 import ashwin.uomtrust.ac.mu.dto.CarDTO;
+import ashwin.uomtrust.ac.mu.dto.MessageDTO;
 
 
 
@@ -173,6 +174,29 @@ public class Utils {
 
 		return accountDTO;
 	}
+	
+	public static MessageDTO getImageProfile(MessageDTO messageDTO){
+		
+		String filePath = getProfilePicImageDirectory(messageDTO.getOtherUserId());
+		
+		try {
+			File file = new File(filePath);
+			if(file.exists()){
+				byte[] bytesArray = new byte[(int) file.length()];
+	
+				FileInputStream fis = new FileInputStream(file);
+				fis.read(bytesArray);
+				fis.close();
+				messageDTO.setsProfilePicture(Base64.encodeBase64String(bytesArray));
+			}
+		} catch (Exception e) {
+		    // TODO Auto-generated catch block
+		    e.printStackTrace();
+		}
+
+		return messageDTO;
+	}
+	
 	private static File getOutputFile(String path){
 		
 		try{

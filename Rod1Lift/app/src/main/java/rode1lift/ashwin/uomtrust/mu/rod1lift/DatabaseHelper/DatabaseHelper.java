@@ -51,6 +51,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         createTableDevice(db);
         createTableManageRequest(db);
         createTableRating(db);
+        createTableMessage(db);
     }
 
     private void createTableAccount(SQLiteDatabase db){
@@ -133,6 +134,18 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                 " request_id INTEGER NOT NULL ); ";
         db.execSQL(qb);
     }
+
+    private void createTableMessage(SQLiteDatabase db){
+        String qb = "CREATE TABLE IF NOT EXISTS message (" +
+                " message_id INTEGER PRIMARY KEY NOT NULL , " +
+                " account_id INTEGER NOT NULL, " +
+                " other_user_id INTEGER NOT NULL, " +
+                " from_user INTEGER NOT NULL, " +
+                " message text); ";
+        db.execSQL(qb);
+    }
+
+
 
     public Cursor executeQuery(String query, String[] selectionArgs) {
         Cursor mCursor = db.rawQuery(query, selectionArgs);

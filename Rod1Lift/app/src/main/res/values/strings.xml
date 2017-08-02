@@ -202,6 +202,7 @@
     <string name="menu_create_trip">CREATE TRIP</string>
     <string name="menu_manage_request">MANAGE REQUEST</string>
     <string name="menu_history">HISTORY</string>
+    <string name="menu_chat">MESSAGE</string>
     <string name="menu_logout">LOGOUT</string>
     <string name="menu_search_trip">SEARCH TRIP</string>
 

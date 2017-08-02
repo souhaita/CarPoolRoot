@@ -14,6 +14,8 @@ public class WebService {
     public static final String API_REQUEST = SERVER_URL + "request/";
     public static final String API_CREATE_ACCOUNT = API_ACCOUNT +"createAccount";
     public static final String API_CHECK_ACCOUNT_VIA_EMAIL = API_ACCOUNT +"checkAccountViaEmail";
+    public static final String API_SEND_MESSAGE = API_ACCOUNT +"saveMessage";
+    public static final String API_DOWNLOAD_MESSAGE = API_ACCOUNT +"downloadMessage";
     public static final String API_SAVE_DEVICE_TOKEN = API_ACCOUNT +"saveDeviceToken";
 
 

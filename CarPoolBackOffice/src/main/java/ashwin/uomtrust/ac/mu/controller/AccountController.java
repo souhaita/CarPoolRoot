@@ -1,5 +1,7 @@
 package ashwin.uomtrust.ac.mu.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -11,10 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 import ashwin.uomtrust.ac.mu.dto.AccountDTO;
 import ashwin.uomtrust.ac.mu.dto.CarDTO;
 import ashwin.uomtrust.ac.mu.dto.DeviceDTO;
+import ashwin.uomtrust.ac.mu.dto.MessageDTO;
 import ashwin.uomtrust.ac.mu.entity.Account;
 import ashwin.uomtrust.ac.mu.service.AccountService;
 import ashwin.uomtrust.ac.mu.service.CarService;
 import ashwin.uomtrust.ac.mu.service.DeviceService;
+import ashwin.uomtrust.ac.mu.service.MessageService;
 
 @RestController
 @RequestMapping("/api/account")
@@ -28,6 +32,8 @@ public class AccountController {
 	
 	@Autowired
 	private DeviceService deviceService;
+	
+	private MessageService messageService;
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -83,6 +89,26 @@ public class AccountController {
 	public DeviceDTO saveDeviceToken(@RequestBody DeviceDTO deviceDTO) {
 		if(deviceDTO != null && deviceDTO.getAccountId() !=null ){
 			return deviceService.save(deviceDTO);
+		}
+		
+		return null;
+	}
+	
+	@CrossOrigin(origins = "http://localhost:8081")
+	@RequestMapping(value = "/downloadMessage", method = RequestMethod.POST)
+	public List<MessageDTO> downloadMessage(@RequestBody MessageDTO messageDTO) {
+		if(messageDTO != null && messageDTO.getAccountId() !=null ){
+			return messageService.getMessages(messageDTO);
+		}
+		
+		return null;
+	}
+	
+	@CrossOrigin(origins = "http://localhost:8081")
+	@RequestMapping(value = "/saveMessage", method = RequestMethod.POST)
+	public MessageDTO saveMessage(@RequestBody MessageDTO messageDTO) {
+		if(messageDTO != null && messageDTO.getAccountId() != null ){
+			return messageService.save(messageDTO);
 		}
 		
 		return null;

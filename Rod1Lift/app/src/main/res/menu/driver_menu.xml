@@ -14,6 +14,12 @@
             android:id="@+id/nav_manage"
             android:icon="@drawable/icon_manage"
             android:title="@string/menu_manage_request" />
+
+        <item
+            android:id="@+id/nav_chat"
+            android:icon="@drawable/icon_history"
+            android:title="@string/menu_chat" />
+
         <item
             android:id="@+id/nav_history"
             android:icon="@drawable/icon_history"
