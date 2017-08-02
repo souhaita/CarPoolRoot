@@ -39,9 +39,9 @@ import java.util.Set;
  * to bind the view to a data object.
  *
  * <p>When you bind you data object to a view, use {@link #bind(SwipeRevealLayout, String)} to
- * save and restore the open/close state of the view.</p>
+ * saveorUpdate and restore the open/close state of the view.</p>
  *
- * <p>Optionally, if you also want to save and restore the open/close state when the device's
+ * <p>Optionally, if you also want to saveorUpdate and restore the open/close state when the device's
  * orientation is changed, call {@link #saveStates(Bundle)} in {@link android.app.Activity#onSaveInstanceState(Bundle)}
  * and {@link #restoreStates(Bundle)} in {@link android.app.Activity#onRestoreInstanceState(Bundle)}</p>
  */
@@ -56,7 +56,7 @@ public class ViewBinderHelper {
     private final Object stateChangeLock = new Object();
 
     /**
-     * Help to save and restore open/close state of the swipeLayout. Call this method
+     * Help to saveorUpdate and restore open/close state of the swipeLayout. Call this method
      * when you bind your view holder with the data object.
      *
      * @param swipeLayout swipeLayout of the current view.

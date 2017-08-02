@@ -1,5 +1,7 @@
 package rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter;
 
+import android.content.Intent;
+
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.AccountDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.ViewType;
 
@@ -19,10 +21,15 @@ public class ProfileObject{
     private String data;
     private String label;
 
+    private Integer otherUserId;
+    private Integer otherUserPhoneNumber;
+
     public ProfileObject(ViewType viewType, AccountDTO accountDTO){
         this.viewType = viewType;
         this.profilePicture = accountDTO.getProfilePicture();
         this.label = accountDTO.getFullName();
+        this.otherUserId = accountDTO.getAccountId();
+        this.otherUserPhoneNumber = accountDTO.getPhoneNum();
     }
 
     public ProfileObject(ViewType viewType, byte [] carsPictures){
@@ -74,5 +81,21 @@ public class ProfileObject{
 
     public void setLabel(String label) {
         this.label = label;
+    }
+
+    public Integer getOtherUserId() {
+        return otherUserId;
+    }
+
+    public void setOtherUserId(Integer otherUserId) {
+        this.otherUserId = otherUserId;
+    }
+
+    public Integer getOtherUserPhoneNumber() {
+        return otherUserPhoneNumber;
+    }
+
+    public void setOtherUserPhoneNumber(Integer otherUserPhoneNumber) {
+        this.otherUserPhoneNumber = otherUserPhoneNumber;
     }
 }

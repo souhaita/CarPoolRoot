@@ -8,15 +8,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ashwin.uomtrust.ac.mu.dto.CarDTO;
 import ashwin.uomtrust.ac.mu.dto.MessageDTO;
 import ashwin.uomtrust.ac.mu.entity.Account;
-import ashwin.uomtrust.ac.mu.entity.Car;
+import ashwin.uomtrust.ac.mu.entity.Device;
 import ashwin.uomtrust.ac.mu.entity.Message;
-import ashwin.uomtrust.ac.mu.enums.AccountRole;
 import ashwin.uomtrust.ac.mu.repository.AccountRepository;
-import ashwin.uomtrust.ac.mu.repository.CarRepository;
+import ashwin.uomtrust.ac.mu.repository.DeviceRepository;
 import ashwin.uomtrust.ac.mu.repository.MessageRepository;
+import ashwin.uomtrust.ac.mu.utils.PushNotifictionHelper;
 import ashwin.uomtrust.ac.mu.utils.Utils;
 
 
@@ -29,9 +28,12 @@ public class MessageServiceImp implements MessageService{
 	
 	@Autowired
 	private AccountRepository accountRepository;
+	
+	@Autowired
+	private DeviceRepository deviceRepository;
 
 	@Override
-	public MessageDTO save(MessageDTO messageDTO) {
+	public MessageDTO saveMessage(MessageDTO messageDTO) {
 		// TODO Auto-generated method stub
 		Message message = new Message();
 		
@@ -43,6 +45,13 @@ public class MessageServiceImp implements MessageService{
 		
 		Message newMessage = messageRepository.save(message);
 		messageDTO.setMessageId(newMessage.getMessageId());
+		
+		List<Device> deviceList = deviceRepository.getDeviceByAccountId(messageDTO.getOtherUserId());
+
+		for(Device device :deviceList){
+			String title = "CHAT";
+			PushNotifictionHelper.sendPushNotification(device.getDeviceToken(),title, messageDTO.getMessage());
+		}
 		
 		return messageDTO;
 	}

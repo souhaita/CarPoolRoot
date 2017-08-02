@@ -9,14 +9,15 @@ public class CONSTANT {
     public static final String APP_NAME = "rod1Lift";
     public static final String LOGIN = "LOGIN";
     public static final String CURRENT_ACCOUNT_ID = "CURRENT_ACCOUNT_ID";
-    public static final String TRIP_PRICE = "price";
-    public static final String REQUEST_OBJECT = "requestObject";
-    public static final String REQUESTDTO = "requestDTO";
+    public static final String OTHER_USER_ID = "OTHER_USER_ID";
+    public static final String TRIP_PRICE = "PRICE";
+    public static final String REQUEST_OBJECT = "REQUEST_OBJECT";
+    public static final String REQUESTDTO = "REQUESTDTO";
 
-    public static final String CREATE_TRIP_FROM = "from";
-    public static final String SEARCH_TRIP_FROM = "from";
-    public static final String CREATE_TRIP_TO = "to";
-    public static final String SEARCH_TRIP_TO = "to";
+    public static final String CREATE_TRIP_FROM = "FROM";
+    public static final String SEARCH_TRIP_FROM = "FROM";
+    public static final String CREATE_TRIP_TO = "TO";
+    public static final String SEARCH_TRIP_TO = "TO";
     public static final String PROFILE_PICTURE_PATH = "profilePicture";
     public static final String CAR_PICTURE_PATH = "carPictures";
     public static final String ROOT_DIRECTORY = ".rod1Lift";

@@ -58,4 +58,6 @@
 <fullyQualifiedTypeName name="java.lang.String"/>
 <fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.entity.Device"/>
 <fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.service.DeviceService"/>
+<fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.repository.DeviceRepository"/>
+<fullyQualifiedTypeName name="scala.deprecated"/>
 </qualifiedTypeNameHistroy>

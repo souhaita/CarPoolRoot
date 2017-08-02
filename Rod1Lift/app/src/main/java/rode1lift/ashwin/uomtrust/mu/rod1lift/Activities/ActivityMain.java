@@ -280,6 +280,10 @@ public class ActivityMain extends AppCompatActivity
             Intent intent = new Intent(ActivityMain.this, ActivitySearchTrip.class);
             startActivity(intent);
         }
+        else if (id == R.id.nav_chat) {
+            Intent intent = new Intent(ActivityMain.this, ActivityChat.class);
+            startActivity(intent);
+        }
         else if (id == R.id.nav_manage) {
             Intent intent;
 

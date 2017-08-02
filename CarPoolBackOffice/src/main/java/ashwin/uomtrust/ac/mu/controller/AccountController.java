@@ -33,6 +33,7 @@ public class AccountController {
 	@Autowired
 	private DeviceService deviceService;
 	
+	@Autowired
 	private MessageService messageService;
 	
 	@Autowired
@@ -108,7 +109,7 @@ public class AccountController {
 	@RequestMapping(value = "/saveMessage", method = RequestMethod.POST)
 	public MessageDTO saveMessage(@RequestBody MessageDTO messageDTO) {
 		if(messageDTO != null && messageDTO.getAccountId() != null ){
-			return messageService.save(messageDTO);
+			return messageService.saveMessage(messageDTO);
 		}
 		
 		return null;

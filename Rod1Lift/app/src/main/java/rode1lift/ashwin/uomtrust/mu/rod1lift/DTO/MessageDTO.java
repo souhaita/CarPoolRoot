@@ -14,6 +14,8 @@ public class MessageDTO implements Serializable {
     private Integer otherUserId;
 
     private String message;
+    private String sProfilePicture;
+
     private boolean fromUser;
 
     public Integer getMessageId() {
@@ -54,5 +56,13 @@ public class MessageDTO implements Serializable {
 
     public void setFromUser(boolean fromUser) {
         this.fromUser = fromUser;
+    }
+
+    public String getsProfilePicture() {
+        return sProfilePicture;
+    }
+
+    public void setsProfilePicture(String sProfilePicture) {
+        this.sProfilePicture = sProfilePicture;
     }
 }

@@ -6,7 +6,7 @@ import ashwin.uomtrust.ac.mu.dto.MessageDTO;
 
 public interface MessageService {
 	
-	public MessageDTO save(MessageDTO messageDTO);
+	public MessageDTO saveMessage(MessageDTO messageDTO);
 	public List<MessageDTO> getMessages(MessageDTO messageDTO);
 	
 }

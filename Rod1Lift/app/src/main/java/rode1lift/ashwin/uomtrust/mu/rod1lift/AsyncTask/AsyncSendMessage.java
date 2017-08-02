@@ -12,14 +12,17 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.MessageDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.MessageDTO;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.WebService.WebService;
 
 /**
  * Created by Ashwin on 02-Aug-17.
  */
 
-public class AsyncSendMessage extends AsyncTask<MessageDTO, Void , Void> {
+public class AsyncSendMessage extends AsyncTask<MessageDTO, Void , MessageDTO> {
 
     Context context;
 
@@ -28,13 +31,7 @@ public class AsyncSendMessage extends AsyncTask<MessageDTO, Void , Void> {
     }
 
     @Override
-    protected void onPreExecute() {
-
-    }
-
-
-    @Override
-    protected Void doInBackground(MessageDTO... params) {
+    protected MessageDTO doInBackground(MessageDTO... params) {
         JSONObject postData = new JSONObject();
         MessageDTO messageDTO = params[0];
 
@@ -70,7 +67,7 @@ public class AsyncSendMessage extends AsyncTask<MessageDTO, Void , Void> {
                 }
 
                 JSONObject jsonObject = new JSONObject(builder.toString());
-
+                messageDTO.setMessageId(jsonObject.getInt("messageId"));
 
 
             } catch (Exception e) {
@@ -81,7 +78,7 @@ public class AsyncSendMessage extends AsyncTask<MessageDTO, Void , Void> {
                 }
             }
 
-            return null;
+            return messageDTO;
 
         }catch (Exception e){
             e.printStackTrace();
@@ -91,7 +88,14 @@ public class AsyncSendMessage extends AsyncTask<MessageDTO, Void , Void> {
     }
 
     @Override
-    protected void onPostExecute(Void result){
-        super.onPostExecute(result);
+    protected void onPostExecute(MessageDTO messageDTO){
+        super.onPostExecute(messageDTO);
+
+        if(messageDTO != null && messageDTO.getMessageId() != null){
+            new MessageDAO(context).saveorUpdate(messageDTO);
+        }
+        else{
+            Utils.alertError(context, context.getString(R.string.error_server));
+        }
     }
 }

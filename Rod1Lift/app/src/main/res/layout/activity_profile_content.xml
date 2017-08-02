@@ -41,7 +41,6 @@
                 fab:menu_shadowXOffset="1dp"
                 fab:menu_shadowYOffset="3dp"
                 fab:menu_animationDelayPerItem="50"
-                fab:menu_icon="@drawable/fab_add"
                 fab:menu_buttonSpacing="0dp"  />
 
         </FrameLayout>

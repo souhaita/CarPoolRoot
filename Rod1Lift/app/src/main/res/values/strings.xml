@@ -79,6 +79,9 @@
     <string name="activity_profile_name_hint">Full Name</string>
     <string name="activity_profile_name_error">Name can not be null</string>
 
+    <string name="activity_send_message_hint">Write Message</string>
+    <string name="activity_send_message_send">Send</string>
+
     <string name="floating_menu_clear_marker">Clear Marker</string>
     <string name="floating_menu_path_from_current_position">Get direction from current position</string>
     <string name="floating_menu_current_position">Locate Me</string>

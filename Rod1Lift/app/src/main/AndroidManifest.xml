@@ -130,6 +130,10 @@
             android:theme="@style/Theme.UserDialog"/>
 
         <activity
+            android:name=".Activities.PickerActivitySendMessage"
+            android:theme="@style/Theme.UserDialog"/>
+
+        <activity
             android:name=".Activities.ActivityDriverViewUserDetails"
             android:theme="@style/AppTheme.NoActionBar"/>
 
@@ -139,6 +143,10 @@
 
         <activity
             android:name=".Activities.ActivityPassengerManageRequest"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity
+            android:name=".Activities.ActivityChat"
             android:theme="@style/AppTheme.NoActionBar"/>
 
     </application>

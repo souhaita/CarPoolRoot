@@ -138,7 +138,7 @@ public class MessageDAO {
         return messageDTO;
     }
 
-    public long save(MessageDTO messageDTO){
+    public long saveorUpdate(MessageDTO messageDTO){
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues contentValues = setContentValues(messageDTO);
 
