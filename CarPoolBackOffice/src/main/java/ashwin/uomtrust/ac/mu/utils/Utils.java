@@ -177,7 +177,7 @@ public class Utils {
 	
 	public static MessageDTO getImageProfile(MessageDTO messageDTO){
 		
-		String filePath = getProfilePicImageDirectory(messageDTO.getOtherUserId());
+		String filePath = getProfilePicImageDirectory(messageDTO.getAccountId());
 		
 		try {
 			File file = new File(filePath);

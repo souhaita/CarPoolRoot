@@ -121,6 +121,7 @@ public class MessageDAO {
         values.put("other_user_id", messageDTO.getOtherUserId());
         values.put("message", messageDTO.getMessage());
         values.put("from_user", messageDTO.isFromUser());
+        values.put("sender_fullname", messageDTO.getSenderFullName());
 
         return values;
 
@@ -134,6 +135,7 @@ public class MessageDAO {
         messageDTO.setOtherUserId(res.getInt(res.getColumnIndex("other_user_id")));
         messageDTO.setMessageId(res.getInt(res.getColumnIndex("message_id")));
         messageDTO.setFromUser(res.getInt(res.getColumnIndex("from_user")) == 0? false:true);
+        messageDTO.setSenderFullName(res.getString(res.getColumnIndex("sender_fullname")));
 
         return messageDTO;
     }

@@ -67,11 +67,11 @@ public class PassengerViewDriverProfileAdapter extends RecyclerView.Adapter<Recy
             view.txtFullName.setText(fullName);
             view.imgViewProfile.setImageBitmap(Utils.convertBlobToBitmap(profileObjectList.get(position).getProfilePicture()));
 
-            view.fabPhoneNum.setOnClickListener(new View.OnClickListener() {
+            /*view.fabPhoneNum.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     //not tested
-                    /*Integer phoneNumber = profileObjectList.get(position).getOtherUserPhoneNumber();
+                    *//*Integer phoneNumber = profileObjectList.get(position).getOtherUserPhoneNumber();
                     if (phoneNumber != null) {
                         Intent callIntent = new Intent(Intent.ACTION_CALL);
                         callIntent.setData(Uri.parse("tel:"+phoneNumber.toString()));
@@ -80,13 +80,13 @@ public class PassengerViewDriverProfileAdapter extends RecyclerView.Adapter<Recy
                             return;
                         }
                         context.startActivity(callIntent);
-                    }*/
+                    }*//*
 
                     Intent intent = new Intent(context, PickerActivitySendMessage.class);
                     intent.putExtra(CONSTANT.OTHER_USER_ID, profileObjectList.get(position).getOtherUserId());
                     context.startActivity(intent);
                 }
-            });
+            });*/
 
         }
         else if (viewType == ViewType.CARS_PICTURES){
@@ -117,7 +117,7 @@ public class PassengerViewDriverProfileAdapter extends RecyclerView.Adapter<Recy
 
         public LinearLayout llProfile, llData, llCar;;
 
-        public FloatingActionButton fabPhoneNum;
+        //public FloatingActionButton fabPhoneNum;
 
         public AllViewHolder(View view) {
             super(view);
@@ -134,7 +134,7 @@ public class PassengerViewDriverProfileAdapter extends RecyclerView.Adapter<Recy
             llData = (LinearLayout) view.findViewById(R.id.llData);
             llCar = (LinearLayout) view.findViewById(R.id.llCar);
 
-            fabPhoneNum = (FloatingActionButton) view.findViewById(R.id.fabPhoneNum);
+            //fabPhoneNum = (FloatingActionButton) view.findViewById(R.id.fabPhoneNum);
 
         }
     }

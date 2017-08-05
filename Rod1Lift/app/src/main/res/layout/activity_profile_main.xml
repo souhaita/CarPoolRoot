@@ -86,6 +86,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"  />
 
+            <com.github.clans.fab.FloatingActionButton
+                fab:fab_label="@string/floating_menu_passenger_call"
+                fab:fab_size="mini"
+                android:src="@drawable/icon_call"
+                android:id="@+id/fabCall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"  />
+
+            <com.github.clans.fab.FloatingActionButton
+                fab:fab_label="@string/floating_menu_passenger_message"
+                fab:fab_size="mini"
+                android:src="@drawable/icon_chat_sub"
+                android:id="@+id/fabMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"  />
+
         </com.github.clans.fab.FloatingActionMenu>
 
     </FrameLayout>

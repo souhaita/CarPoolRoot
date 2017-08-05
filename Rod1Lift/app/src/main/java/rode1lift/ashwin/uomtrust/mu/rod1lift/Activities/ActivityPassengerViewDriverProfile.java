@@ -1,8 +1,12 @@
 package rode1lift.ashwin.uomtrust.mu.rod1lift.Activities;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -43,6 +47,8 @@ public class ActivityPassengerViewDriverProfile extends Activity {
     private FloatingActionButton fabSeat3;
     private FloatingActionButton fabSeat4;
     private FloatingActionButton fabSeat5;
+
+    private AccountDTO accountDTO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -172,6 +178,38 @@ public class ActivityPassengerViewDriverProfile extends Activity {
         else{
             fabMenu.setVisibility(View.GONE);
         }
+
+        FloatingActionButton fabCall = (FloatingActionButton)findViewById(R.id.fabCall);
+        fabCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fabMenu.close(true);
+
+                Integer phoneNumber = account.getPhoneNum();
+                if (phoneNumber != null) {
+                    Intent callIntent = new Intent(Intent.ACTION_CALL);
+                    callIntent.setData(Uri.parse("tel:"+phoneNumber.toString()));
+                    if (ActivityCompat.checkSelfPermission(ActivityPassengerViewDriverProfile.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(ActivityPassengerViewDriverProfile.this, new String[]{Manifest.permission.CALL_PHONE}, 0);
+                        return;
+                    }
+                    startActivity(callIntent);
+                }
+            }
+        });
+
+        FloatingActionButton fabMessage = (FloatingActionButton)findViewById(R.id.fabMessage);
+        fabMessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fabMenu.close(true);
+
+                Intent intent = new Intent(ActivityPassengerViewDriverProfile.this, PickerActivitySendMessage.class);
+                intent.putExtra(CONSTANT.OTHER_USER_ID, requestDTO.getAccountId());
+                startActivity(intent);
+            }
+        });
+
     }
 
     public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
@@ -223,7 +261,7 @@ public class ActivityPassengerViewDriverProfile extends Activity {
 
         requestDTO = requestObject.getRequestDTO();
 
-        AccountDTO accountDTO = requestObject.getAccountDTOList().get(0);
+        accountDTO = requestObject.getAccountDTOList().get(0);
 
         byte [] profile = Utils.getPictures(null, accountDTO.getAccountId().toString(), false);
         accountDTO.setProfilePicture(profile);

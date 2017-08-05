@@ -41,7 +41,6 @@ public class MessageServiceImp implements MessageService{
 		message.setAccount(account);
 		message.setOtherUserId(messageDTO.getOtherUserId());
 		message.setMessage(messageDTO.getMessage());
-		message.setFromUser(messageDTO.isFromUser());
 		
 		Message newMessage = messageRepository.save(message);
 		messageDTO.setMessageId(newMessage.getMessageId());
@@ -60,20 +59,36 @@ public class MessageServiceImp implements MessageService{
 	public List<MessageDTO> getMessages(MessageDTO messageDTO) {
 		// TODO Auto-generated method stub
 		
-		List<Message> messages = messageRepository.getMessageByAccountId(messageDTO.getAccountId());
+		List<Message> messagesSent = messageRepository.getMessagesSentByUser(messageDTO.getAccountId());
+		List<Message> messagesReceived = messageRepository.getMessagesReceived(messageDTO.getAccountId());
+
 		
 		List<MessageDTO> messageDTOList = new ArrayList<>();
 		
-		for(Message m : messages){
+		for(Message m : messagesSent){
 			MessageDTO newMessageDTO = new MessageDTO();	
 			
 			Account account = m.getAccount();			
 			newMessageDTO.setAccountId(account.getAccountId());
 			newMessageDTO.setMessageId(m.getMessageId());
-			newMessageDTO.setFromUser(m.isFromUser());
 			newMessageDTO.setMessage(m.getMessage());
 			newMessageDTO.setOtherUserId(m.getOtherUserId());
-			Utils.getImageProfile(messageDTO);
+			
+			Account acc = accountRepository.findByAccountId(m.getOtherUserId());
+			newMessageDTO.setSenderFullName(acc.getFullName());
+			messageDTOList.add(newMessageDTO);
+		}
+		
+		for(Message m : messagesReceived){
+			MessageDTO newMessageDTO = new MessageDTO();	
+			
+			Account account = m.getAccount();			
+			newMessageDTO.setAccountId(account.getAccountId());
+			newMessageDTO.setMessageId(m.getMessageId());
+			newMessageDTO.setMessage(m.getMessage());
+			newMessageDTO.setOtherUserId(m.getOtherUserId());
+			newMessageDTO.setSenderFullName(account.getFullName());
+			Utils.getImageProfile(newMessageDTO);
 			messageDTOList.add(newMessageDTO);
 		}
 		

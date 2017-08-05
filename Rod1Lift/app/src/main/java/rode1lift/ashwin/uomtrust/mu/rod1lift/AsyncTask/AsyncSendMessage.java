@@ -11,7 +11,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.ChatDetailAdapter;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.MessageDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.MessageDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
@@ -25,7 +27,6 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.WebService.WebService;
 public class AsyncSendMessage extends AsyncTask<MessageDTO, Void , MessageDTO> {
 
     Context context;
-
     public AsyncSendMessage(Context context){
         this.context = context;
     }

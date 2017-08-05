@@ -22,6 +22,9 @@
     <color name="grey_profile">#9E9E9E</color>
     <color name="semi_transparent">#7de9e8e8</color>
 
+    <color name="fb_color">#3b5998</color>
+    <color name="google_plus_color"> #d34836</color>
+
 
 
     <item name="blue" type="color">#FF33B5E5</item>

@@ -149,6 +149,10 @@
             android:name=".Activities.ActivityChat"
             android:theme="@style/AppTheme.NoActionBar"/>
 
+        <activity
+            android:name=".Activities.ActivityChatDetails"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
     </application>
 
 </manifest>

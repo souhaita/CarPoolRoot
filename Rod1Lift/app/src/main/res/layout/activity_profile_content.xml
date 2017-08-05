@@ -26,6 +26,7 @@
                 app:civ_border_color="@color/transparent_white_50" />
 
             <com.github.clans.fab.FloatingActionButton
+                android:visibility="invisible"
                 fab:fab_size="mini"
                 android:foregroundGravity="center"
                 android:src="@drawable/icon_call"

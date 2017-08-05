@@ -85,20 +85,33 @@ public class AsyncDownloadMessages extends AsyncTask<Void, Void , List<MessageDT
                 JSONObject jsonObject = jsonMessageList.getJSONObject(x);
 
                 MessageDTO messageDTO = new MessageDTO();
+
+                int otherUserId = jsonObject.getInt("otherUserId");
+                int serverAccountId = jsonObject.getInt("accountId");
+
+                // messages received
+                if(serverAccountId != userId){
+                    messageDTO.setFromUser(false);
+                    otherUserId = jsonObject.getInt("accountId");
+
+                    try {
+                        byte[] profilePicture = Base64.decode(jsonObject.getString("sProfilePicture"), Base64.DEFAULT);
+                        Utils.savePictureToFolder(profilePicture, CONSTANT.PROFILE_PICTURE_PATH, String.valueOf(serverAccountId), false);
+                    }
+                    catch (Exception e){
+                        e.printStackTrace();
+                    }
+
+                }
+                else{
+                    messageDTO.setFromUser(true);
+                }
+
+                messageDTO.setSenderFullName(jsonObject.getString("senderFullName"));
                 messageDTO.setMessageId(jsonObject.getInt("messageId"));
-                messageDTO.setOtherUserId(jsonObject.getInt("otherUserId"));
+                messageDTO.setOtherUserId(otherUserId);
                 messageDTO.setMessage(jsonObject.getString("message"));
                 messageDTO.setAccountId(userId);
-                messageDTO.setFromUser(jsonObject.getInt("fromUser") == 0 ? false : true);
-
-                try {
-                    byte[] profilePicture = Base64.decode(jsonObject.getString("sProfilePicture"), Base64.DEFAULT);
-                    Utils.savePictureToFolder(profilePicture, CONSTANT.PROFILE_PICTURE_PATH, messageDTO.getOtherUserId().toString(), false);
-                }
-                catch (Exception e){
-                    e.printStackTrace();
-                }
-
                 messageDTOList.add(messageDTO);
             }
 

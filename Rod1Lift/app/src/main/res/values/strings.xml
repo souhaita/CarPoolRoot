@@ -100,6 +100,8 @@
     <string name="floating_menu_driver_delete_trip">Delete Trip</string>
 
     <string name="floating_menu_passenger_reserve_seat">No. seats to reserve</string>
+    <string name="floating_menu_passenger_call">Call</string>
+    <string name="floating_menu_passenger_message">Message</string>
 
     <string name="async_check_account_validating_account">Validating your account</string>
     <string name="async_create_account_validating_account">Creating your account</string>
@@ -186,6 +188,8 @@
         <item>FIT</item>
     </string-array>
     <string name="title_activity_profile">ProfileActivity</string>
+    <string name="title_activity_chat">Message</string>
+    <string name="title_activity_chat_hint">Write Message</string>
 
     <string name="title_activity_passenger_view_driver_profile">Driver\'s Profile</string>
 

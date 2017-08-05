@@ -141,6 +141,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                 " account_id INTEGER NOT NULL, " +
                 " other_user_id INTEGER NOT NULL, " +
                 " from_user INTEGER NOT NULL, " +
+                " sender_fullname TEXT, " +
                 " message text); ";
         db.execSQL(qb);
     }

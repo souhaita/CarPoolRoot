@@ -195,6 +195,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             llCar = (LinearLayout) view.findViewById(R.id.llCar);
 
             fabPhoneNum = (FloatingActionButton) view.findViewById(R.id.fabPhoneNum);
+            fabPhoneNum.setVisibility(View.VISIBLE);
         }
     }
 

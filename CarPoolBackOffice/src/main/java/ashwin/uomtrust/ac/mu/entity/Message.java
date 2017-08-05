@@ -29,7 +29,6 @@ public class Message implements Serializable{
 	private String message;
 	
 	private Long otherUserId;
-	private boolean fromUser;
 	
 	public Long getMessageId() {
 		return messageId;
@@ -55,10 +54,4 @@ public class Message implements Serializable{
 	public void setOtherUserId(Long otherUserId) {
 		this.otherUserId = otherUserId;
 	}
-	public boolean isFromUser() {
-		return fromUser;
-	}
-	public void setFromUser(boolean fromUser) {
-		this.fromUser = fromUser;
-	}	
 }

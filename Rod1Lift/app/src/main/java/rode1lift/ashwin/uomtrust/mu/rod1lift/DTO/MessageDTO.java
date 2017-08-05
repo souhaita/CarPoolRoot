@@ -15,6 +15,7 @@ public class MessageDTO implements Serializable {
 
     private String message;
     private String sProfilePicture;
+    private String senderFullName;
 
     private boolean fromUser;
 
@@ -64,5 +65,13 @@ public class MessageDTO implements Serializable {
 
     public void setsProfilePicture(String sProfilePicture) {
         this.sProfilePicture = sProfilePicture;
+    }
+
+    public String getSenderFullName() {
+        return senderFullName;
+    }
+
+    public void setSenderFullName(String senderFullName) {
+        this.senderFullName = senderFullName;
     }
 }

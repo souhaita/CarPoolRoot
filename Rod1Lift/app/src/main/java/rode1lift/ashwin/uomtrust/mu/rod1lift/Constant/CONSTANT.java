@@ -13,6 +13,7 @@ public class CONSTANT {
     public static final String TRIP_PRICE = "PRICE";
     public static final String REQUEST_OBJECT = "REQUEST_OBJECT";
     public static final String REQUESTDTO = "REQUESTDTO";
+    public static final String SENDER_FULL_NAME = "SENDER_FULL_NAME";
 
     public static final String CREATE_TRIP_FROM = "FROM";
     public static final String SEARCH_TRIP_FROM = "FROM";

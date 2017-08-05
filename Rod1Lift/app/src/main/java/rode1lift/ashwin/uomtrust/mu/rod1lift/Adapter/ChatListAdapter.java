@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.ActivityChatDetails;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.MessageDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
@@ -42,14 +43,18 @@ public class ChatListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         ViewHolder viewHolder = (ViewHolder)holder;
         viewHolder.txtContent.setText(messageDTOList.get(position).getMessage());
-        viewHolder.txtFullName.setText(messageDTOList.get(position).getMessage());
-        byte [] imgProfile = Utils.getPictures(messageDTOList.get(position).getOtherUserId().toString(), CONSTANT.PROFILE_PICTURE_PATH,false);
+        viewHolder.txtFullName.setText(messageDTOList.get(position).getSenderFullName());
+        String fileName = messageDTOList.get(position).getOtherUserId().toString();
+        byte [] imgProfile = Utils.getPictures(null,fileName,false);
         viewHolder.imgProfile.setImageBitmap(Utils.convertBlobToBitmap(imgProfile));
 
         viewHolder.llMainContent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent intent = new Intent()
+                Intent intent = new Intent(context, ActivityChatDetails.class);
+                intent.putExtra(CONSTANT.OTHER_USER_ID, messageDTOList.get(position).getOtherUserId());
+                intent.putExtra(CONSTANT.SENDER_FULL_NAME, messageDTOList.get(position).getSenderFullName());
+                context.startActivity(intent);
             }
         });
     }

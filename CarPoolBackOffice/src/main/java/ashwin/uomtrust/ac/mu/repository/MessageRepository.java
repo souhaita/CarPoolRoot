@@ -14,7 +14,10 @@ import ashwin.uomtrust.ac.mu.entity.Message;
 @Repository
 public interface MessageRepository extends JpaRepository<Message, Long> {	
 	
-	@Query("select m from Message m join m.account a where a.accountId =:accountId or m.otherUserId =:accountId")
-	public List<Message> getMessageByAccountId(@Param("accountId") Long accountId);
+	@Query("select m from Message m join m.account a where a.accountId =:accountId")
+	public List<Message> getMessagesSentByUser(@Param("accountId") Long accountId);
+	
+	@Query("select m from Message m join m.account a where m.otherUserId =:accountId")
+	public List<Message> getMessagesReceived(@Param("accountId") Long accountId);
 	
 }
