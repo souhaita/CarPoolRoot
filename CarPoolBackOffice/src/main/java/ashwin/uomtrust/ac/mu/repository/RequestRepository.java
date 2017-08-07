@@ -39,11 +39,11 @@ public interface RequestRepository extends JpaRepository<Request, Long> {
 	@Query("select r from Request r where r.requestStatus =:requestStatus and r.placeFrom =:placeFrom and r.placeTo =:placeTo and r.eventDate =:eventDate")
 	public List<Request> getRequest(@Param("requestStatus") RequestStatus requestStatus, @Param("placeFrom") String placeFrom, @Param("placeTo") String placeTo, @Param("eventDate") Date eventDate);
 	
-	@Query("select r from Request r where r.requestStatus =:requestStatus and r.placeFrom like %:placeFrom% and DATE(r.eventDate) = DATE(:eventDate)")
-	public List<Request> getRequestFrom(@Param("requestStatus") RequestStatus requestStatus, @Param("placeFrom") String placeFrom, @Param("eventDate") Date eventDate);
+	@Query("select r from Request r where r.requestStatus =:requestStatus and r.placeFrom like %:placeFrom% and DATE(r.eventDate) = DATE(:eventDate) and r not in (:exactRequestList)")
+	public List<Request> getRequestFrom(@Param("requestStatus") RequestStatus requestStatus, @Param("placeFrom") String placeFrom, @Param("eventDate") Date eventDate, @Param("exactRequestList") List<Request> exactRequestList);
 		
-	@Query("select r from Request r where r.requestStatus =:requestStatus and r.placeFrom like %:placeFrom% and r.placeTo like %:placeTo% and DATE(r.eventDate) = DATE(:eventDate)")
-	public List<Request> getRequestTo(@Param("requestStatus") RequestStatus requestStatus, @Param("placeFrom") String placeFrom, @Param("placeTo") String placeTo, @Param("eventDate") Date eventDate);
+	@Query("select r from Request r where r.requestStatus =:requestStatus and r.placeFrom like %:placeFrom% and r.placeTo like %:placeTo% and DATE(r.eventDate) = DATE(:eventDate) and r not in (:exactRequestList)")
+	public List<Request> getRequestTo(@Param("requestStatus") RequestStatus requestStatus, @Param("placeFrom") String placeFrom, @Param("placeTo") String placeTo, @Param("eventDate") Date eventDate, @Param("exactRequestList") List<Request> exactRequestList);
 	
 	
 	@Query("select r from Request r where r.requestStatus =:requestStatus and r.placeFrom like %:placeFrom% and r.placeTo like %:placeTo% and DATE(r.eventDate) = DATE(:eventDate) and r not in (:exactRequestList)")

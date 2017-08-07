@@ -311,24 +311,18 @@ public class RequestServiceImp implements RequestService{
 		List<Request> exactRequestList = new ArrayList<>();
 		exactRequestList = requestRepository.getRequest(RequestStatus.REQUEST_PENDING, r.getPlaceFrom(), r.getPlaceTo(), r.getEventDate());
 		
-		List<Request> tempExactList = new ArrayList<>();
+		List<Request> tempResultList = new ArrayList<>();
 		if(exactRequestList == null || exactRequestList.size() == 0){
 			r.setRequestId(-1L);
-			tempExactList.add(r);
+			tempResultList.add(r);
 		}
 		else{
-			tempExactList.addAll(exactRequestList);
+			tempResultList.addAll(exactRequestList);
 		}
 		
-		List<Request> apprxRequestList1 = requestRepository.getApprxRequest(RequestStatus.REQUEST_PENDING, r.getPlaceFrom(), r.getPlaceTo(), r.getEventDate(), tempExactList);
+		List<Request> apprxRequestList1 = requestRepository.getApprxRequest(RequestStatus.REQUEST_PENDING, r.getPlaceFrom(), r.getPlaceTo(), r.getEventDate(), tempResultList);
 		
-		
-		List<Request> tempApprxRequestList1= new ArrayList<>();
-		tempApprxRequestList1.addAll(tempExactList);
-		
-		if(tempApprxRequestList1 != null || tempApprxRequestList1.size() > 0){
-			tempApprxRequestList1.addAll(apprxRequestList1);
-		}
+		tempResultList.addAll(apprxRequestList1);
 		
 		String placeFrom = r.getPlaceFrom();
 		String placeTo = r.getPlaceTo();
@@ -336,18 +330,9 @@ public class RequestServiceImp implements RequestService{
 		String[] subFrom = placeFrom.split("[\\s\\W]"); //Matches any white-space character, Matches any nonword character.
 		String[] subTo = placeTo.split("[\\s\\W]");
 		
-		String from = null;		
-		String to = null;		
+		String from = "";		
+		String to = "";		
 		
-		/*from = subFrom[0];
-		if(subFrom.length >1)
-			from +="%"+subFrom[1]+"%";
-		
-		to = subTo[0];
-		if(subTo.length >1)
-			to +="%"+subTo[1]+"%";*/
-		
-		//TEST
 		for(int x = 0; x< subFrom.length; x++){
 			if(x != (subFrom.length - 1)){
 				from += subFrom[x].substring(0, 1)+"%";
@@ -365,9 +350,30 @@ public class RequestServiceImp implements RequestService{
 				to += subTo[x]; 
 			}
 		}
-		//END OF TEST
 		
-		List<Request> apprxRequestList2 = requestRepository.getApprxRequest(RequestStatus.REQUEST_PENDING, from, to, r.getEventDate(), tempApprxRequestList1);
+		List<Request> apprxRequestList2 = requestRepository.getApprxRequest(RequestStatus.REQUEST_PENDING, from, to, r.getEventDate(), tempResultList);
+		tempResultList.addAll(apprxRequestList2);
+		
+		List<Request> tmpFromList = requestRepository.getRequestFrom(RequestStatus.REQUEST_PENDING, from, r.getEventDate(), tempResultList);
+		List<Request> tmpToList = new ArrayList<>();
+		
+		for(Request request : tmpFromList){
+			
+			String[] fSubFrom = request.getPlaceTo().split("[\\s\\W]"); //Matches any white-space character, Matches any nonword character.
+			
+			String fFrom = fSubFrom[0];
+			if(fSubFrom.length >1)
+				fFrom +="%"+fSubFrom[1]+"%";
+			
+			tmpToList.addAll(requestRepository.getRequestTo(RequestStatus.REQUEST_PENDING, fFrom, to, r.getEventDate(), tempResultList));
+			tempResultList.add(request);
+		}
+		
+		List<Request> fList = new ArrayList<>();
+		if(tmpToList != null && tmpToList.size() >0){
+			fList.addAll(tmpFromList);
+			fList.addAll(tmpToList);
+		}
 		
 		List<ManageRequest> manageRequestList = manageRequestRepository.getPassengerManageRequest(requestDTO.getAccountId());
 				
@@ -376,8 +382,9 @@ public class RequestServiceImp implements RequestService{
 		List<Request> finalRequestList = new ArrayList<>();
 		finalRequestList.addAll(exactRequestList);
 		finalRequestList.addAll(apprxRequestList1);
-		finalRequestList.addAll(apprxRequestList2);
-		
+		finalRequestList.addAll(apprxRequestList2);		
+		finalRequestList.addAll(fList);
+
 		if(manageRequestList != null && manageRequestList.size() >0 && finalRequestList != null && finalRequestList.size()>0){
 			for(Request request : finalRequestList){
 				boolean found = false;
@@ -517,7 +524,7 @@ public class RequestServiceImp implements RequestService{
 				requestObjectList.add(requestObject);				
 			}	
 		}
-		else{
+		/*else{
 			List<Request> tmpFromList = requestRepository.getRequestFrom(RequestStatus.REQUEST_PENDING, from, r.getEventDate());
 			List<Request> tmpToList = new ArrayList<>();
 			for(Request request : tmpFromList){
@@ -603,7 +610,7 @@ public class RequestServiceImp implements RequestService{
 				requestObjectList.add(requestObject);				
 			}	
 
-		}
+		}*/
 		
 		return requestObjectList;
 	}

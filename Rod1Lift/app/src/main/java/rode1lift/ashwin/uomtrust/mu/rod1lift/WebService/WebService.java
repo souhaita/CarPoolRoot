@@ -8,8 +8,8 @@ public class WebService {
 
     //COMMON
 
-    private static final String SERVER_URL = "http://192.168.100.9:8080/api/";
-//    private static final String SERVER_URL = "http://192.168.20.59:8080/api/";
+    //private static final String SERVER_URL = "http://192.168.100.9:8080/api/";
+    private static final String SERVER_URL = "http://192.168.20.59:8080/api/";
     public static final String API_ACCOUNT = SERVER_URL + "account/";
     public static final String API_REQUEST = SERVER_URL + "request/";
     public static final String API_CREATE_ACCOUNT = API_ACCOUNT +"createAccount";
@@ -17,6 +17,7 @@ public class WebService {
     public static final String API_SEND_MESSAGE = API_ACCOUNT +"saveMessage";
     public static final String API_DOWNLOAD_MESSAGE = API_ACCOUNT +"downloadMessage";
     public static final String API_SAVE_DEVICE_TOKEN = API_ACCOUNT +"saveDeviceToken";
+    public static final String API_DELETE_DEVICE_TOKEN = API_ACCOUNT +"deleteDeviceToken";
 
 
     //CAR SEEKER

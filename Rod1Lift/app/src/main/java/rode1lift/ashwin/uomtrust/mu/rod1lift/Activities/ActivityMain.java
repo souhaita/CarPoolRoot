@@ -305,8 +305,8 @@ public class ActivityMain extends AppCompatActivity
             startActivity(intent);
         }
         else if (id == R.id.nav_logout) {
-            Intent intent = new Intent(ActivityMain.this, ActivityLogout.class);
-            startActivity(intent);
+
+            showLogoutPopup();
 
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
             drawer.closeDrawer(GravityCompat.START);
@@ -314,6 +314,28 @@ public class ActivityMain extends AppCompatActivity
 
         return true;
     }
+
+    private void showLogoutPopup(){
+        final AlertDialog.Builder builder = new AlertDialog.Builder(ActivityMain.this);
+        builder.setTitle(getString(R.string.activity_map_logout_title));
+        builder.setMessage(getString(R.string.activity_map_logout_message));
+        builder.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Intent intent = new Intent(ActivityMain.this, ActivityLogout.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        builder.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        builder.show();
+    }
+
 
     @Override
     protected void onResume(){

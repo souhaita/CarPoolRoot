@@ -43,6 +43,7 @@ public class ManageRequestDAO {
         }
 
         res.close();
+
         return manageRequestDTO;
     }
 

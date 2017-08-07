@@ -73,7 +73,7 @@
     <string name="activity_driver_view_user_details">Passenger Details</string>
 
     <string name="activity_map_logout_title">Logout</string>
-    <string name="activity_map_logout_message">Confirm logout?</string>
+    <string name="activity_map_logout_message">Are you sure you want to logout</string>
 
 
     <string name="activity_profile_name_hint">Full Name</string>

@@ -47,6 +47,12 @@ public class DeviceDAO {
         return deviceDTO;
     }
 
+    public void deleteDeviceByID(int deviceId) {
+        dbHelper.open();
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        db.delete(TABLE_NAME, "device_id=" + deviceId, null);
+    }
+
     public DeviceDTO checkToken(int accountId, String deviceToken) {
         final StringBuilder sql = new StringBuilder();
         sql.append(" SELECT * ");

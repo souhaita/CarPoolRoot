@@ -37,5 +37,11 @@ public class DeviceServiceImp implements DeviceService{
 		deviceDTO.setDeviceId(newDevice.getDeviceId());
 		
 		return deviceDTO;
+	}
+
+	@Override
+	public void delete(DeviceDTO deviceDTO) {
+		// TODO Auto-generated method stub
+		deviceRepository.delete(deviceDTO.getDeviceId());
 	}	
 }

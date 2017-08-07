@@ -35,12 +35,14 @@
             android:textStyle="bold"/>
     </LinearLayout>
 
-    <com.github.clans.fab.FloatingActionButton
-        android:src="@drawable/icon_call"
+    <com.github.clans.fab.FloatingActionMenu
         android:foregroundGravity="center"
         xmlns:fab="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/fabMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="8dp"
         fab:menu_fab_size="normal"
         fab:menu_showShadow="true"
         fab:menu_shadowColor="#66000000"
@@ -51,8 +53,27 @@
         fab:menu_icon="@drawable/fab_add"
         fab:menu_buttonSpacing="0dp"
         fab:menu_openDirection="up"
-        fab:fab_size="mini"
-        android:id="@+id/fabCall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"  />
+        fab:menu_backgroundColor="@android:color/transparent"
+        fab:menu_fab_show_animation="@animator/jump_from_down"
+        fab:menu_fab_hide_animation="@animator/jump_to_down">
+
+        <com.github.clans.fab.FloatingActionButton
+            android:foregroundGravity="center"
+            fab:fab_label="@string/floating_menu_passenger_call"
+            fab:fab_size="mini"
+            android:src="@drawable/icon_call"
+            android:id="@+id/fabCall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"  />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:foregroundGravity="center"
+            fab:fab_label="@string/floating_menu_passenger_message"
+            fab:fab_size="mini"
+            android:src="@drawable/icon_chat_sub"
+            android:id="@+id/fabMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"  />
+
+    </com.github.clans.fab.FloatingActionMenu>
 </FrameLayout>

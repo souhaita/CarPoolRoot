@@ -114,5 +114,12 @@ public class AccountController {
 		
 		return null;
 	}
-
+	
+	@CrossOrigin(origins = "http://localhost:8081")
+	@RequestMapping(value = "/deleteDeviceToken", method = RequestMethod.POST)
+	public void deleteDeviceToken(@RequestBody DeviceDTO deviceDTO) {
+		if(deviceDTO != null && deviceDTO.getDeviceId() !=null ){
+			deviceService.delete(deviceDTO);
+		}
+	}
 }

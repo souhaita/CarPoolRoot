@@ -16,9 +16,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 
 import java.util.List;
 
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.PickerActivitySendMessage;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.AccountDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
@@ -71,10 +74,13 @@ public class UserDetailsGridAdapter extends BaseAdapter {
         TextView txtFullName = (TextView) view.findViewById(R.id.txtFullName);
         txtFullName.setText(a.getFullName());
 
+        final FloatingActionMenu fabMenu = (FloatingActionMenu)view.findViewById(R.id.fabMenu);
+
         FloatingActionButton fabCall = (FloatingActionButton) view.findViewById(R.id.fabCall);
         fabCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                fabMenu.close(true);
                 if (a.getPhoneNum() != null) {
                     Intent callIntent = new Intent(Intent.ACTION_CALL);
                     callIntent.setData(Uri.parse("tel:"+a.getPhoneNum().toString()));
@@ -84,6 +90,16 @@ public class UserDetailsGridAdapter extends BaseAdapter {
                     }
                     context.startActivity(callIntent);
                 }
+            }
+        });
+
+        FloatingActionButton fabMessage = (FloatingActionButton) view.findViewById(R.id.fabMessage);
+        fabMessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, PickerActivitySendMessage.class);
+                intent.putExtra(CONSTANT.OTHER_USER_ID, a.getAccountId());
+                context.startActivity(intent);
             }
         });
 
