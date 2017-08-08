@@ -219,8 +219,8 @@
     <string name="activity_main_gps_permission_title">Location Permission Needed</string>
     <string name="activity_main_gps_permission_message">"This app needs the Location permission, please accept to use location functionality"</string>
 
-    <string name="activity_passenger_payment_paypal">PAYPAL</string>
-    <string name="activity_passenger_payment_other">CASH</string>
+    <string name="activity_passenger_payment_title">Please rate this trip</string>
+    <string name="activity_passenger_payment_hint">comment</string>
 
     <string name="error_no_connection">Please enable your internet connection and retry</string>
 

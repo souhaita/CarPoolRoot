@@ -21,10 +21,12 @@ import java.util.List;
 
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.ActivityPassengerViewDriverProfile;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncPassengerPayRequest;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncPassengerRateTrip;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.AccountDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.CarDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.ManageRequestDTO;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.TripRatingDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestObject;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.RequestStatus;
@@ -235,20 +237,19 @@ public class PassengerViewTripAdapter extends RecyclerView.Adapter<RecyclerView.
         menuDialog.setCanceledOnTouchOutside(true);
         menuDialog.setCancelable(true);
 
-        TextView txtPayPal = (TextView) menuDialog.findViewById(R.id.txtPayPal);
-        TextView txtCash = (TextView) menuDialog.findViewById(R.id.txtCash);
+        TextView txtDone = (TextView) menuDialog.findViewById(R.id.txtDone);
 
-        txtPayPal.setOnClickListener(new View.OnClickListener() {
+        txtDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                TripRatingDTO tripRatingDTO = new TripRatingDTO();
+                int userId = Utils.getCurrentAccount(context);
+                tripRatingDTO.setAccountId(userId);
+                tripRatingDTO.setRequestId(manageRequestDTO.getRequestId());
+                tripRatingDTO.setCarId(manageRequestDTO.getCarId());
 
+                new AsyncPassengerRateTrip().execute(tripRatingDTO);
 
-            }
-        });
-
-        txtCash.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
                 new AsyncPassengerPayRequest(menuDialog, context, passengerViewTripAdapter, requestObjectList).execute(manageRequestDTO);
             }
         });

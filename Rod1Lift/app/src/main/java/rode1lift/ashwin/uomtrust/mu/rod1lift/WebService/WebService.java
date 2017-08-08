@@ -28,6 +28,7 @@ public class WebService {
     public static final String API_PASSENGER_PAY_REQUEST = API_REQUEST +"passengerPayRequest";
     public static final String API_PASSENGER_GET_ACCEPTED_LIST = API_REQUEST +"passengerGetAcceptedRequest";
     public static final String API_PASSENGER_GET_HISTORY_LIST = API_REQUEST +"passengerGetHistoryList";
+    public static final String API_PASSENGER_RATE_TRIP = API_REQUEST +"passengerRateTrip";
 
 
     //CAR POOLER

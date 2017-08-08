@@ -51,5 +51,9 @@
         <item>@color/darkred</item>
     </integer-array>
 
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/colorAccent</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
+    </style>
 
 </resources>

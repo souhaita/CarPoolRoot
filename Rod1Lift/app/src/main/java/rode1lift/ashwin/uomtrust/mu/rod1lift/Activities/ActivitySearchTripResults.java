@@ -16,6 +16,7 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.RequestStatus;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.ConnectivityHelper;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 
 
@@ -59,7 +60,12 @@ public class ActivitySearchTripResults extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == CONSTANT.SEARCH_TRIP_ACTIVITY) {
-            new AsyncPassengerFetchRequest(ActivitySearchTripResults.this, rcTripResults).execute(requestDTO);
+            if(ConnectivityHelper.isConnected(ActivitySearchTripResults.this)) {
+                new AsyncPassengerFetchRequest(ActivitySearchTripResults.this, rcTripResults).execute(requestDTO);
+            }
+            else{
+                Utils.alertError(ActivitySearchTripResults.this, getString(R.string.error_no_connection));
+            }
         }
 
     }

@@ -1,0 +1,47 @@
+package ashwin.uomtrust.ac.mu.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import ashwin.uomtrust.ac.mu.dto.TripRatingDTO;
+import ashwin.uomtrust.ac.mu.entity.Account;
+import ashwin.uomtrust.ac.mu.entity.Car;
+import ashwin.uomtrust.ac.mu.entity.Rating;
+import ashwin.uomtrust.ac.mu.entity.Request;
+import ashwin.uomtrust.ac.mu.repository.AccountRepository;
+import ashwin.uomtrust.ac.mu.repository.CarRepository;
+import ashwin.uomtrust.ac.mu.repository.ManageRequestRepository;
+import ashwin.uomtrust.ac.mu.repository.TripRatingRepository;
+import ashwin.uomtrust.ac.mu.repository.RequestRepository;
+
+@Service
+public class RatingServiceImp implements RatingService{
+	
+	@Autowired
+	private RequestRepository requestRepository;
+	
+	@Autowired
+	private AccountRepository accountRepository;
+	
+	@Autowired
+	private TripRatingRepository tripRatingRepository;
+
+	@Override
+	public void save(TripRatingDTO tripRatingDTO) {
+		// TODO Auto-generated method stub
+		Account a ;
+		
+		if(tripRatingDTO.getCarId() != null)
+			a = accountRepository.findByAccountId(tripRatingDTO.getCarId());
+		else
+			a = accountRepository.findByAccountId(tripRatingDTO.getAccountId());
+
+		Request r = requestRepository.getRequestById(tripRatingDTO.getRequestId());
+		
+		Rating rating = new Rating();
+		rating.setRequest(r);
+		rating.setUserAccount(a);
+		
+		tripRatingRepository.save(rating);		
+	}
+}

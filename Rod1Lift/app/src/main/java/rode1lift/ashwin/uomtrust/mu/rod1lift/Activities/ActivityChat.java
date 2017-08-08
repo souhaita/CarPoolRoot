@@ -48,6 +48,18 @@ public class ActivityChat extends Activity {
 
         TextView txtDone = (TextView)findViewById(R.id.txtDone);
         txtDone.setVisibility(View.INVISIBLE);
+        
+       /* if(ConnectivityHelper.isConnected(ActivityChat.this)) {
+            new AsyncDownloadMessages(ActivityChat.this).execute();
+        }
+        else{
+            Utils.alertError(ActivityChat.this, getString(R.string.error_no_connection));
+        }*/
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
 
         if(ConnectivityHelper.isConnected(ActivityChat.this)) {
             new AsyncDownloadMessages(ActivityChat.this).execute();
@@ -55,14 +67,5 @@ public class ActivityChat extends Activity {
         else{
             Utils.alertError(ActivityChat.this, getString(R.string.error_no_connection));
         }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    protected void onPause(){
-        super.onPause();
     }
 }

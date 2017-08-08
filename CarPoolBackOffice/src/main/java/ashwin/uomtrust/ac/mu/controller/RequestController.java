@@ -10,13 +10,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import ashwin.uomtrust.ac.mu.dto.ManageRequestDTO;
+import ashwin.uomtrust.ac.mu.dto.TripRatingDTO;
 import ashwin.uomtrust.ac.mu.dto.RequestDTO;
 import ashwin.uomtrust.ac.mu.dto.RequestObject;
 import ashwin.uomtrust.ac.mu.entity.Account;
+import ashwin.uomtrust.ac.mu.repository.TripRatingRepository;
 import ashwin.uomtrust.ac.mu.service.AccountService;
 import ashwin.uomtrust.ac.mu.service.CarService;
 import ashwin.uomtrust.ac.mu.service.ManageRequestService;
 import ashwin.uomtrust.ac.mu.service.RequestService;
+import ashwin.uomtrust.ac.mu.service.TripRatingService;
 
 @RestController
 @RequestMapping("/api/request")
@@ -34,6 +37,8 @@ public class RequestController {
 	@Autowired
 	private ManageRequestService manageRequestService;
 	
+	@Autowired
+	private TripRatingService tripRatingService;
 	
 	@CrossOrigin(origins = "http://localhost:8081")
 	@RequestMapping(value = "/driverCreateUpdateRequest", method = RequestMethod.POST)
@@ -117,6 +122,12 @@ public class RequestController {
    	@RequestMapping(value = "/passengerPayRequest", method = RequestMethod.POST)
    	public boolean passengerPayRequest(@RequestBody ManageRequestDTO manageRequestDTO) {    	    	
     	return manageRequestService.passengerPayRequest(manageRequestDTO);
+   	}
+	
+	@CrossOrigin(origins = "http://localhost:8081")
+   	@RequestMapping(value = "/passengerRateTrip", method = RequestMethod.POST)
+   	public void passengerRateTrip(@RequestBody TripRatingDTO tripRatingDTO) {    	    	
+		tripRatingService.save(tripRatingDTO);
    	}
 	
 }
