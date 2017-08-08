@@ -134,7 +134,7 @@
             android:theme="@style/Theme.UserDialog"/>
 
         <activity
-            android:name=".Activities.ActivityDriverViewUserDetails"
+            android:name=".Activities.ActivityDriverTripDetails"
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity

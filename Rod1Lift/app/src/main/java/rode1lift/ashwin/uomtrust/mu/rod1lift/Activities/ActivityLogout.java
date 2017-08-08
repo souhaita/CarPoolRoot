@@ -12,6 +12,7 @@ import com.facebook.FacebookSdk;
 
 import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncDeleteDeviceToken;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.ConnectivityHelper;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 
 
@@ -25,6 +26,11 @@ public class ActivityLogout extends Activity {
         LinearLayout llMain = (LinearLayout)findViewById(R.id.llMain);
         Utils.animateLayout(llMain);
 
-        new AsyncDeleteDeviceToken(ActivityLogout.this).execute();
+        if(ConnectivityHelper.isConnected(ActivityLogout.this)) {
+            new AsyncDeleteDeviceToken(ActivityLogout.this).execute();
+        }
+        else{
+            Utils.alertError(ActivityLogout.this, getString(R.string.error_no_connection));
+        }
     }
 }

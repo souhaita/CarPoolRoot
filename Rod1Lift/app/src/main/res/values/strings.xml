@@ -70,7 +70,7 @@
 
     <string name="activity_driver_history_header">Past Trips</string>
 
-    <string name="activity_driver_view_user_details">Passenger Details</string>
+    <string name="activity_driver_view_user_details">Trip Details</string>
 
     <string name="activity_map_logout_title">Logout</string>
     <string name="activity_map_logout_message">Are you sure you want to logout</string>
@@ -221,5 +221,7 @@
 
     <string name="activity_passenger_payment_paypal">PAYPAL</string>
     <string name="activity_passenger_payment_other">CASH</string>
+
+    <string name="error_no_connection">Please enable your internet connection and retry</string>
 
 </resources>

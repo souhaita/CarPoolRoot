@@ -2,7 +2,6 @@ package rode1lift.ashwin.uomtrust.mu.rod1lift.Activities;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.app.Notification;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,7 +9,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
@@ -28,7 +26,6 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
@@ -125,7 +122,6 @@ public class ActivityMain extends AppCompatActivity
         setContentView(R.layout.activity_main);
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
         //FireBase
         mRegistrationBroadcastReceiver = new BroadcastReceiver() {
@@ -487,6 +483,9 @@ public class ActivityMain extends AppCompatActivity
         switch (requestCode) {
             case PERMISSION_GPS: {
                 // If request is cancelled, the result arrays are empty.
+
+                Utils.enableGPS(ActivityMain.this);
+
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 

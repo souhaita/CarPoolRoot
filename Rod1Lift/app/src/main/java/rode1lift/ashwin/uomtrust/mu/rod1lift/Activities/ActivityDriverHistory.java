@@ -14,6 +14,7 @@ import com.azoft.carousellayoutmanager.CenterScrollListener;
 
 import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncDriverFetchHistory;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.ConnectivityHelper;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 
 
@@ -48,7 +49,12 @@ public class ActivityDriverHistory extends Activity {
         recyclerView.addOnScrollListener(new CenterScrollListener());
         layoutManager.setPostLayoutListener(new CarouselZoomPostLayoutListener());
 
-        new AsyncDriverFetchHistory(ActivityDriverHistory.this, recyclerView).execute();
+        if(ConnectivityHelper.isConnected(ActivityDriverHistory.this)) {
+            new AsyncDriverFetchHistory(ActivityDriverHistory.this, recyclerView).execute();
+        }
+        else{
+            Utils.alertError(ActivityDriverHistory.this, getString(R.string.error_no_connection));
+        }
     }
 
     protected void onPause(){

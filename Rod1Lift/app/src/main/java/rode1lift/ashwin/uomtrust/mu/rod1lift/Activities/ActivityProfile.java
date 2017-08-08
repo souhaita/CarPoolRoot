@@ -27,6 +27,7 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.CarDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.AccountRole;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.ViewType;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.ConnectivityHelper;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 
 import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT.PROFILE_ACTIVITY_PROFILE_CAR_1;
@@ -83,111 +84,115 @@ public class ActivityProfile extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if(ConnectivityHelper.isConnected(ActivityProfile.this)) {
+            if ((requestCode == CONSTANT.PROFILE_ACTIVITY_NAME) && resultCode == RESULT_OK) {
 
-        if ((requestCode == CONSTANT.PROFILE_ACTIVITY_NAME) && resultCode == RESULT_OK) {
+                AccountDTO accountDTO = new AccountDAO(ActivityProfile.this).getAccountById(userId);
+                new AsyncUpdateAccount(ActivityProfile.this).execute(accountDTO);
 
-            AccountDTO accountDTO = new AccountDAO(ActivityProfile.this).getAccountById(userId);
-            new AsyncUpdateAccount(ActivityProfile.this).execute(accountDTO);
+                profileObjectList = new ArrayList<>();
+                prepareDataList();
 
-            profileObjectList = new ArrayList<>();
-            prepareDataList();
+                profileAdapter.setProfileObjectList(profileObjectList);
+                profileAdapter.notifyDataSetChanged();
+            }
 
-            profileAdapter.setProfileObjectList(profileObjectList);
-            profileAdapter.notifyDataSetChanged();
-        }
+            else if(requestCode == PROFILE_ACTIVITY_PROFILE_PIC && resultCode == RESULT_OK && data != null){
+                try {
+                    if (data.getData() != null) {
+                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
 
-        else if(requestCode == PROFILE_ACTIVITY_PROFILE_PIC && resultCode == RESULT_OK && data != null){
-            try {
-                if (data.getData() != null) {
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
+                        AccountDTO accountDTO = new AccountDAO(ActivityProfile.this).getAccountById(userId);
+                        accountDTO.setProfilePicture(Utils.convertBitmapToBlob(bitmap));
+                        new AccountDAO(ActivityProfile.this).saveOrUpdateAccount(accountDTO);
 
-                    AccountDTO accountDTO = new AccountDAO(ActivityProfile.this).getAccountById(userId);
-                    accountDTO.setProfilePicture(Utils.convertBitmapToBlob(bitmap));
-                    new AccountDAO(ActivityProfile.this).saveOrUpdateAccount(accountDTO);
+                        profileObjectList = new ArrayList<>();
+                        prepareDataList();
 
-                    profileObjectList = new ArrayList<>();
-                    prepareDataList();
+                        profileAdapter.setProfileObjectList(profileObjectList);
+                        profileAdapter.notifyDataSetChanged();
 
-                    profileAdapter.setProfileObjectList(profileObjectList);
-                    profileAdapter.notifyDataSetChanged();
-
-                    new AsyncUpdateAccount(ActivityProfile.this).execute(accountDTO);
+                        new AsyncUpdateAccount(ActivityProfile.this).execute(accountDTO);
+                    }
+                }
+                catch (Exception e){
+                    e.printStackTrace();
                 }
             }
-            catch (Exception e){
-                e.printStackTrace();
-            }
-        }
 
-        else if((requestCode == PROFILE_ACTIVITY_PROFILE_CAR_1
-                || requestCode == PROFILE_ACTIVITY_PROFILE_CAR_2
-                || requestCode == PROFILE_ACTIVITY_PROFILE_CAR_3
-                || requestCode == PROFILE_ACTIVITY_PROFILE_CAR_4 )
-                && resultCode == RESULT_OK && data != null){
-            try {
-                if (data.getData() != null) {
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
+            else if((requestCode == PROFILE_ACTIVITY_PROFILE_CAR_1
+                    || requestCode == PROFILE_ACTIVITY_PROFILE_CAR_2
+                    || requestCode == PROFILE_ACTIVITY_PROFILE_CAR_3
+                    || requestCode == PROFILE_ACTIVITY_PROFILE_CAR_4 )
+                    && resultCode == RESULT_OK && data != null){
+                try {
+                    if (data.getData() != null) {
+                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
 
-                    CarDTO carDTO = new CarDAO(ActivityProfile.this).getCarByAccountID(userId);
+                        CarDTO carDTO = new CarDAO(ActivityProfile.this).getCarByAccountID(userId);
 
-                    switch (requestCode){
-                        case PROFILE_ACTIVITY_PROFILE_CAR_1:
-                            carDTO.setPicture1(Utils.convertBitmapToBlob(bitmap));
-                            carDTO.setHasPic1(true);
-                            break;
+                        switch (requestCode){
+                            case PROFILE_ACTIVITY_PROFILE_CAR_1:
+                                carDTO.setPicture1(Utils.convertBitmapToBlob(bitmap));
+                                carDTO.setHasPic1(true);
+                                break;
 
-                        case PROFILE_ACTIVITY_PROFILE_CAR_2:
-                            carDTO.setPicture2(Utils.convertBitmapToBlob(bitmap));
-                            carDTO.setHasPic2(true);
-                            break;
+                            case PROFILE_ACTIVITY_PROFILE_CAR_2:
+                                carDTO.setPicture2(Utils.convertBitmapToBlob(bitmap));
+                                carDTO.setHasPic2(true);
+                                break;
 
-                        case PROFILE_ACTIVITY_PROFILE_CAR_3:
-                            carDTO.setPicture3(Utils.convertBitmapToBlob(bitmap));
-                            carDTO.setHasPic3(true);
-                            break;
+                            case PROFILE_ACTIVITY_PROFILE_CAR_3:
+                                carDTO.setPicture3(Utils.convertBitmapToBlob(bitmap));
+                                carDTO.setHasPic3(true);
+                                break;
 
-                        case PROFILE_ACTIVITY_PROFILE_CAR_4:
-                            carDTO.setPicture4(Utils.convertBitmapToBlob(bitmap));
-                            carDTO.setHasPic4(true);
-                            break;
+                            case PROFILE_ACTIVITY_PROFILE_CAR_4:
+                                carDTO.setPicture4(Utils.convertBitmapToBlob(bitmap));
+                                carDTO.setHasPic4(true);
+                                break;
+                        }
+
+                        new CarDAO(ActivityProfile.this).saveOrUpdateCar(carDTO);
+
+                        profileObjectList = new ArrayList<>();
+                        prepareDataList();
+
+                        profileAdapter.setProfileObjectList(profileObjectList);
+                        profileAdapter.notifyDataSetChanged();
+
+                        new AsyncDriverUpdateCar(ActivityProfile.this).execute(carDTO);
                     }
 
-                    new CarDAO(ActivityProfile.this).saveOrUpdateCar(carDTO);
-
-                    profileObjectList = new ArrayList<>();
-                    prepareDataList();
-
-                    profileAdapter.setProfileObjectList(profileObjectList);
-                    profileAdapter.notifyDataSetChanged();
-
-                    new AsyncDriverUpdateCar(ActivityProfile.this).execute(carDTO);
                 }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+
+            else if((requestCode == PROFILE_ACTIVITY_PROFILE_CAR_MAKE
+                    || requestCode == PROFILE_ACTIVITY_PROFILE_CAR_PASSENGER
+                    || requestCode == PROFILE_ACTIVITY_PROFILE_CAR_PLATE_NUM
+                    || requestCode == PROFILE_ACTIVITY_PROFILE_CAR_YEAR )
+                    && resultCode == RESULT_OK ){
+
+                profileObjectList = new ArrayList<>();
+                prepareDataList();
+
+                profileAdapter.setProfileObjectList(profileObjectList);
+                profileAdapter.notifyDataSetChanged();
+
+                CarDTO carDTO = new CarDAO(ActivityProfile.this).getCarByAccountID(userId);
+                new AsyncDriverUpdateCar(ActivityProfile.this).execute(carDTO);
 
             }
-            catch (Exception e){
-                e.printStackTrace();
+
+            if(requestCode == RESULT_OK){
+
             }
         }
-
-        else if((requestCode == PROFILE_ACTIVITY_PROFILE_CAR_MAKE
-                || requestCode == PROFILE_ACTIVITY_PROFILE_CAR_PASSENGER
-                || requestCode == PROFILE_ACTIVITY_PROFILE_CAR_PLATE_NUM
-                || requestCode == PROFILE_ACTIVITY_PROFILE_CAR_YEAR )
-                && resultCode == RESULT_OK ){
-
-            profileObjectList = new ArrayList<>();
-            prepareDataList();
-
-            profileAdapter.setProfileObjectList(profileObjectList);
-            profileAdapter.notifyDataSetChanged();
-
-            CarDTO carDTO = new CarDAO(ActivityProfile.this).getCarByAccountID(userId);
-            new AsyncDriverUpdateCar(ActivityProfile.this).execute(carDTO);
-
-        }
-
-        if(requestCode == RESULT_OK){
-
+        else{
+            Utils.alertError(ActivityProfile.this, getString(R.string.error_no_connection));
         }
     }
 

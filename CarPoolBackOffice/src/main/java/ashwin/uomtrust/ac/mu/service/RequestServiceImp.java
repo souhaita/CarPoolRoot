@@ -355,9 +355,10 @@ public class RequestServiceImp implements RequestService{
 		tempResultList.addAll(apprxRequestList2);
 		
 		List<Request> tmpFromList = requestRepository.getRequestFrom(RequestStatus.REQUEST_PENDING, from, r.getEventDate(), tempResultList);
-		List<Request> tmpToList = new ArrayList<>();
+		tempResultList.addAll(tmpFromList);
+		List<Request> tmpToList = requestRepository.getRequestTo(RequestStatus.REQUEST_PENDING, to, r.getEventDate(), tempResultList);
 		
-		for(Request request : tmpFromList){
+		/*for(Request request : tmpFromList){
 			
 			String[] fSubFrom = request.getPlaceTo().split("[\\s\\W]"); //Matches any white-space character, Matches any nonword character.
 			
@@ -367,13 +368,13 @@ public class RequestServiceImp implements RequestService{
 			
 			tmpToList.addAll(requestRepository.getRequestTo(RequestStatus.REQUEST_PENDING, fFrom, to, r.getEventDate(), tempResultList));
 			tempResultList.add(request);
-		}
+		}*/
 		
-		List<Request> fList = new ArrayList<>();
+		/*List<Request> fList = new ArrayList<>();
 		if(tmpToList != null && tmpToList.size() >0){
 			fList.addAll(tmpFromList);
 			fList.addAll(tmpToList);
-		}
+		}*/
 		
 		List<ManageRequest> manageRequestList = manageRequestRepository.getPassengerManageRequest(requestDTO.getAccountId());
 				
@@ -383,7 +384,9 @@ public class RequestServiceImp implements RequestService{
 		finalRequestList.addAll(exactRequestList);
 		finalRequestList.addAll(apprxRequestList1);
 		finalRequestList.addAll(apprxRequestList2);		
-		finalRequestList.addAll(fList);
+		finalRequestList.addAll(tmpFromList);
+		finalRequestList.addAll(tmpToList);
+
 
 		if(manageRequestList != null && manageRequestList.size() >0 && finalRequestList != null && finalRequestList.size()>0){
 			for(Request request : finalRequestList){

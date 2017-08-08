@@ -31,6 +31,7 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestObject;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.ViewType;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.ConnectivityHelper;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 
 public class ActivityPassengerViewDriverProfile extends Activity {
@@ -53,7 +54,7 @@ public class ActivityPassengerViewDriverProfile extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile_main);
+        setContentView(R.layout.activity_passenger_view_driver_profile_main);
 
         prepareDataList();
         profileAdapter = new PassengerViewDriverProfileAdapter(ActivityPassengerViewDriverProfile.this, profileObjectList);
@@ -99,13 +100,17 @@ public class ActivityPassengerViewDriverProfile extends Activity {
                 requestDTO.setSeatRequested(1);
 
                 if(account.getPhoneNum() != null && account.getPhoneNum() >0) {
-                    new AsyncPassengerAcceptRequest(ActivityPassengerViewDriverProfile.this, null, null).execute(requestDTO);
+                    if(ConnectivityHelper.isConnected(ActivityPassengerViewDriverProfile.this)) {
+                        new AsyncPassengerAcceptRequest(ActivityPassengerViewDriverProfile.this, null, null).execute(requestDTO);
+                    }
+                    else{
+                        Utils.alertError(ActivityPassengerViewDriverProfile.this, getString(R.string.error_no_connection));
+                    }
                 }
                 else{
                     Intent intent = new Intent(ActivityPassengerViewDriverProfile.this, PickerActivityPhoneNumber.class);
                     startActivityForResult(intent, CONSTANT.PROFILE_ACTIVITY_PHONE_NUMBER);
                 }
-
             }
         });
 
@@ -116,7 +121,12 @@ public class ActivityPassengerViewDriverProfile extends Activity {
                 requestDTO.setSeatRequested(2);
 
                 if(account.getPhoneNum() != null && account.getPhoneNum() >0) {
-                    new AsyncPassengerAcceptRequest(ActivityPassengerViewDriverProfile.this, null, null).execute(requestDTO);
+                    if(ConnectivityHelper.isConnected(ActivityPassengerViewDriverProfile.this)) {
+                        new AsyncPassengerAcceptRequest(ActivityPassengerViewDriverProfile.this, null, null).execute(requestDTO);
+                    }
+                    else{
+                        Utils.alertError(ActivityPassengerViewDriverProfile.this, getString(R.string.error_no_connection));
+                    }
                 }
                 else{
                     Intent intent = new Intent(ActivityPassengerViewDriverProfile.this, PickerActivityPhoneNumber.class);
@@ -132,7 +142,12 @@ public class ActivityPassengerViewDriverProfile extends Activity {
                 requestDTO.setSeatRequested(3);
 
                 if(account.getPhoneNum() != null && account.getPhoneNum() >0) {
-                    new AsyncPassengerAcceptRequest(ActivityPassengerViewDriverProfile.this, null, null).execute(requestDTO);
+                    if(ConnectivityHelper.isConnected(ActivityPassengerViewDriverProfile.this)) {
+                        new AsyncPassengerAcceptRequest(ActivityPassengerViewDriverProfile.this, null, null).execute(requestDTO);
+                    }
+                    else{
+                        Utils.alertError(ActivityPassengerViewDriverProfile.this, getString(R.string.error_no_connection));
+                    }
                 }
                 else{
                     Intent intent = new Intent(ActivityPassengerViewDriverProfile.this, PickerActivityPhoneNumber.class);
@@ -148,7 +163,12 @@ public class ActivityPassengerViewDriverProfile extends Activity {
                 requestDTO.setSeatRequested(4);
 
                 if(account.getPhoneNum() != null && account.getPhoneNum() >0) {
-                    new AsyncPassengerAcceptRequest(ActivityPassengerViewDriverProfile.this, null, null).execute(requestDTO);
+                    if(ConnectivityHelper.isConnected(ActivityPassengerViewDriverProfile.this)) {
+                        new AsyncPassengerAcceptRequest(ActivityPassengerViewDriverProfile.this, null, null).execute(requestDTO);
+                    }
+                    else{
+                        Utils.alertError(ActivityPassengerViewDriverProfile.this, getString(R.string.error_no_connection));
+                    }
                 }
                 else{
                     Intent intent = new Intent(ActivityPassengerViewDriverProfile.this, PickerActivityPhoneNumber.class);
@@ -164,7 +184,12 @@ public class ActivityPassengerViewDriverProfile extends Activity {
                 requestDTO.setSeatRequested(5);
 
                 if(account.getPhoneNum() != null && account.getPhoneNum() >0) {
-                    new AsyncPassengerAcceptRequest(ActivityPassengerViewDriverProfile.this, null, null).execute(requestDTO);
+                    if(ConnectivityHelper.isConnected(ActivityPassengerViewDriverProfile.this)) {
+                        new AsyncPassengerAcceptRequest(ActivityPassengerViewDriverProfile.this, null, null).execute(requestDTO);
+                    }
+                    else{
+                        Utils.alertError(ActivityPassengerViewDriverProfile.this, getString(R.string.error_no_connection));
+                    }
                 }
                 else{
                     Intent intent = new Intent(ActivityPassengerViewDriverProfile.this, PickerActivityPhoneNumber.class);
@@ -176,7 +201,12 @@ public class ActivityPassengerViewDriverProfile extends Activity {
         if(requestDTO.getSeatAvailable() != null)
             setAvailableSeatNum();
         else{
-            fabMenu.setVisibility(View.GONE);
+            fabSeat5.setVisibility(View.GONE);
+            fabSeat4.setVisibility(View.GONE);
+            fabSeat3.setVisibility(View.GONE);
+            fabSeat2.setVisibility(View.GONE);
+            fabSeat1.setVisibility(View.GONE);
+            //fabMenu.setVisibility(View.GONE);
         }
 
         FloatingActionButton fabCall = (FloatingActionButton)findViewById(R.id.fabCall);
@@ -204,9 +234,14 @@ public class ActivityPassengerViewDriverProfile extends Activity {
             public void onClick(View view) {
                 fabMenu.close(true);
 
-                Intent intent = new Intent(ActivityPassengerViewDriverProfile.this, PickerActivitySendMessage.class);
-                intent.putExtra(CONSTANT.OTHER_USER_ID, requestDTO.getAccountId());
-                startActivity(intent);
+                if(ConnectivityHelper.isConnected(ActivityPassengerViewDriverProfile.this)) {
+                    Intent intent = new Intent(ActivityPassengerViewDriverProfile.this, PickerActivitySendMessage.class);
+                    intent.putExtra(CONSTANT.OTHER_USER_ID, requestDTO.getAccountId());
+                    startActivity(intent);
+                }
+                else{
+                    Utils.alertError(ActivityPassengerViewDriverProfile.this, getString(R.string.error_no_connection));
+                }
             }
         });
 
@@ -216,7 +251,12 @@ public class ActivityPassengerViewDriverProfile extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == CONSTANT.PROFILE_ACTIVITY_PHONE_NUMBER) {
-            new AsyncPassengerAcceptRequest(ActivityPassengerViewDriverProfile.this, null, null).execute(requestDTO);
+            if(ConnectivityHelper.isConnected(ActivityPassengerViewDriverProfile.this)) {
+                new AsyncPassengerAcceptRequest(ActivityPassengerViewDriverProfile.this, null, null).execute(requestDTO);
+            }
+            else{
+                Utils.alertError(ActivityPassengerViewDriverProfile.this, getString(R.string.error_no_connection));
+            }
         }
     }
 

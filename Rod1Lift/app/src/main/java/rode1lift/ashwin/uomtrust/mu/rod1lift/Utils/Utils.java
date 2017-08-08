@@ -13,9 +13,11 @@ import android.graphics.Matrix;
 import android.graphics.drawable.AnimationDrawable;
 import android.location.Address;
 import android.location.Geocoder;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.os.Vibrator;
+import android.provider.Settings;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -201,14 +203,6 @@ public class Utils {
         floatingActionButton.startAnimation(animation);
     }
 
-
-
-    public static void turnGPSOn(Context context){
-        Intent intent=new Intent("android.location.GPS_ENABLED_CHANGE");
-        intent.putExtra("enabled", true);
-        context.sendBroadcast(intent);
-    }
-
     public static Bitmap setPhotoRotation(Bitmap originalBmp){
         Bitmap newBitmap = originalBmp;
         if (Build.MANUFACTURER.equalsIgnoreCase("samsung")
@@ -366,5 +360,17 @@ public class Utils {
         }
 
         return p1;
+    }
+
+    public static void enableGPS(Context context){
+        String provider = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+
+        if(!provider.contains("gps")){ //if gps is disabled
+            final Intent poke = new Intent();
+            poke.setClassName("com.android.settings", "com.android.settings.widget.SettingsAppWidgetProvider");
+            poke.addCategory(Intent.CATEGORY_ALTERNATIVE);
+            poke.setData(Uri.parse("3"));
+            context.sendBroadcast(poke);
+        }
     }
 }

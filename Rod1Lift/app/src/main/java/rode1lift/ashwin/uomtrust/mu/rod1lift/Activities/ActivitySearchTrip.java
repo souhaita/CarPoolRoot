@@ -34,6 +34,7 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.RequestStatus;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.ConnectivityHelper;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 
 
@@ -146,9 +147,14 @@ public class ActivitySearchTrip extends Activity {
             @Override
             public void onClick(View view) {
                 if(validForm()){
-                    Intent intent = new Intent(ActivitySearchTrip.this, ActivitySearchTripResults.class);
-                    intent.putExtra(CONSTANT.REQUESTDTO,requestDTO);
-                    startActivity(intent);
+                    if(ConnectivityHelper.isConnected(ActivitySearchTrip.this)) {
+                        Intent intent = new Intent(ActivitySearchTrip.this, ActivitySearchTripResults.class);
+                        intent.putExtra(CONSTANT.REQUESTDTO,requestDTO);
+                        startActivity(intent);
+                    }
+                    else{
+                        Utils.alertError(ActivitySearchTrip.this, getString(R.string.error_no_connection));
+                    }
                 }
             }
         });

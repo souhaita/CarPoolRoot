@@ -52,6 +52,7 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.CarDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.AccountRole;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.AccountStatus;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.ConnectivityHelper;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 
 import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT.GOOGLE_SIGN_IN;
@@ -89,45 +90,51 @@ public class ActivityLogin extends AppCompatActivity implements GoogleApiClient.
             llFb.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    LoginButton loginButton = (LoginButton) findViewById(R.id.btnFbLogin);
 
-                    loginButton.setReadPermissions(Arrays.asList("public_profile", "email"));
-                    loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-                        @Override
-                        public void onSuccess(LoginResult loginResult) {
-                            GraphRequest request = GraphRequest.newMeRequest(
-                                    loginResult.getAccessToken(),
-                                    new GraphRequest.GraphJSONObjectCallback() {
-                                        @Override
-                                        public void onCompleted(JSONObject object, GraphResponse response) {
+                    if(ConnectivityHelper.isConnected(ActivityLogin.this)) {
+                        LoginButton loginButton = (LoginButton) findViewById(R.id.btnFbLogin);
 
-                                            if (object != null) {
-                                                getFbData(object);
-                                                if(accountDTO == null || accountDTO.getAccountId() == null || accountDTO.getAccountId() <1)
-                                                    selectUserType();
-                                            } else {
-                                                Utils.disconnectFromFacebook();
+                        loginButton.setReadPermissions(Arrays.asList("public_profile", "email"));
+                        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+                            @Override
+                            public void onSuccess(LoginResult loginResult) {
+                                GraphRequest request = GraphRequest.newMeRequest(
+                                        loginResult.getAccessToken(),
+                                        new GraphRequest.GraphJSONObjectCallback() {
+                                            @Override
+                                            public void onCompleted(JSONObject object, GraphResponse response) {
+
+                                                if (object != null) {
+                                                    getFbData(object);
+                                                    if (accountDTO == null || accountDTO.getAccountId() == null || accountDTO.getAccountId() < 1)
+                                                        selectUserType();
+                                                } else {
+                                                    Utils.disconnectFromFacebook();
+                                                }
                                             }
-                                        }
-                                    });
-                            Bundle parameters = new Bundle();
-                            parameters.putString("fields", "id, picture.type(large), first_name, last_name, email,gender, birthday");
-                            request.setParameters(parameters);
-                            request.executeAsync();
-                        }
+                                        });
+                                Bundle parameters = new Bundle();
+                                parameters.putString("fields", "id, picture.type(large), first_name, last_name, email,gender, birthday");
+                                request.setParameters(parameters);
+                                request.executeAsync();
+                            }
 
-                        @Override
-                        public void onCancel() {
-                            Utils.disconnectFromFacebook();
-                        }
+                            @Override
+                            public void onCancel() {
+                                Utils.disconnectFromFacebook();
+                            }
 
-                        @Override
-                        public void onError(FacebookException error) {
-                            Utils.disconnectFromFacebook();
-                        }
-                    });
+                            @Override
+                            public void onError(FacebookException error) {
+                                Utils.disconnectFromFacebook();
+                            }
+                        });
 
-                    loginButton.performClick();
+                        loginButton.performClick();
+                    }
+                    else{
+                        Utils.alertError(ActivityLogin.this, getString(R.string.error_no_connection));
+                    }
                 }
             });
 
@@ -137,10 +144,17 @@ public class ActivityLogin extends AppCompatActivity implements GoogleApiClient.
             llGoogle.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    SignInButton btnSignIn = (SignInButton) findViewById(R.id.btnGoogleSignIn);
+                    if(ConnectivityHelper.isConnected(ActivityLogin.this)) {
 
-                    btnSignIn.performClick();
-                    googleLogin(mGoogleApiClient);
+                        SignInButton btnSignIn = (SignInButton) findViewById(R.id.btnGoogleSignIn);
+
+                        btnSignIn.performClick();
+                        googleLogin(mGoogleApiClient);
+                    }
+
+                    else{
+                        Utils.alertError(ActivityLogin.this, getString(R.string.error_no_connection));
+                    }
                 }
             });
         }

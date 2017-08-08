@@ -32,6 +32,7 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.MessageDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.MessageDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.ConnectivityHelper;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 
 
@@ -80,16 +81,22 @@ public class ActivityChatDetails extends Activity {
             public void onClick(View view) {
                 String message = eTxtMessage.getText().toString();
                 if(!TextUtils.isEmpty(message)){
-                    MessageDTO messageDTO = messageDTOList.get(0);
-                    messageDTO.setMessage(message);
-                    messageDTO.setFromUser(true);
-                    eTxtMessage.setText("");
-                    messageDTOList.add(messageDTO);
-                    chatDetailAdapter.setMessageDTOList(messageDTOList);
-                    chatDetailAdapter.notifyDataSetChanged();
-                    rvChatDetails.smoothScrollToPosition(messageDTOList.size()-1);
-                    new AsyncSendMessage(ActivityChatDetails.this).execute(messageDTO);
+                   if(ConnectivityHelper.isConnected(ActivityChatDetails.this)){
+                        MessageDTO messageDTO = messageDTOList.get(0);
+                        messageDTO.setMessage(message);
+                        messageDTO.setFromUser(true);
+                        eTxtMessage.setText("");
+                        messageDTOList.add(messageDTO);
+                        chatDetailAdapter.setMessageDTOList(messageDTOList);
+                        chatDetailAdapter.notifyDataSetChanged();
+                        rvChatDetails.smoothScrollToPosition(messageDTOList.size() - 1);
+                        new AsyncSendMessage(ActivityChatDetails.this).execute(messageDTO);
+                    }
+                    else{
+                        Utils.alertError(ActivityChatDetails.this, getString(R.string.error_no_connection));
+                    }
                 }
+
             }
         });
 

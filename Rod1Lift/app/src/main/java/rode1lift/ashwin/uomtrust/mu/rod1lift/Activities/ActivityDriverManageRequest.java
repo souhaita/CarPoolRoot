@@ -23,6 +23,7 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.CarDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.RequestStatus;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.ConnectivityHelper;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 
 
@@ -98,7 +99,13 @@ public class ActivityDriverManageRequest extends Activity {
                         requestDTO.setRequestStatus(RequestStatus.PASSENGER_ACCEPTED);
                         break;
                 }
-                new AsyncDriverFetchRequest(ActivityDriverManageRequest.this).execute(requestDTO);
+
+                if(ConnectivityHelper.isConnected(ActivityDriverManageRequest.this)) {
+                    new AsyncDriverFetchRequest(ActivityDriverManageRequest.this).execute(requestDTO);
+                }
+                else{
+                    Utils.alertError(ActivityDriverManageRequest.this, getString(R.string.error_no_connection));
+                }
             }
 
             @Override
@@ -113,7 +120,12 @@ public class ActivityDriverManageRequest extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == CONSTANT.MANAGE_TRIP_ACTIVITY_DRIVER_REQUEST_PENDING) {
-            new AsyncDriverFetchRequest(ActivityDriverManageRequest.this).execute(requestDTO);
+            if(ConnectivityHelper.isConnected(ActivityDriverManageRequest.this)) {
+                new AsyncDriverFetchRequest(ActivityDriverManageRequest.this).execute(requestDTO);
+            }
+            else{
+                Utils.alertError(ActivityDriverManageRequest.this, getString(R.string.error_no_connection));
+            }
         }
 
     }

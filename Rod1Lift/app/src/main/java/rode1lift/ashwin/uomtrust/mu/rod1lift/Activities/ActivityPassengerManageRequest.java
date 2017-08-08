@@ -20,6 +20,7 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncPassengerFetchReques
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.RequestStatus;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.ConnectivityHelper;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 
 
@@ -94,7 +95,12 @@ public class ActivityPassengerManageRequest extends Activity {
                         requestDTO.setRequestStatus(RequestStatus.PASSENGER_ACCEPTED);
                         break;
                 }
-                new AsyncPassengerFetchRequest(ActivityPassengerManageRequest.this, recyclerView).execute(requestDTO);
+                if(ConnectivityHelper.isConnected(ActivityPassengerManageRequest.this)) {
+                    new AsyncPassengerFetchRequest(ActivityPassengerManageRequest.this, recyclerView).execute(requestDTO);
+                }
+                else{
+                    Utils.alertError(ActivityPassengerManageRequest.this, getString(R.string.error_no_connection));
+                }
             }
 
             @Override
@@ -108,7 +114,12 @@ public class ActivityPassengerManageRequest extends Activity {
     public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        new AsyncPassengerFetchRequest(ActivityPassengerManageRequest.this, recyclerView).execute(requestDTO);
+        if(ConnectivityHelper.isConnected(ActivityPassengerManageRequest.this)) {
+            new AsyncPassengerFetchRequest(ActivityPassengerManageRequest.this, recyclerView).execute(requestDTO);
+        }
+        else{
+            Utils.alertError(ActivityPassengerManageRequest.this, getString(R.string.error_no_connection));
+        }
     }
 
     protected void onPause(){

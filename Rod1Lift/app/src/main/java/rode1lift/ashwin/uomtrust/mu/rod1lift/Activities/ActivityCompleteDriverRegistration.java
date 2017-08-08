@@ -36,6 +36,7 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.CarDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.AccountDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.CarDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.ConnectivityHelper;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 
 import static android.provider.MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE;
@@ -126,8 +127,13 @@ public class ActivityCompleteDriverRegistration extends Activity {
             @Override
             public void onClick(View view) {
                 if(validateForm()){
-                    AccountDTO accountDTO = new AccountDAO(ActivityCompleteDriverRegistration.this).getAccountById(-1);
-                    new AsyncCreateAccount(ActivityCompleteDriverRegistration.this).execute(accountDTO);
+                    if(ConnectivityHelper.isConnected(ActivityCompleteDriverRegistration.this)) {
+                        AccountDTO accountDTO = new AccountDAO(ActivityCompleteDriverRegistration.this).getAccountById(-1);
+                        new AsyncCreateAccount(ActivityCompleteDriverRegistration.this).execute(accountDTO);
+                    }
+                    else{
+                        Utils.alertError(ActivityCompleteDriverRegistration.this, getString(R.string.error_no_connection));
+                    }
                 }
             }
         });

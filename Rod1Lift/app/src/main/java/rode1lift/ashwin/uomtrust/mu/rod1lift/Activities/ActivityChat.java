@@ -24,12 +24,11 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncDownloadMessages;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.ConnectivityHelper;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 
 
 public class ActivityChat extends Activity {
-
-    private LinearLayout llMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,19 +49,20 @@ public class ActivityChat extends Activity {
         TextView txtDone = (TextView)findViewById(R.id.txtDone);
         txtDone.setVisibility(View.INVISIBLE);
 
-        new AsyncDownloadMessages(ActivityChat.this).execute();
+        if(ConnectivityHelper.isConnected(ActivityChat.this)) {
+            new AsyncDownloadMessages(ActivityChat.this).execute();
+        }
+        else{
+            Utils.alertError(ActivityChat.this, getString(R.string.error_no_connection));
+        }
     }
-
 
     @Override
     protected void onResume() {
         super.onResume();
-        llMain = (LinearLayout)findViewById(R.id.llMain);
-        Utils.animateLayout(llMain);
     }
 
     protected void onPause(){
         super.onPause();
-        llMain.setAnimation(null);
     }
 }

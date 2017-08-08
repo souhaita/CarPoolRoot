@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.ActivityCreateTrip;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Activities.ActivityDriverTripDetails;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncDriverDeleteRequest;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.ManageRequestDTO;
@@ -162,10 +163,16 @@ public class DriverRequestAdapterPending extends RecyclerView.Adapter {
         viewHolder.llRequestDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, ActivityCreateTrip.class);
+                Intent intent;
+
+                if(fullName == null || fullName.size() < 1)
+                    intent = new Intent(context, ActivityCreateTrip.class);
+                else
+                    intent = new Intent(context, ActivityDriverTripDetails.class);
+
                 RequestObject requestObject = requestObjectList.get(i);
                 intent.putExtra(CONSTANT.REQUEST_OBJECT, requestObject);
-                ((Activity)context).startActivityForResult(intent, CONSTANT.MANAGE_TRIP_ACTIVITY_DRIVER_REQUEST_PENDING);
+                ((Activity) context).startActivityForResult(intent, CONSTANT.MANAGE_TRIP_ACTIVITY_DRIVER_REQUEST_PENDING);
             }
         });
 

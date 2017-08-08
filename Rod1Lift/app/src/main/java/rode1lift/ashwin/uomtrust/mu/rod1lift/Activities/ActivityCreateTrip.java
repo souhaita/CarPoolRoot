@@ -51,6 +51,7 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestObject;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.RequestStatus;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.ConnectivityHelper;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 
 
@@ -215,11 +216,15 @@ public class ActivityCreateTrip extends Activity {
             @Override
             public void onClick(View view) {
                 if(validForm()){
-                    new AsyncDriverCreateOrUpdateRequest(ActivityCreateTrip.this, true).execute(requestDTO);
+                    if(ConnectivityHelper.isConnected(ActivityCreateTrip.this)) {
+                        new AsyncDriverCreateOrUpdateRequest(ActivityCreateTrip.this, true).execute(requestDTO);
+                    }
+                    else{
+                        Utils.alertError(ActivityCreateTrip.this, getString(R.string.error_no_connection));
+                    }
                 }
             }
         });
-
 
         if(requestObject != null && requestObject.getRequestDTO() != null && requestObject.getRequestDTO().getRequestId() != null){
 
@@ -260,7 +265,7 @@ public class ActivityCreateTrip extends Activity {
                 @Override
                 public void onClick(View view) {
                     fabMenu.close(true);
-                    Intent intent = new Intent(ActivityCreateTrip.this, ActivityDriverViewUserDetails.class);
+                    Intent intent = new Intent(ActivityCreateTrip.this, ActivityDriverTripDetails.class);
                     RequestObject requestObject = (RequestObject)getIntent().getSerializableExtra(CONSTANT.REQUEST_OBJECT);
                     List<ManageRequestDTO> manageRequestDTOList = requestObject.getManageRequestDTOList();
                     if(manageRequestDTOList != null && manageRequestDTOList.size() >0) {
@@ -322,7 +327,13 @@ public class ActivityCreateTrip extends Activity {
             public void onClick(DialogInterface dialog,int which) {
                 if(!newTrip){
                     Intent intent = getIntent();
-                    new AsyncDriverDeleteRequest(ActivityCreateTrip.this, intent).execute(requestDTO);
+                    if(ConnectivityHelper.isConnected(ActivityCreateTrip.this)) {
+                        new AsyncDriverDeleteRequest(ActivityCreateTrip.this, intent).execute(requestDTO);
+                    }
+                    else{
+                        Utils.alertError(ActivityCreateTrip.this, getString(R.string.error_no_connection));
+                    }
+
                     fabMenu.close(true);
                 }
                 else {

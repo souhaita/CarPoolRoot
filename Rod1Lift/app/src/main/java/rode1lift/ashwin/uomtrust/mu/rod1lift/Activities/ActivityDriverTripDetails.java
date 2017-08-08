@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Adapter.UserDetailsGridAdapter;
@@ -17,11 +18,12 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.AccountDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.ManageRequestDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestObject;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.RequestStatus;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 
 
-public class ActivityDriverViewUserDetails extends Activity {
+public class ActivityDriverTripDetails extends Activity {
 
     private LinearLayout llMainDriverViewUserDetails;
 
@@ -85,9 +87,19 @@ public class ActivityDriverViewUserDetails extends Activity {
 
         List<ManageRequestDTO> manageRequestDTOList = requestObject.getManageRequestDTOList();
 
+        List<AccountDTO> filteredAccountDTOList = new ArrayList<>();
+
         int count = 0;
         for(ManageRequestDTO m : manageRequestDTOList){
             count += m.getSeatRequested();
+
+            innerLoop:
+            for(AccountDTO a : accountDTOList){
+                if(a.getAccountId() == m.getAccountId() && m.getRequestStatus() == RequestStatus.DRIVER_ACCEPTED) {
+                    filteredAccountDTOList.add(a);
+                    break innerLoop;
+                }
+            }
         }
 
         int unitPrice = requestDTO.getPrice();
@@ -98,8 +110,8 @@ public class ActivityDriverViewUserDetails extends Activity {
 
         TextView txtPrice = (TextView)findViewById(R.id.txtPrice);
         txtPrice.setText("Rs"+totalSPrice+" ("+unitSPrice+"/p)");
-
-        UserDetailsGridAdapter adapter = new UserDetailsGridAdapter(ActivityDriverViewUserDetails.this,accountDTOList);
+        
+        UserDetailsGridAdapter adapter = new UserDetailsGridAdapter(ActivityDriverTripDetails.this,filteredAccountDTOList);
         GridView gridView = (GridView)findViewById(R.id.gvUserDetails);
         gridView.setAdapter(adapter);
     }

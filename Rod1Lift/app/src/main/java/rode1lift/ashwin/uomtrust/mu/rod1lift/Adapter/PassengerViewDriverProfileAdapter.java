@@ -43,7 +43,7 @@ public class PassengerViewDriverProfileAdapter extends RecyclerView.Adapter<Recy
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_profile_content, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_passenger_view_driver_profile_content, parent, false);
         return new AllViewHolder(view);
     }
 
@@ -66,28 +66,6 @@ public class PassengerViewDriverProfileAdapter extends RecyclerView.Adapter<Recy
 
             view.txtFullName.setText(fullName);
             view.imgViewProfile.setImageBitmap(Utils.convertBlobToBitmap(profileObjectList.get(position).getProfilePicture()));
-
-            /*view.fabPhoneNum.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    //not tested
-                    *//*Integer phoneNumber = profileObjectList.get(position).getOtherUserPhoneNumber();
-                    if (phoneNumber != null) {
-                        Intent callIntent = new Intent(Intent.ACTION_CALL);
-                        callIntent.setData(Uri.parse("tel:"+phoneNumber.toString()));
-                        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                            ActivityCompat.requestPermissions(((Activity)context), new String[]{Manifest.permission.CALL_PHONE}, 0);
-                            return;
-                        }
-                        context.startActivity(callIntent);
-                    }*//*
-
-                    Intent intent = new Intent(context, PickerActivitySendMessage.class);
-                    intent.putExtra(CONSTANT.OTHER_USER_ID, profileObjectList.get(position).getOtherUserId());
-                    context.startActivity(intent);
-                }
-            });*/
-
         }
         else if (viewType == ViewType.CARS_PICTURES){
             view.llProfile.setVisibility(View.GONE);
@@ -117,8 +95,6 @@ public class PassengerViewDriverProfileAdapter extends RecyclerView.Adapter<Recy
 
         public LinearLayout llProfile, llData, llCar;;
 
-        //public FloatingActionButton fabPhoneNum;
-
         public AllViewHolder(View view) {
             super(view);
 
@@ -133,9 +109,6 @@ public class PassengerViewDriverProfileAdapter extends RecyclerView.Adapter<Recy
             llProfile = (LinearLayout) view.findViewById(R.id.llProfile);
             llData = (LinearLayout) view.findViewById(R.id.llData);
             llCar = (LinearLayout) view.findViewById(R.id.llCar);
-
-            //fabPhoneNum = (FloatingActionButton) view.findViewById(R.id.fabPhoneNum);
-
         }
     }
 }

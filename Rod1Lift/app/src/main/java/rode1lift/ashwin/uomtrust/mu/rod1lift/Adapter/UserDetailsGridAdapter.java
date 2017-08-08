@@ -97,6 +97,7 @@ public class UserDetailsGridAdapter extends BaseAdapter {
         fabMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                fabMenu.close(true);
                 Intent intent = new Intent(context, PickerActivitySendMessage.class);
                 intent.putExtra(CONSTANT.OTHER_USER_ID, a.getAccountId());
                 context.startActivity(intent);
