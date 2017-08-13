@@ -11,8 +11,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -26,7 +28,7 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.AccountDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.CarDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.ManageRequestDTO;
-import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.TripRatingDTO;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RatingDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestObject;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.RequestStatus;
@@ -145,7 +147,7 @@ public class PassengerViewTripAdapter extends RecyclerView.Adapter<RecyclerView.
                 @Override
                 public void onClick(View view) {
                     ManageRequestDTO manageRequestDTO = requestObjectList.get(position).getManageRequestDTOList().get(0);
-                    showPaymentMenu(manageRequestDTO);
+                    showRating(manageRequestDTO);
                 }
             });
         }
@@ -230,7 +232,7 @@ public class PassengerViewTripAdapter extends RecyclerView.Adapter<RecyclerView.
         this.requestObjectList = requestObjectList;
     }
 
-    private void showPaymentMenu(final ManageRequestDTO manageRequestDTO) {
+    private void showRating(final ManageRequestDTO manageRequestDTO) {
         final Dialog menuDialog = new Dialog(context, R.style.WalkthroughTheme);
         menuDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         menuDialog.setContentView(R.layout.dilaogue_payment);
@@ -239,18 +241,32 @@ public class PassengerViewTripAdapter extends RecyclerView.Adapter<RecyclerView.
 
         TextView txtDone = (TextView) menuDialog.findViewById(R.id.txtDone);
 
+        final RatingBar rating = (RatingBar)menuDialog.findViewById(R.id.rating);
+
         txtDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TripRatingDTO tripRatingDTO = new TripRatingDTO();
-                int userId = Utils.getCurrentAccount(context);
-                tripRatingDTO.setAccountId(userId);
-                tripRatingDTO.setRequestId(manageRequestDTO.getRequestId());
-                tripRatingDTO.setCarId(manageRequestDTO.getCarId());
+                Float val = rating.getRating();
 
-                new AsyncPassengerRateTrip().execute(tripRatingDTO);
+                if(val != null && val >0.5) {
+                    RatingDTO tripRatingDTO = new RatingDTO();
+                    int userId = Utils.getCurrentAccount(context);
+                    tripRatingDTO.setRaterId(userId);
+                    tripRatingDTO.setRequestId(manageRequestDTO.getRequestId());
+                    tripRatingDTO.setCarId(manageRequestDTO.getCarId());
+                    tripRatingDTO.setRating(Double.valueOf(val.toString()));
 
-                new AsyncPassengerPayRequest(menuDialog, context, passengerViewTripAdapter, requestObjectList).execute(manageRequestDTO);
+                    EditText eTxtComment = (EditText)menuDialog.findViewById(R.id.eTxtComment);
+                    String comment = eTxtComment.getText().toString();
+
+                    tripRatingDTO.setComment(comment);
+
+                    new AsyncPassengerRateTrip().execute(tripRatingDTO);
+
+                    new AsyncPassengerPayRequest(menuDialog, context, passengerViewTripAdapter, requestObjectList).execute(manageRequestDTO);
+                }
+                else
+                    Utils.alertError(context, context.getString(R.string.error_rating));
             }
         });
 

@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.media.Rating;
 import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.github.clans.fab.FloatingActionButton;
@@ -66,6 +68,9 @@ public class PassengerViewDriverProfileAdapter extends RecyclerView.Adapter<Recy
 
             view.txtFullName.setText(fullName);
             view.imgViewProfile.setImageBitmap(Utils.convertBlobToBitmap(profileObjectList.get(position).getProfilePicture()));
+
+            Double val = profileObjectList.get(position).getRating();
+            view.rating.setRating(Float.valueOf(val.toString()));
         }
         else if (viewType == ViewType.CARS_PICTURES){
             view.llProfile.setVisibility(View.GONE);
@@ -93,7 +98,9 @@ public class PassengerViewDriverProfileAdapter extends RecyclerView.Adapter<Recy
         public TextView txtLabel, txtData, txtFullName;
         public ImageView imgViewProfile, imgViewCar ;
 
-        public LinearLayout llProfile, llData, llCar;;
+        public LinearLayout llProfile, llData, llCar;
+
+        public RatingBar rating;
 
         public AllViewHolder(View view) {
             super(view);
@@ -109,6 +116,8 @@ public class PassengerViewDriverProfileAdapter extends RecyclerView.Adapter<Recy
             llProfile = (LinearLayout) view.findViewById(R.id.llProfile);
             llData = (LinearLayout) view.findViewById(R.id.llData);
             llCar = (LinearLayout) view.findViewById(R.id.llCar);
+
+            rating = (RatingBar) view.findViewById(R.id.rating);
         }
     }
 }

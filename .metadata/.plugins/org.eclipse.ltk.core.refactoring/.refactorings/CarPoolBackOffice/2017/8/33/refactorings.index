@@ -1,0 +1,5 @@
+1502626908126	Rename type 'TripRating'
+1502626930669	Rename type 'TripRatingService'
+1502626942196	Rename type 'TripRatingServiceImp'
+1502627022432	Rename type 'TripRatingDTO'
+1502627060071	Rename type 'TripRatingRepository'

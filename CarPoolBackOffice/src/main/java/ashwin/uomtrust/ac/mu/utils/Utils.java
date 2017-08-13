@@ -5,6 +5,9 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 
 import javax.imageio.ImageIO;
 
@@ -19,12 +22,12 @@ import ashwin.uomtrust.ac.mu.dto.MessageDTO;
 public class Utils {	
 	
 	//Home
-	//private static final String carDirectory = "D:/UOM/Dissertation/rod1LiftImages/CarGalley/";
-	//private static final String profilePicDirectory = "D:/UOM/Dissertation/rod1LiftImages/ProfilePicGalley/";
+	private static final String carDirectory = "D:/UOM/Dissertation/rod1LiftImages/CarGalley/";
+	private static final String profilePicDirectory = "D:/UOM/Dissertation/rod1LiftImages/ProfilePicGalley/";
 	
 	//Office
-	private static final String carDirectory = "I:/UOM/D/rod1LiftImages/CarGalley/";
-	private static final String profilePicDirectory = "I:/UOM/D/rod1LiftImages/ProfilePicGalley/";
+	//private static final String carDirectory = "I:/UOM/D/rod1LiftImages/CarGalley/";
+	//private static final String profilePicDirectory = "I:/UOM/D/rod1LiftImages/ProfilePicGalley/";
 
 	
 	public static void saveProfilePictureToServer(AccountDTO accountDTO){
@@ -245,4 +248,10 @@ public class Utils {
 		return profilePicDirectory+String.valueOf(userId)+".jpg";
 	}
 
+	public static Double roundTo1DP(Double val){
+		DecimalFormat df2 = new DecimalFormat("#.#");
+        String valDf2 = df2.format(val);
+        valDf2 = valDf2.replace(",", ".");
+        return Double.valueOf(valDf2);
+	}
 }

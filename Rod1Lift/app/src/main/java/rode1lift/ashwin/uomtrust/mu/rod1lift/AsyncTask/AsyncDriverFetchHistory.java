@@ -138,6 +138,11 @@ public class AsyncDriverFetchHistory extends AsyncTask<Void, Void ,List<RequestO
                     account.setPhoneNum(jsonObjectAccount.getInt("phoneNum"));
                     account.setProfilePicture(Base64.decode(jsonObjectAccount.getString("sProfilePicture"), Base64.DEFAULT));
 
+                    if(jsonObjectAccount.has("rating") && !jsonObjectAccount.isNull("rating")) {
+                        account.setRating(jsonObjectAccount.getDouble("rating"));
+                        account.setRatingCount(jsonObjectAccount.getInt("ratingCount"));
+                    }
+
                     accountDTOList.add(account);
                 }
 

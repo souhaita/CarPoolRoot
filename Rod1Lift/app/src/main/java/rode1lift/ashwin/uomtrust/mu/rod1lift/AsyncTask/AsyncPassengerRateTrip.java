@@ -11,14 +11,14 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.TripRatingDTO;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RatingDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.WebService.WebService;
 
 /**
  * Created by Ashwin on 03-Jun-17.
  */
 
-public class AsyncPassengerRateTrip extends AsyncTask<TripRatingDTO, Void , Void> {
+public class AsyncPassengerRateTrip extends AsyncTask<RatingDTO, Void , Void> {
 
     public AsyncPassengerRateTrip() {
 
@@ -31,14 +31,16 @@ public class AsyncPassengerRateTrip extends AsyncTask<TripRatingDTO, Void , Void
 
 
     @Override
-    protected Void doInBackground(TripRatingDTO... params) {
+    protected Void doInBackground(RatingDTO... params) {
         JSONObject postData = new JSONObject();
-        TripRatingDTO tripRatingDTO = params[0];
+        RatingDTO tripRatingDTO = params[0];
 
         try{
-            postData.put("accountId", tripRatingDTO.getAccountId());
+            postData.put("raterId", tripRatingDTO.getRaterId());
             postData.put("carId", tripRatingDTO.getCarId());
             postData.put("requestId", tripRatingDTO.getRequestId());
+            postData.put("comment", tripRatingDTO.getComment());
+            postData.put("rating", tripRatingDTO.getRating());
 
             HttpURLConnection httpURLConnection = null;
             try {
@@ -88,6 +90,5 @@ public class AsyncPassengerRateTrip extends AsyncTask<TripRatingDTO, Void , Void
     @Override
     protected void onPostExecute(Void result){
         super.onPostExecute(result);
-
     }
 }

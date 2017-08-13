@@ -22,6 +22,7 @@ import ashwin.uomtrust.ac.mu.repository.AccountRepository;
 import ashwin.uomtrust.ac.mu.repository.CarRepository;
 import ashwin.uomtrust.ac.mu.repository.DeviceRepository;
 import ashwin.uomtrust.ac.mu.repository.ManageRequestRepository;
+import ashwin.uomtrust.ac.mu.repository.RatingRepository;
 import ashwin.uomtrust.ac.mu.repository.RequestRepository;
 import ashwin.uomtrust.ac.mu.utils.PushNotifictionHelper;
 import ashwin.uomtrust.ac.mu.utils.Utils;
@@ -44,6 +45,8 @@ public class RequestServiceImp implements RequestService{
 	@Autowired
 	private DeviceRepository deviceRepository;
 	
+	@Autowired
+	private RatingRepository ratingRepository;
 	
 	@Override
 	public RequestDTO save(RequestDTO requestDTO) {
@@ -189,6 +192,12 @@ public class RequestServiceImp implements RequestService{
 				accountDTO.setAccountId(a.getAccountId());				
 				accountDTO.setFullName(a.getFullName());
 				accountDTO.setPhoneNum(a.getPhoneNum());
+				
+				Double rating = ratingRepository.getRating(a.getAccountId());
+				Integer ratingCount = ratingRepository.getRatingCount(a.getAccountId());
+				accountDTO.setRatingCount(ratingCount);
+				accountDTO.setRating(Utils.roundTo1DP(rating));
+				
 				Utils.getImageProfile(accountDTO);
 				
 				accountDTOList.add(accountDTO);
@@ -280,6 +289,12 @@ public class RequestServiceImp implements RequestService{
 				accountDTO.setAccountId(a.getAccountId());				
 				accountDTO.setFullName(a.getFullName());
 				accountDTO.setPhoneNum(a.getPhoneNum());
+				
+				Double rating = ratingRepository.getRating(a.getAccountId());
+				Integer ratingCount = ratingRepository.getRatingCount(a.getAccountId());
+				accountDTO.setRatingCount(ratingCount);
+				accountDTO.setRating(Utils.roundTo1DP(rating));
+				
 				Utils.getImageProfile(accountDTO);
 				
 				accountDTOList.add(accountDTO);
@@ -436,6 +451,12 @@ public class RequestServiceImp implements RequestService{
 					accountDTO.setAccountId(a.getAccountId());				
 					accountDTO.setFullName(a.getFullName());
 					accountDTO.setPhoneNum(a.getPhoneNum());
+					
+					Double rating = ratingRepository.getRating(a.getAccountId());
+					Integer ratingCount = ratingRepository.getRatingCount(a.getAccountId());
+					accountDTO.setRatingCount(ratingCount);
+					accountDTO.setRating(Utils.roundTo1DP(rating));
+					
 					Utils.getImageProfile(accountDTO);
 					
 					accountDTOList.add(accountDTO);
@@ -502,6 +523,12 @@ public class RequestServiceImp implements RequestService{
 				accountDTO.setAccountId(a.getAccountId());				
 				accountDTO.setFullName(a.getFullName());
 				accountDTO.setPhoneNum(a.getPhoneNum());
+				
+				Double rating = ratingRepository.getRating(a.getAccountId());
+				Integer ratingCount = ratingRepository.getRatingCount(a.getAccountId());
+				accountDTO.setRatingCount(ratingCount);
+				accountDTO.setRating(Utils.roundTo1DP(rating));
+				
 				Utils.getImageProfile(accountDTO);
 				
 				accountDTOList.add(accountDTO);

@@ -1,0 +1,22 @@
+package ashwin.uomtrust.ac.mu.dto;
+
+import java.io.Serializable;
+
+/**
+ * Created by Ashwin on 05-Jun-17.
+ */
+
+public class RatingDTO implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    private Long ratingId;
+    private Long requestId;
+    private Long accountId;
+    private Long raterId;
+    private Long carId;
+    
+   private String comment;
+   
+   private Double rating;
+}

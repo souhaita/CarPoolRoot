@@ -142,6 +142,11 @@ public class AsyncPassengerFetchHistory extends AsyncTask<Void, Void ,List<Reque
                     accountDTO.setPhoneNum(jsonObjectAccount.getInt("phoneNum"));
                     accountDTO.setProfilePicture(Base64.decode(jsonObjectAccount.getString("sProfilePicture"), Base64.DEFAULT));
 
+                    if(jsonObjectAccount.has("rating") && !jsonObjectAccount.isNull("rating")) {
+                        accountDTO.setRating(jsonObjectAccount.getDouble("rating"));
+                        accountDTO.setRatingCount(jsonObjectAccount.getInt("ratingCount"));
+                    }
+
                     accountDTOList.add(accountDTO);
                 }
 

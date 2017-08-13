@@ -8,19 +8,26 @@
         android:orientation="vertical"
         android:id="@+id/llProfile"
         android:layout_width="match_parent"
-        android:layout_height="190dp">
+        android:layout_height="210dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_weight="0.6"
                 android:layout_gravity="center"
                 android:layout_marginTop="8dp"
                 android:id="@+id/imgViewProfile"
                 android:layout_width="130dp"
-                android:layout_height="130dp"
+                android:layout_height="0dp"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:src="@drawable/logo_background"
                 app:civ_border_width="1dp"
                 app:civ_border_color="@color/transparent_white_50" />
 
+        <!--<LinearLayout
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <TextView
                 android:textStyle="bold"
@@ -28,8 +35,35 @@
                 android:textSize="20dp"
                 android:textColor="@color/white"
                 android:id="@+id/txtFullName"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent" />
+
+            <RatingBar
+                android:id="@+id/rating"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+        </LinearLayout>-->
+
+        <TextView
+            android:layout_weight="0.15"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textSize="18dp"
+            android:textColor="@color/white"
+            android:id="@+id/txtFullName"
+            android:layout_width="match_parent"
+            android:layout_height="0dp" />
+
+        <RatingBar
+            android:layout_weight="0.25"
+            android:max="5"
+            android:isIndicator="true"
+            android:id="@+id/rating"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -64,7 +98,7 @@
     <LinearLayout
         android:id="@+id/llCar"
         android:layout_width="match_parent"
-        android:layout_height="200dp">
+        android:layout_height="210dp">
 
         <ImageView
             android:id="@+id/imgViewCar"

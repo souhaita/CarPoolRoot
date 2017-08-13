@@ -17,6 +17,7 @@ public class AccountDTO implements Serializable {
 
     private Integer accountId;
     private Integer phoneNum;
+    private Integer ratingCount;
 
     private String email;
     private String fullName;
@@ -32,6 +33,8 @@ public class AccountDTO implements Serializable {
     private Date dateUpdated;
 
     private byte [] profilePicture;
+
+    private Double rating;
 
     public Integer getAccountId() {
         return accountId;
@@ -135,5 +138,21 @@ public class AccountDTO implements Serializable {
 
     public void setGooglePhotoPath(String googlePhotoPath) {
         this.googlePhotoPath = googlePhotoPath;
+    }
+
+    public Double getRating() {
+        return rating;
+    }
+
+    public void setRating(Double rating) {
+        this.rating = rating;
+    }
+
+    public Integer getRatingCount() {
+        return ratingCount;
+    }
+
+    public void setRatingCount(Integer ratingCount) {
+        this.ratingCount = ratingCount;
     }
 }

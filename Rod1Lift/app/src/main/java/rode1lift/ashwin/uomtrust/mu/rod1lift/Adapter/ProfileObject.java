@@ -21,6 +21,8 @@ public class ProfileObject{
     private String data;
     private String label;
 
+    private Double rating;
+
     private Integer otherUserId;
     private Integer otherUserPhoneNumber;
 
@@ -30,6 +32,7 @@ public class ProfileObject{
         this.label = accountDTO.getFullName();
         this.otherUserId = accountDTO.getAccountId();
         this.otherUserPhoneNumber = accountDTO.getPhoneNum();
+        this.rating = accountDTO.getRating();
     }
 
     public ProfileObject(ViewType viewType, byte [] carsPictures){
@@ -97,5 +100,13 @@ public class ProfileObject{
 
     public void setOtherUserPhoneNumber(Integer otherUserPhoneNumber) {
         this.otherUserPhoneNumber = otherUserPhoneNumber;
+    }
+
+    public Double getRating() {
+        return rating;
+    }
+
+    public void setRating(Double rating) {
+        this.rating = rating;
     }
 }

@@ -224,4 +224,6 @@
 
     <string name="error_no_connection">Please enable your internet connection and retry</string>
 
+    <string name="error_rating">Rating can not be zero</string>
+
 </resources>

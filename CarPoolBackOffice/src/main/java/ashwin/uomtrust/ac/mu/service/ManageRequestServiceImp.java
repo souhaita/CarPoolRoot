@@ -24,6 +24,7 @@ import ashwin.uomtrust.ac.mu.repository.AccountRepository;
 import ashwin.uomtrust.ac.mu.repository.CarRepository;
 import ashwin.uomtrust.ac.mu.repository.DeviceRepository;
 import ashwin.uomtrust.ac.mu.repository.ManageRequestRepository;
+import ashwin.uomtrust.ac.mu.repository.RatingRepository;
 import ashwin.uomtrust.ac.mu.repository.RequestRepository;
 import ashwin.uomtrust.ac.mu.utils.PushNotifictionHelper;
 import ashwin.uomtrust.ac.mu.utils.Utils;
@@ -47,6 +48,9 @@ public class ManageRequestServiceImp implements ManageRequestService{
 	
 	@Autowired
 	private DeviceRepository deviceRepository;
+	
+	@Autowired
+	private RatingRepository ratingRepository;
 
 	@Override
 	public List<ManageRequest> getManageRequestByRequestId(Long requestId) {
@@ -100,6 +104,12 @@ public class ManageRequestServiceImp implements ManageRequestService{
 			accountDTO.setAccountId(a.getAccountId());				
 			accountDTO.setFullName(a.getFullName());
 			accountDTO.setPhoneNum(a.getPhoneNum());
+			
+			Double rating = ratingRepository.getRating(a.getAccountId());
+			Integer ratingCount = ratingRepository.getRatingCount(a.getAccountId());
+			accountDTO.setRatingCount(ratingCount);
+			accountDTO.setRating(Utils.roundTo1DP(rating));
+			
 			Utils.getImageProfile(accountDTO);
 			
 			List<AccountDTO> accountDTOList = new ArrayList<>();
@@ -306,6 +316,12 @@ public class ManageRequestServiceImp implements ManageRequestService{
 			accountDTO.setAccountId(a.getAccountId());				
 			accountDTO.setFullName(a.getFullName());
 			accountDTO.setPhoneNum(a.getPhoneNum());
+			
+			Double rating = ratingRepository.getRating(a.getAccountId());
+			Integer ratingCount = ratingRepository.getRatingCount(a.getAccountId());
+			accountDTO.setRatingCount(ratingCount);
+			accountDTO.setRating(Utils.roundTo1DP(rating));
+			
 			Utils.getImageProfile(accountDTO);
 			
 			List<AccountDTO> accountDTOList = new ArrayList<>();
@@ -401,6 +417,12 @@ public class ManageRequestServiceImp implements ManageRequestService{
 			accountDTO.setAccountId(a.getAccountId());				
 			accountDTO.setFullName(a.getFullName());
 			accountDTO.setPhoneNum(a.getPhoneNum());
+			
+			Double rating = ratingRepository.getRating(a.getAccountId());
+			Integer ratingCount = ratingRepository.getRatingCount(a.getAccountId());
+			accountDTO.setRatingCount(ratingCount);
+			accountDTO.setRating(Utils.roundTo1DP(rating));
+			
 			Utils.getImageProfile(accountDTO);
 			
 			List<AccountDTO> accountDTOList = new ArrayList<>();
@@ -500,6 +522,12 @@ public class ManageRequestServiceImp implements ManageRequestService{
 			accountDTO.setAccountId(a.getAccountId());				
 			accountDTO.setFullName(a.getFullName());
 			accountDTO.setPhoneNum(a.getPhoneNum());
+			
+			Double rating = ratingRepository.getRating(a.getAccountId());
+			Integer ratingCount = ratingRepository.getRatingCount(a.getAccountId());
+			accountDTO.setRatingCount(ratingCount);
+			accountDTO.setRating(Utils.roundTo1DP(rating));
+			
 			Utils.getImageProfile(accountDTO);
 			
 			List<AccountDTO> accountDTOList = new ArrayList<>();
