@@ -45,7 +45,6 @@
 <fullyQualifiedTypeName name="org.apache.hadoop.mapred.gethistory_jsp"/>
 <fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.dto.RequestDTO"/>
 <fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.entity.ManageRequest"/>
-<fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.repository.CarRepository"/>
 <fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.enums.RequestStatus"/>
 <fullyQualifiedTypeName name="java.util.Date"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
@@ -56,8 +55,9 @@
 <fullyQualifiedTypeName name="scala.deprecated"/>
 <fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.service.RatingService"/>
 <fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.entity.Request"/>
-<fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.repository.RatingRepository"/>
 <fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.repository.TripRatingRepository"/>
 <fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.dto.TripRatingDTO"/>
 <fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.service.TripRatingService"/>
+<fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.repository.CarRepository"/>
+<fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.repository.RatingRepository"/>
 </qualifiedTypeNameHistroy>
