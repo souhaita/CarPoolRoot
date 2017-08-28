@@ -40,11 +40,18 @@ public class AccountController {
 	private PasswordEncoder passwordEncoder;
 	
 	@CrossOrigin(origins = "http://localhost:8081")
-	@RequestMapping(value = "/createAdmin", method = RequestMethod.POST)
-	public Account createAdmin(@RequestBody Account account) {
-		if(account != null && account.getEmail() !=null )
-			return accountService.saveAccount(account);
-		return null;
+	@RequestMapping(value = "/checkAdminAccount", method = RequestMethod.POST)
+	public boolean checkAdminAccount(@RequestBody Account account) {
+		if(account != null && account.getEmail() !=null ){
+			AccountDTO a = accountService.findByEmail(account.getEmail());
+			
+			if(a != null && a.getAccountId() != null ){
+				return a.getPassword().equals(account.getPassword());				
+			}
+			
+			return false;
+		}
+		return false;
 		
 	}
 	

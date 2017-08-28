@@ -22,6 +22,8 @@ public class AccountDTO implements Serializable {
     private String facebookId;
     private String sProfilePicture;
     private String googleId;
+    private String password;
+
 
     private AccountRole accountRole;
     private AccountStatus accountStatus;
@@ -147,5 +149,13 @@ public class AccountDTO implements Serializable {
 
 	public void setRatingCount(Integer ratingCount) {
 		this.ratingCount = ratingCount;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}	
 }

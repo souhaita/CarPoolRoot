@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="shashi.uomtrust.ac.mu.dao.AccountDAO"/>
 <fullyQualifiedTypeName name="org.springframework.http.client.ClientHttpResponse"/>
 <fullyQualifiedTypeName name="javax.persistence.Temporal"/>
 <fullyQualifiedTypeName name="shashi.uomtrust.ac.mu.repository.ClientRepository"/>
@@ -27,7 +26,6 @@
 <fullyQualifiedTypeName name="javax.persistence.Id"/>
 <fullyQualifiedTypeName name="javax.persistence.Entity"/>
 <fullyQualifiedTypeName name="java.io.Serializable"/>
-<fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.enums.AccountRole"/>
 <fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.service.CarService"/>
 <fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.dto.CarDTO"/>
 <fullyQualifiedTypeName name="scala.reflect.macros.internal.macroImpl"/>
@@ -60,4 +58,6 @@
 <fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.service.TripRatingService"/>
 <fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.repository.CarRepository"/>
 <fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.repository.RatingRepository"/>
+<fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.repository.AccountRepository"/>
+<fullyQualifiedTypeName name="ashwin.uomtrust.ac.mu.enums.AccountRole"/>
 </qualifiedTypeNameHistroy>

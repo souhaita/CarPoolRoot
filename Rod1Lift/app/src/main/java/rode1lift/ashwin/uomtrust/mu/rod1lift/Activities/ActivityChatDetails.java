@@ -139,7 +139,7 @@ public class ActivityChatDetails extends Activity {
         super.onResume();
 
         LinearLayout llMain = (LinearLayout)findViewById(R.id.llMain);
-        Utils.animateLayout(llMain);
+        //Utils.animateLayout(llMain);
 
         // register new push message receiver
         // by doing this, the activity will be notified each time a new message arrives

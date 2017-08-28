@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import ashwin.uomtrust.ac.mu.dto.AccountDTO;
 import ashwin.uomtrust.ac.mu.entity.Account;
+import ashwin.uomtrust.ac.mu.enums.AccountRole;
 import ashwin.uomtrust.ac.mu.repository.AccountRepository;
 import ashwin.uomtrust.ac.mu.utils.Utils;
 import scala.annotation.meta.setter;
@@ -54,6 +55,9 @@ public class AccountServiceImp implements AccountService{
 			if(account.getPhoneNum() != null)
 				accountDTO.setPhoneNum(account.getPhoneNum());
 			
+			if(account.getPassword() != null)
+				accountDTO.setPassword(account.getPassword());
+						
 			Utils.getImageProfile(accountDTO);
 		}
 		

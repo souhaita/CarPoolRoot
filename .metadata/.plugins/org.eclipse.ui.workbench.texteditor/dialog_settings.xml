@@ -2,12 +2,13 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="passengerGetNewList" key="selection"/>
+		<item value="saveMessage" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="saveMessage"/>
 			<item value="passengerGetNewList"/>
 			<item value="ratingRepository"/>
 			<item value="downloadMessage"/>
@@ -15,7 +16,6 @@
 			<item value="driverAcceptClientRequest"/>
 			<item value="passengerAcceptRequest"/>
 			<item value="eventDate"/>
-			<item value="driverGetUserAcceptedRequestList"/>
 		</list>
 		<list key="replacehistory">
 		</list>

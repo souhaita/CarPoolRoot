@@ -1,8 +1,0 @@
-package ashwin.uomtrust.ac.mu.service;
-
-import ashwin.uomtrust.ac.mu.dto.TripRatingDTO;
-
-public interface RatingService {
-
-	public void save(TripRatingDTO tripRatingDTO);
-}

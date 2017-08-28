@@ -1,4 +1,4 @@
-var url = "http://localhost:8081/api/account/createAdmin"
+var checkAdminAccount = main_url+"account/checkAdminAccount";
 
 document.getElementById('toggleProfile').addEventListener('click', function () {
   [].map.call(document.querySelectorAll('.profile'), function(el) {
@@ -8,19 +8,20 @@ document.getElementById('toggleProfile').addEventListener('click', function () {
 
 
 var app = angular.module("ngApp", []);
-app.controller("ngCtrl", function($scope,$http) {
-    $scope.submit = function () {
+app.controller("ngCtrl", function($scope,$http,$window) {
+    $scope.login = function () {
         console.log("You clicked submit!");
         
-        $http.post(url, $scope.account).success(function (response) {
-			if (response != "") {
-				console.log(response);
+        $http.post(checkAdminAccount, angular.toJson($scope.account)).success(function (response) {
+        	console.log("response");
+        	
+        	if (response == true) {
+				$window.location.href = '/HTML/mainpage.html';
 	 		}
 			else{
-				console.log("Else "+response);
+				alert("Wrong username or password");
 			}
 		});
-        
         
     }
 });

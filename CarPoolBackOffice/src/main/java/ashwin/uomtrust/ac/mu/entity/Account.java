@@ -41,6 +41,8 @@ public class Account {
 	private Date dateCreated;
 	private Date dateUpdated;
 	
+	@Column(length = 100, nullable = true)
+	private String password;
 	
 	public Account() {
 	}
@@ -133,5 +135,13 @@ public class Account {
 
 	public void setGoogleId(String googleId) {
 		this.googleId = googleId;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 }
