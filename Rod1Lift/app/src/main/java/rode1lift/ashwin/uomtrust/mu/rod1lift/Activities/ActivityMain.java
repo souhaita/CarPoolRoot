@@ -752,8 +752,10 @@ public class ActivityMain extends AppCompatActivity
         String sensor = "sensor=false";
         String mode = "mode=driving";
 
+        String googleMapDirectionKey = getResources().getString(R.string.google_direction_api_key);
+
         // Building the parameters to the web service
-        String parameters = str_origin + "&" + str_dest + "&" + sensor + "&" + mode;
+        String parameters = str_origin + "&" + str_dest + "&" + sensor + "&" + mode +"&key="+googleMapDirectionKey;
 
         // Output format
         String output = "json";
@@ -904,6 +906,10 @@ public class ActivityMain extends AppCompatActivity
             JSONArray jRoutes;
             JSONArray jLegs;
             JSONArray jSteps;
+            JSONObject durationObject;
+            String sDuration;
+
+            Long duration = 0L;
 
             try {
 
@@ -913,6 +919,14 @@ public class ActivityMain extends AppCompatActivity
                 for(int i=0;i<jRoutes.length();i++){
                     jLegs = ( (JSONObject)jRoutes.get(i)).getJSONArray("legs");
                     List path = new ArrayList<>();
+
+                    durationObject = jLegs.getJSONObject(0);
+                    sDuration = durationObject.getJSONObject("duration").getString("text");
+                    String number = sDuration.replaceAll("[\\D]", "");
+
+                    duration = duration+Long.parseLong(number);
+                    Log.e("Duration", duration.toString());
+
 
                     /** Traversing all legs */
                     for(int j=0;j<jLegs.length();j++){

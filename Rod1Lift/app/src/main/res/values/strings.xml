@@ -138,6 +138,7 @@
     <string name="fb_app_id">708685515985549</string>
     <string name="google_map_api_key">AIzaSyDX9G9kVR8wnf80jbOsHREvlaWozfxZZBM</string>
     <string name="google_places_api_key">AIzaSyDI1_vp2tlrAvOu3tJwVs4IelR501YebRw</string>
+    <string name="google_direction_api_key">AIzaSyCitgeLu1T3dKGdGeChux5CaqpWHltwECQ</string>
     <string name="firebase_api_key">AIzaSyDGvGxPJAR2Hw1FQO_0kj8-7yNg2qJQKBQ</string>
 
     <string name="error_server">An error has occured please try again later</string>
