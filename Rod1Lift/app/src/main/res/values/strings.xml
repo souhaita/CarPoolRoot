@@ -31,7 +31,7 @@
     <string name="activity_complete_driver_registration_car_details_error">Car Make can not be empty</string>
     <string name="activity_complete_driver_registration_year_error">Year can not be empty</string>
     <string name="activity_complete_driver_registration_plate_num_error">Plate Number can not be empty</string>
-    <string name="activity_complete_driver_registration_number_of_passenger_error">Number Passenger can not be empty</string>
+    <string name="activity_complete_driver_registration_number_of_passenger_error">Number of Passenger can not be empty</string>
     <string name="activity_complete_driver_registration_image_error">At least one image must be added</string>
     <string name="activity_complete_driver_registration_plate_num_hint">Plate No.</string>
     <string name="activity_complete_driver_registration_delete_picture">Delete Picture</string>
@@ -44,8 +44,8 @@
     <string name="activity_create_trip_validation_contact_detail">Contact details can not be null</string>
     <string name="activity_create_trip_validation_contact_detail_length">Phone Num should be of lenght 7 - 8</string>
     <string name="activity_create_trip_validation_autocomplete_address_no_match">Please select address from autocomplete list</string>
-    <string name="activity_create_trip_validation_seat_available">Number of seatRequested can not be null</string>
-    <string name="activity_create_trip_validation_seat_available_length">Number of seatRequested should be of between 1</string>
+    <string name="activity_create_trip_validation_seat_available">Number of seat requested can not be null</string>
+    <string name="activity_create_trip_validation_seat_available_length">Number of seat requested should be between 1</string>
     <string name="activity_create_trip_select_date">Select Date</string>
     <string name="activity_create_trip_select_time">Select Time</string>
     <string name="activity_create_trip_confirm_delete">Confirm Delete...</string>

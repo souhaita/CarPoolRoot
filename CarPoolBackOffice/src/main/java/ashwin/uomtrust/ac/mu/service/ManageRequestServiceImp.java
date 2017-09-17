@@ -249,7 +249,7 @@ public class ManageRequestServiceImp implements ManageRequestService{
 		
 		for(Device device :deviceList){
 			String title = "Trip: "+r.getPlaceFrom() +" to "+ r.getPlaceTo();
-			String message = account.getFullName()+" want a lift ";
+			String message = account.getFullName()+" wants a lift ";
 			PushNotifictionHelper.sendPushNotification(device.getDeviceToken(),title, message);
 		}
 		

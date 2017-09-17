@@ -9,8 +9,13 @@ public class WebService {
     //COMMON
 
     //private static final String SERVER_URL = "http://192.168.100.8:8080/api/";
+<<<<<<< Updated upstream
+    //private static final String SERVER_URL = "http://10.18.113.10:8080/api/";
+    private static final String SERVER_URL = "http://192.168.20.59:8080/api/";
+=======
     private static final String SERVER_URL = "http://10.18.225.184:8080/api/";
     //private static final String SERVER_URL = "http://192.168.20.59:8080/api/";
+>>>>>>> Stashed changes
     public static final String API_ACCOUNT = SERVER_URL + "account/";
     public static final String API_REQUEST = SERVER_URL + "request/";
     public static final String API_CREATE_ACCOUNT = API_ACCOUNT +"createAccount";
