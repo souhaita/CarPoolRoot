@@ -5,7 +5,18 @@
   <link rel="self" href="https://spring.io/blog.atom" />
   <id>http://spring.io/blog.atom</id>
   <icon>https://spring.io/favicon.ico</icon>
-  <updated>2017-09-15T18:10:37Z</updated>
+  <updated>2017-09-15T20:04:36Z</updated>
+  <entry>
+    <title>Spring Web Flow 2.4.6 released</title>
+    <link rel="alternate" href="https://spring.io/blog/2017/09/15/spring-web-flow-2-4-6-released" />
+    <category term="releases" label="Releases" />
+    <author>
+      <name>Rossen Stoyanchev</name>
+    </author>
+    <id>tag:spring.io,2017-09-15:3031</id>
+    <updated>2017-09-15T20:04:36Z</updated>
+    <content type="html">&lt;p&gt;Spring Web Flow 2.4.6 was released earlier today containing a &lt;a href="https://pivotal.io/security/cve-2017-8039"&gt;security fix&lt;/a&gt;. Applications that use explicit data bindings through the &lt;code&gt;&amp;lt;binder&amp;gt;&lt;/code&gt; element in flow definitions are not affected. Those that do rely on default bindings should upgrade as soon as possible. &lt;/p&gt;</content>
+  </entry>
   <entry>
     <title>Spring Session MongoDB 2.0.0.M3 released</title>
     <link rel="alternate" href="https://spring.io/blog/2017/09/15/spring-session-mongodb-2-0-0-m3-released" />
@@ -1585,50 +1596,5 @@ dependencies {&#xD;
     ...&#xD;
 }
 &lt;/code&gt;&lt;/pre&gt;</content>
-  </entry>
-  <entry>
-    <title>Spring Cloud Data Flow Tips &amp; Tricks: Interacting with the Shell</title>
-    <link rel="alternate" href="https://spring.io/blog/2017/08/29/spring-cloud-data-flow-tips-tricks-interacting-with-the-shell" />
-    <category term="engineering" label="Engineering" />
-    <author>
-      <name>Eric Bottard</name>
-    </author>
-    <id>tag:spring.io,2017-08-29:3009</id>
-    <updated>2017-08-29T09:44:35Z</updated>
-    <content type="html">&lt;div class="paragraph"&gt;
-&lt;p&gt;On behalf of the Data Flow team, I am pleased to introduce you to the first of a hopefully long series of posts highlighting features of Data Flow and related projects.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class="paragraph"&gt;
-&lt;p&gt;We&amp;#8217;ll start gently with a short video discussing the Data Flow shell and some of its features (some of them coming directly from the Spring Shell project) by yours truly.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class="paragraph"&gt;
-&lt;p&gt;&lt;strong&gt;Topics include:&lt;/strong&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class="ulist"&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;TAB completion&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Keyboard shortcuts&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Quotes handling in Spring Shell&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Quotes handling in Data Flow DSL&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/uyN8ttlTvUM" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
-&lt;div class="sect2"&gt;
-&lt;h3 id="strong-links-strong"&gt;&lt;a class="anchor" href="#strong-links-strong"&gt;&lt;/a&gt;&lt;strong&gt;Links&lt;/strong&gt;&lt;/h3&gt;
-&lt;div class="paragraph"&gt;
-&lt;p&gt;The reference documentation section mentioned in the video can be found &lt;a href="https://docs.spring.io/spring-cloud-dataflow/docs/1.3.0.M1/reference/htmlsingle/#shell-white-space"&gt;here&lt;/a&gt;, while reference on the general Data Flow DSL is &lt;a href="https://docs.spring.io/spring-cloud-dataflow/docs/1.3.0.M1/reference/htmlsingle/#spring-cloud-dataflow-stream-intro-dsl"&gt;here&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class="paragraph"&gt;
-&lt;p&gt;Stay tuned for more Data Flow related material in the upcoming weeks!&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;</content>
   </entry>
 </feed>

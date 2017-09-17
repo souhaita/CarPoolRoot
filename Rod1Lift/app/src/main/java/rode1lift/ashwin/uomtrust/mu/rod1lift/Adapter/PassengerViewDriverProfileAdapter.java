@@ -70,7 +70,8 @@ public class PassengerViewDriverProfileAdapter extends RecyclerView.Adapter<Recy
             view.imgViewProfile.setImageBitmap(Utils.convertBlobToBitmap(profileObjectList.get(position).getProfilePicture()));
 
             Double val = profileObjectList.get(position).getRating();
-            view.rating.setRating(Float.valueOf(val.toString()));
+            if(val != null)
+                view.rating.setRating(Float.valueOf(val.toString()));
         }
         else if (viewType == ViewType.CARS_PICTURES){
             view.llProfile.setVisibility(View.GONE);

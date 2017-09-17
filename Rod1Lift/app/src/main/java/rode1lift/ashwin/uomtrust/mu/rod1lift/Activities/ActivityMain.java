@@ -77,6 +77,7 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.MessageDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.AccountRole;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Firebase.FirebaseNotificationUtils;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.ConnectivityHelper;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 
 import static rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT.PERMISSION_GPS;
@@ -521,65 +522,69 @@ public class ActivityMain extends AppCompatActivity
             @Override
             public void onMapClick(LatLng latLng) {
 
-                if (markerPoints.size() > 1) {
-                    markerPoints.clear();
-                    mGoogleMap.clear();
+                if(ConnectivityHelper.isConnected(getApplicationContext())) {
 
-                    currentMarker();
-                }
+                    if (markerPoints.size() > 1) {
+                        markerPoints.clear();
+                        mGoogleMap.clear();
 
-                // Adding new item to the ArrayList
-                markerPoints.add(latLng);
+                        currentMarker();
+                    }
 
-                // Creating MarkerOptions
-                MarkerOptions options = new MarkerOptions();
+                    // Adding new item to the ArrayList
+                    markerPoints.add(latLng);
 
-                // Setting the position of the marker
-                options.position(latLng);
+                    // Creating MarkerOptions
+                    MarkerOptions options = new MarkerOptions();
 
-                String touchedLocation = getAddressFromLocation(latLng);
-                if (markerPoints.size() == 1) {
-                    options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                    // Setting the position of the marker
+                    options.position(latLng);
 
-                    if(fromCurrentPosition) {
+                    String touchedLocation = getAddressFromLocation(latLng);
+                    if (markerPoints.size() == 1) {
+                        options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+
+                        if (fromCurrentPosition) {
+                            to = touchedLocation;
+                            from = currentLocation;
+                            options.title(getString(R.string.activity_map_marker_title_to)).snippet(touchedLocation);
+                        } else {
+                            from = touchedLocation;
+                            options.title(getString(R.string.activity_map_marker_title_from)).snippet(touchedLocation);
+                        }
+                        mGoogleMap.addMarker(options);
+                    } else if (markerPoints.size() == 2) {
                         to = touchedLocation;
-                        from = currentLocation;
+                        options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
                         options.title(getString(R.string.activity_map_marker_title_to)).snippet(touchedLocation);
+                        mGoogleMap.addMarker(options);
                     }
-                    else {
-                        from = touchedLocation;
-                        options.title(getString(R.string.activity_map_marker_title_from)).snippet(touchedLocation);
+                    // Checks, whether start and end locations are captured
+                    if (fromCurrentPosition || markerPoints.size() >= 2) {
+                        LatLng origin, dest;
+
+                        if (fromCurrentPosition) {
+                            origin = currentPositionMarker.getPosition();
+                            dest = (LatLng) markerPoints.get(0);
+                        } else {
+                            origin = (LatLng) markerPoints.get(0);
+                            dest = (LatLng) markerPoints.get(1);
+                        }
+
+                        // Getting URL to the Google Directions API
+                        String url = getUrl(origin, dest);
+                        FetchUrl FetchUrl = new FetchUrl();
+
+                        // Start downloading json data from Google Directions API
+                        FetchUrl.execute(url);
+                        //move map camera
+                        CameraPosition cameraPosition = new CameraPosition.Builder().target(origin).zoom(12).build();
+                        mGoogleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
                     }
-                    mGoogleMap.addMarker(options);
                 }
-                else if (markerPoints.size() == 2) {
-                    to = touchedLocation;
-                    options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-                    options.title(getString(R.string.activity_map_marker_title_to)).snippet(touchedLocation);
-                    mGoogleMap.addMarker(options);
-                }
-                // Checks, whether start and end locations are captured
-                if (fromCurrentPosition || markerPoints.size() >= 2) {
-                    LatLng origin, dest;
-
-                    if(fromCurrentPosition){
-                        origin = currentPositionMarker.getPosition();
-                        dest = (LatLng) markerPoints.get(0);
-                    }
-                    else{
-                        origin = (LatLng) markerPoints.get(0);
-                        dest = (LatLng) markerPoints.get(1);
-                    }
-
-                    // Getting URL to the Google Directions API
-                    String url = getUrl(origin, dest);
-                    FetchUrl FetchUrl = new FetchUrl();
-
-                    // Start downloading json data from Google Directions API
-                    FetchUrl.execute(url);
-                    //move map camera
-                    CameraPosition cameraPosition = new CameraPosition.Builder().target(origin).zoom(12).build();
-                    mGoogleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                else{
+                    String message = getString(R.string.error_no_connection);
+                    Utils.alertError(getApplicationContext(), message);
                 }
             }
         });
@@ -611,8 +616,16 @@ public class ActivityMain extends AppCompatActivity
         fabSearchTrip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fabMenu.close(true);
-                startActivity_passenger();
+                if(markerPoints.size() >0) {
+                    fabMenu.close(true);
+                    markerPoints.clear();
+                    mGoogleMap.clear();
+                    mGoogleMap.addMarker(currentPositionMarker);
+                    startActivity_passenger();
+                }
+                else{
+                    alertError();
+                }
             }
         });
 

@@ -106,9 +106,11 @@ public class ManageRequestServiceImp implements ManageRequestService{
 			accountDTO.setPhoneNum(a.getPhoneNum());
 			
 			Double rating = ratingRepository.getRating(a.getAccountId());
-			Integer ratingCount = ratingRepository.getRatingCount(a.getAccountId());
-			accountDTO.setRatingCount(ratingCount);
-			accountDTO.setRating(Utils.roundTo1DP(rating));
+			if(rating != null){
+				Integer ratingCount = ratingRepository.getRatingCount(a.getAccountId());
+				accountDTO.setRatingCount(ratingCount);
+				accountDTO.setRating(Utils.roundTo1DP(rating));
+			}
 			
 			Utils.getImageProfile(accountDTO);
 			
@@ -318,9 +320,11 @@ public class ManageRequestServiceImp implements ManageRequestService{
 			accountDTO.setPhoneNum(a.getPhoneNum());
 			
 			Double rating = ratingRepository.getRating(a.getAccountId());
-			Integer ratingCount = ratingRepository.getRatingCount(a.getAccountId());
-			accountDTO.setRatingCount(ratingCount);
-			accountDTO.setRating(Utils.roundTo1DP(rating));
+			if(rating != null){
+				Integer ratingCount = ratingRepository.getRatingCount(a.getAccountId());
+				accountDTO.setRatingCount(ratingCount);
+				accountDTO.setRating(Utils.roundTo1DP(rating));
+			}
 			
 			Utils.getImageProfile(accountDTO);
 			
@@ -419,9 +423,11 @@ public class ManageRequestServiceImp implements ManageRequestService{
 			accountDTO.setPhoneNum(a.getPhoneNum());
 			
 			Double rating = ratingRepository.getRating(a.getAccountId());
-			Integer ratingCount = ratingRepository.getRatingCount(a.getAccountId());
-			accountDTO.setRatingCount(ratingCount);
-			accountDTO.setRating(Utils.roundTo1DP(rating));
+			if(rating != null){
+				Integer ratingCount = ratingRepository.getRatingCount(a.getAccountId());
+				accountDTO.setRatingCount(ratingCount);
+				accountDTO.setRating(Utils.roundTo1DP(rating));
+			}
 			
 			Utils.getImageProfile(accountDTO);
 			
@@ -524,9 +530,11 @@ public class ManageRequestServiceImp implements ManageRequestService{
 			accountDTO.setPhoneNum(a.getPhoneNum());
 			
 			Double rating = ratingRepository.getRating(a.getAccountId());
-			Integer ratingCount = ratingRepository.getRatingCount(a.getAccountId());
-			accountDTO.setRatingCount(ratingCount);
-			accountDTO.setRating(Utils.roundTo1DP(rating));
+			if(rating != null){
+				Integer ratingCount = ratingRepository.getRatingCount(a.getAccountId());
+				accountDTO.setRatingCount(ratingCount);
+				accountDTO.setRating(Utils.roundTo1DP(rating));
+			}
 			
 			Utils.getImageProfile(accountDTO);
 			

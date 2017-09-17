@@ -19,7 +19,7 @@ import ashwin.uomtrust.ac.mu.enums.RequestStatus;
 @Repository
 public interface RequestRepository extends JpaRepository<Request, Long> {	
 	
-	@Query("select r from Request r join r.account a where r.account = a and a.accountId =:accountId and r.requestStatus in (:requestStatusList) order by r.eventDate asc")
+	@Query("select r from Request r join r.account a where r.account = a and a.accountId =:accountId and r.requestStatus in (:requestStatusList) and r.eventDate >= current_date order by r.eventDate asc")
 	public List<Request> getPendingRequestByUserId(@Param("accountId") Long accountId, @Param("requestStatusList") List<RequestStatus> requestStatusList);
 	
 	@Modifying
