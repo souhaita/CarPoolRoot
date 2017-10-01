@@ -71,6 +71,11 @@ public class RequestServiceImp implements RequestService{
 			request.setDateUpdated(calendar.getTime());	
 		}
 		
+		if(requestDTO.getTripDuration() != null){
+			calendar.setTimeInMillis(requestDTO.getTripDuration().getTime());
+			request.setTripDuration(calendar.getTime());
+		}
+		
 		calendar.setTimeInMillis(requestDTO.getEventDate().getTime());
 		request.setEventDate(calendar.getTime());
 		
@@ -147,6 +152,12 @@ public class RequestServiceImp implements RequestService{
 			newRequestDTO.setPrice(request.getPrice());
 			newRequestDTO.setSeatAvailable(request.getSeatAvailable());
 			
+			if(request.getTripDuration() != null){
+				calendar.setTimeInMillis(request.getTripDuration().getTime());
+				newRequestDTO.setTripDuration(calendar.getTime());
+			}
+			
+			
 			Car car = carRepository.getCarByAccountId(request.getAccount().getAccountId());
 			newRequestDTO.setCarId(car.getCarId());
 
@@ -194,9 +205,11 @@ public class RequestServiceImp implements RequestService{
 				accountDTO.setPhoneNum(a.getPhoneNum());
 				
 				Double rating = ratingRepository.getRating(a.getAccountId());
-				Integer ratingCount = ratingRepository.getRatingCount(a.getAccountId());
-				accountDTO.setRatingCount(ratingCount);
-				accountDTO.setRating(Utils.roundTo1DP(rating));
+				if(rating != null){
+					Integer ratingCount = ratingRepository.getRatingCount(a.getAccountId());
+					accountDTO.setRatingCount(ratingCount);
+					accountDTO.setRating(Utils.roundTo1DP(rating));
+				}
 				
 				Utils.getImageProfile(accountDTO);
 				
@@ -238,6 +251,12 @@ public class RequestServiceImp implements RequestService{
 			newRequestDTO.setRequestStatus(request.getRequestStatus());
 			newRequestDTO.setPrice(request.getPrice());
 			newRequestDTO.setSeatAvailable(request.getSeatAvailable());
+			
+			if(request.getTripDuration() != null){
+				calendar.setTimeInMillis(request.getTripDuration().getTime());
+				newRequestDTO.setTripDuration(calendar.getTime());
+			}
+			
 			
 			Car car = carRepository.getCarByAccountId(request.getAccount().getAccountId());
 			newRequestDTO.setCarId(car.getCarId());
@@ -291,9 +310,11 @@ public class RequestServiceImp implements RequestService{
 				accountDTO.setPhoneNum(a.getPhoneNum());
 				
 				Double rating = ratingRepository.getRating(a.getAccountId());
-				Integer ratingCount = ratingRepository.getRatingCount(a.getAccountId());
-				accountDTO.setRatingCount(ratingCount);
-				accountDTO.setRating(Utils.roundTo1DP(rating));
+				if(rating != null){
+					Integer ratingCount = ratingRepository.getRatingCount(a.getAccountId());
+					accountDTO.setRatingCount(ratingCount);
+					accountDTO.setRating(Utils.roundTo1DP(rating));
+				}
 				
 				Utils.getImageProfile(accountDTO);
 				
@@ -428,6 +449,12 @@ public class RequestServiceImp implements RequestService{
 					newRequestDTO.setPrice(request.getPrice());
 					newRequestDTO.setSeatAvailable(request.getSeatAvailable());
 					
+					if(request.getTripDuration() != null){
+						calendar.setTimeInMillis(request.getTripDuration().getTime());
+						newRequestDTO.setTripDuration(calendar.getTime());
+					}
+					
+					
 					Car car = carRepository.getCarByAccountId(request.getAccount().getAccountId());
 					newRequestDTO.setCarId(car.getCarId());
 	
@@ -453,9 +480,11 @@ public class RequestServiceImp implements RequestService{
 					accountDTO.setPhoneNum(a.getPhoneNum());
 					
 					Double rating = ratingRepository.getRating(a.getAccountId());
-					Integer ratingCount = ratingRepository.getRatingCount(a.getAccountId());
-					accountDTO.setRatingCount(ratingCount);
-					accountDTO.setRating(Utils.roundTo1DP(rating));
+					if(rating != null){
+						Integer ratingCount = ratingRepository.getRatingCount(a.getAccountId());
+						accountDTO.setRatingCount(ratingCount);
+						accountDTO.setRating(Utils.roundTo1DP(rating));
+					}
 					
 					Utils.getImageProfile(accountDTO);
 					

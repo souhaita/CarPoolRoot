@@ -136,6 +136,9 @@ public class AsyncPassengerFetchRequest extends AsyncTask<RequestDTO, Void ,List
                 newRequestDTO.setDateUpdated(new Date(jsonObjectRequest.getLong("dateUpdated")));
                 newRequestDTO.setCarId(jsonObjectRequest.getInt("carId"));
 
+                if(jsonObjectRequest.has("tripDuration")&& !jsonObjectRequest.isNull("tripDuration"))
+                    newRequestDTO.setTripDuration(new Date(jsonObjectRequest.getLong("tripDuration")));
+
 
                 List<ManageRequestDTO> manageRequestDTOList = new ArrayList<>();
                 if(requestStatus != RequestStatus.REQUEST_PENDING) {

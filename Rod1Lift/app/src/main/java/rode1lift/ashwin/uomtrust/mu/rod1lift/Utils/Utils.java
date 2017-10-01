@@ -336,7 +336,7 @@ public class Utils {
         return new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), CONSTANT.ROOT_DIRECTORY);
     }
 
-    public LatLng getLatLngFromAddress(Context context,String strAddress) {
+    public static LatLng getLatLngFromAddress(Context context,String strAddress) {
 
         Geocoder coder = new Geocoder(context);
         List<Address> address;

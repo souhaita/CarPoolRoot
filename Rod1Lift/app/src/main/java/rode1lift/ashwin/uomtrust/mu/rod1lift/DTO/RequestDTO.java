@@ -24,6 +24,7 @@ public class RequestDTO implements Serializable {
     private Date dateCreated;
     private Date dateUpdated;
     private Date eventDate;
+    private Date tripDuration;
 
     private String placeFrom;
     private String placeTo;
@@ -141,5 +142,13 @@ public class RequestDTO implements Serializable {
 
     public void setSeatRequested(Integer seatRequested) {
         this.seatRequested = seatRequested;
+    }
+
+    public Date getTripDuration() {
+        return tripDuration;
+    }
+
+    public void setTripDuration(Date tripDuration) {
+        this.tripDuration = tripDuration;
     }
 }

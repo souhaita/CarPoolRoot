@@ -130,6 +130,10 @@ public class AsyncDriverFetchRequest extends AsyncTask<RequestDTO, Void ,List<Re
                 newRequestDTO.setCarId(jsonObjectRequest.getInt("carId"));
 
 
+                if(jsonObjectRequest.has("tripDuration")&& !jsonObjectRequest.isNull("tripDuration"))
+                    newRequestDTO.setTripDuration(new Date(jsonObjectRequest.getLong("tripDuration")));
+
+
                 List<ManageRequestDTO> manageRequestDTOList = new ArrayList<>();
                 JSONArray jsonManageRequestMain = jsonObjectList.getJSONArray("manageRequestDTOList");
                 for(int y = 0; y<jsonManageRequestMain.length(); y++){

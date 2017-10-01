@@ -529,9 +529,9 @@ public class RequestServiceImp implements RequestService{
 				newRequestDTO.setPrice(request.getPrice());
 				newRequestDTO.setSeatAvailable(request.getSeatAvailable());
 				
-				if(request.getTripDuration() != null){
-					calendar.setTimeInMillis(request.getTripDuration().getTime());
-					newRequestDTO.setTripDuration(calendar.getTime());
+				if(requestDTO.getTripDuration() != null){
+					calendar.setTimeInMillis(requestDTO.getTripDuration().getTime());
+					request.setTripDuration(calendar.getTime());
 				}
 				
 				

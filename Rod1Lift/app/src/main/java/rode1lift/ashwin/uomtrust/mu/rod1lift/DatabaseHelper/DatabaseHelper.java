@@ -80,6 +80,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                 " place_from TEXT DEFAULT NULL, "+
                 " place_to TEXT DEFAULT NULL, "+
                 " event_date NUMERIC DEFAULT NULL, "+
+                " trip_duration NUMERIC DEFAULT NULL, "+
                 " date_updated NUMERIC DEFAULT NULL, "+
                 " date_created NUMERIC DEFAULT NULL ); ";
         db.execSQL(qb);

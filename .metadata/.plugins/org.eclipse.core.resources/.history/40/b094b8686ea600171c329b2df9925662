@@ -252,12 +252,6 @@ public class RequestServiceImp implements RequestService{
 			newRequestDTO.setPrice(request.getPrice());
 			newRequestDTO.setSeatAvailable(request.getSeatAvailable());
 			
-			if(request.getTripDuration() != null){
-				calendar.setTimeInMillis(request.getTripDuration().getTime());
-				newRequestDTO.setTripDuration(calendar.getTime());
-			}
-			
-			
 			Car car = carRepository.getCarByAccountId(request.getAccount().getAccountId());
 			newRequestDTO.setCarId(car.getCarId());
 
@@ -449,12 +443,6 @@ public class RequestServiceImp implements RequestService{
 					newRequestDTO.setPrice(request.getPrice());
 					newRequestDTO.setSeatAvailable(request.getSeatAvailable());
 					
-					if(request.getTripDuration() != null){
-						calendar.setTimeInMillis(request.getTripDuration().getTime());
-						newRequestDTO.setTripDuration(calendar.getTime());
-					}
-					
-					
 					Car car = carRepository.getCarByAccountId(request.getAccount().getAccountId());
 					newRequestDTO.setCarId(car.getCarId());
 	
@@ -528,12 +516,6 @@ public class RequestServiceImp implements RequestService{
 				newRequestDTO.setRequestStatus(request.getRequestStatus());
 				newRequestDTO.setPrice(request.getPrice());
 				newRequestDTO.setSeatAvailable(request.getSeatAvailable());
-				
-				if(request.getTripDuration() != null){
-					calendar.setTimeInMillis(request.getTripDuration().getTime());
-					newRequestDTO.setTripDuration(calendar.getTime());
-				}
-				
 				
 				Car car = carRepository.getCarByAccountId(request.getAccount().getAccountId());
 				newRequestDTO.setCarId(car.getCarId());

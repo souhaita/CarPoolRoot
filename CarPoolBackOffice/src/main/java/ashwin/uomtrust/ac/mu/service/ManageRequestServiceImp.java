@@ -83,6 +83,12 @@ public class ManageRequestServiceImp implements ManageRequestService{
 			newRequestDTO.setPrice(request.getPrice());
 			newRequestDTO.setSeatAvailable(request.getSeatAvailable());
 			
+			if(request.getTripDuration() != null){
+				calendar.setTimeInMillis(request.getTripDuration().getTime());
+				newRequestDTO.setTripDuration(calendar.getTime());
+			}
+			
+			
 			Car car = m.getCar();
 			newRequestDTO.setCarId(car.getCarId());
 
@@ -283,6 +289,12 @@ public class ManageRequestServiceImp implements ManageRequestService{
 			newRequestDTO.setPrice(request.getPrice());
 			newRequestDTO.setSeatRequested(m.getSeatRequested());
 			
+			if(request.getTripDuration() != null){
+				calendar.setTimeInMillis(request.getTripDuration().getTime());
+				newRequestDTO.setTripDuration(calendar.getTime());
+			}
+			
+			
 			Car car = m.getCar();
 			newRequestDTO.setCarId(car.getCarId());
 			
@@ -385,6 +397,12 @@ public class ManageRequestServiceImp implements ManageRequestService{
 			newRequestDTO.setRequestStatus(request.getRequestStatus());
 			newRequestDTO.setPrice(request.getPrice());
 			newRequestDTO.setSeatRequested(m.getSeatRequested());
+			
+			if(request.getTripDuration() != null){
+				calendar.setTimeInMillis(request.getTripDuration().getTime());
+				newRequestDTO.setTripDuration(calendar.getTime());
+			}
+			
 			
 			Car car = m.getCar();
 			newRequestDTO.setCarId(car.getCarId());
@@ -492,6 +510,12 @@ public class ManageRequestServiceImp implements ManageRequestService{
 			newRequestDTO.setRequestStatus(request.getRequestStatus());
 			newRequestDTO.setPrice(request.getPrice());
 			newRequestDTO.setSeatRequested(m.getSeatRequested());
+			
+			if(request.getTripDuration() != null){
+				calendar.setTimeInMillis(request.getTripDuration().getTime());
+				newRequestDTO.setTripDuration(calendar.getTime());
+			}
+			
 			
 			Car car = m.getCar();
 			newRequestDTO.setCarId(car.getCarId());
