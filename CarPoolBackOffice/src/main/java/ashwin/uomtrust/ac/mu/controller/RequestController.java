@@ -130,4 +130,22 @@ public class RequestController {
 		ratingService.save(ratingDTO);
    	}
 	
+	@CrossOrigin(origins = "http://localhost:8081")
+   	@RequestMapping(value = "/getTotalTripsCreatedToday", method = RequestMethod.POST)
+   	public int getTotalTripsCreatedToday() {    	    	
+		return requestService.getTotalTripsCreatedToday();
+   	}
+	
+	@CrossOrigin(origins = "http://localhost:8081")
+   	@RequestMapping(value = "/getTotalTripsForToday", method = RequestMethod.POST)
+   	public int getTotalTripsForToday() {    	    	
+		return requestService.getTotalTripsForToday();
+   	}
+	
+	@CrossOrigin(origins = "http://localhost:8081")
+   	@RequestMapping(value = "/getTotalTrips", method = RequestMethod.POST)
+   	public int getTotalTrips() {    	    	
+		return requestService.getTotalTrips();
+   	}
+	
 }

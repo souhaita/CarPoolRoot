@@ -15,4 +15,10 @@ public interface RequestService {
 	public List<RequestObject> driverGetPendingRequestList(RequestDTO requestDTO);
 	public List<RequestObject> driverGetHistoryList(Account account);
 	public List<RequestObject> passengerGetNewList(RequestDTO requestDTO);
+	
+	//admin
+	public int getTotalTripsCreatedToday();
+	public int getTotalTripsForToday();
+	public int getTotalTrips();
+
 }

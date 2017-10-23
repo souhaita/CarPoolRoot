@@ -21,10 +21,13 @@
 	<!-- end: Css -->
 
 	<link rel="shortcut icon" href="asset/img/logomi.png">
+	
+	<script src="../JS/angular.min.js"></script>
+	<script src="../JS/main.js"></script>
     
   </head>
 
- <body id="mimin" class="dashboard">
+ <body id="mimin" class="dashboard" ng-app="ngApp" ng-controller="ngCtrl">
       <!-- start: Header -->
         <nav class="navbar navbar-default header navbar-fixed-top">
           <div class="col-md-12 nav-wrapper">
@@ -102,7 +105,7 @@
                                         </div>
                                       </div>
                                       <div class="panel-body text-center">
-                                        <h1>51181,320</h1>
+                                        <h1>{{totalTripsCreatedToday}}</h1>
                                         <p>New Trips</p>
                                         <hr/>
                                       </div>
@@ -121,7 +124,7 @@
                                         </div>
                                       </div>
                                       <div class="panel-body text-center">
-                                        <h1>51181,320</h1>
+                                        <h1>{{totalTripsForToday}}</h1>
                                         <p>Upcoming Trips</p>
                                         <hr/>
                                       </div>
@@ -141,7 +144,7 @@
                                         </div>
                                       </div>
                                       <div class="panel-body text-center">
-                                        <h1>51181,320</h1>
+                                        <h1>{{totalTrips}}</h1>
                                         <p>Total Trips</p>
                                         <hr/>
                                       </div>
@@ -168,7 +171,7 @@
                                         </div>
                                       </div>
                                       <div class="panel-body text-center">
-                                        <h1>51181,320</h1>
+                                        <h1>{{totalCarSeekerCreatedToday}}</h1>
                                         <p>New car seekers</p>
                                         <hr/>
                                       </div>
@@ -187,7 +190,7 @@
                                         </div>
                                       </div>
                                       <div class="panel-body text-center">
-                                        <h1>51181,320</h1>
+                                        <h1>{{totalCarPoolerCreatedToday}}</h1>
                                         <p>New Car Poolers</p>
                                         <hr/>
                                       </div>
@@ -207,7 +210,7 @@
                                         </div>
                                       </div>
                                       <div class="panel-body text-center">
-                                        <h1>51181,320</h1>
+                                        <h1>{{totalUser}}</h1>
                                         <p>Total Users</p>
                                         <hr/>
                                       </div>

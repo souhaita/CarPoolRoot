@@ -2,20 +2,20 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="driverCreateUpdateRequest" key="selection"/>
+		<item value="getAllTripsCreatedToday" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="true" key="wholeword"/>
 		<list key="findhistory">
+			<item value="getAllTripsCreatedToday"/>
+			<item value="getRequestFrom"/>
+			<item value="getRequestHistoryForDriver"/>
+			<item value="getApprxRequest"/>
+			<item value="checkAdminAccount"/>
 			<item value="driverCreateUpdateRequest"/>
 			<item value="driverGetPendingRequestList"/>
 			<item value="rating"/>
-			<item value="driverGetHistoryList"/>
-			<item value="saveMessage"/>
-			<item value="passengerGetNewList"/>
-			<item value="ratingRepository"/>
-			<item value="downloadMessage"/>
 		</list>
 		<list key="replacehistory">
 		</list>

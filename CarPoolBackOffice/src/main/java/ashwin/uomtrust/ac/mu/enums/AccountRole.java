@@ -5,7 +5,8 @@ import java.util.Map;
 
 public enum AccountRole {
 	DRIVER(0),
-	PASSENGER(1);
+	PASSENGER(1),
+	ADMIN(2);
 	
 	private int value ;
 	private static final Map<Integer, AccountRole> map = new HashMap<>();

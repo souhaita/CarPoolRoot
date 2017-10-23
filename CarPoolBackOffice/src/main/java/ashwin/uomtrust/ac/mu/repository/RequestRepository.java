@@ -49,4 +49,13 @@ public interface RequestRepository extends JpaRepository<Request, Long> {
 	@Query("select r from Request r where r.requestStatus =:requestStatus and r.placeFrom like %:placeFrom% and r.placeTo like %:placeTo% and DATE(r.eventDate) = DATE(:eventDate) and r not in (:filteredList)")
 	public List<Request> getApprxRequest(@Param("requestStatus") RequestStatus requestStatus, @Param("placeFrom") String placeFrom, @Param("placeTo") String placeTo, @Param("eventDate") Date eventDate, @Param("filteredList") List<Request> filteredList);
 	
+	
+	@Query("select count(r) from Request r where DATE(r.dateCreated) = current_date and r.requestStatus in (:requestStatusList)")
+	public int getTotalTripsCreatedToday(@Param("requestStatusList") List<RequestStatus> requestStatusList);
+	
+	@Query("select count(r) from Request r where DATE(r.eventDate) = current_date and r.requestStatus in (:requestStatusList)")
+	public int getTotalTripsForToday(@Param("requestStatusList") List<RequestStatus> requestStatusList);
+	
+	@Query("select count(r) from Request r")
+	public int getTotalTrips();
 }

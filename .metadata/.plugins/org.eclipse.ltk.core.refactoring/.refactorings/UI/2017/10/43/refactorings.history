@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;mainpage.html&apos; to &apos;mainpage.html&apos;&#x0D;&#x0A;- Original project: &apos;UI&apos;&#x0D;&#x0A;- Destination element: &apos;mainpage.html&apos;&#x0D;&#x0A;- Original element: &apos;mainpage.html&apos;" description="Copy file" element1="WebContent/HTML/mainpage.html" files="1" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1508734951931" target="/UI/WebContent/HTML/mainpage.html" units="0" version="1.0"/>
+</session>

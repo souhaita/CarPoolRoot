@@ -15,4 +15,13 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
 		
 		public Account findByAccountId(Long accountId);		
 		public Account findByEmail(String email);
+		
+		@Query("select count(a) from Account a where DATE(a.dateCreated) = current_date and a.accountRole = 1")
+		public int getTotalCarSeekerCreatedToday();
+		
+		@Query("select count(a) from Account a where DATE(a.dateCreated) = current_date and a.accountRole = 0")
+		public int getTotalCarPoolerCreatedToday();
+		
+		@Query("select count(a) from Account a where a.accountRole <2")
+		public int getTotalUser();
 }

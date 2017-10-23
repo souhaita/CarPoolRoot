@@ -681,5 +681,38 @@ public class RequestServiceImp implements RequestService{
 		
 		return requestObjectList;
 	}
+
+	@Override
+	public int getTotalTripsCreatedToday() {
+		// TODO Auto-generated method stub
+		Calendar cal = Calendar.getInstance();
+		List<RequestStatus> requestStatus = new ArrayList<>();
+		requestStatus.add(RequestStatus.FULL);
+		requestStatus.add(RequestStatus.REQUEST_PENDING);
+				
+		return requestRepository.getTotalTripsCreatedToday(requestStatus);
+	}
+	
+	@Override
+	public int getTotalTripsForToday() {
+		// TODO Auto-generated method stub
+		Calendar cal = Calendar.getInstance();
+		List<RequestStatus> requestStatus = new ArrayList<>();
+		requestStatus.add(RequestStatus.FULL);
+		requestStatus.add(RequestStatus.REQUEST_PENDING);
+		requestStatus.add(RequestStatus.PAID);
+
+		
+		return requestRepository.getTotalTripsCreatedToday(requestStatus);
+	}
+	
+	@Override
+	public int getTotalTrips() {
+		// TODO Auto-generated method stub
+		
+		return requestRepository.getTotalTrips();
+	}
+	
+	
 	
 }

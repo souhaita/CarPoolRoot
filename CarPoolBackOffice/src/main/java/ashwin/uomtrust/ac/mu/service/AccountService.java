@@ -9,5 +9,10 @@ public interface AccountService {
 	public AccountDTO findByEmail(String email);
 	public AccountDTO saveAccount(AccountDTO accountDTO);
 	public Account saveAccount(Account account);
+	
+	//admin
+	public int getTotalCarSeekerCreatedToday();
+	public int getTotalCarPoolerCreatedToday();
+	public int getTotalUser();
 
 }

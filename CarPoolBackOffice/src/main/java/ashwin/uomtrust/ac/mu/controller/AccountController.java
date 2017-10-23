@@ -129,4 +129,22 @@ public class AccountController {
 			deviceService.delete(deviceDTO);
 		}
 	}
+	
+	@CrossOrigin(origins = "http://localhost:8081")
+	@RequestMapping(value = "/getTotalCarSeekerCreatedToday", method = RequestMethod.POST)
+	public int getTotalCarSeekerCreatedToday() {
+		return accountService.getTotalCarSeekerCreatedToday();
+	}
+	
+	@CrossOrigin(origins = "http://localhost:8081")
+	@RequestMapping(value = "/getTotalCarPoolerCreatedToday", method = RequestMethod.POST)
+	public int getTotalCarPoolerCreatedToday() {
+		return accountService.getTotalCarPoolerCreatedToday();
+	}
+	
+	@CrossOrigin(origins = "http://localhost:8081")
+	@RequestMapping(value = "/getTotalUser", method = RequestMethod.POST)
+	public int getTotalUser() {
+		return accountService.getTotalUser();
+	}
 }

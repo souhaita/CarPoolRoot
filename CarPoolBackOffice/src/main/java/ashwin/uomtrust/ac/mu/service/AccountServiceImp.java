@@ -117,4 +117,22 @@ public class AccountServiceImp implements AccountService{
 		return accountDTO;
 	}
 
+	@Override
+	public int getTotalCarSeekerCreatedToday() {
+		// TODO Auto-generated method stub
+		return accountRepository.getTotalCarSeekerCreatedToday();
+	}
+
+	@Override
+	public int getTotalCarPoolerCreatedToday() {
+		// TODO Auto-generated method stub
+		return accountRepository.getTotalCarPoolerCreatedToday();
+	}
+
+	@Override
+	public int getTotalUser() {
+		// TODO Auto-generated method stub
+		return accountRepository.getTotalUser();
+	}
+
 }

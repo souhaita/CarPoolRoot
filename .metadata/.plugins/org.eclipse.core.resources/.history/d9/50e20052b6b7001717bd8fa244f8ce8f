@@ -1,0 +1,17 @@
+//var main_url = "http://localhost:8081/api/";
+var main_url = "http://localhost/api/";
+var request = "request/";
+
+var urlGetAllTripCreatedToday = main_url + request + "getAllTripCreatedToday";
+
+
+var app = angular.module("ngApp", []);
+app.controller("ngCtrl", function($scope,$http) {
+	
+	$http.post(urlGetAllTripCreatedToday).success(function (response) {
+    	$scope.tripCreatedToday = response;
+    	
+    	console.log("$scope.tripCreatedToday = " + $scope.tripCreatedToday);
+	});
+
+});
