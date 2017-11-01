@@ -14,5 +14,6 @@ public interface AccountService {
 	public int getTotalCarSeekerCreatedToday();
 	public int getTotalCarPoolerCreatedToday();
 	public int getTotalUser();
+	public void setUserStatus(int userStatus, Long userId);
 
 }

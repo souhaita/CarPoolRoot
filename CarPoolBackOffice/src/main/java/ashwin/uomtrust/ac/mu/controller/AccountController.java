@@ -14,6 +14,7 @@ import ashwin.uomtrust.ac.mu.dto.AccountDTO;
 import ashwin.uomtrust.ac.mu.dto.CarDTO;
 import ashwin.uomtrust.ac.mu.dto.DeviceDTO;
 import ashwin.uomtrust.ac.mu.dto.MessageDTO;
+import ashwin.uomtrust.ac.mu.dto.StatusDTO;
 import ashwin.uomtrust.ac.mu.entity.Account;
 import ashwin.uomtrust.ac.mu.service.AccountService;
 import ashwin.uomtrust.ac.mu.service.CarService;
@@ -146,5 +147,11 @@ public class AccountController {
 	@RequestMapping(value = "/getTotalUser", method = RequestMethod.POST)
 	public int getTotalUser() {
 		return accountService.getTotalUser();
+	}
+	
+	@CrossOrigin(origins = "http://localhost:8081")
+	@RequestMapping(value = "/setUserStatus", method = RequestMethod.POST)
+	public void setUserStatus(@RequestBody StatusDTO statusDTO) {
+		accountService.setUserStatus(statusDTO.getUserStatus(), statusDTO.getUserId());
 	}
 }

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html >
+<head>
+  	<meta charset="UTF-8">
+ </head>
+
+<body>
+
+ <div class="col-md-12" style="padding:20px;">
+                    <div class="col-md-12 padding-0">
+                        <div class="col-md-12 padding-0">
+                            <div class="col-md-12 padding-0">
+                                <div class="col-md-4">
+                                    <div class="panel box-v1">
+                                      <div class="panel-heading bg-white border-none">
+                                        <div class="col-md-6 col-sm-6 col-xs-6 text-left padding-0">
+                                          <h4 class="text-left">Trip Created today</h4>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-6 text-right">
+                                           <h4>
+                                           <span class="icon-direction icons icon text-right"></span>
+                                           </h4>
+                                        </div>
+                                      </div>
+                                      <div class="panel-body text-center">
+                                        <h1>{{totalTripsCreatedToday}}</h1>
+                                        <p>New Trips</p>
+                                        <hr/>
+                                      </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="panel box-v1">
+                                      <div class="panel-heading bg-white border-none">
+                                        <div class="col-md-6 col-sm-6 col-xs-6 text-left padding-0">
+                                          <h4 class="text-left">Today's Trip</h4>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-6 text-right">
+                                           <h4>
+                                           <span class="icon-directions icons icon text-right"></span>
+                                           </h4>
+                                        </div>
+                                      </div>
+                                      <div class="panel-body text-center">
+                                        <h1>{{totalTripsForToday}}</h1>
+                                        <p>Upcoming Trips</p>
+                                        <hr/>
+                                      </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-4">
+                                    <div class="panel box-v1">
+                                      <div class="panel-heading bg-white border-none">
+                                        <div class="col-md-6 col-sm-6 col-xs-6 text-left padding-0">
+                                          <h4 class="text-left">Total Trips</h4>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-6 text-right">
+                                           <h4>
+                                           <span class="fa fa-map-signs icons icon text-right"></span>
+                                           </h4>
+                                        </div>
+                                      </div>
+                                      <div class="panel-body text-center">
+                                        <h1>{{totalTrips}}</h1>
+                                        <p>Total Trips</p>
+                                        <hr/>
+                                      </div>
+                                    </div>
+                                </div>                               
+                            </div>                            
+                        </div>                
+                    </div>
+                    
+                    
+                    <div class="col-md-12 padding-0">
+                        <div class="col-md-12 padding-0">
+                            <div class="col-md-12 padding-0">
+                                <div class="col-md-4">
+                                    <div class="panel box-v1">
+                                      <div class="panel-heading bg-white border-none">
+                                        <div class="col-md-6 col-sm-6 col-xs-6 text-left padding-0">
+                                          <h4 class="text-left">Car Seeker created today</h4>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-6 text-right">
+                                           <h4>
+                                           <span class="fa fa-user-plus icons icon text-right"></span>
+                                           </h4>
+                                        </div>
+                                      </div>
+                                      <div class="panel-body text-center">
+                                        <h1>{{totalCarSeekerCreatedToday}}</h1>
+                                        <p>New car seekers</p>
+                                        <hr/>
+                                      </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="panel box-v1">
+                                      <div class="panel-heading bg-white border-none">
+                                        <div class="col-md-6 col-sm-6 col-xs-6 text-left padding-0">
+                                          <h4 class="text-left">Car Pooler created today</h4>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-6 text-right">
+                                           <h4>
+                                           <span class="fa fa-automobile icons icon text-right"></span>
+                                           </h4>
+                                        </div>
+                                      </div>
+                                      <div class="panel-body text-center">
+                                        <h1>{{totalCarPoolerCreatedToday}}</h1>
+                                        <p>New Car Poolers</p>
+                                        <hr/>
+                                      </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-4">
+                                    <div class="panel box-v1">
+                                      <div class="panel-heading bg-white border-none">
+                                        <div class="col-md-6 col-sm-6 col-xs-6 text-left padding-0">
+                                          <h4 class="text-left">Total users</h4>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-6 text-right">
+                                           <h4>
+                                           <span class="fa fa-users icons icon text-right"></span>
+                                           </h4>
+                                        </div>
+                                      </div>
+                                      <div class="panel-body text-center">
+                                        <h1>{{totalUser}}</h1>
+                                        <p>Total Users</p>
+                                        <hr/>
+                                      </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+
+                  <div class="col-md-12 card-wrap padding-0">
+                    <div class="col-md-6">
+                        <div class="panel">
+                          <div class="panel-heading bg-white border-none" style="padding:20px;">
+                            <div class="col-md-6 col-sm-6 col-sm-12 text-left">
+                              <h4>Trips Chart</h4>
+                            </div>
+                            
+                          </div>
+                          <div class="panel-body" style="padding-bottom:50px;">
+                              <div id="canvas-holder1">
+                                    <canvas class="line-chart" style="margin-top:30px;height:200px;"></canvas>
+                              </div>
+                             
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="panel">
+                          <div class="panel-heading bg-white border-none" style="padding:20px;">
+                            <div class="col-md-6 col-sm-6 col-sm-12 text-left">
+                              <h4>Users</h4>
+                            </div>
+                           
+                          </div>
+                          <div class="panel-body" style="padding-bottom:50px;">
+                              <div id="canvas-holder1">
+                                <canvas class="bar-chart" style="margin-top:30px;height:200px;"></canvas>
+                              </div>
+                              
+                          </div>
+                        </div>
+                    </div>
+                    </div>
+                    
+                    <div class="col-md-12">
+                        <div class="panel bg-green text-white">
+                            <div class="panel-body">
+                              <div class="col-md-6 col-sm-4 col-xs-12">
+                                  <canvas class="doughnut-chart hidden-xs"></canvas>
+                                  <div class="col-md-12">
+                                    <div class="col-md-6 col-sm-12 col-xs-12">
+                                      <h1>72.993</h1>
+                                      <p>Active Users</p>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12 col-xs-12">
+                                       <h1>12.000</h1>
+                                       <p>Inactive Users</p>
+                                    </div>
+                                  </div>
+                              </div>               
+                            </div>
+                        </div>
+                    </ul>                       
+                    </div>
+                </div>
+
+</body>
+
+</html>

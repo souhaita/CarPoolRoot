@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;AccountDTO.java&apos; to &apos;ashwin.uomtrust.ac.mu.dto.AccountDTO.java&apos;&#x0D;&#x0A;- Original project: &apos;CarPoolBackOffice&apos;&#x0D;&#x0A;- Destination element: &apos;ashwin.uomtrust.ac.mu.dto.AccountDTO.java&apos;&#x0D;&#x0A;- Original element: &apos;ashwin.uomtrust.ac.mu.dto.AccountDTO.java&apos;" description="Copy compilation unit" destination="/src\/main\/java&lt;ashwin.uomtrust.ac.mu.dto{AccountDTO.java" element1="/src\/main\/java&lt;ashwin.uomtrust.ac.mu.dto{AccountDTO.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1509527629559" units="1" version="1.0"/>
+</session>

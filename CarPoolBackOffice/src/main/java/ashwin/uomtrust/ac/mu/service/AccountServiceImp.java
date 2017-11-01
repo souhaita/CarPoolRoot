@@ -1,14 +1,19 @@
 package ashwin.uomtrust.ac.mu.service;
 
 import java.util.Calendar;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ashwin.uomtrust.ac.mu.dto.AccountDTO;
 import ashwin.uomtrust.ac.mu.entity.Account;
+import ashwin.uomtrust.ac.mu.entity.Device;
 import ashwin.uomtrust.ac.mu.enums.AccountRole;
+import ashwin.uomtrust.ac.mu.enums.AccountStatus;
 import ashwin.uomtrust.ac.mu.repository.AccountRepository;
+import ashwin.uomtrust.ac.mu.repository.DeviceRepository;
+import ashwin.uomtrust.ac.mu.utils.PushNotifictionHelper;
 import ashwin.uomtrust.ac.mu.utils.Utils;
 import scala.annotation.meta.setter;
 
@@ -17,6 +22,9 @@ public class AccountServiceImp implements AccountService{
 	
 	@Autowired
 	private AccountRepository accountRepository;
+	
+	@Autowired
+	private DeviceRepository deviceRepository;
 
 	@Override
 	public Account findByAccountId(Long accountId) {
@@ -133,6 +141,34 @@ public class AccountServiceImp implements AccountService{
 	public int getTotalUser() {
 		// TODO Auto-generated method stub
 		return accountRepository.getTotalUser();
+	}
+
+	@Override
+	public void setUserStatus(int userStatus, Long userId) {
+		// TODO Auto-generated method stub
+		
+		Account a = accountRepository.findByAccountId(userId);
+		
+		String message = "";
+		String title = "ChangeUserStatus";
+		
+		if(userStatus == 0){
+			a.setAccountStatus(AccountStatus.ACTIVE);
+			message = "active";
+		}
+		else{
+			a.setAccountStatus(AccountStatus.DESACTIVE);
+			message = "desactive";
+		}
+
+		accountRepository.save(a);
+		
+		List<Device> deviceList = deviceRepository.getDeviceByAccountId(userId);
+
+		for(Device device :deviceList){
+			PushNotifictionHelper.sendPushNotification(device.getDeviceToken(),title, message);
+		}
+		
 	}
 
 }

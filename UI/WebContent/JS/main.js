@@ -12,6 +12,8 @@ var urlGetTotalCarPoolerCreatedToday = main_url + account + "getTotalCarPoolerCr
 var urlGetTotalUser = main_url + account + "getTotalUser";
 
 
+var urlSetUserStatus = main_url + account + "setUserStatus";
+
 
 var app = angular.module("ngApp", []);
 app.controller("ngCtrl", function($scope,$http) {
@@ -39,5 +41,24 @@ app.controller("ngCtrl", function($scope,$http) {
 	$http.post(urlGetTotalUser).success(function (response) {
     	$scope.totalUser = response;    	
 	});
+	
+	
+	$scope.popUpSetUserStatus= function (userStatus) {
+
+		var userId = prompt("Please enter user id");
+		
+	    if (userId == null || userId == "") {
+   	
+	    }
+	    else{
+	    	
+    		var data = {'userStatus': userStatus, 'userId': userId};
+	    		    	
+	    	$http.post(urlSetUserStatus, angular.toJson(data)).success(function (response) {
+	        	 	
+	    	});
+	    	
+	    }
+	}
 
 });
