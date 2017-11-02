@@ -29,8 +29,10 @@ import java.net.URLEncoder;
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.RequestDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.RequestDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.RequestStatus;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
@@ -148,9 +150,16 @@ public class ActivitySearchTrip extends Activity {
             public void onClick(View view) {
                 if(validForm()){
                     if(ConnectivityHelper.isConnected(ActivitySearchTrip.this)) {
+
+                        Date tripStartTime = requestDTO.getEventDate();
+                        Date tripEndTime = tripStartTime;
+
+                        boolean hasTrip = new RequestDAO(ActivitySearchTrip.this).getTripByDateTime(tripStartTime, tripEndTime).size() >0;
+
                         Intent intent = new Intent(ActivitySearchTrip.this, ActivitySearchTripResults.class);
-                        intent.putExtra(CONSTANT.REQUESTDTO,requestDTO);
+                        intent.putExtra(CONSTANT.REQUESTDTO, requestDTO);
                         startActivity(intent);
+
                     }
                     else{
                         Utils.alertError(ActivitySearchTrip.this, getString(R.string.error_no_connection));

@@ -107,7 +107,7 @@ public class AsyncDriverFetchHistory extends AsyncTask<Void, Void ,List<RequestO
                 newRequestDTO.setPrice(jsonObjectRequest.getInt("price"));
 
                 if(jsonObjectRequest.has("tripDuration")&& !jsonObjectRequest.isNull("tripDuration"))
-                    newRequestDTO.setTripDuration(new Date(jsonObjectRequest.getLong("tripDuration")));
+                    newRequestDTO.setTripEndTime(new Date(jsonObjectRequest.getLong("tripDuration")));
 
 
                 List<ManageRequestDTO> manageRequestDTOList = new ArrayList<>();

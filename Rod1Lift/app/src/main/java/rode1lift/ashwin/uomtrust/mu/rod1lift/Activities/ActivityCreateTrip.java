@@ -51,6 +51,7 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.AsyncTask.AsyncUpdateAccount;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Constant.CONSTANT;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.AccountDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.CarDAO;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.RequestDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.AccountDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.CarDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.ManageRequestDTO;
@@ -719,7 +720,19 @@ public class ActivityCreateTrip extends Activity {
         // Executes in UI thread, after the parsing process
         @Override
         protected void onPostExecute(List<List<HashMap<String, String>>> result) {
-            new AsyncDriverCreateOrUpdateRequest(ActivityCreateTrip.this, true).execute(requestDTO);
+
+            Date tripStartTime = requestDTO.getEventDate();
+            Date tripEndTime = requestDTO.getTripEndTime();
+
+            boolean hasTrip = new RequestDAO(ActivityCreateTrip.this).getTripByDateTime(tripStartTime, tripEndTime).size() >0;
+
+            if(hasTrip){
+                String message = getResources().getString(R.string.error_already_has_trip);
+                Utils.alertError(ActivityCreateTrip.this, message);
+            }
+            else {
+                new AsyncDriverCreateOrUpdateRequest(ActivityCreateTrip.this, true).execute(requestDTO);
+            }
         }
     }
 
@@ -761,13 +774,13 @@ public class ActivityCreateTrip extends Activity {
                     Calendar cal = Calendar.getInstance();
                     cal.setTimeInMillis(requestDTO.getEventDate().getTime());
                     cal.add(Calendar.MINUTE, duration.intValue());
-                    requestDTO.setTripDuration(cal.getTime());
+                    requestDTO.setTripEndTime(cal.getTime());
                 }
                 else{
                     Calendar cal = Calendar.getInstance();
                     cal.setTimeInMillis(requestDTO.getEventDate().getTime());
                     cal.add(Calendar.MINUTE, 60);
-                    requestDTO.setTripDuration(cal.getTime());
+                    requestDTO.setTripEndTime(cal.getTime());
                 }
             }
 

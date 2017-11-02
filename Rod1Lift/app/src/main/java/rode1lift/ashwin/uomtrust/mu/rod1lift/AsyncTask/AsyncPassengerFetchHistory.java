@@ -112,7 +112,7 @@ public class AsyncPassengerFetchHistory extends AsyncTask<Void, Void ,List<Reque
                 newRequestDTO.setCarId(jsonObjectRequest.getInt("carId"));
 
                 if(jsonObjectRequest.has("tripDuration")&& !jsonObjectRequest.isNull("tripDuration"))
-                    newRequestDTO.setTripDuration(new Date(jsonObjectRequest.getLong("tripDuration")));
+                    newRequestDTO.setTripEndTime(new Date(jsonObjectRequest.getLong("tripDuration")));
 
 
 

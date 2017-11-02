@@ -66,8 +66,8 @@ public class AsyncDriverCreateOrUpdateRequest extends AsyncTask<RequestDTO, Void
             postData.put("price", requestDTO.getPrice());
             postData.put("seatAvailable", requestDTO.getSeatAvailable());
 
-            if(requestDTO.getTripDuration() != null)
-                postData.put("tripDuration", requestDTO.getTripDuration().getTime());
+            if(requestDTO.getTripEndTime() != null)
+                postData.put("tripDuration", requestDTO.getTripEndTime().getTime());
 
             if(requestDTO.getDateCreated() != null)
                 postData.put("dateCreated", requestDTO.getDateCreated().getTime());

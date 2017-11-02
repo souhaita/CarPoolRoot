@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -91,6 +92,67 @@ public class RequestDAO {
         return requestDTOList;
     }
 
+    public List<RequestDTO> getTripByDateTime(Date tripStartTime, Date tripEndTime) {
+        final StringBuilder sqlStart = new StringBuilder();
+
+        SharedPreferences prefs = context.getSharedPreferences(CONSTANT.APP_NAME, MODE_PRIVATE);
+        int userId = prefs.getInt(CONSTANT.CURRENT_ACCOUNT_ID, 1);
+
+
+        sqlStart.append(" SELECT * ");
+        sqlStart.append(" FROM "+ TABLE_NAME);
+        sqlStart.append(" WHERE " + tripStartTime.getTime());
+        sqlStart.append(" BETWEEN event_date");
+        sqlStart.append(" AND trip_end_time ");
+        sqlStart.append(" AND account_id = " + userId);
+        sqlStart.append(" ORDER BY request_id DESC");
+
+        dbHelper.open();
+        Cursor resStart = dbHelper.executeQuery(sqlStart.toString(), null);
+        if (resStart != null) {
+            resStart.moveToFirst();
+        }
+
+        List<RequestDTO> requestDTOList = new ArrayList<>();
+
+        while (!resStart.isAfterLast()) {
+
+            RequestDTO dto = setRequestDetails(resStart);
+
+            requestDTOList.add(dto);
+            resStart.moveToNext();
+        }
+
+
+        final StringBuilder sqlEnd = new StringBuilder();
+        sqlEnd.append(" SELECT * ");
+        sqlEnd.append(" FROM "+ TABLE_NAME);
+        sqlEnd.append(" WHERE " + tripEndTime.getTime());
+        sqlEnd.append(" BETWEEN event_date");
+        sqlEnd.append(" AND trip_end_time ");
+        sqlEnd.append(" AND account_id = " + userId);
+        sqlEnd.append(" ORDER BY request_id DESC");
+
+
+        Cursor resEnd = dbHelper.executeQuery(sqlEnd.toString(), null);
+        if (resEnd != null) {
+            resEnd.moveToFirst();
+        }
+
+        while (!resEnd.isAfterLast()) {
+
+            RequestDTO dto = setRequestDetails(resEnd);
+
+            requestDTOList.add(dto);
+            resEnd.moveToNext();
+        }
+
+        resStart.close();
+        resEnd.close();
+
+        return requestDTOList;
+    }
+
     private RequestDTO setRequestDetails(Cursor res){
         RequestDTO requestDTO = new RequestDTO();
         requestDTO.setRequestId(res.getInt(res.getColumnIndex("request_id")));
@@ -102,6 +164,7 @@ public class RequestDAO {
         requestDTO.setPlaceTo(res.getString(res.getColumnIndex("place_to")));
         requestDTO.setPrice(res.getInt(res.getColumnIndex("price")));
         requestDTO.setSeatAvailable(res.getInt(res.getColumnIndex("seat_available")));
+        requestDTO.setTripEndTime(new Date(res.getLong(res.getColumnIndex("trip_end_time"))));
         requestDTO.setRequestStatus(RequestStatus.valueFor(res.getInt(res.getColumnIndex("request_status"))));
 
         return requestDTO;
@@ -127,6 +190,10 @@ public class RequestDAO {
 
         if(requestDTO.getPrice() != null)
             values.put("price", requestDTO.getPrice());
+
+        if(requestDTO.getTripEndTime() != null)
+            values.put("trip_end_time", requestDTO.getTripEndTime().getTime());
+
 
         values.put("request_status", requestDTO.getRequestStatus().getValue());
 

@@ -229,4 +229,6 @@
 
     <string name="error_account_disable">This account has been disabled by Admin</string>
 
+    <string name="error_already_has_trip">You already have a trip during this time</string>
+
 </resources>
