@@ -75,6 +75,7 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.DAO.AccountDAO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.AccountDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.DTO.MessageDTO;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.AccountRole;
+import rode1lift.ashwin.uomtrust.mu.rod1lift.ENUM.AccountStatus;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Firebase.FirebaseNotificationUtils;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.R;
 import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.ConnectivityHelper;
@@ -125,6 +126,11 @@ public class ActivityMain extends AppCompatActivity
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
+        SharedPreferences.Editor editor = getSharedPreferences(CONSTANT.APP_NAME, MODE_PRIVATE).edit();
+        editor.putBoolean(CONSTANT.CHANGE_ACCOUNT_STATUS, false);
+        editor.commit();
+
         //FireBase
         mRegistrationBroadcastReceiver = new BroadcastReceiver() {
             @Override
@@ -143,21 +149,39 @@ public class ActivityMain extends AppCompatActivity
                     String title = intent.getStringExtra(CONSTANT.FIREBASE_TITLE);
                     String message = intent.getStringExtra(CONSTANT.FIREBASE_MESSAGE);
 
-                    CoordinatorLayout clMain = (CoordinatorLayout)findViewById(R.id.clMain);
-                    Snackbar snackbar = Snackbar.make(clMain, title+"\n"+message, Snackbar.LENGTH_LONG);
-                    View view = snackbar.getView();
-                    view.setBackgroundColor(getResources().getColor(R.color.red));
+                    if(!title.equalsIgnoreCase("ChangeUserStatus")) {
+                        CoordinatorLayout clMain = (CoordinatorLayout) findViewById(R.id.clMain);
+                        Snackbar snackbar = Snackbar.make(clMain, title + "\n" + message, Snackbar.LENGTH_LONG);
+                        View view = snackbar.getView();
+                        view.setBackgroundColor(getResources().getColor(R.color.red));
 
-                    TextView tv = (TextView) view.findViewById(android.support.design.R.id.snackbar_text);
-                    tv.setTextColor(getResources().getColor(R.color.white));
-                    tv.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                    tv.setTextSize(15f);
+                        TextView tv = (TextView) view.findViewById(android.support.design.R.id.snackbar_text);
+                        tv.setTextColor(getResources().getColor(R.color.white));
+                        tv.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                        tv.setTextSize(15f);
 
-                    CoordinatorLayout.LayoutParams params=(CoordinatorLayout.LayoutParams)view.getLayoutParams();
-                    params.gravity = Gravity.TOP;
-                    params.height = (int)(toolbar.getHeight()*1.5);
-                    view.setLayoutParams(params);
-                    snackbar.show();
+                        CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) view.getLayoutParams();
+                        params.gravity = Gravity.TOP;
+                        params.height = (int) (toolbar.getHeight() * 1.5);
+                        view.setLayoutParams(params);
+                        snackbar.show();
+                    }
+                    else{
+                        int userId = Utils.getCurrentAccount(ActivityMain.this);
+                        AccountDTO accountDTO = new AccountDAO(ActivityMain.this).getAccountById(userId);
+                        accountDTO.setAccountStatus(AccountStatus.DESACTIVE);
+                        new AccountDAO(ActivityMain.this).saveOrUpdateAccount(accountDTO);
+
+
+                        SharedPreferences.Editor editor = context.getSharedPreferences(CONSTANT.APP_NAME, MODE_PRIVATE).edit();
+                        editor.putBoolean(CONSTANT.LOGIN, false);
+                        editor.putInt(CONSTANT.CURRENT_ACCOUNT_ID, accountDTO.getAccountId());
+                        editor.putBoolean(CONSTANT.CHANGE_ACCOUNT_STATUS, true);
+                        editor.commit();
+
+                        startActivity(new Intent(ActivityMain.this, ActivityLogin.class));
+                        finish();
+                    }
                 }
             }
         };

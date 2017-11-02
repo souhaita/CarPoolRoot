@@ -9,6 +9,7 @@ public class CONSTANT {
     public static final String APP_NAME = "rod1Lift";
     public static final String LOGIN = "LOGIN";
     public static final String CURRENT_ACCOUNT_ID = "CURRENT_ACCOUNT_ID";
+    public static final String CHANGE_ACCOUNT_STATUS = "CHANGE_ACCOUNT_STATUS";
     public static final String OTHER_USER_ID = "OTHER_USER_ID";
     public static final String TRIP_PRICE = "PRICE";
     public static final String REQUEST_OBJECT = "REQUEST_OBJECT";

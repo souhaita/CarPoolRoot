@@ -169,38 +169,62 @@ public class Utils {
 
 
     public static void animateLayout(LinearLayout linearLayout){
-        AnimationDrawable animationDrawable = (AnimationDrawable) linearLayout.getBackground();
-        animationDrawable.setEnterFadeDuration(4000);
-        animationDrawable.setExitFadeDuration(4000);
-        animationDrawable.start();
+        try {
+            AnimationDrawable animationDrawable = (AnimationDrawable) linearLayout.getBackground();
+            animationDrawable.setEnterFadeDuration(4000);
+            animationDrawable.setExitFadeDuration(4000);
+            animationDrawable.start();
+        }
+        catch (Exception e){
+
+        }
     }
 
     public static void animateLayout(FrameLayout frameLayout){
-        AnimationDrawable animationDrawable = (AnimationDrawable) frameLayout.getBackground();
-        animationDrawable.setEnterFadeDuration(4000);
-        animationDrawable.setExitFadeDuration(4000);
-        animationDrawable.start();
+        try{
+            AnimationDrawable animationDrawable = (AnimationDrawable) frameLayout.getBackground();
+            animationDrawable.setEnterFadeDuration(4000);
+            animationDrawable.setExitFadeDuration(4000);
+            animationDrawable.start();
+        }
+        catch (Exception e){
+
+        }
     }
 
     public static void animateList(LinearLayout linearLayout, Context context, int position){
-        Animation animation = AnimationUtils.loadAnimation(context, R.anim.list_effect);
-        //animation.setStartOffset(position* 100);
-        animation.setDuration(750);
-        linearLayout.startAnimation(animation);
+        try {
+            Animation animation = AnimationUtils.loadAnimation(context, R.anim.list_effect);
+            //animation.setStartOffset(position* 100);
+            animation.setDuration(750);
+            linearLayout.startAnimation(animation);
+        }
+        catch (Exception e){
+
+        }
     }
 
     public static void animateGrid(LinearLayout linearLayout, Context context, int position){
-        Animation animation = AnimationUtils.loadAnimation(context, R.anim.fab_slide_in_from_left);
-        //animation.setStartOffset(position* 300);
-        animation.setDuration(2000);
-        linearLayout.startAnimation(animation);
+        try {
+            Animation animation = AnimationUtils.loadAnimation(context, R.anim.fab_slide_in_from_left);
+            //animation.setStartOffset(position* 300);
+            animation.setDuration(2000);
+            linearLayout.startAnimation(animation);
+        }catch (Exception e){
+
+        }
     }
 
     public static void animateFloatingButton(FloatingActionButton floatingActionButton, Context context, int position){
-        Animation animation = AnimationUtils.loadAnimation(context, R.anim.fab_scale_up);
-        //animation.setStartOffset(position* 100);
-        animation.setDuration(1800);
-        floatingActionButton.startAnimation(animation);
+        try {
+            Animation animation = AnimationUtils.loadAnimation(context, R.anim.fab_scale_up);
+            //animation.setStartOffset(position* 100);
+            animation.setDuration(1800);
+            floatingActionButton.startAnimation(animation);
+        }
+        catch (Exception e){
+
+        }
     }
 
     public static Bitmap setPhotoRotation(Bitmap originalBmp){

@@ -138,7 +138,7 @@ public class ActivityChatDetails extends Activity {
     protected void onResume() {
         super.onResume();
 
-        LinearLayout llMain = (LinearLayout)findViewById(R.id.llMain);
+        //LinearLayout llMain = (LinearLayout)findViewById(R.id.llMain);
         //Utils.animateLayout(llMain);
 
         // register new push message receiver

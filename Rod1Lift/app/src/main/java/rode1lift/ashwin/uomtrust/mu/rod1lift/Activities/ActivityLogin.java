@@ -64,6 +64,7 @@ public class ActivityLogin extends AppCompatActivity implements GoogleApiClient.
     private AccountDTO accountDTO = new AccountDTO();
 
     private LinearLayout llMain;
+    private  GoogleApiClient mGoogleApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +83,7 @@ public class ActivityLogin extends AppCompatActivity implements GoogleApiClient.
             setContentView(R.layout.activity_login);
 
             Utils.disconnectFromFacebook();
-            final GoogleApiClient mGoogleApiClient = initGoogleSettings();
+            mGoogleApiClient = initGoogleSettings();
 
             callbackManager = CallbackManager.Factory.create();
 
@@ -157,6 +158,12 @@ public class ActivityLogin extends AppCompatActivity implements GoogleApiClient.
                     }
                 }
             });
+
+            Boolean accountBlocked = prefs.getBoolean(CONSTANT.CHANGE_ACCOUNT_STATUS, false);
+
+            if(accountBlocked != null && accountBlocked){
+                Utils.alertError(ActivityLogin.this, getString(R.string.error_account_disable));
+            }
         }
     }
 
@@ -233,29 +240,52 @@ public class ActivityLogin extends AppCompatActivity implements GoogleApiClient.
     }
 
     private void login(){
-        SharedPreferences.Editor editor = getSharedPreferences(CONSTANT.APP_NAME, MODE_PRIVATE).edit();
-        editor.putBoolean(CONSTANT.LOGIN, true);
-        editor.putInt(CONSTANT.CURRENT_ACCOUNT_ID, accountDTO.getAccountId());
-        editor.commit();
 
-        CarDTO carDTO = new CarDAO(ActivityLogin.this).getCarByAccountID(accountDTO.getAccountId());
+        if(accountDTO.getAccountStatus() != AccountStatus.DESACTIVE) {
+            SharedPreferences.Editor editor = getSharedPreferences(CONSTANT.APP_NAME, MODE_PRIVATE).edit();
+            editor.putBoolean(CONSTANT.LOGIN, true);
+            editor.putInt(CONSTANT.CURRENT_ACCOUNT_ID, accountDTO.getAccountId());
+            editor.commit();
 
-        if(accountDTO.getAccountRole() == AccountRole.DRIVER) {
-            if (carDTO != null && carDTO.getCarId() != null) {
+            CarDTO carDTO = new CarDAO(ActivityLogin.this).getCarByAccountID(accountDTO.getAccountId());
+
+            if(accountDTO.getAccountRole() == AccountRole.DRIVER) {
+                if (carDTO != null && carDTO.getCarId() != null) {
+                    new AccountDAO(ActivityLogin.this).saveOrUpdateAccount(accountDTO);
+                    Intent intent = new Intent(ActivityLogin.this, ActivityMain.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    carDTO.setAccountId(accountDTO.getAccountId());
+                    new AsyncDriverFetchCar(ActivityLogin.this).execute(carDTO);
+                }
+            }
+            else{
                 new AccountDAO(ActivityLogin.this).saveOrUpdateAccount(accountDTO);
                 Intent intent = new Intent(ActivityLogin.this, ActivityMain.class);
                 startActivity(intent);
                 finish();
-            } else {
-                carDTO.setAccountId(accountDTO.getAccountId());
-                new AsyncDriverFetchCar(ActivityLogin.this).execute(carDTO);
             }
         }
         else{
-            new AccountDAO(ActivityLogin.this).saveOrUpdateAccount(accountDTO);
-            Intent intent = new Intent(ActivityLogin.this, ActivityMain.class);
-            startActivity(intent);
-            finish();
+            if(accountDTO.getFacebookId() != null) {
+                try {
+                    Utils.disconnectFromFacebook();
+                } catch (Exception e) {
+
+                }
+            }
+            else{
+                try{
+                    Utils.signOut(mGoogleApiClient);
+                }
+                catch(Exception e){
+
+                }
+            }
+
+            String message = getResources().getString(R.string.error_account_disable);
+            Utils.alertError(ActivityLogin.this, message);
         }
     }
 
