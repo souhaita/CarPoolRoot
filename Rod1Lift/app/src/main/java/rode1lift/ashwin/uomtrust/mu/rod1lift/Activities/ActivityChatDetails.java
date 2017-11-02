@@ -39,6 +39,7 @@ import rode1lift.ashwin.uomtrust.mu.rod1lift.Utils.Utils;
 public class ActivityChatDetails extends Activity {
 
     private BroadcastReceiver mRegistrationBroadcastReceiver;
+    private List<MessageDTO> messageDTOList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +64,7 @@ public class ActivityChatDetails extends Activity {
         String senderFullName = getIntent().getStringExtra(CONSTANT.SENDER_FULL_NAME);
         txtMenuHeader.setText(senderFullName);
 
-        final List<MessageDTO> messageDTOList = new MessageDAO(ActivityChatDetails.this).getMessageByOtherUserId(otherUserId);
+        messageDTOList = new MessageDAO(ActivityChatDetails.this).getMessageByOtherUserId(otherUserId);
 
         final RecyclerView rvChatDetails = (RecyclerView)findViewById(R.id.rvChatDetails);
         LinearLayoutManager layoutManager = new LinearLayoutManager(ActivityChatDetails.this, LinearLayoutManager.VERTICAL, false);
@@ -82,12 +83,19 @@ public class ActivityChatDetails extends Activity {
                 String message = eTxtMessage.getText().toString();
                 if(!TextUtils.isEmpty(message)){
                    if(ConnectivityHelper.isConnected(ActivityChatDetails.this)){
-                        MessageDTO messageDTO = messageDTOList.get(0);
+                        eTxtMessage.setText("");
+
+                        MessageDTO messageDTO = new MessageDTO();
                         messageDTO.setMessage(message);
                         messageDTO.setFromUser(true);
-                        eTxtMessage.setText("");
+                        messageDTO.setAccountId(messageDTOList.get(0).getAccountId());
+                        messageDTO.setSenderFullName(messageDTOList.get(0).getSenderFullName());
+                        messageDTO.setOtherUserId(messageDTOList.get(0).getOtherUserId());
+
+
                         messageDTOList.add(messageDTO);
                         chatDetailAdapter.setMessageDTOList(messageDTOList);
+
                         chatDetailAdapter.notifyDataSetChanged();
                         rvChatDetails.smoothScrollToPosition(messageDTOList.size() - 1);
                         new AsyncSendMessage(ActivityChatDetails.this).execute(messageDTO);
@@ -138,8 +146,8 @@ public class ActivityChatDetails extends Activity {
     protected void onResume() {
         super.onResume();
 
-        //LinearLayout llMain = (LinearLayout)findViewById(R.id.llMain);
-        //Utils.animateLayout(llMain);
+        LinearLayout llMain = (LinearLayout)findViewById(R.id.llMain);
+        Utils.animateLayout(llMain);
 
         // register new push message receiver
         // by doing this, the activity will be notified each time a new message arrives

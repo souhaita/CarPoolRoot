@@ -431,10 +431,7 @@ public class RequestServiceImp implements RequestService{
 		List<Request> finalRequestList = new ArrayList<>();
 		finalRequestList.addAll(exactRequestList);
 		finalRequestList.addAll(apprxRequestList1);
-		finalRequestList.addAll(apprxRequestList2);	
-		finalRequestList.addAll(apprxRequestList3);	
-		finalRequestList.addAll(tmpFromList);
-		finalRequestList.addAll(tmpToList);
+		finalRequestList.addAll(apprxRequestList2);		
 		finalRequestList.addAll(tmpFromList2);
 		finalRequestList.addAll(tmpToList2);
 

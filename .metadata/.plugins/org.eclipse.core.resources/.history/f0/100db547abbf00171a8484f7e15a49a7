@@ -390,21 +390,12 @@ public class RequestServiceImp implements RequestService{
 		List<Request> apprxRequestList2 = requestRepository.getApprxRequest(RequestStatus.REQUEST_PENDING, from, to, r.getEventDate(), tempResultList);
 		tempResultList.addAll(apprxRequestList2);
 		
-		List<Request> apprxRequestList3 = requestRepository.getApprxRequest(RequestStatus.REQUEST_PENDING, subFrom[0], subTo[0], r.getEventDate(), tempResultList);
+		List<Request> apprxRequestList3 = requestRepository.getApprxRequest(RequestStatus.REQUEST_PENDING, subFrom[0], subFrom[0], r.getEventDate(), tempResultList);
 		tempResultList.addAll(apprxRequestList3);
 		
 		List<Request> tmpFromList = requestRepository.getRequestFrom(RequestStatus.REQUEST_PENDING, from, r.getEventDate(), tempResultList);
 		tempResultList.addAll(tmpFromList);
-		
-		List<Request> tmpFromList2 = requestRepository.getRequestFrom(RequestStatus.REQUEST_PENDING, subFrom[0], r.getEventDate(), tempResultList);
-		tempResultList.addAll(tmpFromList2);
-		
-		
 		List<Request> tmpToList = requestRepository.getRequestTo(RequestStatus.REQUEST_PENDING, to, r.getEventDate(), tempResultList);
-		tempResultList.addAll(tmpToList);
-
-		
-		List<Request> tmpToList2 = requestRepository.getRequestTo(RequestStatus.REQUEST_PENDING, subTo[0], r.getEventDate(), tempResultList);
 		
 		/*for(Request request : tmpFromList){
 			
@@ -431,12 +422,9 @@ public class RequestServiceImp implements RequestService{
 		List<Request> finalRequestList = new ArrayList<>();
 		finalRequestList.addAll(exactRequestList);
 		finalRequestList.addAll(apprxRequestList1);
-		finalRequestList.addAll(apprxRequestList2);	
-		finalRequestList.addAll(apprxRequestList3);	
+		finalRequestList.addAll(apprxRequestList2);		
 		finalRequestList.addAll(tmpFromList);
 		finalRequestList.addAll(tmpToList);
-		finalRequestList.addAll(tmpFromList2);
-		finalRequestList.addAll(tmpToList2);
 
 
 		if(manageRequestList != null && manageRequestList.size() >0 && finalRequestList != null && finalRequestList.size()>0){

@@ -754,7 +754,11 @@ public class ActivityMain extends AppCompatActivity
         builder.setNegativeButton(ActivityMain.this.getString(R.string.no), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                startActivity_driver();
+                if(accountRole == AccountRole.DRIVER)
+                    startActivity_driver();
+                else
+                    startActivity_passenger();
+
                 dialogInterface.dismiss();
             }
         });
